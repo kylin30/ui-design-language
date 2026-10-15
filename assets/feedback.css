@@ -1,0 +1,18 @@
+.uifb{position:fixed;right:16px;bottom:16px;z-index:9999;width:300px;background:#fff;color:#1A1F1C;border:1px solid #C9CDC3;border-radius:6px;box-shadow:0 6px 24px rgba(20,30,25,.14);font:13px/1.5 -apple-system,"PingFang SC","Microsoft YaHei",sans-serif}
+.uifb *{box-sizing:border-box}
+.uifb-head{all:unset;box-sizing:border-box;display:flex;justify-content:space-between;width:100%;padding:10px 12px;cursor:pointer;font-weight:600;border-bottom:1px solid #DFE2DA}
+.uifb-tog::after{content:"收起"}.uifb-collapsed .uifb-tog::after{content:"展开"}
+.uifb-tog{font-weight:400;color:#6A726C}
+.uifb-collapsed{width:auto}.uifb-collapsed .uifb-body{display:none}.uifb-collapsed .uifb-head{border-bottom:0}
+.uifb-body{padding:12px}
+.uifb-scores{display:grid;grid-template-columns:repeat(10,1fr);gap:3px;margin-bottom:8px}
+.uifb-scores button{padding:5px 0;border:1px solid #C9CDC3;background:#fff;border-radius:2px;cursor:pointer;font:12px ui-monospace,Menlo,monospace}
+.uifb-scores button:hover{background:#EFF1EC}
+.uifb-scores button.on{background:#1F4D43;border-color:#1F4D43;color:#fff}
+.uifb textarea{width:100%;border:1px solid #C9CDC3;border-radius:4px;padding:6px 8px;font:inherit;resize:vertical}
+.uifb textarea:focus,.uifb button:focus-visible{outline:2px solid #1F4D43;outline-offset:1px}
+.uifb-submit{width:100%;margin-top:8px;padding:7px;border:0;border-radius:4px;background:#1F4D43;color:#fff;cursor:pointer;font:inherit}
+.uifb-submit:disabled{background:#A3A9A2;cursor:not-allowed}
+.uifb-hint{margin:6px 0 0;color:#6A726C;font-size:12px}
+.uifb-list{margin-top:10px;padding-top:8px;border-top:1px solid #ECEEE8;max-height:180px;overflow:auto;font-size:12px}
+.uifb-list ul{padding-left:16px;margin:4px 0}

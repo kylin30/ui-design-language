@@ -1,0 +1,25 @@
+body{margin:0;background:var(--color-bg,#F3F4F0);color:var(--color-text,#1A1F1C);font:14px/1.6 -apple-system,"PingFang SC","Microsoft YaHei",sans-serif}
+a{color:var(--color-primary,#1F4D43)}
+.topnav{display:flex;gap:20px;padding:12px 24px;border-bottom:1px solid var(--color-border,#DFE2DA);background:var(--color-surface,#fff);position:sticky;top:0}
+.md{max-width:860px;margin:0 auto;padding:24px 24px 120px}
+.md h1,.md h2{font-family:"Songti SC","Noto Serif SC",serif}
+.md h2{border-bottom:1px solid var(--color-border,#DFE2DA);padding-bottom:4px;margin-top:2em}
+.md table{border-collapse:collapse;width:100%;margin:12px 0;font-size:13px;background:var(--color-surface,#fff)}
+.md th,.md td{border:1px solid var(--color-border,#DFE2DA);padding:6px 10px;text-align:left;vertical-align:top}
+.md th{background:var(--color-surface-subtle,#F7F8F5)}
+.md code{font-family:ui-monospace,Menlo,monospace;background:var(--color-surface-subtle,#F7F8F5);padding:1px 4px;border-radius:2px}
+.md pre{background:var(--color-surface,#fff);border:1px solid var(--color-border,#DFE2DA);padding:12px;overflow:auto}
+.md pre code{background:none;padding:0}
+.wrap{max-width:1040px;margin:0 auto;padding:32px 24px 80px}
+.hd h1{font-family:"Songti SC","Noto Serif SC",serif;font-size:26px;margin:0 0 4px}
+.hd p{color:var(--color-text-secondary,#4A524D);margin:0 0 24px}
+.round{display:grid;grid-template-columns:400px 1fr;gap:24px;background:var(--color-surface,#fff);border:1px solid var(--color-border,#DFE2DA);border-radius:6px;padding:20px;margin-bottom:20px}
+.round img{width:100%;border:1px solid var(--color-border,#DFE2DA);border-radius:4px}
+.round h2{margin:0 0 4px;font-size:18px}
+.meta{font:12px ui-monospace,Menlo,monospace;color:var(--color-text-tertiary,#6A726C);letter-spacing:.04em}
+.links{display:flex;gap:10px;margin:12px 0}
+.btn{display:inline-block;padding:6px 14px;border-radius:4px;border:1px solid var(--color-border-strong,#C9CDC3);text-decoration:none;color:inherit}
+.btn.primary{background:var(--color-primary,#1F4D43);border-color:transparent;color:#fff}
+.fbsum{border-top:1px solid var(--color-border,#DFE2DA);padding-top:10px;font-size:13px}
+.fbsum li{margin:4px 0}
+@media(max-width:760px){.round{grid-template-columns:1fr}}
