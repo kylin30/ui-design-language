@@ -1,0 +1,1 @@
+window.UIFB_CONFIG={url:'https://uaeiabpsfjvyleywgcyt.supabase.co',anonKey:'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVhZWlhYnBzZmp2eWxleXdnY3l0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTIwNjAxODIsImV4cCI6MjEwNzYzNjE4Mn0.UzWre_lMgR3aDq3LKOoYDYvFmBwFdnA0JdLV7c3JW1g'};
