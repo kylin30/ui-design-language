@@ -1,0 +1,5 @@
+[
+  {"id":"r1","title":"Round 1 · 青石·朱印","version":"v3.0","date":"2026-10-15","status":"待评分",
+   "summary":"青石绿灰中性底、松墨绿主操作、朱砂印关注色（一屏≤1）、刻线等宽标签、方点状态、衬线页标题、实线焦点。",
+   "screenshot":"rounds/r1/screenshot.png","demo":"rounds/r1/demo.html","spec":"rounds/r1/spec.html","tokens":"rounds/r1/reference-tokens.css"}
+]

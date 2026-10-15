@@ -1,0 +1,22 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>后台 UI 设计语言 · 评审</title>
+<link id="tok" rel="stylesheet" href="rounds/r1/reference-tokens.css"><link rel="stylesheet" href="assets/site.css"></head>
+<body><div class="wrap"><header class="hd"><h1>后台 UI 设计语言 · 评审</h1>
+<p>与任何 UI 库无关的后台视觉规范。每轮一个版本：看演示、读规范，在页面右下角打分留言。</p></header>
+<div id="list">加载中…</div></div>
+<script src="assets/feedback.js" data-round="" data-mode="index"></script>
+<script>
+fetch('rounds.json').then(r=>r.json()).then(async rounds=>{
+  rounds.sort((a,b)=>b.date.localeCompare(a.date)||b.id.localeCompare(a.id,undefined,{numeric:true}));
+  if(rounds[0]) document.getElementById('tok').href=rounds[0].tokens;
+  const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+  document.getElementById('list').innerHTML=rounds.map(r=>`<section class="round"><a href="${r.demo}"><img src="${r.screenshot}" alt="${esc(r.title)} 截图" loading="lazy"></a>
+  <div><div class="meta">${esc(r.id.toUpperCase())} · ${esc(r.version||'')} · ${esc(r.date)} · ${esc(r.status)}</div><h2>${esc(r.title)}</h2><p>${esc(r.summary)}</p>
+  <div class="links"><a class="btn primary" href="${r.demo}">看演示并打分</a><a class="btn" href="${r.spec}">读规范</a></div>
+  <div class="fbsum" id="fb-${r.id}">反馈加载中…</div></div></section>`).join('');
+  const issues=await UIFeedback.fetchIssues();
+  rounds.forEach(r=>{const el=document.getElementById('fb-'+r.id);
+    if(issues===null){el.textContent='暂时无法读取反馈（GitHub 接口受限），可稍后刷新。';return;}
+    el.innerHTML=UIFeedback.summaryHTML(UIFeedback.filter(issues,r.id));});
+}).catch(()=>{document.getElementById('list').textContent='rounds.json 读取失败。';});
+</script></body></html>
