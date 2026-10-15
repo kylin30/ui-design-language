@@ -1,0 +1,158 @@
+/* ==========================================================
+   reference-tokens.css · 参考实现 E · 不是唯一源
+   ----------------------------------------------------------
+   后台视觉规范 v7.0 参考实现 E「清册」
+   （暖纸三层底 + 近黑主操作 + 颜色只给状态 + 安静金额分级）
+   规范本体在 STYLE.md；色值可整套替换，须满足 STYLE.md §3.2。
+   结构：① 角色层（--role-*） ② 取值层
+   ========================================================== */
+:root {
+  /* ---------- ① 角色层 ---------- */
+  --role-canvas:           var(--color-bg);
+  --role-surface:          var(--color-surface);
+  --role-surface-subtle:   var(--color-surface-subtle);
+  --role-surface-hover:    var(--color-surface-hover);
+  --role-surface-selected: var(--color-surface-selected);
+  --role-border:           var(--color-border);
+  --role-border-strong:    var(--color-border-strong);
+  --role-text-1:           var(--color-text);
+  --role-text-2:           var(--color-text-secondary);
+  --role-text-3:           var(--color-text-tertiary);
+  --role-text-disabled:    var(--color-text-disabled);
+  --role-action:           var(--color-primary);
+  --role-action-soft:      var(--color-primary-soft);
+  --role-attention:        var(--color-accent);
+  --role-attention-soft:   var(--color-accent-soft);
+  --role-attention-border: var(--color-accent-border);
+  --role-success:          var(--color-success);
+  --role-warning:          var(--color-warning);
+  --role-danger:           var(--color-danger);
+  --role-info:             var(--color-info);
+
+  /* ---------- ② 取值层 · 中性（暖 35–45°，饱和 3–6%） ---------- */
+  --color-bg:              #F2F1EE;
+  --color-surface:         #FFFFFF;
+  --color-surface-subtle:  #F7F6F3;
+  --color-surface-hover:   #EFEEEA;
+  --color-surface-selected:#ECEBE7;
+  --color-border:          #E4E2DD;
+  --color-border-strong:   #D3D0CA;
+  --color-border-hover:    #A6A29B;
+  --color-divider:         #ECEAE6;
+
+  --color-text:            #171615;
+  --color-text-secondary:  #4A4743;
+  --color-text-tertiary:   #76726C;
+  --color-text-disabled:   #ABA7A0;
+  --color-text-inverse:    #FFFFFF;
+
+  /* 近黑 action（HSL S≤8%） */
+  --color-primary:         #1B1A19;
+  --color-primary-hover:   #2E2C2A;
+  --color-primary-active:  #000000;
+  --color-primary-soft:    #EFEEEA;
+  --color-primary-text:    #1B1A19;
+  --color-focus-ring:      rgba(27, 26, 25, .16);
+
+  /* attention：风险提示条白名单 */
+  --color-accent:          #C4320A;
+  --color-accent-hover:    #A82B08;
+  --color-accent-soft:     #FDF0EB;
+  --color-accent-border:   #F1C8B8;
+  --color-accent-ink:      #9A2A0A;
+
+  --color-success:         #2E7D52;
+  --color-success-soft:    #EAF3EC;
+  --color-warning:         #A15C07;
+  --color-warning-soft:    #F8F1E2;
+  --color-danger:          #B3261E;
+  --color-danger-soft:     #FBEDEC;
+  --color-info:            #3B5B8C;
+  --color-info-soft:       #EBF1F8;
+  --color-neutral-tag:     #4A4743;
+  --color-neutral-tag-soft:#EFEEEA;
+
+  /* 侧栏与画布同色 */
+  --sidebar-bg:            var(--color-bg);
+  --sidebar-bg-hover:      rgba(23, 22, 21, .04);
+  --sidebar-bg-active:     #FFFFFF;
+  --sidebar-text:          #4A4743;
+  --sidebar-text-active:   #171615;
+  --sidebar-group:         #76726C;
+  --sidebar-border:        transparent;
+
+  --font-sans: "Inter", "Geist", "SF Pro Text", "PingFang SC", "HarmonyOS Sans SC", "Noto Sans CJK SC",
+               "Microsoft YaHei", system-ui, -apple-system, sans-serif;
+  --font-display: var(--font-sans);
+  --font-mono: "Geist Mono", "JetBrains Mono", "IBM Plex Mono", "SF Mono", Menlo, Consolas, monospace;
+
+  --font-size-xs:   12px;
+  --font-size-sm:   13px;
+  --font-size-md:   14px;
+  --font-size-lg:   16px;
+  --font-size-xl:   26px;
+  --font-size-2xl:  28px;
+  --font-size-3xl:  30px;
+
+  --line-height-tight:  1.3;
+  --line-height-normal: 1.57;
+
+  --font-weight-regular: 400;
+  --font-weight-medium:  500;
+  --font-weight-semibold:600;
+
+  /* 安静金额分级（软保留，非戏服） */
+  --num-minor-scale: 0.78;
+  --num-minor-color: var(--color-text-tertiary);
+
+  --space-0:  0;
+  --space-1:  4px;
+  --space-2:  8px;
+  --space-3:  12px;
+  --space-4:  16px;
+  --space-5:  20px;
+  --space-6:  24px;
+  --space-8:  32px;
+  --space-10: 40px;
+  --space-12: 48px;
+
+  --radius-xs: 2px;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-full: 999px;
+
+  --shadow-0: none;
+  --shadow-1: 0 1px 2px rgba(28, 22, 16, .04);
+  --shadow-2: 0 4px 12px rgba(28, 22, 16, .06), 0 1px 3px rgba(28, 22, 16, .04);
+  --shadow-3: 0 16px 40px rgba(28, 22, 16, .12), 0 2px 6px rgba(28, 22, 16, .04);
+  --overlay:  rgba(28, 22, 16, .28);
+
+  --z-sticky: 10; --z-dropdown: 100; --z-drawer: 200; --z-modal: 300; --z-toast: 400;
+
+  --sig-status-size: 6px;
+  --focus-outline: 2px solid var(--color-primary);
+  --focus-offset: 2px;
+
+  --control-h-sm: 28px;
+  --control-h-md: 32px;
+  --control-h-lg: 40px;
+  --row-h-compact: 36px;
+  --row-h-default: 44px;
+  --row-h-comfortable: 58px;
+  --sidebar-w: 224px;
+  --sidebar-w-collapsed: 64px;
+  --topbar-h: 56px;
+  --content-max: 1600px;
+  --page-padding: 28px 32px;
+
+  --duration-fast: 120ms;
+  --duration-base: 180ms;
+  --ease: cubic-bezier(.2, 0, 0, 1);
+}
+
+[data-density="compact"] {
+  --row-h-default: var(--row-h-compact);
+  --control-h-md: var(--control-h-sm);
+  --page-padding: 16px 20px;
+}

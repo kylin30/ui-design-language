@@ -1,0 +1,269 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>R5 规范 · 清册</title><link rel="stylesheet" href="reference-tokens.css"><link rel="stylesheet" href="../../assets/site.css"></head>
+<body class="doc"><nav class="topnav"><a href="../../">← 全部轮次</a><a href="demo.html">演示页</a><a href="demo.html#decision">审批决策页</a><a href="demo.html#empty">空态</a><a href="demo.html#confirm">危险确认</a><a href="STYLE.md">STYLE.md 原文</a></nav>
+<main class="md"><h1>后台视觉规范 v7.0（Round 5 ·「清册」）</h1>
+<blockquote>
+<p><strong>一句话</strong>：与 UI 库无关的后台视觉规范。用 Ant Design、Element Plus、shadcn/ui、MUI 还是手写 CSS，照着做出来都是同一个产品。气质：<strong>冷静、专业、整齐</strong>。</p>
+<p>v7.0 回到 R3 已验证的安静结构，去掉 R4「账页」的戏服感，补上运营人机化出口。身份靠层次与任务路径，不靠装饰符号。</p>
+</blockquote>
+<hr />
+<h2>0. 设计主张（Design Thesis）</h2>
+<p><strong>后台是一本清册：来核对、比较、做决定，然后离开。</strong></p>
+<p>「清册」不是账本戏服。不追求行号栏、五行一节、页边 01/02/03 或上墨线账条这些“看起来像账”的符号。一屏只保留：今天要办完什么、现在卡在哪里、点下去会发生什么。</p>
+<p>由此推出：</p>
+<ol>
+<li><strong>层次靠底色，不靠戏服线。</strong> 画布 → 白纸面 → 浅灰槽；能用底色差就不用边框，能用边框就不用阴影。</li>
+<li><strong>一屏只有一个“重”的东西。</strong> 近黑主操作或关键数字。颜色只给状态。</li>
+<li><strong>句子先于色块。</strong> 标题下一句数字摘要；状态 = 词 + 时效；有后果的按钮写对象、数量、金额与可否撤销。</li>
+<li><strong>三行记录统一。</strong> 标题 / 等宽编号 / 补充，表格与审批项同构。</li>
+<li><strong>金额分级是格式，不是身份。</strong> <code>¥</code> 与小数略降级，整数承重——安静，不当英雄符号。</li>
+<li><strong>出口要看得见。</strong> 主路径清晰；危险操作需确认；空态 / 错误 / 加载至少有一种可见示范。</li>
+</ol>
+<h2>0.1 为什么这样改（Rationale）</h2>
+<table>
+<thead>
+<tr>
+<th>评分</th>
+<th>读到的信号</th>
+<th>v7.0 的处理</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>R1 青石·朱印 3 分「不喜欢绿色」</td>
+<td>有色相的身份色是风险</td>
+<td>主操作继续近黑，身份不靠色相</td>
+</tr>
+<tr>
+<td>R2 暖石灰·靛墨 4 分</td>
+<td>换色（靛蓝）解决不了问题</td>
+<td>不用靛蓝 / 藏青作身份</td>
+</tr>
+<tr>
+<td><strong>R3 纸灰·砚墨 5 分（最高）</strong></td>
+<td>三层暖纸、近黑主操作、颜色只给状态、紧字距标题+摘要、三行记录、决策讲后果——有效</td>
+<td><strong>全部保留为骨架</strong></td>
+</tr>
+<tr>
+<td>R4 账页 4 分（回退）</td>
+<td>把主张推成戏服：行号栏、五行节线、页边编号、硬墨账线</td>
+<td><strong>全部拿掉</strong>；只软保留金额分级</td>
+</tr>
+<tr>
+<td>空备注</td>
+<td>“没点中”，不是要微调 1px</td>
+<td>回到安静身份 + 补运营出口，不堆新符号</td>
+</tr>
+</tbody>
+</table>
+<h2>0.5 Identity：五个安静签名（换任何库都认得）</h2>
+<ol>
+<li><strong>三层暖纸</strong>：<code>canvas</code> → <code>surface</code>（大圆角浮在画布）→ <code>surface-subtle</code> 槽。不用阴影分层。</li>
+<li><strong>近黑主操作</strong>：主按钮、选中、分页当前、批量条用 action（HSL S≤8%）。全屏只有它“重”。</li>
+<li><strong>颜色只给状态</strong>：≤6px 圆点 / 文字 / 2px 线；soft 底只给提示条。</li>
+<li><strong>紧字距无衬线大标题 + 一句数字摘要</strong>：26–28 / 650，字距 −0.025em；关键数字加粗。</li>
+<li><strong>三行记录 + 后果按钮</strong>：标题 / mono id / meta；有后果的按钮写「批准 N 笔 · ¥X」，旁注可撤销性。</li>
+</ol>
+<blockquote>
+<p>软保留（非签名）：金额 <code>¥</code> / 小数 0.78em + text-3。<br />
+<strong>明确不做</strong>：行号栏、每 5 行节线、页边 01/02/03、上墨线下 rule 的账条 KPI。</p>
+</blockquote>
+<h2>1. 三层结构</h2>
+<ul>
+<li><strong>规则</strong>（不变）：§0、§2、§6、§7。</li>
+<li><strong>角色</strong>（很少变）：§3.1。</li>
+<li><strong>取值</strong>（可替换）：<code>reference-tokens.css</code>，须满足 §3.2。</li>
+</ul>
+<h2>2. 判断原则</h2>
+<ol>
+<li>一屏只有一个最重的东西：近黑主按钮或关键数字。</li>
+<li>先底色，再边框，最后阴影（阴影只给浮层）。</li>
+<li>有颜色的元素必须能说出代表什么状态。</li>
+<li>数字等宽右对齐；金额整数承重，<code>¥</code>/小数降级。</li>
+<li>有后果的按钮写对象 + 数量 + 金额；旁边写可撤销性。</li>
+<li>标题下必须有一句摘要；新人不应迷路（主路径、成功/失败出口可见）。</li>
+</ol>
+<h2>3. 颜色：角色</h2>
+<h3>3.1 角色与参考值（暖纸 · 近黑）</h3>
+<table>
+<thead>
+<tr>
+<th>角色</th>
+<th>用途</th>
+<th>参考值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>canvas</td>
+<td>页面画布、侧栏</td>
+<td><code>#F2F1EE</code></td>
+</tr>
+<tr>
+<td>surface</td>
+<td>主纸面、弹窗</td>
+<td><code>#FFFFFF</code></td>
+</tr>
+<tr>
+<td>surface-subtle</td>
+<td>槽、表头、KPI 组底</td>
+<td><code>#F7F6F3</code></td>
+</tr>
+<tr>
+<td>surface-hover / selected</td>
+<td>悬停 / 选中行</td>
+<td><code>#EFEEEA</code> / <code>#ECEBE7</code></td>
+</tr>
+<tr>
+<td>border / divider</td>
+<td>发丝线 / 行分隔</td>
+<td><code>#E4E2DD</code> / <code>#ECEAE6</code></td>
+</tr>
+<tr>
+<td>border-strong</td>
+<td>控件边</td>
+<td><code>#D3D0CA</code></td>
+</tr>
+<tr>
+<td>text-1 / 2 / 3</td>
+<td>正文 / 次 / 说明</td>
+<td><code>#171615</code> / <code>#4A4743</code> / <code>#76726C</code></td>
+</tr>
+<tr>
+<td>action</td>
+<td>主操作、批量条、当前页</td>
+<td><code>#1B1A19</code>（hover <code>#2E2C2A</code>）</td>
+</tr>
+<tr>
+<td>success / warning / danger / info</td>
+<td>状态点、涨跌</td>
+<td><code>#2E7D52</code> / <code>#A15C07</code> / <code>#B3261E</code> / <code>#3B5B8C</code></td>
+</tr>
+<tr>
+<td>attention</td>
+<td>风险提示条（白名单）</td>
+<td><code>#C4320A</code></td>
+</tr>
+</tbody>
+</table>
+<h3>3.2 约束</h3>
+<ul>
+<li>action 饱和度 ≤ 8%，与白字对比 ≥ 12:1。不得为绿、藏青、靛蓝、琥珀、黄。</li>
+<li>中性灰同一暖色相（35–45°，饱和 3–6%）；禁止冷蓝灰（zinc/slate）。</li>
+<li>状态色只以 ≤6px 圆点、文字、2px 线出现；soft 底只用于提示条。</li>
+<li>灰度截图下层次仍清楚。</li>
+</ul>
+<h3>3.3 映射到 UI 库</h3>
+<table>
+<thead>
+<tr>
+<th>角色</th>
+<th>Ant Design 5</th>
+<th>Element Plus</th>
+<th>shadcn/ui</th>
+<th>MUI</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>canvas</td>
+<td><code>colorBgLayout</code></td>
+<td><code>--el-bg-color-page</code></td>
+<td><code>--background</code></td>
+<td><code>palette.background.default</code></td>
+</tr>
+<tr>
+<td>surface</td>
+<td><code>colorBgContainer</code></td>
+<td><code>--el-bg-color</code></td>
+<td><code>--card</code></td>
+<td><code>palette.background.paper</code></td>
+</tr>
+<tr>
+<td>surface-subtle</td>
+<td><code>colorFillQuaternary</code></td>
+<td><code>--el-fill-color-light</code></td>
+<td><code>--muted</code></td>
+<td><code>palette.grey[50]</code></td>
+</tr>
+<tr>
+<td>action</td>
+<td><code>colorPrimary</code> + 关 primaryShadow</td>
+<td><code>--el-color-primary</code></td>
+<td><code>--primary</code></td>
+<td><code>primary.main</code> + <code>disableElevation</code></td>
+</tr>
+<tr>
+<td>status</td>
+<td><code>colorSuccess/...</code></td>
+<td><code>--el-color-*</code></td>
+<td>自定义</td>
+<td><code>palette.success/...</code></td>
+</tr>
+<tr>
+<td>radius</td>
+<td>6 / 10 / 14</td>
+<td>base 6px</td>
+<td><code>--radius:0.625rem</code></td>
+<td><code>borderRadius:6</code></td>
+</tr>
+</tbody>
+</table>
+<p>须手动补：三层底色骨架、圆点状态、三行记录、金额分级、后果按钮文案。不补则退回库默认观感。</p>
+<h2>4. 字体排印</h2>
+<ul>
+<li>字族：Inter / SF Pro + PingFang SC / HarmonyOS Sans / Noto Sans CJK；等宽只给编号、单号。不用衬线。</li>
+<li>阶梯：12 / 13 / 14 / 16 / 22 / 26（页标题）/ 28（KPI）。</li>
+<li>字重：400 / 550（按钮、选中）/ 600（数字、小标题）/ 650（页标题）。≥22 字距 −0.02 ~ −0.03em。</li>
+<li>金额：整数 text-1 / 550–600；<code>¥</code> 与小数 0.78em + text-3。</li>
+</ul>
+<h2>5. 间距、密度、圆角</h2>
+<ul>
+<li>4px 基线；页面内边距 28×32；区块间距 20。</li>
+<li>圆角：控件 6、槽/卡 10、主纸面 14、弹窗 12。不用胶囊。</li>
+<li>行高：三行记录 58；单行 44；紧凑 36（<code>data-density="compact"</code>）。</li>
+<li>层级：canvas → 白纸面（1px border）→ 槽 → 白卡。浮层才有阴影。</li>
+</ul>
+<h2>6. 版式模式</h2>
+<ol>
+<li><strong>骨架</strong>：侧栏与画布同色、无分隔线；主内容白纸面离窗 8px、圆角 14。</li>
+<li><strong>页头</strong>：标题 → 摘要句（关键数加粗）→ 口径；按钮底对齐。</li>
+<li><strong>KPI</strong>：4 张白卡放在同一浅灰槽，间距 6；需关注只加小标记，不换大底色。不用上墨线账条。
+3b. <strong>今天要办完</strong>：标题下、表格上的主路径槽；最紧急的一格用略强描边 + 唯一主按钮（「去审批 N 笔」）；其余格只给链接。可附键盘提示。</li>
+<li><strong>列表</strong>：标签页 + 筛选 → 批量条（墨底，文案含数量/后果）→ 表格（三行记录、圆点状态、金额分级）→ 分页。</li>
+<li><strong>决策页</strong>：问题 → 建议 → 批准后会发生什么（前后对比）→ 涉及条目；右侧摘要列可撤销 / 不可逆；主按钮「批准 N 笔 · ¥X」。</li>
+<li><strong>运营出口（至少示范一种）</strong>：空态（无结果说明 + 重置筛选）；危险确认（取消订单需二次确认，写清不可逆）。</li>
+</ol>
+<h2>7. 组件规则</h2>
+<ul>
+<li>按钮：主（墨底）每区域 ≤1；次（白底 border-strong）；文字按钮。危险红底只出现在确认层。</li>
+<li>状态：6px <strong>圆</strong>点 + 词（可加时效灰字；超时变红字）。</li>
+<li>焦点：2px 墨 outline，偏移 2px。</li>
+<li>链接：text-1 + 浅下划线，不用蓝色。</li>
+<li>分段 / 标签：当前项白卡浮起或 2px 墨下划线。</li>
+<li>§7.2 attention 白名单：超时标记、不可撤销警告、通知红点。一屏 ≤2 处。</li>
+</ul>
+<h2>8. 落地步骤</h2>
+<ol>
+<li>按 §3.3 填 token；2. 关库默认卡片/按钮阴影；3. 实现三层底色；4. Tag→圆点；5. KPI 用浅灰槽+白卡；6. 补金额分级与后果文案；7. 用 §9 验收。</li>
+</ol>
+<h2>9. 验收清单</h2>
+<ul>
+<li>[ ] 灰度下层次仍清楚。</li>
+<li>[ ] 一屏彩色都能说出状态含义。</li>
+<li>[ ] 无绿/藏青/靛蓝/琥珀作身份或大面积底色。</li>
+<li>[ ] 无行号栏、无五行节线、无页边编号、无上墨线账条 KPI。</li>
+<li>[ ] 页头有数字摘要；有后果按钮写数量与可撤销性。</li>
+<li>[ ] 可见至少一种空态或危险确认。</li>
+</ul>
+<h2>10. 不做的事</h2>
+<p>账本戏服（行号/节线/页边号/硬墨账线）、荧光强调、胶囊按钮、每卡不同底色、渐变、玻璃拟态、模仿参考作品皮肤。</p>
+<h2>附录 · 版本记录</h2>
+<ul>
+<li>v7.0（2026-10-15，R5）清册：回退到 R3 安静骨架；拿掉 R4 戏服；软保留金额分级；补运营出口。</li>
+<li>v6.0（R4，4 分）账页。</li>
+<li>v5.0（R3，5 分）纸灰·砚墨。</li>
+<li>v4.0（R2，4 分）暖石灰·靛墨·朱印。</li>
+<li>v3.0（R1，3 分）青石·朱印。</li>
+</ul></main>
+<link rel="stylesheet" href="../../assets/feedback.css"><script src="../../assets/feedback-config.js" defer></script><script src="../../assets/feedback.js" data-round="r5" defer></script></body></html>
