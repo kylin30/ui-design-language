@@ -1,10 +1,22 @@
 [
  {
+  "id": "r4",
+  "title": "Round 4 · 账页",
+  "version": "v6.0",
+  "date": "2026-10-15",
+  "status": "待评分",
+  "summary": "先写设计主张：后台是一本账。由此推出数字分级（整数为主、¥与小数降级）、行号栏+五行一节、上墨线下细线的账线、决策页页边编号与账面变化表；保留近黑主操作、暖灰、颜色只给状态。",
+  "screenshot": "rounds/r4/screenshot.png",
+  "demo": "rounds/r4/demo.html",
+  "spec": "rounds/r4/spec.html",
+  "tokens": "rounds/r4/reference-tokens.css"
+ },
+ {
   "id": "r3",
   "title": "Round 3 · 纸灰·砚墨",
   "version": "v5.0",
   "date": "2026-10-15",
-  "status": "待评分",
+  "status": "已评分",
   "summary": "大改：近黑砚墨主操作、暖纸灰三层底色分层（不用阴影）、颜色只给状态、无衬线紧字距大标题+数字摘要、三行记录、新增审批决策页。",
   "screenshot": "rounds/r3/screenshot.png",
   "demo": "rounds/r3/demo.html",
