@@ -1,10 +1,22 @@
 [
  {
+  "id": "r5",
+  "title": "Round 5 · 清册",
+  "version": "v7.0",
+  "date": "2026-10-15",
+  "status": "待评分",
+  "summary": "回到 R3 安静骨架：暖纸三层、近黑主操作、颜色只给状态；拿掉 R4 行号/五行节线/页边编号/墨线账条；软保留金额分级；新增「今天要办完」主路径与空态/危险确认出口。",
+  "screenshot": "rounds/r5/screenshot.png",
+  "demo": "rounds/r5/demo.html",
+  "spec": "rounds/r5/spec.html",
+  "tokens": "rounds/r5/reference-tokens.css"
+ },
+ {
   "id": "r4",
   "title": "Round 4 · 账页",
   "version": "v6.0",
   "date": "2026-10-15",
-  "status": "待评分",
+  "status": "已评分",
   "summary": "先写设计主张：后台是一本账。由此推出数字分级（整数为主、¥与小数降级）、行号栏+五行一节、上墨线下细线的账线、决策页页边编号与账面变化表；保留近黑主操作、暖灰、颜色只给状态。",
   "screenshot": "rounds/r4/screenshot.png",
   "demo": "rounds/r4/demo.html",
