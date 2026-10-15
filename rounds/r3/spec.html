@@ -1,0 +1,280 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>R3 规范 · 纸灰·砚墨</title><link rel="stylesheet" href="reference-tokens.css"><link rel="stylesheet" href="../../assets/site.css"></head>
+<body class="doc"><nav class="topnav"><a href="../../">← 全部轮次</a><a href="demo.html">演示页</a><a href="demo.html#decision">审批决策页</a><a href="STYLE.md">STYLE.md 原文</a></nav>
+<main class="md"><h1>后台视觉规范 v5.0（Round 3 ·「纸灰·砚墨」）</h1>
+<blockquote>
+<p><strong>一句话</strong>：这是一套<strong>与 UI 库无关</strong>的视觉规范。用 Ant Design、Element Plus、shadcn/ui、MUI 还是手写 CSS 都行，照着做出来的后台看起来是同一个产品。</p>
+<p>气质：<strong>冷静、专业、整齐</strong>。适用：后台管理系统、运营后台、SaaS 控制台。</p>
+<p>v5.0 是一次<strong>大改</strong>，不是换色：R1（松墨绿 3 分）和 R2（靛墨 4 分）都只换了色值，分数都低。这一轮把“身份”从颜色挪到<strong>层次、留白和字</strong>上。</p>
+</blockquote>
+<hr />
+<h2>0. 为什么这样改（Rationale）</h2>
+<table>
+<thead>
+<tr>
+<th>反馈 / 参考</th>
+<th>结论</th>
+<th>v5.0 的做法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>R1 3 分“不喜欢绿色”</td>
+<td>有色彩倾向的主色都有风险</td>
+<td>主色改为<strong>近黑砚墨 #1B1A19</strong>，几乎没有色相</td>
+</tr>
+<tr>
+<td>R2 4 分，无备注</td>
+<td>靛蓝、衬线、等宽大写标签整体偏“设计感”，不够当下</td>
+<td>去掉衬线标题、去掉等宽大写刻线标签、去掉朱印竖条</td>
+</tr>
+<tr>
+<td>早期：藏青+琥珀像 10 年前</td>
+<td>饱和蓝 + 暖强调色是老后台标配</td>
+<td>不用任何蓝色作身份色</td>
+</tr>
+<tr>
+<td>早期：炭灰/zinc 太像 shadcn</td>
+<td>冷灰（带蓝）+ 纯黑 = shadcn 默认</td>
+<td>灰阶<strong>偏暖 1–2°</strong>（纸灰），层次靠三层底色而非边框</td>
+</tr>
+<tr>
+<td>@nizamdesign 后台</td>
+<td>层次靠底色、近黑主操作、颜色极少、标题下摘要、三行记录、决策页讲后果</td>
+<td>全部收为规则，见 §2、§6</td>
+</tr>
+</tbody>
+</table>
+<h2>0.5 Identity：换任何库都认得出来的五个签名</h2>
+<ol>
+<li><strong>三层底色</strong>：画布纸灰 <code>canvas</code> → 白色主面板 <code>surface</code>（大圆角浮在画布上）→ 面板内浅灰槽 <code>surface-subtle</code>，槽里再放白卡。<strong>不用阴影分层</strong>。</li>
+<li><strong>砚墨主操作</strong>：主按钮、选中、分页当前页、批量操作条都是近黑；全屏只有它“重”。</li>
+<li><strong>颜色只给状态</strong>：红/橙/绿/蓝只出现在 6px 圆点、涨跌数字和风险标记上，不做背景大面积。</li>
+<li><strong>紧字距无衬线大标题 + 一行数字摘要</strong>：26/650，字距 -0.025em；标题下一行“37 待处理售后 · ¥12,840 待退 · 最久 11 天”。</li>
+<li><strong>三行记录</strong>：标题 / 编号（等宽）/ 补充信息，表格、列表、审批项统一。</li>
+</ol>
+<h2>1. 三层结构</h2>
+<ul>
+<li><strong>规则</strong>（永不变）：本文 §2、§6、§7。</li>
+<li><strong>角色</strong>（很少变）：§3.1 的角色名。</li>
+<li><strong>取值</strong>（可替换）：<code>reference-tokens.css</code> 里的色值和像素。换值时必须满足 §3.2 的约束。</li>
+</ul>
+<h2>2. 原则（可直接用来判断）</h2>
+<ol>
+<li>一屏只有一个最重的东西，它一定是砚墨主操作或关键数字。</li>
+<li>能用底色差分层，就不用边框；能用边框，就不用阴影。阴影只给浮层（下拉、抽屉、弹窗）。</li>
+<li>颜色是信息，不是装饰。一个元素有颜色，必须能说出它代表什么状态。</li>
+<li>数字永远等宽对齐（tabular-nums），金额右对齐。</li>
+<li>会造成后果的操作，按钮上写清对象和数量（“批准 6 笔退款 · ¥4,218”），旁边写能否撤销。</li>
+<li>留白宽于常见后台一档，但行高不放松：表格行 58px 容纳三行记录，单行表 44px。</li>
+</ol>
+<h2>3. 颜色：角色，而不是色板</h2>
+<h3>3.1 角色与参考取值</h3>
+<table>
+<thead>
+<tr>
+<th>角色</th>
+<th>用途</th>
+<th>参考值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>canvas</td>
+<td>页面画布、侧栏</td>
+<td><code>#F2F1EE</code></td>
+</tr>
+<tr>
+<td>surface</td>
+<td>主面板、卡片、弹窗</td>
+<td><code>#FFFFFF</code></td>
+</tr>
+<tr>
+<td>surface-subtle</td>
+<td>面板内槽、表头、KPI 组底</td>
+<td><code>#F7F6F3</code></td>
+</tr>
+<tr>
+<td>surface-hover</td>
+<td>悬停</td>
+<td><code>#EFEEEA</code></td>
+</tr>
+<tr>
+<td>border / divider</td>
+<td>1px 发丝线 / 行分隔</td>
+<td><code>#E4E2DD</code> / <code>#ECEAE6</code></td>
+</tr>
+<tr>
+<td>border-strong</td>
+<td>输入框、次按钮边</td>
+<td><code>#D3D0CA</code></td>
+</tr>
+<tr>
+<td>text-1 / 2 / 3</td>
+<td>正文 / 次要 / 说明</td>
+<td><code>#171615</code> / <code>#4A4743</code> / <code>#76726C</code></td>
+</tr>
+<tr>
+<td>action</td>
+<td>主操作、选中、当前态</td>
+<td><code>#1B1A19</code>（hover <code>#2E2C2A</code>）</td>
+</tr>
+<tr>
+<td>success / warning / danger / info</td>
+<td>只用于状态点、涨跌、风险</td>
+<td><code>#2E7D52</code> / <code>#A15C07</code> / <code>#B3261E</code> / <code>#3B5B8C</code></td>
+</tr>
+<tr>
+<td>attention</td>
+<td>极少：风险提示条（白名单 §7.2）</td>
+<td><code>#C4320A</code></td>
+</tr>
+</tbody>
+</table>
+<h3>3.2 约束（换值必须满足）</h3>
+<ul>
+<li>action 与白字对比度 ≥ 12:1；HSL 饱和度 ≤ 8%（即“近黑”，不能变成藏青、深绿）。</li>
+<li>中性灰三档同一色相（暖 30–50°，饱和度 3–8%）；<strong>禁止</strong>冷蓝灰（这是 zinc/slate 的特征）。</li>
+<li>canvas 与 surface 明度差 4–6%；surface-subtle 介于两者之间。</li>
+<li>状态色饱和度 ≤ 60%，只能以 ≤ 8px 的点、文字、细线出现；soft 底色只在提示条中使用。</li>
+<li>禁止：绿色/藏青/靛蓝作主色、黄色/琥珀作主色或大面积底色。</li>
+</ul>
+<h3>3.3 映射到 UI 库</h3>
+<table>
+<thead>
+<tr>
+<th>角色</th>
+<th>Ant Design 5</th>
+<th>Element Plus</th>
+<th>shadcn/ui</th>
+<th>MUI</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>canvas</td>
+<td><code>colorBgLayout</code></td>
+<td><code>--el-bg-color-page</code></td>
+<td><code>--background</code>（页面）</td>
+<td><code>palette.background.default</code></td>
+</tr>
+<tr>
+<td>surface</td>
+<td><code>colorBgContainer</code></td>
+<td><code>--el-bg-color</code></td>
+<td><code>--card</code></td>
+<td><code>palette.background.paper</code></td>
+</tr>
+<tr>
+<td>surface-subtle</td>
+<td><code>colorFillQuaternary</code> / Table <code>headerBg</code></td>
+<td><code>--el-fill-color-light</code></td>
+<td><code>--muted</code></td>
+<td><code>palette.grey[50]</code></td>
+</tr>
+<tr>
+<td>border</td>
+<td><code>colorBorderSecondary</code></td>
+<td><code>--el-border-color-lighter</code></td>
+<td><code>--border</code></td>
+<td><code>palette.divider</code></td>
+</tr>
+<tr>
+<td>border-strong</td>
+<td><code>colorBorder</code></td>
+<td><code>--el-border-color</code></td>
+<td><code>--input</code></td>
+<td><code>TextField</code> outline</td>
+</tr>
+<tr>
+<td>text-1/2/3</td>
+<td><code>colorText</code> / <code>colorTextSecondary</code> / <code>colorTextTertiary</code></td>
+<td><code>--el-text-color-primary/regular/secondary</code></td>
+<td><code>--foreground</code> / <code>--muted-foreground</code></td>
+<td><code>palette.text.primary/secondary</code></td>
+</tr>
+<tr>
+<td>action</td>
+<td><code>colorPrimary</code></td>
+<td><code>--el-color-primary</code></td>
+<td><code>--primary</code></td>
+<td><code>palette.primary.main</code></td>
+</tr>
+<tr>
+<td>status</td>
+<td><code>colorSuccess/Warning/Error/Info</code></td>
+<td><code>--el-color-success/...</code></td>
+<td>自定义 <code>--success</code> 等</td>
+<td><code>palette.success/...</code></td>
+</tr>
+<tr>
+<td>radius</td>
+<td><code>borderRadius:6</code>, <code>borderRadiusLG:10</code></td>
+<td><code>--el-border-radius-base:6px</code></td>
+<td><code>--radius:0.625rem</code></td>
+<td><code>shape.borderRadius:6</code></td>
+</tr>
+<tr>
+<td>字体</td>
+<td><code>fontFamily</code></td>
+<td><code>--el-font-family</code></td>
+<td><code>font-sans</code></td>
+<td><code>typography.fontFamily</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>注意 shadcn</strong>：只换值不够，必须同时执行 §0.5 的三层底色与圆点状态，否则会退化成默认 shadcn 观感。Ant Design 需把 <code>colorPrimary</code> 设为近黑后，再把 <code>Button.primaryShadow</code> 设为 <code>none</code>、<code>Tag</code> 改为圆点 + 文字。</p>
+<h2>4. 字体排印</h2>
+<ul>
+<li>字族：Inter / Geist / SF Pro + PingFang SC / HarmonyOS Sans / Noto Sans CJK；等宽 Geist Mono / JetBrains Mono，只用于编号、单号、代码。<strong>不用衬线。</strong></li>
+<li>字号阶梯：12 / 13 / 14（默认）/ 16 / 22 / 26（页标题）/ 28（KPI 数字）。</li>
+<li>字重：400 正文、550 按钮与选中、600 小标题与数字、650 页标题。</li>
+<li>大字（≥22）字距 -0.02 ~ -0.03em；正文不改字距。</li>
+<li>数字统一 tabular-nums；货币符号缩小一档、降为 text-3。</li>
+</ul>
+<h2>5. 间距、密度、圆角、层级</h2>
+<ul>
+<li>4px 基础网格；页面内边距 28×32，区块间距 20，卡内 18–20。</li>
+<li>圆角：控件 6、卡片/槽 10、主面板 14、弹窗 12。不用胶囊按钮。</li>
+<li>层级：画布 → 主面板（1px 边）→ 槽 → 白卡（1px 4% 黑描边）。阴影只给 dropdown / drawer / modal。</li>
+<li>密度：默认行 44；三行记录行 58；紧凑模式 36（<code>data-density="compact"</code>）。</li>
+</ul>
+<h2>6. 版式模式</h2>
+<ol>
+<li><strong>页面骨架</strong>：侧栏与画布同色、无分隔线；主内容是一块白色大面板，离窗口 8px，圆角 14。</li>
+<li><strong>页面头</strong>：标题 + 一行数字摘要（关键数字加粗 text-1，其余 text-3）+ 一行口径说明；主次按钮右对齐底边。</li>
+<li><strong>KPI 组</strong>：4 张白卡放在同一个浅灰槽里，间距 6；需关注的卡只加红色小标记，不换底色。</li>
+<li><strong>表格</strong>：表头是圆角浅灰条，无下边框；行分隔用 divider；选中行用 surface-subtle；批量操作条为砚墨实底，浮在表头之上。</li>
+<li><strong>三行记录</strong>：标题（500）/ 编号（等宽 12px text-3）/ 补充（12px text-3）。</li>
+<li><strong>决策页</strong>：左侧依次为“问题 → 建议 → 批准后会发生什么（3 个前后对比数字）→ 涉及条目”；右侧固定“审批摘要”，列出可撤销与不可撤销的后果（绿点 / 橙点），主按钮写对象、数量、金额。</li>
+</ol>
+<h2>7. 组件规则</h2>
+<ul>
+<li><strong>按钮</strong>：主（砚墨实底）每个区域最多 1 个；次（白底 + border-strong）；文字按钮；危险操作用次按钮 + danger 文字，确认弹窗里才出现红色实底。</li>
+<li><strong>§7.2 attention 白名单</strong>：超时/逾期标记、不可撤销警告、通知红点。一屏 ≤ 2 处。</li>
+<li><strong>状态</strong>：6px 圆点 + text-1 文字，不用彩色底胶囊。</li>
+<li><strong>焦点</strong>：2px 砚墨 outline，偏移 2px；输入框聚焦为 text-1 边 + 3px 16% 砚墨环。</li>
+<li><strong>链接</strong>：text-1 + 浅下划线，不用蓝色。</li>
+<li><strong>分段控件 / 标签页</strong>：当前项白卡浮起（分段）或 2px 砚墨下划线（标签页）。</li>
+</ul>
+<h2>8. 落地步骤（任何库）</h2>
+<ol>
+<li>按 §3.3 填 token；2. 关闭库默认阴影（卡片、按钮）；3. 实现三层底色骨架；4. Tag 改为圆点；5. 表头改浅灰圆角条；6. 用 §9 验收。</li>
+</ol>
+<h2>9. 验收清单</h2>
+<ul>
+<li>[ ] 截图转灰度后，层次仍清楚（说明靠明度而非颜色）。</li>
+<li>[ ] 一屏彩色元素都能说出代表什么状态。</li>
+<li>[ ] 没有蓝、绿、黄作为主色或大面积底色。</li>
+<li>[ ] 页面头有数字摘要；有后果的按钮写清数量与可撤销性。</li>
+<li>[ ] 数字等宽、金额右对齐。</li>
+</ul>
+<h2>10. 不做的事</h2>
+<p>荧光强调色、胶囊按钮、每张卡不同底色、渐变、玻璃拟态、为截图好看的过松排版。</p>
+<h2>附录 · 版本记录</h2>
+<ul>
+<li>v5.0（2026-10-15，R3）纸灰·砚墨：近黑主色、三层底色、去衬线、去等宽大写标签、新增决策页模式。</li>
+<li>v4.0（R2，4 分）暖石灰·靛墨·朱印。</li>
+<li>v3.0（R1，3 分）青石·朱印。</li>
+</ul></main>
+<link rel="stylesheet" href="../../assets/feedback.css"><script src="../../assets/feedback-config.js" defer></script><script src="../../assets/feedback.js" data-round="r3" defer></script></body></html>
