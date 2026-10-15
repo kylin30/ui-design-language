@@ -1,0 +1,19 @@
+name: 设计评分反馈
+description: 给某一轮设计打分并留言
+title: "[R1] 评分 X/10"
+labels: ["feedback"]
+body:
+  - type: input
+    id: round
+    attributes: {label: 轮次, description: "例如 r1（同时请改标题里的 [R1]）", placeholder: r1}
+    validations: {required: true}
+  - type: dropdown
+    id: score
+    attributes: {label: 评分, options: ["1","2","3","4","5","6","7","8","9","10"]}
+    validations: {required: true}
+  - type: textarea
+    id: notes
+    attributes: {label: 备注, placeholder: "喜欢什么 / 不喜欢什么 / 其他想法"}
+  - type: input
+    id: page
+    attributes: {label: 页面, placeholder: "https://kylin30.github.io/ui-design-language/rounds/r1/demo.html"}
