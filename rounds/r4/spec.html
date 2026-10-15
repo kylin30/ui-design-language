@@ -1,0 +1,303 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>R4 规范 · 账页</title><link rel="stylesheet" href="reference-tokens.css"><link rel="stylesheet" href="../../assets/site.css"></head>
+<body class="doc"><nav class="topnav"><a href="../../">← 全部轮次</a><a href="demo.html">演示页</a><a href="demo.html#decision">审批决策页</a><a href="STYLE.md">STYLE.md 原文</a></nav>
+<main class="md"><h1>后台视觉规范 v6.0（Round 4 ·「账页」）</h1>
+<blockquote>
+<p><strong>一句话</strong>：与 UI 库无关的后台视觉规范。用 Ant Design、Element Plus、shadcn/ui、MUI 还是手写 CSS，照着做出来都是同一个产品。气质：<strong>冷静、专业、整齐</strong>。</p>
+<p>v6.0 不再从任何参考作品“借皮肤”，先写清楚<strong>我们相信后台是什么</strong>（§0 设计主张），所有视觉都从主张推出来。</p>
+</blockquote>
+<hr />
+<h2>0. 设计主张（Design Thesis）</h2>
+<p><strong>后台不是展示页，是一本账。</strong> 用户来这里核对、比较、做决定，然后离开。所以：</p>
+<ol>
+<li><strong>对齐比装饰重要。</strong> 眼睛沿着“列”走，而不是沿着“卡片”走。页面上所有信息都落在同一套栏线上：摘要账条、筛选、表格、合计行共用列边。能用一条线说清的关系，不用一个框。</li>
+<li><strong>数字是主角，单位是配角。</strong> 金额的整数部分是信息，<code>¥</code> 和 <code>.00</code> 是格式。格式降一级（0.78 倍、三级灰），整数保持重量。所有数字等宽、右对齐、小数点对齐。</li>
+<li><strong>节奏帮人数行。</strong> 人一眼只能稳稳数 5 个。表格每 5 行一条稍深的“节线”，左侧有行号栏，长列表不会看串行。</li>
+<li><strong>状态是一句话，不是一个色块。</strong> 状态 = 词 + 时效（“待发货 · 超时 2 小时”）。颜色只是 6px 方点，真正的信息在字和时间上。</li>
+<li><strong>有后果的事要先讲账。</strong> 决策页按“问题 → 建议 → 账面变化（现在 → 批准后）→ 涉及条目”排，按钮上写数量和金额，旁边写可撤销 / 不可逆。</li>
+<li><strong>密度是用户的选择，不是设计师的。</strong> 宽松 / 标准 / 紧凑三档，只改行高和内边距，不改字号与层级。</li>
+</ol>
+<h2>0.1 签名元素（换任何库都认得出来）</h2>
+<table>
+<thead>
+<tr>
+<th>签名</th>
+<th>规则</th>
+<th>来自哪条主张</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>① 数字分级</td>
+<td>货币符号与小数 = 0.78em + text-3；整数 = text-1 / 550–600；KPI 32px −0.03em</td>
+<td>主张 2</td>
+</tr>
+<tr>
+<td>② 行号栏 + 五行一节</td>
+<td>表格最左 44px 等宽行号栏（disabled 色、右侧发丝线）；每第 5 行底线用 <code>rule</code> 色；选中行行号变墨色并加 2px 墨线</td>
+<td>主张 3</td>
+</tr>
+<tr>
+<td>③ 账线</td>
+<td>主要数据区上方一条 <strong>1px 墨线</strong>（text-1），下方一条 <code>rule</code> 线；摘要账条、表头、合计行、决策页步骤都用它。不用卡片包 KPI</td>
+<td>主张 1</td>
+</tr>
+<tr>
+<td>④ 页边编号</td>
+<td>决策 / 表单长页用 01 02 03 等宽小号编号作左页边，正文缩进 44px，与行号栏同宽</td>
+<td>主张 1、5</td>
+</tr>
+</tbody>
+</table>
+<h2>0.2 为什么这样改（Rationale）</h2>
+<table>
+<thead>
+<tr>
+<th>评分</th>
+<th>读到的信号</th>
+<th>v6.0 的处理</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>R1 青石 3 分“不喜欢绿色”</td>
+<td>有色相的身份色都是风险</td>
+<td>身份不靠颜色；主操作近黑铅墨</td>
+</tr>
+<tr>
+<td>R2 靛墨 4 分</td>
+<td>换色不解决问题</td>
+<td>不再换色</td>
+</tr>
+<tr>
+<td>R3 纸灰·砚墨 5 分</td>
+<td>结构、克制、底色分层、决策页有效</td>
+<td>全部保留；把“分层”从<strong>底色</strong>推进到<strong>对齐与节奏</strong></td>
+</tr>
+<tr>
+<td>用户：“要有自己的理解，不要模仿”</td>
+<td>需要一个能自圆其说的主张</td>
+<td>写下 §0，视觉只从主张推导；参考作品只用来验证主张，不取其外观</td>
+</tr>
+</tbody>
+</table>
+<h2>1. 三层结构</h2>
+<ul>
+<li><strong>规则</strong>（不变）：§0、§2、§6、§7。</li>
+<li><strong>角色</strong>（很少变）：§3.1 角色名。</li>
+<li><strong>取值</strong>（可替换）：<code>reference-tokens.css</code>，替换后须满足 §3.2。</li>
+</ul>
+<h2>2. 判断原则</h2>
+<ol>
+<li>一屏只有一个最重的东西：墨色主按钮或关键数字。</li>
+<li>先用对齐，再用线，再用底色，最后才用阴影（阴影只给浮层）。</li>
+<li>有颜色的元素必须能说出代表什么状态。</li>
+<li>数字等宽右对齐；金额必须有合计行。</li>
+<li>有后果的按钮写对象 + 数量 + 金额；旁边写可撤销性。</li>
+<li>标题下必须有一句“用句子写的摘要”，关键数字加粗。</li>
+</ol>
+<h2>3. 颜色：角色</h2>
+<h3>3.1 角色与参考值（铅灰 · 铅墨）</h3>
+<table>
+<thead>
+<tr>
+<th>角色</th>
+<th>用途</th>
+<th>参考值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>canvas</td>
+<td>页面画布、侧栏</td>
+<td><code>#F3F2EF</code></td>
+</tr>
+<tr>
+<td>surface</td>
+<td>主纸面</td>
+<td><code>#FFFFFF</code></td>
+</tr>
+<tr>
+<td>surface-subtle</td>
+<td>决策摘要、搜索框</td>
+<td><code>#F8F7F5</code></td>
+</tr>
+<tr>
+<td>surface-selected</td>
+<td>选中行</td>
+<td><code>#F1EFEB</code></td>
+</tr>
+<tr>
+<td>divider</td>
+<td>普通行线</td>
+<td><code>#EEECE8</code></td>
+</tr>
+<tr>
+<td><strong>rule</strong></td>
+<td>节线、表头下、分组线</td>
+<td><code>#D9D6D0</code></td>
+</tr>
+<tr>
+<td>ink-rule</td>
+<td>账线（=text-1）</td>
+<td><code>#1C1B19</code></td>
+</tr>
+<tr>
+<td>border-strong</td>
+<td>控件边</td>
+<td><code>#D2CFC8</code></td>
+</tr>
+<tr>
+<td>text-1 / 2 / 3 / disabled</td>
+<td>正文 / 次 / 说明 / 行号</td>
+<td><code>#1C1B19</code> / <code>#4B4843</code> / <code>#7A766F</code> / <code>#AEAAA2</code></td>
+</tr>
+<tr>
+<td>action</td>
+<td>主操作、当前筛选、批量条</td>
+<td><code>#1F1E1C</code></td>
+</tr>
+<tr>
+<td>success / warning / danger / info</td>
+<td>状态方点、涨跌字</td>
+<td><code>#2F7A50</code> / <code>#A35B0A</code> / <code>#B4291F</code> / <code>#456086</code></td>
+</tr>
+</tbody>
+</table>
+<h3>3.2 约束</h3>
+<ul>
+<li>action 饱和度 ≤ 8%，与白字对比 ≥ 12:1。不得为绿、藏青、靛蓝、琥珀、黄。</li>
+<li>中性灰同一暖色相（35–45°，饱和 3–6%）；禁止冷蓝灰（zinc/slate 特征）。</li>
+<li>状态色只以 ≤ 6px 方点、文字、2px 线出现；soft 底只用于提示条。</li>
+<li>灰度截图下层次仍清楚。</li>
+</ul>
+<h3>3.3 映射到 UI 库</h3>
+<table>
+<thead>
+<tr>
+<th>角色</th>
+<th>Ant Design 5</th>
+<th>Element Plus</th>
+<th>shadcn/ui</th>
+<th>MUI</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>canvas</td>
+<td><code>colorBgLayout</code></td>
+<td><code>--el-bg-color-page</code></td>
+<td><code>--background</code></td>
+<td><code>palette.background.default</code></td>
+</tr>
+<tr>
+<td>surface</td>
+<td><code>colorBgContainer</code></td>
+<td><code>--el-bg-color</code></td>
+<td><code>--card</code></td>
+<td><code>palette.background.paper</code></td>
+</tr>
+<tr>
+<td>surface-selected</td>
+<td>Table <code>rowSelectedBg</code></td>
+<td><code>--el-table-current-row-bg-color</code></td>
+<td>行 <code>data-[state=selected]:bg-*</code></td>
+<td><code>TableRow.selected</code> 样式覆盖</td>
+</tr>
+<tr>
+<td>divider / rule</td>
+<td><code>colorSplit</code> / Table <code>borderColor</code></td>
+<td><code>--el-table-border-color</code> / 自定义 <code>--rule</code></td>
+<td><code>--border</code> / 自定义 <code>--rule</code></td>
+<td><code>palette.divider</code> / 自定义</td>
+</tr>
+<tr>
+<td>text-1/2/3</td>
+<td><code>colorText/Secondary/Tertiary</code></td>
+<td><code>--el-text-color-primary/regular/secondary</code></td>
+<td><code>--foreground</code> / <code>--muted-foreground</code></td>
+<td><code>text.primary/secondary</code></td>
+</tr>
+<tr>
+<td>action</td>
+<td><code>colorPrimary</code> + <code>Button.primaryShadow:none</code></td>
+<td><code>--el-color-primary</code></td>
+<td><code>--primary</code></td>
+<td><code>primary.main</code> + <code>disableElevation</code></td>
+</tr>
+<tr>
+<td>status</td>
+<td><code>colorSuccess/Warning/Error/Info</code></td>
+<td><code>--el-color-*</code></td>
+<td>自定义 <code>--success</code> 等</td>
+<td><code>palette.success/...</code></td>
+</tr>
+<tr>
+<td>radius</td>
+<td><code>borderRadius:4</code>, <code>borderRadiusLG:8</code></td>
+<td><code>--el-border-radius-base:4px</code></td>
+<td><code>--radius:0.5rem</code></td>
+<td><code>shape.borderRadius:4</code></td>
+</tr>
+<tr>
+<td>行高</td>
+<td>Table <code>cellPaddingBlock</code> 使行高 48</td>
+<td><code>--el-table-row-height</code> 自定义</td>
+<td><code>TableCell h-12</code></td>
+<td><code>TableCell size</code> + <code>sx</code></td>
+</tr>
+</tbody>
+</table>
+<p>签名在任何库都要<strong>手动补</strong>：① 金额单元格用 render/slot 输出 <code>&lt;s&gt;¥&lt;/s&gt;整数&lt;i&gt;.00&lt;/i&gt;</code>；② 首列加行号列、<code>tr:nth-child(5n)</code> 底线改 <code>rule</code>；③ 表头下边框改 1px text-1、合计行上边框同；④ 长决策页用 44px 页边编号。不补签名，任何库都会退回它自己的默认观感。</p>
+<h2>4. 字体排印</h2>
+<ul>
+<li>字族：Inter / SF Pro + PingFang SC / HarmonyOS Sans / Noto Sans CJK；等宽 JetBrains Mono / IBM Plex Mono，只给编号、行号、页边编号。不用衬线。</li>
+<li>阶梯：11（行号）/ 12 / 13.5（表格正文）/ 14 / 15（摘要句）/ 17（决策要点）/ 28（页标题）/ 32（关键数字）。</li>
+<li>字重：400 / 550（按钮、当前项、金额）/ 600（数字、小标题）/ 650（页标题）。≥ 28 字距 −0.025 ~ −0.03em。</li>
+<li>数字分级见 §0.1 ①。</li>
+</ul>
+<h2>5. 网格、节奏、密度、圆角</h2>
+<ul>
+<li>4px 基线；页面内边距 28 × 32；区块间距 24。</li>
+<li>栏：行号栏固定 44px，是全站的“页边”；决策页正文从 44px 起排。</li>
+<li>行高：宽松 60 / 标准 48 / 紧凑 36（<code>data-density</code>）。每 5 行一条 rule。</li>
+<li>圆角：控件 4、浮层 8、主纸面 12。不用胶囊。</li>
+<li>层级：canvas → 白纸面（1px border）→ 线。浮层才有阴影。</li>
+</ul>
+<h2>6. 版式模式</h2>
+<ol>
+<li><strong>骨架</strong>：侧栏与画布同色；主内容是一张白纸面，离窗 8px。</li>
+<li><strong>页头</strong>：28px 标题 → 15px 摘要句（关键数加粗）→ 12px 口径与更新时间；按钮底对齐。</li>
+<li><strong>摘要账条</strong>：4 格，上墨线下 rule，格间发丝竖线，无卡片；需关注只在格标题右侧写红字“6 超时”。</li>
+<li><strong>列表</strong>：筛选 chip（当前项墨底）+ 右侧筛选与密度切换 → 批量条（墨底，按钮写数量）→ 表格（行号栏、两行记录、金额分级右对齐、状态 = 方点 + 词 + 时效）→ 合计行。</li>
+<li><strong>决策页</strong>：页边编号 01 问题 / 02 建议 / 03 账面变化（项目 | 现在 → 批准后 | 变化）/ 04 涉及条目 + 合计；右侧固定摘要：大金额 → 明细 → 可撤销 / 不可逆 / 不通知 → 主按钮“批准 6 笔退款 · ¥4,218”。</li>
+</ol>
+<h2>7. 组件规则</h2>
+<ul>
+<li>按钮：主（墨底）每区域 ≤ 1；次（白底 border-strong）；文字按钮。危险操作只在确认层出现红底。</li>
+<li>状态：6px <strong>方</strong>点 + 词 + 时效（灰小字；超时变红字）。</li>
+<li>链接：text-1/2 + 浅下划线，不用蓝。</li>
+<li>焦点：2px 墨色 outline，偏移 2px。</li>
+<li>红色白名单：超时、不可逆、通知计数。一屏 ≤ 3 处。</li>
+</ul>
+<h2>8. 落地步骤</h2>
+<ol>
+<li>按 §3.3 填 token，关掉库默认阴影；2. 加行号列与五行节线；3. 金额渲染器做数字分级 + 合计行；4. 表头 / 摘要账条加墨线；5. 状态改方点 + 时效；6. §9 验收。</li>
+</ol>
+<h2>9. 验收清单</h2>
+<ul>
+<li>[ ] 灰度截图层次清楚。</li>
+<li>[ ] 每个金额列都有合计行，小数点对齐。</li>
+<li>[ ] 表格有行号栏，第 5、10 行底线更深。</li>
+<li>[ ] 每个状态都带时效。</li>
+<li>[ ] 决策按钮写数量与金额，旁边写可撤销性。</li>
+<li>[ ] 没有绿 / 藏青 / 靛蓝 / 黄 / 琥珀作身份色，没有冷灰。</li>
+</ul>
+<h2>10. 不做的事</h2>
+<p>荧光强调、胶囊按钮、KPI 彩色卡片、渐变、玻璃拟态、为截图好看的松散排版、照搬任何参考作品的外观。</p>
+<h2>附录 · 版本</h2>
+<ul>
+<li>v6.0（2026-10-15，R4）账页：写入设计主张；新增数字分级、行号栏 + 五行一节、账线、页边编号；圆角收紧到 4/8/12。</li>
+<li>v5.0（R3，5 分）纸灰·砚墨。 v4.0（R2，4 分）暖石灰·靛墨。 v3.0（R1，3 分）青石·朱印。</li>
+</ul></main>
+<link rel="stylesheet" href="../../assets/feedback.css"><script src="../../assets/feedback-config.js" defer></script><script src="../../assets/feedback.js" data-round="r4" defer></script></body></html>

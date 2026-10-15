@@ -1,0 +1,47 @@
+/* ==========================================================
+   reference-tokens.css · 后台视觉规范 v6.0 · Round 4「账页」参考取值
+   规范本体在 STYLE.md；这里的值可整套替换，只要满足 STYLE.md §4 约束。
+   结构：① 角色层 --role-*（组件只引用这一层） ② 取值层
+   ========================================================== */
+:root{
+  /* ① 角色层 */
+  --role-canvas:var(--color-bg); --role-surface:var(--color-surface); --role-surface-subtle:var(--color-surface-subtle);
+  --role-surface-hover:var(--color-surface-hover); --role-border:var(--color-border); --role-rule:var(--color-rule);
+  --role-border-strong:var(--color-border-strong); --role-text-1:var(--color-text); --role-text-2:var(--color-text-secondary);
+  --role-text-3:var(--color-text-tertiary); --role-action:var(--color-primary);
+  --role-success:var(--color-success); --role-warning:var(--color-warning); --role-danger:var(--color-danger); --role-info:var(--color-info);
+
+  /* ② 取值层 · 中性：铅灰（色相 40°，饱和 3–6%，不偏蓝） */
+  --color-bg:#F3F2EF;  --color-surface:#FFFFFF;  --color-surface-subtle:#F8F7F5;
+  --color-surface-hover:#F4F3F0; --color-surface-selected:#F1EFEB;
+  --color-divider:#EEECE8;   /* 普通行线 */
+  --color-rule:#D9D6D0;      /* 节线：每 5 行、表头底、分组 —— 签名 ② */
+  --color-border:#E6E4DF; --color-border-strong:#D2CFC8; --color-border-hover:#A9A59D;
+  --color-text:#1C1B19; --color-text-secondary:#4B4843; --color-text-tertiary:#7A766F; --color-text-disabled:#AEAAA2;
+  /* 主操作：铅墨（近黑，HSL S≤8%） */
+  --color-primary:#1F1E1C; --color-primary-hover:#34322F; --color-primary-active:#000;
+  --color-focus-ring:rgba(31,30,28,.16);
+  /* 状态（只作 6px 方点 / 文字 / 2px 边线） */
+  --color-success:#2F7A50; --color-success-soft:#EDF4EF;
+  --color-warning:#A35B0A; --color-warning-soft:#F9F1E5;
+  --color-danger:#B4291F;  --color-danger-soft:#FBEEEC;
+  --color-info:#456086;    --color-info-soft:#EEF2F7;
+
+  /* 字体 */
+  --font-sans:"Inter","SF Pro Text","PingFang SC","HarmonyOS Sans SC","Noto Sans CJK SC","Microsoft YaHei",system-ui,sans-serif;
+  --font-mono:"JetBrains Mono","IBM Plex Mono","SF Mono",Menlo,Consolas,monospace;
+  --fs-11:11px; --fs-12:12px; --fs-13:13px; --fs-14:14px; --fs-16:16px; --fs-20:20px; --fs-28:28px; --fs-32:32px;
+  /* 数字分级 —— 签名 ①：整数为主，小数/单位降一级 */
+  --num-minor-scale:.78; --num-minor-color:var(--color-text-tertiary);
+
+  /* 栏距网格 —— 4px 基线，12 栏，栏间 24 */
+  --unit:4px; --gutter:24px; --page-x:32px; --page-y:28px;
+  --row-h:48px; --row-h-compact:36px; --row-h-comfort:60px; --row-section-every:5;
+  --control-h:32px; --control-h-sm:28px; --control-h-lg:40px;
+  --radius-sm:4px; --radius-md:8px; --radius-lg:12px;
+  --shadow-float:0 12px 32px rgba(28,24,18,.12),0 1px 3px rgba(28,24,18,.06);
+  --sidebar-w:216px; --topbar-h:52px;
+  --dur:150ms; --ease:cubic-bezier(.2,0,0,1);
+}
+[data-density="compact"]{--row-h:var(--row-h-compact);--control-h:var(--control-h-sm);--page-x:20px;--page-y:16px}
+[data-density="comfort"]{--row-h:var(--row-h-comfort)}
