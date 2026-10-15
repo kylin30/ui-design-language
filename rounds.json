@@ -1,5 +1,8 @@
 [
-  {"id":"r1","title":"Round 1 · 青石·朱印","version":"v3.0","date":"2026-10-15","status":"待评分",
+  {"id":"r2","title":"Round 2 · 暖石灰·靛墨·朱印","version":"v4.0","date":"2026-10-15","status":"待评分",
+   "summary":"暖石灰中性底、靛墨主操作、朱砂印关注色（一屏≤1）、刻线等宽标签、方点状态、衬线页标题、实线焦点；去掉绿色。",
+   "screenshot":"rounds/r2/screenshot.png","demo":"rounds/r2/demo.html","spec":"rounds/r2/spec.html","tokens":"rounds/r2/reference-tokens.css"},
+  {"id":"r1","title":"Round 1 · 青石·朱印","version":"v3.0","date":"2026-10-15","status":"已评分",
    "summary":"青石绿灰中性底、松墨绿主操作、朱砂印关注色（一屏≤1）、刻线等宽标签、方点状态、衬线页标题、实线焦点。",
    "screenshot":"rounds/r1/screenshot.png","demo":"rounds/r1/demo.html","spec":"rounds/r1/spec.html","tokens":"rounds/r1/reference-tokens.css"}
 ]
