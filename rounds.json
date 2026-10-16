@@ -1,10 +1,25 @@
 [
   {
+    "id": "r15",
+    "title": "Round 15 · 素笺",
+    "version": "v17.0",
+    "date": "2026-10-17",
+    "status": "待评分",
+    "summary": "回应 R14“宋体似乎不符合这个风格”：全站去掉衬线，只用无衬线（Inter / 系统字体 + 苹方 / 鸿蒙黑体 / 微软雅黑，不依赖网络字体），层级靠 400/500/600 字重和五档字号，数字等宽；新增规则 15 对错示例。同时收敛 R14 的展示感：标题 28、数字 40，细描边加极浅阴影，动效只淡入；保留主图卡、更好的图表、鸢尾默认 + 6 主题与 6 个演示。",
+    "screenshot": "rounds/r15/screenshot.png",
+    "demo": "rounds/r15/demo.html",
+    "spec": "rounds/r15/spec.html",
+    "tokens": "rounds/r15/reference-tokens.css",
+    "primary": "spec",
+    "demos": "rounds/r15/demos.html",
+    "name": "素笺"
+  },
+  {
     "id": "r14",
     "title": "Round 14 · 展卷",
     "version": "v16.0",
     "date": "2026-10-17",
-    "status": "待评分",
+    "status": "已评分",
     "summary": "先研究再做：R13 停在 6 分是因为呈现太平。四层字阶（宋体展示 + 细体大数字 + 11px 等宽眉标），三层纵深浮卡，规则 14“每页一张主图卡”，面积图/环/点阵/直方图升级并加入入场动效；224px 浮动侧栏 + 浮动后果条。鸢尾默认 + 6 主题保留，6 个项目演示全部重做，附 research.md。",
     "screenshot": "rounds/r14/screenshot.png",
     "demo": "rounds/r14/demo.html",
@@ -12,7 +27,9 @@
     "tokens": "rounds/r14/reference-tokens.css",
     "primary": "spec",
     "demos": "rounds/r14/demos.html",
-    "name": "展卷"
+    "name": "展卷",
+    "score": 5,
+    "note": "宋体似乎不符合这个风格"
   },
   {
     "id": "r13",
