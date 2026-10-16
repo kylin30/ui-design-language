@@ -2,15 +2,16 @@
  {
   "id": "r13",
   "title": "Round 13 · 流转台",
-  "version": "v15.0",
+  "version": "v15.1",
   "date": "2026-10-17",
   "status": "待评分",
-  "summary": "换骨架：后台是一条队列，一次办完一件。52px 图标轨 + 深色框架里嵌一张工作纸；左边队列（分道 + 按紧急度分组），右边当前事（结论句 → 明细 + 时间脊 → 后果条 + 唯一主操作），J/K/E/Z 键盘流转、办完自动到下一件、可撤销；状态改用 ○◐●◆ 字形，只有异常是红色。鸢尾默认 + 6 个主题保留。",
+  "summary": "换骨架：后台是一条队列，一次办完一件。52px 图标轨 + 深色框架里嵌一张工作纸；左边队列（分道 + 按紧急度分组），右边当前事（结论句 → 明细 + 时间脊 → 后果条 + 唯一主操作），J/K/E/Z 键盘流转、办完自动到下一件、可撤销；状态改用 ○◐●◆ 字形，只有异常是红色。鸢尾默认 + 6 个主题保留。 v15.1：新增 5 个项目类型演示（订单售后、数据看板、运维告警、客户管理、内容审核）和 demos.html 总览，规范新增“四种页面模式”映射。",
   "screenshot": "rounds/r13/screenshot.png",
   "demo": "rounds/r13/demo.html",
   "spec": "rounds/r13/spec.html",
   "tokens": "rounds/r13/reference-tokens.css",
-  "primary": "spec"
+  "primary": "spec",
+  "demos": "rounds/r13/demos.html"
  },
  {
   "id": "r12",
