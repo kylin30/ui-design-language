@@ -1,10 +1,26 @@
 [
   {
+    "id": "r18",
+    "name": "定向",
+    "title": "Round 18 · 定向",
+    "version": "v20.0",
+    "date": "2026-10-17",
+    "status": "待评分",
+    "primary": "directions",
+    "directions": "rounds/r18/directions.html",
+    "spec": "rounds/r18/spec.html",
+    "demo": "rounds/r18/demo-orders.html",
+    "demos": "rounds/r18/directions.html",
+    "screenshot": "rounds/r18/screenshot.png",
+    "tokens": "rounds/r18/reference-tokens.css",
+    "summary": "连续 5 分后改为选方向：四个明显不同的方向——A 精简（Linear 式）、B 卡片（柔和 SaaS）、C 深色工作台、D 信息密集（AntD Pro / Stripe 式），都用鸢尾 + Geist 数字 + 无衬线，套在同样的订单售后、数据看板、内容审核三个页面上。directions.html 可切换、可操作、可比较，「选这个方向」写入反馈；选中的方向下一轮写成完整规范。"
+  },
+  {
     "id": "r17",
     "title": "Round 17 · 清朗",
     "version": "v19.0",
     "date": "2026-10-17",
-    "status": "待评分",
+    "status": "已评分",
     "summary": "先复盘再做（review.md）：R13–R16 一直在加东西。R17 做减法：白色侧栏 + 发丝线、12 栏网格、页头 → KPI 行 → 主体三段、一种卡片（发丝边无投影）、“圆点 + 文字”状态标签代替字形、操作栏回到详情卡底部、最小字号 12；按钮 / 输入 / 页签 / 表格 / 空状态 / 骨架统一规格；Geist 数字固定（自托管）。6 个演示与规范全部重做，鸢尾 + 6 主题保留。",
     "screenshot": "rounds/r17/screenshot.png",
     "demo": "rounds/r17/demo.html",
@@ -12,7 +28,9 @@
     "tokens": "rounds/r17/reference-tokens.css",
     "primary": "spec",
     "demos": "rounds/r17/demos.html",
-    "name": "清朗"
+    "name": "清朗",
+    "score": 5,
+    "note": "无备注（在 demo-content.html 提交）"
   },
   {
     "id": "r16",

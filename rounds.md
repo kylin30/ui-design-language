@@ -4,11 +4,18 @@
 
 
 
+
+## Round 18 · 定向（v20.0 · 2026-10-17）
+- **改了什么**：不再闭眼迭代，改为选方向。四个方向：A 精简、B 卡片、C 深色工作台、D 信息密集；同一份内容（订单售后、数据看板、内容审核），都用鸢尾 + Geist + 无衬线。directions.html：方向切换（data-direction、localStorage、?direction=）、真实页面预览、原则说明、对比表、「选这个方向」。spec.html 说明选中的方向会成为下一轮规范，并给出五条共同规则的对错示例。
+- **为什么**：R14–R17 连续 5 分；R11 选配色、R16 选数字字体是参与度最高的两轮。
+- **预览**：rounds/r18/directions.html（主）、rounds/r18/spec.html；截图 screenshot.png
+- **评分（1–10）**：待评分
+
 ## Round 17 · 清朗（v19.0 · 2026-10-17）
 - **改了什么**：先复盘（rounds/r17/review.md，R12/R13/R15/R16 并排截图），再做减法：白色侧栏 + 发丝线；12 栏网格；页头 → KPI 行 → 主体三段；一种卡片；“圆点 + 文字”状态标签；操作栏放回详情卡底部；最小字号 12；组件统一规格并补齐空状态和骨架；Geist 数字固定、自托管，Geist Mono 只给代码；去掉数字字体切换。新增规则 14「每屏最多三种视觉手段」、15「只用无衬线，数字固定 Geist」，重写 02 / 03 / 06 / 08。
 - **为什么**：R14–R16 连续 5 分；复盘认为观感下降来自视觉手段叠加、深色框架、状态字形、对齐弱和小字过多。
 - **预览**：rounds/r17/spec.html（主）、rounds/r17/demos.html、rounds/r17/demo*.html；截图 screenshot.png
-- **评分（1–10）**：待评分
+- **评分（1–10）**：5（无备注；在 demo-content.html 提交）
 
 ## Round 16 · 刻度（v18.0 · 2026-10-17）
 - **改了什么**：数字字体单独设计。6 套方案：Geist（默认）、Inter、系统、Barlow、Plex、Roboto；字体自托管在 rounds/r16/fonts/（OFL），通过 unicode-range 只覆盖数字和符号；右上角「数字」切换（data-figure、localStorage、?figure=）；figures.html 并排比较 KPI 行、表格、坐标轴，可「设为我的默认」；统一 ¥ / 小数 / 单位 / % / 负号写法；新增规则 16。
