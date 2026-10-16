@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>R19 规范 · 素线 · 后台设计语言 v21.0</title>
+<link rel="stylesheet" href="reference-tokens.css"><script src="themes.js"></script><link rel="stylesheet" href="theme-switcher.css">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font-sans);font-size:14px;line-height:1.57;color:var(--color-text);background:var(--color-bg);-webkit-font-smoothing:antialiased;font-feature-settings:"tnum"}
+a{color:inherit}
+.top{position:sticky;top:0;z-index:20;background:var(--color-frame);color:var(--color-frame-text);height:48px;display:flex;align-items:center;gap:20px;padding:0 40px;font-size:13px}
+.top b{color:var(--color-frame-text-1);font-weight:600;font-size:14px;margin-right:12px}
+.top a{text-decoration:none}.top a:hover{color:var(--color-frame-text-1)}
+.top .r{margin-left:auto;display:flex;gap:20px}
+.wrap{max-width:1180px;margin:0 auto;padding:48px 40px 96px}
+.eng{display:flex;align-items:center;gap:10px;font-size:11px;letter-spacing:.12em;color:var(--color-text-tertiary);font-weight:500;margin-bottom:16px}
+.eng::after{content:"";flex:1;border-top:1px solid var(--color-hairline)}
+h1{font-size:32px;line-height:40px;font-weight:650;letter-spacing:-.025em}
+h2{font-size:24px;line-height:32px;font-weight:650;letter-spacing:-.02em;margin-bottom:8px}
+.lead{font-size:16px;line-height:26px;color:var(--color-text-secondary);max-width:760px;margin-top:12px}
+.lead b{color:var(--color-text);font-weight:600}
+section{margin-top:72px}
+.muted{color:var(--color-text-tertiary)}
+/* 总览 */
+.thesis{margin-top:32px;display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--color-hairline);border:1px solid var(--color-hairline);border-radius:10px;overflow:hidden}
+.thesis div{background:var(--color-surface);padding:20px 24px}
+.thesis small{display:block;font-size:12px;color:var(--color-text-tertiary);margin-bottom:6px}
+.thesis p{font-size:15px;line-height:24px;font-weight:550}
+.rules{margin-top:24px;display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-top:1px solid var(--color-hairline)}
+.rules a{display:block;text-decoration:none;padding:16px 20px 16px 0;border-bottom:1px solid var(--color-hairline)}
+.rules a:hover h4{text-decoration:underline;text-underline-offset:3px}
+.rules em{font-style:normal;font-size:12px;color:var(--color-text-tertiary);font-variant-numeric:tabular-nums}
+.rules h4{font-size:15px;font-weight:600;margin:2px 0}
+.rules p{font-size:13px;line-height:20px;color:var(--color-text-secondary)}
+.layers{margin-top:24px;display:flex;gap:8px;font-size:13px;color:var(--color-text-secondary);align-items:center;flex-wrap:wrap}
+.layers span{padding:4px 10px;border:1px solid var(--color-border);border-radius:6px;background:var(--color-surface)}
+/* 规则块 */
+.rule{margin-top:40px;padding-top:32px;border-top:1px solid var(--color-hairline);display:grid;grid-template-columns:260px 1fr;gap:32px}
+.rule:first-of-type{border-top:0}
+.rule .no{font-size:12px;color:var(--color-text-tertiary);font-variant-numeric:tabular-nums}
+.rule h3{font-size:20px;line-height:28px;font-weight:650;letter-spacing:-.015em;margin:4px 0 8px}
+.rule .why{font-size:13px;line-height:21px;color:var(--color-text-secondary)}
+.rule .why b{color:var(--color-text);font-weight:600}
+.rule .tok{margin-top:12px;font-family:var(--font-mono);font-size:11.5px;color:var(--color-text-tertiary);line-height:18px}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.ex{border-radius:10px;overflow:hidden;border:1px solid var(--color-hairline);background:var(--color-surface);display:flex;flex-direction:column}
+.ex .lab{display:flex;align-items:center;gap:8px;padding:8px 14px;font-size:12px;font-weight:550;border-bottom:1px solid var(--color-hairline);background:var(--color-surface-subtle)}
+.ex .lab i{width:6px;height:6px;border-radius:50%}
+.ex.ok .lab i{background:var(--color-success)}.ex.no .lab i{background:var(--color-danger)}
+.ex.ok .lab{color:var(--color-text)}.ex.no .lab{color:var(--color-text-secondary)}
+.ex .lab span{margin-left:auto;font-weight:400;color:var(--color-text-tertiary)}
+.ex .stage{padding:20px;flex:1;background:var(--color-bg)}
+.ex.no .stage{background:var(--color-bg)}
+/* 迷你组件（对 = 本规范，错 = 常见做法） */
+.paper{background:var(--color-surface);border:1px solid var(--color-hairline);border-radius:8px;box-shadow:var(--shadow-paper)}
+.b{height:30px;padding:0 12px;border-radius:6px;border:1px solid transparent;font:inherit;font-size:13px;font-weight:550;display:inline-flex;align-items:center;gap:6px;cursor:pointer;white-space:nowrap}
+.b.p{background:var(--color-primary);color:var(--color-on-primary)}.b.p:hover{background:var(--color-primary-hover)}
+.b.s{background:var(--color-surface);border-color:var(--color-border-strong);color:var(--color-text)}
+.b.t{background:none;color:var(--color-text-secondary);padding:0 6px}
+.b.d{background:var(--color-danger);color:var(--color-on-danger)}
+.b:focus-visible{outline:2px solid var(--color-primary);outline-offset:2px}
+.st{display:inline-flex;align-items:center;gap:6px;font-size:13px}.st::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor}
+.st.ok{color:var(--color-success)}.st.wa{color:var(--color-warning)}.st.da{color:var(--color-danger)}.st.in{color:var(--color-info)}
+.st span{color:var(--color-text-secondary)}
+.mrow{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.t13{font-size:13px}.t12{font-size:12px;color:var(--color-text-tertiary)}
+.amt{font-variant-numeric:tabular-nums;text-align:right}.amt s{text-decoration:none;color:var(--color-text-tertiary);font-size:.8em;margin-right:1px}
+table.mini{width:100%;border-collapse:collapse;font-size:13px}
+table.mini td,table.mini th{padding:0 12px;height:36px;text-align:left;border-bottom:1px solid var(--color-hairline)}
+table.mini th{font-weight:500;font-size:12px;color:var(--color-text-tertiary);background:var(--color-surface-subtle)}
+table.mini tr:last-child td{border-bottom:0}
+.r,td.amt{text-align:right!important}
+/* 角色表 */
+table.roles{width:100%;border-collapse:collapse;margin-top:20px;background:var(--color-surface);border:1px solid var(--color-hairline);border-radius:10px;overflow:hidden;font-size:13px}
+table.roles th,table.roles td{text-align:left;padding:10px 16px;border-bottom:1px solid var(--color-hairline);vertical-align:middle}
+table.roles th{font-size:12px;font-weight:500;color:var(--color-text-tertiary);background:var(--color-surface-subtle)}
+table.roles td:first-child{font-weight:600;white-space:nowrap}
+.sw{display:inline-block;width:28px;height:20px;border-radius:4px;border:1px solid rgba(0,0,0,.08);vertical-align:middle}
+code{font-family:var(--font-mono);font-size:12px;color:var(--color-text-secondary)}
+.tokgrid{margin-top:20px;display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.tokgrid .paper{padding:16px}
+.tokgrid h5{font-size:12px;font-weight:500;color:var(--color-text-tertiary);margin-bottom:10px}
+.tokgrid li{list-style:none;display:flex;align-items:center;gap:10px;font-size:13px;line-height:28px}
+.tokgrid li code{margin-left:auto}
+/* 两库对照 */
+.libs{margin-top:20px;display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.libcol h5{font-size:13px;font-weight:600;margin-bottom:8px;display:flex;justify-content:space-between}
+.libcol h5 span{font-weight:400;color:var(--color-text-tertiary);font-size:12px}
+.card{padding:16px;display:flex;flex-direction:column;gap:12px}
+.card .ttl{font-size:15px;font-weight:600}
+/* 模拟库默认外观 */
+.ant-def{background:#fff;border:1px solid #f0f0f0;border-radius:8px;font-family:-apple-system,"Segoe UI",sans-serif}
+.ant-def .b.p{background:#1677ff;border-radius:6px;font-weight:400}.ant-def .b.s{border-color:#d9d9d9;background:#fff;color:rgba(0,0,0,.88);font-weight:400}
+.ant-def .tag{font-size:12px;padding:0 7px;border-radius:4px;background:#fff7e6;color:#d46b08;border:1px solid #ffd591;line-height:20px}
+.mui-def{background:#fff;border-radius:4px;box-shadow:0 2px 1px -1px rgba(0,0,0,.2),0 1px 1px rgba(0,0,0,.14),0 1px 3px rgba(0,0,0,.12);font-family:Roboto,Arial,sans-serif}
+.mui-def .b{text-transform:uppercase;letter-spacing:.03em;border-radius:4px;font-weight:500}.mui-def .b.p{background:#1976d2;box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px rgba(0,0,0,.14)}.mui-def .b.s{border-color:rgba(25,118,210,.5);color:#1976d2;background:#fff}
+.mui-def .tag{font-size:12px;padding:0 10px;border-radius:16px;background:#ed6c02;color:#fff;line-height:22px}
+pre.map{margin-top:12px;background:var(--color-frame);color:var(--color-frame-text-1);border-radius:8px;padding:14px 16px;font-family:var(--font-mono);font-size:11.5px;line-height:19px;overflow:auto}
+pre.map i{color:var(--color-frame-text-3);font-style:normal}
+/* 清单 */
+.check{margin-top:20px;columns:2;column-gap:40px}
+.check label{display:flex;gap:10px;align-items:flex-start;break-inside:avoid;padding:9px 0;border-bottom:1px solid var(--color-hairline);font-size:13.5px;line-height:21px;cursor:pointer}
+.check input{margin-top:3px;accent-color:var(--color-primary)}
+.check em{font-style:normal;color:var(--color-text-tertiary);font-size:12px;margin-left:auto;white-space:nowrap;font-variant-numeric:tabular-nums}
+.foot{margin-top:72px;padding-top:24px;border-top:1px solid var(--color-hairline);font-size:12px;color:var(--color-text-tertiary);display:flex;justify-content:space-between}
+/* 反馈面板随主题 */
+.uifb-scores button.on,.uifb-submit{background:var(--color-primary)!important;border-color:var(--color-primary)!important;color:var(--color-on-primary)!important}.uifb-submit:disabled{background:var(--color-text-disabled)!important}
+.uifb{border-radius:10px!important;border-color:var(--color-border-strong)!important;background:var(--color-surface)!important}
+@media(max-width:900px){.rule{grid-template-columns:1fr}.pair,.libs,.thesis{grid-template-columns:1fr}.rules,.tokgrid{grid-template-columns:1fr 1fr}.check{columns:1}}
+
+/* =====================================================================
+   R12 · 鸢尾精修层（规范级做工，随主题一起生效）
+   ===================================================================== */
+.b.p,.btn-primary{background-image:linear-gradient(180deg,rgba(255,255,255,.10),rgba(255,255,255,0));box-shadow:inset 0 1px 0 rgba(255,255,255,.14),0 1px 2px rgba(23,19,31,.16)}
+.b.p:active,.btn-primary:active{background-image:none;background-color:var(--color-primary-active)}
+:focus-visible{outline:2px solid var(--color-primary);outline-offset:2px;box-shadow:0 0 0 5px var(--color-focus-ring)}
+.st::before,.d{box-shadow:0 0 0 3px color-mix(in srgb,currentColor 14%,transparent)}
+::selection{background:var(--color-surface-selected);color:var(--color-text)}
+a.link,.link{text-decoration-color:color-mix(in srgb,var(--color-primary-text) 35%,transparent);text-underline-offset:3px}
+html.theming *,html.theming *::before{transition:background-color .2s var(--ease),border-color .2s var(--ease),color .2s var(--ease)!important}
+
+.sw.sm{width:18px;height:14px;margin-right:3px;border-radius:3px}
+table.themes td{vertical-align:middle}
+table.themes tr.on td{background:var(--color-surface-selected)}
+.ul{margin:4px 0 0 18px;display:flex;flex-direction:column;gap:6px;font-size:13.5px;color:var(--color-text-secondary)}
+.ul b{color:var(--color-text);font-weight:600}
+.b.sm{height:28px;padding:0 10px;font-size:12.5px}
+.mini2{gap:10px;padding:12px}.mini2 .b{align-self:flex-end}
+.mini2[data-theme]{background:var(--color-surface);color:var(--color-text);border-color:var(--color-hairline)}
+@media(min-width:900px){.libs:has(.libcol:nth-child(4)){grid-template-columns:1fr 1fr}}
+.hero{display:block;margin-top:28px;border-radius:14px;overflow:hidden;box-shadow:0 0 0 1px var(--color-hairline),var(--shadow-pop);text-decoration:none;position:relative}.hero img{display:block;width:100%}.hero span{position:absolute;right:14px;bottom:14px;background:var(--color-toast-bg);color:#fff;font-size:12.5px;padding:6px 12px;border-radius:8px}
+.dgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:20px;margin-top:20px}
+.dc{display:block;text-decoration:none;color:inherit;border:1px solid var(--color-hairline);border-radius:12px;overflow:hidden;background:var(--color-surface)}
+.dc:hover{border-color:var(--color-border-hover)}.dc:focus-visible{outline:2px solid var(--color-primary);outline-offset:2px}
+.dc img{display:block;width:100%;aspect-ratio:16/10;object-fit:cover;object-position:top left;border-bottom:1px solid var(--color-hairline)}
+.dc div{display:flex;align-items:center;gap:8px;padding:12px 14px 0}.dc b{font-size:15px;font-weight:650}.dc span{font-size:11.5px;color:var(--color-text-tertiary);border:1px solid var(--color-hairline);border-radius:4px;padding:0 6px}
+.dc p{padding:4px 14px 14px;font-size:13px;color:var(--color-text-secondary)}
+table.pat td{vertical-align:top;padding-top:10px;padding-bottom:10px;line-height:20px}
+
+
+/* ===== R19 素线 ===== */
+.amt i{font-style:normal;color:var(--color-text-tertiary)}.amt s{text-decoration:none;color:var(--color-text-tertiary)}
+.top{background:var(--color-surface);color:var(--color-text-secondary);border-bottom:1px solid var(--color-hairline);height:56px}
+.top b{color:var(--color-text)}.top a:hover{color:var(--color-text)}
+.eng{font-size:12px;letter-spacing:0;font-weight:500}
+h1{font-size:32px;line-height:40px;font-weight:600;letter-spacing:-.02em}
+h2{font-size:22px;line-height:30px;font-weight:600;letter-spacing:-.01em}
+.rule h3{font-size:18px;line-height:26px;font-weight:600}
+.rule .no{font-size:12px;font-weight:500}
+.paper,.ex{border:1px solid var(--color-hairline)!important;border-radius:6px!important;box-shadow:none!important}
+body{background:var(--color-surface);font-size:13px}.wrap{max-width:1120px}h1{font-size:28px;line-height:36px}h2{font-size:18px;line-height:26px}.lead{font-size:14px;line-height:22px}.rule{grid-template-columns:240px 1fr}.rule h3{font-size:15px;line-height:22px}.thesis div{border:0;border-top:1px solid var(--color-hairline);border-radius:0;padding:14px 0}.thesis{gap:24px}table.roles{border:0;border-top:1px solid var(--color-hairline);border-radius:0}
+.kbd{display:inline-grid;place-items:center;height:18px;min-width:18px;padding:0 4px;font-size:11px;font-weight:500;border-radius:4px;border:1px solid var(--color-hairline);box-shadow:0 1px 0 var(--color-hairline);color:var(--color-text-tertiary);background:var(--color-surface)}
+.thesis{gap:12px;background:none;border:0;overflow:visible}.thesis div{border:1px solid var(--color-hairline);border-radius:10px;padding:18px 20px}
+.thesis p{font-size:14px;font-weight:500;line-height:22px}
+table.roles{border:1px solid var(--color-hairline);border-radius:10px;overflow:hidden}
+.hero{display:block;margin-top:32px;border:1px solid var(--color-hairline);border-radius:12px;overflow:hidden;text-decoration:none;background:var(--color-surface)}
+.hero img{display:block;width:100%}.hero span{display:block;padding:12px 16px;font-size:13px;color:var(--color-text-secondary);border-top:1px solid var(--color-hairline)}
+.rv{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}.rv>div{background:var(--color-surface);border:1px solid var(--color-hairline);border-radius:10px;padding:16px 18px;font-size:13px;color:var(--color-text-secondary);line-height:21px}.rv b{display:block;color:var(--color-text);font-size:14px;font-weight:600;margin-bottom:4px}
+.rvimg{margin-top:16px;border:1px solid var(--color-hairline);border-radius:10px;overflow:hidden}.rvimg img{display:block;width:100%}
+.kit{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:16px}
+.kit>div{background:var(--color-surface);border-top:1px solid var(--color-hairline)}
+.kit h5{height:36px;display:flex;align-items:center;padding:0;border-bottom:1px solid var(--color-hairline);font-size:13px;font-weight:600}.kit h5 span{margin-left:auto;font-weight:400;color:var(--color-text-tertiary);font-size:12px}
+.kit .in{padding:14px 0;display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.k-btn{height:28px;padding:0 10px;border-radius:6px;border:1px solid transparent;font:500 13px var(--font-sans);display:inline-flex;align-items:center;cursor:pointer}
+.k-p{background:var(--color-primary);color:var(--color-on-primary)}.k-p:hover{background:var(--color-primary-hover)}.k-s{background:var(--color-surface);border-color:var(--color-border);color:var(--color-text)}.k-s:hover{background:var(--color-surface-hover)}.k-g{background:none;color:var(--color-text-secondary)}.k-g:hover{background:var(--color-surface-hover)}.k-d{background:var(--color-surface);border-color:var(--color-danger-border);color:var(--color-danger-text)}.k-btn:disabled{opacity:.45}
+.k-inp{height:28px;padding:0 8px;border-radius:6px;border:1px solid var(--color-hairline);background:var(--color-surface);font:13.5px var(--font-sans);color:var(--color-text);width:200px}.k-inp:focus{outline:none;border-color:var(--color-primary);box-shadow:0 0 0 3px color-mix(in srgb,var(--color-primary) 18%,transparent)}.k-inp.err{border-color:var(--color-danger)}
+.k-tabs{display:flex;gap:24px;border-bottom:1px solid var(--color-hairline);width:100%;height:40px}.k-tabs span{display:flex;align-items:center;font-size:14px;color:var(--color-text-secondary);border-bottom:2px solid transparent;margin-bottom:-1px}.k-tabs span.on{color:var(--color-text);font-weight:500;border-color:var(--color-text)}.k-tabs em{font-style:normal;font-size:12px;color:var(--color-text-tertiary);margin-left:6px}
+.k-seg{display:inline-flex;padding:2px;border-radius:8px;background:var(--color-surface-subtle);border:1px solid var(--color-hairline)}.k-seg span{height:26px;padding:0 10px;display:flex;align-items:center;border-radius:6px;font-size:13px;color:var(--color-text-secondary)}.k-seg span.on{background:var(--color-surface);color:var(--color-text);font-weight:500;box-shadow:0 0 0 1px var(--color-hairline)}
+.k-t{width:100%;border-collapse:collapse;font-size:13px}.k-t th{height:32px;padding:0 12px;text-align:left;font-size:12px;font-weight:500;color:var(--color-text-tertiary);background:transparent;border-bottom:1px solid var(--color-hairline)}.k-t td{height:36px;padding:0 12px;border-bottom:1px solid var(--color-divider)}.k-t tr:last-child td{border:0}.k-t .r{text-align:right}.k-t .num{font-weight:500}
+.k-sk{display:block;height:12px;border-radius:4px;background:var(--color-surface-hover);animation:ksk 1.2s ease-in-out infinite}@keyframes ksk{50%{opacity:.5}}
+.k-empty{width:100%;display:flex;flex-direction:column;align-items:center;gap:6px;padding:20px 0;font-size:14px;color:var(--color-text-secondary)}.k-empty p{font-size:13px;color:var(--color-text-tertiary)}
+.gridviz{margin-top:16px;display:grid;grid-template-columns:repeat(12,1fr);gap:8px;background:var(--color-surface);border:1px solid var(--color-hairline);border-radius:10px;padding:16px}
+.gridviz div{background:color-mix(in srgb,var(--color-primary) 8%,transparent);border:1px dashed color-mix(in srgb,var(--color-primary) 40%,transparent);border-radius:6px;font-size:12px;color:var(--color-primary-text);display:flex;align-items:center;justify-content:center;height:44px}
+</style></head>
+<body><svg width="0" height="0" style="position:absolute"><defs>
+<symbol id="g-todo" viewBox="0 0 14 14"><circle cx="7" cy="7" r="5.25" fill="none" stroke="currentColor" stroke-width="1.5"/></symbol>
+<symbol id="g-prog" viewBox="0 0 14 14"><circle cx="7" cy="7" r="5.25" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M7 1.75A5.25 5.25 0 0 1 7 12.25z" fill="currentColor"/></symbol>
+<symbol id="g-done" viewBox="0 0 14 14"><circle cx="7" cy="7" r="6" fill="currentColor"/><path d="M4.5 7.2l1.8 1.8 3.4-3.6" fill="none" stroke="var(--color-surface)" stroke-width="1.5"/></symbol>
+<symbol id="g-late" viewBox="0 0 14 14"><path d="M7 1l6 6-6 6-6-6z" fill="currentColor"/><path d="M7 4.2v3.4M7 9.6v.1" stroke="var(--color-surface)" stroke-width="1.5" stroke-linecap="round"/></symbol>
+</defs></svg>
+<nav class="top"><b>素线</b><a href="#summary">总览</a><a href="#review">来源</a><a href="#layout">版式</a><a href="#components">组件</a><a href="#rules">规矩</a><a href="#roles">角色</a><a href="#tokens">取值与映射</a><a href="#themes">主题</a><a href="#check">验收清单</a><span class="r"><span data-theme-slot></span><a href="demos.html" data-keep-theme>演示 →</a><a href="../../">全部轮次</a></span></nav>
+<div class="wrap">
+<header id="summary">
+  <div class="eng">后台设计语言 · v21.0 · Round 19</div>
+  <h1>素线：一张白纸、几条发丝线，<br>颜色只留给要你动手的地方。</h1>
+  <p class="lead">这套语言只做一件事：<b>让人在任何组件库里，都能更快地看懂、核对、做决定、离开。</b>R19 是你在 R18 选定的方向 A「精简」的完整版：白底、1px 发丝线代替卡片、正文 13、表格行 36、控件 28、圆角 6、几乎没有投影；界面近乎黑白灰，鸢尾只用于操作和选中。</p>
+  <a href="demo.html" data-keep-theme class="hero"><img src="thumbs/hero.png" alt="运营待办演示：浅色侧栏、KPI 行、列表与详情"><span>打开演示 → 六种后台都按这套做</span></a>
+  <div class="thesis">
+    <div><small>主张一 · 纸</small><p>白底，没有卡片；区块用发丝线和留白分开。投影只给命令面板、菜单、Toast。</p></div>
+    <div><small>主张二 · 单色</small><p>界面黑白灰；鸢尾只给主操作、选中、焦点；状态是圆点 + 文字，红色只给异常。</p></div>
+    <div><small>主张三 · 键盘</small><p>⌘K 命令面板、G + 字母跳页、J / E / Z 流转；每个主操作旁边写着快捷键。</p></div>
+  </div>
+</header>
+<section id="review">
+<div class="eng">来源 · R18 方向 A</div>
+<h2>为什么是“精简”</h2>
+<p class="muted">R18 你在四个方向里选了 A「精简」。这一轮把它从样式覆盖写成完整语言：骨架、组件、规则、取值、主题、六个演示全部按它重做，并补上精简界面最容易露怯的细节。</p>
+<div class="rv"><div><b>对齐要准</b>所有内容贴同一条左边线；数字列右对齐到同一条线；表头和单元格同内边距。没有卡片时，对齐就是结构。</div><div><b>状态要轻</b>悬停是 4% 灰，选中是 6% 鸢尾 + 2px 左线；不用整块变色。</div><div><b>键盘是一等公民</b>⌘K 命令面板、/ 搜索、G + 字母跳页、J / E / Z 流转，按钮上直接写快捷键。</div><div><b>图表只用灰和鸢尾</b>本期鸢尾实线 + 极淡填充，对比期灰虚线，目标线灰点线，只有异常点是红色。</div></div>
+</section>
+<section id="layout">
+<div class="eng">版式 · 12 栏网格</div>
+<h2>侧栏 232 · 顶栏 44 · 页边 24 · 行 36</h2>
+<p class="muted">所有业务页：页头（标题 18 + 一句结论 + 右侧操作）→ KPI 数字带（发丝线上下、竖线分隔）→ 主体（整宽表格，或 5 栏列表 + 7 栏详情，或 8 栏图表 + 4 栏侧栏）。区块之间 20，栏之间 20，没有卡片。</p>
+<div class="gridviz"><div>1</div><div>1</div><div>1</div><div>1</div><div>1</div><div>1</div><div>1</div><div>1</div><div>1</div><div>1</div><div>1</div><div>1</div><div style="grid-column:span 3">KPI 3</div><div style="grid-column:span 3">KPI 3</div><div style="grid-column:span 3">KPI 3</div><div style="grid-column:span 3">KPI 3</div><div style="grid-column:span 5;height:88px">列表 5</div><div style="grid-column:span 7;height:88px">详情 7（底部操作栏）</div><div style="grid-column:span 8">图表 8</div><div style="grid-column:span 4">侧卡 4</div></div>
+</section>
+<section id="components">
+<div class="eng">组件 · 统一尺寸</div>
+<h2>按钮、输入、标签、页签、表格、空状态</h2>
+<p class="muted">按钮和输入框都是 28px、圆角 6；状态是圆点 + 文字；表头 32、行 36；快捷键用 <span class="kbd">⌘</span><span class="kbd">K</span> 这样的键帽。以下都是现场渲染，可以悬停和聚焦，并随主题变化。</p>
+<div class="kit">
+<div><h5>按钮<span>主 · 次 · 轻 · 危险 · 禁用</span></h5><div class="in"><button class="k-btn k-p">批准 6 笔 <span class="kbd" style="margin-left:6px;background:transparent;color:rgba(255,255,255,.85);border-color:rgba(255,255,255,.3);box-shadow:none">E</span></button><button class="k-btn k-s">逐笔核对</button><button class="k-btn k-g">导出</button><button class="k-btn k-d">作废 3 张</button><button class="k-btn k-s" disabled>不可用</button></div></div>
+<div><h5>输入<span>默认 · 聚焦 · 出错</span></h5><div class="in" style="flex-direction:column;align-items:flex-start;gap:6px"><input class="k-inp" placeholder="搜索单号、客户"><input class="k-inp err" value="AS-1O241"><span style="font-size:12px;color:var(--color-danger-text)">单号里有字母 O，应为数字 0</span></div></div>
+<div><h5>状态标签<span>默认 · 进行中 · 提醒 · 异常 · 完成</span></h5><div class="in"><span style="display:inline-flex;align-items:center;gap:6px;font-size:12.5px;color:var(--color-text-secondary);"><i style="width:6px;height:6px;border-radius:50%;background:var(--color-text-tertiary)"></i>待处理</span><span style="display:inline-flex;align-items:center;gap:6px;font-size:12.5px;color:var(--color-text-secondary);"><i style="width:6px;height:6px;border-radius:50%;background:var(--color-primary)"></i>处理中</span><span style="display:inline-flex;align-items:center;gap:6px;font-size:12.5px;color:var(--color-text-secondary);"><i style="width:6px;height:6px;border-radius:50%;background:var(--color-warning)"></i>即将超时</span><span style="display:inline-flex;align-items:center;gap:6px;font-size:12.5px;color:var(--color-text-secondary);color:var(--color-danger-text)"><i style="width:6px;height:6px;border-radius:50%;background:var(--color-danger)"></i>超时</span><span style="display:inline-flex;align-items:center;gap:6px;font-size:12.5px;color:var(--color-text-secondary);"><i style="width:6px;height:6px;border-radius:50%;background:var(--color-success)"></i>已完成</span></div></div>
+<div><h5>页签与分段<span>下划线页签 · 分段控件</span></h5><div class="in" style="flex-direction:column;align-items:flex-start;gap:14px"><div class="k-tabs"><span class="on">全部<em>11</em></span><span>超时<em>5</em></span><span>处理中<em>2</em></span></div><div class="k-seg"><span>今天</span><span class="on">本周</span><span>本月</span></div></div></div>
+<div style="grid-column:span 2"><h5>表格<span>表头 32 · 行 36 · 数字右对齐 · 单号用表格数字</span></h5><table class="k-t"><tr><th>单号</th><th>客户</th><th>状态</th><th class="r">已等待</th><th class="r">金额</th></tr><tr><td style="color:var(--color-text-secondary)">AS-10241</td><td>刘佳琪</td><td><span style="display:inline-flex;align-items:center;gap:6px;font-size:12.5px;color:var(--color-text-secondary);color:var(--color-danger-text)"><i style="width:6px;height:6px;border-radius:50%;background:var(--color-danger)"></i>超时</span></td><td class="r" style="color:var(--color-danger-text)">11 天</td><td class="r num"><span class="amt"><s>¥</s>238<i>.00</i></span></td></tr><tr><td style="color:var(--color-text-secondary)">AS-10224</td><td>周子涵</td><td><span style="display:inline-flex;align-items:center;gap:6px;font-size:12.5px;color:var(--color-text-secondary);"><i style="width:6px;height:6px;border-radius:50%;background:var(--color-primary)"></i>处理中</span></td><td class="r">3 天</td><td class="r num"><span class="amt"><s>¥</s>1,490<i>.00</i></span></td></tr><tr><td style="color:var(--color-text-secondary)">AS-10211</td><td>马天宇</td><td><span style="display:inline-flex;align-items:center;gap:6px;font-size:12.5px;color:var(--color-text-secondary);"><i style="width:6px;height:6px;border-radius:50%;background:var(--color-success)"></i>已完成</span></td><td class="r">0 天</td><td class="r num"><span class="amt"><s>¥</s>520<i>.00</i></span></td></tr></table></div>
+<div><h5>加载<span>骨架，不用转圈</span></h5><div class="in" style="flex-direction:column;align-items:stretch;gap:10px"><span class="k-sk" style="width:70%"></span><span class="k-sk" style="width:45%;height:10px"></span><span class="k-sk" style="width:80%"></span><span class="k-sk" style="width:35%;height:10px"></span></div></div>
+<div><h5>空状态<span>说明原因 + 下一步</span></h5><div class="in"><div class="k-empty"><b style="font-weight:500;color:var(--color-text)">没有匹配的售后单</b><p>换个关键词，或者清空筛选</p><button class="k-btn k-s" style="height:28px;font-size:13px;margin-top:4px">清空筛选</button></div></div></div>
+</div></section>
+
+<section id="rules">
+<div class="eng">第一层 · 规矩 · 每条都给出 对 / 错 的现场渲染</div>
+<h2>16 条规矩</h2>
+<p class="muted">左边是本语言的做法，右边是常见但被禁止的做法。第 13 条在「主题」一节。</p>
+<!-- 01 -->
+<div class="rule" id="r1"><div><div class="no">01</div><h3>一屏一个主操作</h3>
+<p class="why"><b>为什么：</b>主色按钮是“下一步该做什么”的唯一答案。出现两个，就等于没有答案。</p>
+<p class="tok">--role-action · 其余用次按钮 / 文字按钮</p></div>
+<div class="pair">
+<div class="ex ok"><div class="lab"><i></i>对<span>1 个主色，其余降级</span></div><div class="stage"><div class="paper card"><div class="ttl">退款审批 · 6 笔</div><div class="mrow"><span class="t12">合计 ¥4,218 · 可撤销 10 分钟</span><span style="display:flex;gap:8px"><button class="b t">导出</button><button class="b s">逐笔查看</button><button class="b p">批准 6 笔</button></span></div></div></div></div>
+<div class="ex no"><div class="lab"><i></i>错<span>三个按钮都在喊</span></div><div class="stage"><div class="paper card"><div class="ttl">退款审批 · 6 笔</div><div class="mrow"><span class="t12">合计 ¥4,218 · 可撤销 10 分钟</span><span style="display:flex;gap:8px"><button class="b p">导出</button><button class="b p">查看</button><button class="b p">批准</button></span></div></div></div></div>
+</div></div>
+
+<!-- 02 -->
+<div class="rule" id="r2"><div><div class="no">02</div><h3>状态 = 圆点 + 文字，没有底色</h3>
+<p class="why"><b>为什么：</b>用户扫的是“超时 / 处理中 / 已完成”这几个字。状态不加底色、不加边框：6px 圆点给语义，文字保持次要灰；只有“异常”的文字变红，所以红色一出现就是“出事了”。</p>
+<p class="tok">.tag · 6px 圆点 · 12.5 · 无底色 · 只有异常文字着色</p></div>
+<div class="pair">
+<div class="ex ok"><div class="lab"><i></i>对<span>圆点 + 文字，红色只有一处</span></div><div class="stage"><div class="paper"><table class="mini"><tr><td>AS-10241</td><td><span style="display:inline-flex;align-items:center;gap:6px;font-size:12.5px;color:var(--color-text-secondary);color:var(--color-danger-text)"><i style="width:6px;height:6px;border-radius:50%;background:var(--color-danger)"></i>超时</span></td><td style="text-align:right">¥238.00</td></tr><tr><td>AS-10224</td><td><span style="display:inline-flex;align-items:center;gap:6px;font-size:12.5px;color:var(--color-text-secondary);"><i style="width:6px;height:6px;border-radius:50%;background:var(--color-primary)"></i>处理中</span></td><td style="text-align:right">¥0.00</td></tr><tr><td>AS-10229</td><td><span style="display:inline-flex;align-items:center;gap:6px;font-size:12.5px;color:var(--color-text-secondary);"><i style="width:6px;height:6px;border-radius:50%;background:var(--color-warning)"></i>即将超时</span></td><td style="text-align:right">¥429.00</td></tr><tr><td>AS-10211</td><td><span style="display:inline-flex;align-items:center;gap:6px;font-size:12.5px;color:var(--color-text-secondary);"><i style="width:6px;height:6px;border-radius:50%;background:var(--color-success)"></i>已完成</span></td><td style="text-align:right">¥520.00</td></tr><tr><td>AS-10215</td><td><span style="display:inline-flex;align-items:center;gap:6px;font-size:12.5px;color:var(--color-text-secondary);"><i style="width:6px;height:6px;border-radius:50%;background:var(--color-text-tertiary)"></i>待处理</span></td><td style="text-align:right">¥1,299.00</td></tr></table></div></div></div>
+<div class="ex no"><div class="lab"><i></i>错<span>符号要学，颜色太多</span></div><div class="stage"><div class="paper"><table class="mini"><tr><td>AS-10241</td><td><span style="color:#e5484d;font-size:16px">◆</span></td><td style="text-align:right">¥238.00</td></tr><tr><td>AS-10224</td><td><span style="color:#3e63dd;font-size:16px">◐</span></td><td style="text-align:right">¥0.00</td></tr><tr><td>AS-10229</td><td><span style="background:#f5a524;color:#fff;padding:2px 10px;border-radius:99px;font-size:12px">即将超时</span></td><td style="text-align:right">¥429.00</td></tr><tr><td>AS-10211</td><td><span style="background:#30a46c;color:#fff;padding:2px 10px;border-radius:99px;font-size:12px">已完成</span></td><td style="text-align:right">¥520.00</td></tr><tr><td>AS-10215</td><td><span style="font-size:16px;color:#888">○</span></td><td style="text-align:right">¥1,299.00</td></tr></table></div></div></div>
+</div></div>
+<!-- 03 -->
+<div class="rule" id="r3"><div><div class="no">03</div><h3>列表在左，详情在右，操作在详情底部</h3>
+<p class="why"><b>为什么：</b>一件接一件办：左边是排好序的列表，右边是当前这件的详情（说明 → 关键信息 → 明细 → 底部操作栏）。操作栏属于详情卡，不浮在页面上，不会挡住内容；办完自动选中下一件，可撤销。</p>
+<p class="tok">列表 5 栏 · 详情 7 栏 · .cf 卡底操作栏</p></div>
+<div class="pair">
+<div class="ex ok"><div class="lab"><i></i>对<span>同一张卡里办完</span></div><div class="stage"><div class="paper" style="display:grid;grid-template-columns:40% 1fr;height:170px;overflow:hidden;font-size:11.5px"><div style="border-right:1px solid var(--color-hairline)"><div style="padding:8px 10px;border-bottom:1px solid var(--color-divider);background:var(--color-surface-selected);box-shadow:inset 2px 0 0 var(--color-primary)"><b style="font-weight:500">6 笔退款等你批准</b><div style="color:var(--color-text-tertiary)">4 家门店</div></div><div style="padding:8px 10px;border-bottom:1px solid var(--color-divider);"><b style="font-weight:500">2 笔发货已超时</b><div style="color:var(--color-text-tertiary)">鲸选生活</div></div><div style="padding:8px 10px;border-bottom:1px solid var(--color-divider);"><b style="font-weight:500">3 张发票待开具</b><div style="color:var(--color-text-tertiary)">企业客户</div></div></div><div style="display:flex;flex-direction:column"><div style="padding:10px 12px;border-bottom:1px solid var(--color-hairline)"><b style="font-size:13px">6 笔退款等你批准</b></div><div style="padding:10px 12px;color:var(--color-text-secondary);flex:1">门店已确认问题，单笔低于免审阈值。<br>合计 ¥4,218.00</div><div style="display:flex;align-items:center;gap:8px;padding:8px 12px;border-top:1px solid var(--color-hairline);background:var(--color-surface-subtle)"><span style="color:var(--color-text-tertiary)">10 分钟内可撤销</span><span style="margin-left:auto;background:var(--color-primary);color:var(--color-on-primary);padding:3px 10px;border-radius:6px">批准 6 笔</span></div></div></div></div></div>
+<div class="ex no"><div class="lab"><i></i>错<span>浮动操作条盖住内容</span></div><div class="stage"><div class="paper" style="height:170px;position:relative;overflow:hidden;font-size:11.5px"><div style="padding:8px 10px;border-bottom:1px solid var(--color-divider);background:var(--color-surface-selected);box-shadow:inset 2px 0 0 var(--color-primary)"><b style="font-weight:500">6 笔退款等你批准</b><div style="color:var(--color-text-tertiary)">4 家门店</div></div><div style="padding:8px 10px;border-bottom:1px solid var(--color-divider);"><b style="font-weight:500">2 笔发货已超时</b><div style="color:var(--color-text-tertiary)">鲸选生活</div></div><div style="padding:8px 10px;border-bottom:1px solid var(--color-divider);"><b style="font-weight:500">3 张发票待开具</b><div style="color:var(--color-text-tertiary)">企业客户</div></div><div style="padding:8px 10px;color:var(--color-text-tertiary)">（第 4 行被挡住）</div><div style="position:absolute;left:8px;right:8px;bottom:8px;display:flex;align-items:center;gap:8px;padding:8px 12px;background:var(--color-surface);border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,.18)"><span>● 10 分钟内可撤销 ● 之后进入支付通道</span><span style="margin-left:auto;background:var(--color-primary);color:#fff;padding:3px 10px;border-radius:6px">批准 6 笔 · ¥4,218</span></div></div></div></div>
+</div></div>
+<!-- 04 -->
+<div class="rule" id="r4"><div><div class="no">04</div><h3>数字右对齐、等宽</h3>
+<p class="why"><b>为什么：</b>金额要上下比较大小。等宽数字（tabular）+ 右对齐，个位对个位，一眼看出谁大。</p>
+<p class="tok">font-variant-numeric: tabular-nums · ¥ 与小数降一级</p></div>
+<div class="pair">
+<div class="ex ok"><div class="lab"><i></i>对<span>位数对齐</span></div><div class="stage"><div class="paper"><table class="mini"><tr><th>门店</th><th class="r">实付</th></tr><tr><td>朝阳</td><td class="amt"><s>¥</s>12,480.00</td></tr><tr><td>望京</td><td class="amt"><s>¥</s>968.50</td></tr><tr><td>国贸</td><td class="amt"><s>¥</s>1,111.00</td></tr></table></div></div></div>
+<div class="ex no"><div class="lab"><i></i>错<span>左对齐、比例数字</span></div><div class="stage"><div class="paper"><table class="mini" style="font-feature-settings:'pnum'"><tr><th>门店</th><th>实付</th></tr><tr><td>朝阳</td><td>¥12480</td></tr><tr><td>望京</td><td>¥968.5</td></tr><tr><td>国贸</td><td>¥1111.00</td></tr></table></div></div></div>
+</div></div>
+
+<!-- 05 -->
+<div class="rule" id="r5"><div><div class="no">05</div><h3>发丝线，不画框</h3>
+<p class="why"><b>为什么：</b>线是用来分隔的，不是用来装饰的。只有一档浅色 1px 线，内容才是主角。</p>
+<p class="tok">--color-hairline <b class="tk" data-tok="--color-hairline">#E9E6F1</b> · 禁止 2px+ 边框与深色描边</p></div>
+<div class="pair">
+<div class="ex ok"><div class="lab"><i></i>对<span>1px 浅线只分行</span></div><div class="stage"><div class="paper"><table class="mini"><tr><td>朝阳门店</td><td class="r">128 单</td></tr><tr><td>望京门店</td><td class="r">96 单</td></tr><tr><td>国贸门店</td><td class="r">71 单</td></tr></table></div></div></div>
+<div class="ex no"><div class="lab"><i></i>错<span>粗框网格，像 Excel</span></div><div class="stage"><table class="mini" style="background:#fff;border:2px solid #555"><tr><td style="border:1px solid #777">朝阳门店</td><td class="r" style="border:1px solid #777">128 单</td></tr><tr><td style="border:1px solid #777">望京门店</td><td class="r" style="border:1px solid #777">96 单</td></tr><tr><td style="border:1px solid #777">国贸门店</td><td class="r" style="border:1px solid #777">71 单</td></tr></table></div></div>
+</div></div>
+
+<!-- 06 -->
+<div class="rule" id="r6"><div><div class="no">06</div><h3>没有卡片，只有发丝线</h3>
+<p class="why"><b>为什么：</b>页面就是一张白纸。区块之间用 1px 发丝线和留白分隔，不画卡片、不加底色、不加投影；KPI 是一条用竖线分隔的数字带。投影只给真正浮起来的东西：命令面板、菜单、Toast。</p>
+<p class="tok">--color-hairline · 无卡片 · --shadow-float 只给浮层</p></div>
+<div class="pair">
+<div class="ex ok"><div class="lab"><i></i>对<span>一条发丝线分开</span></div><div class="stage"><div class="paper" style="display:grid;grid-template-columns:1fr 1fr;padding:12px 16px"><div style="border-top:1px solid var(--color-hairline);border-bottom:1px solid var(--color-hairline);padding:8px 0"><div style="font-size:12px;color:var(--color-text-tertiary)">今日订单</div><div style="font-size:20px;font-weight:500">1,284</div></div><div style="border:1px solid var(--color-hairline);border-right:0;padding:8px 12px"><div style="font-size:12px;color:var(--color-text-tertiary)">待退款</div><div style="font-size:20px;font-weight:500">27</div></div></div></div></div>
+<div class="ex no"><div class="lab"><i></i>错<span>深色框、浮起、渐变、卡中套卡</span></div><div class="stage"><div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;background:#17131f;padding:12px;border-radius:14px"><div style="background:linear-gradient(135deg,#fff,#efeaff);border-radius:16px;box-shadow:0 12px 28px rgba(0,0,0,.35);padding:10px"><div style="font-size:12px;color:#666">今日订单</div><div style="box-shadow:0 2px 8px rgba(0,0,0,.15);border-radius:10px;padding:4px 8px;font-size:22px;font-weight:600">1,284</div></div><div style="background:linear-gradient(135deg,#fff,#efeaff);border-radius:16px;box-shadow:0 12px 28px rgba(0,0,0,.35);padding:10px"><div style="font-size:12px;color:#666">待退款</div><div style="box-shadow:0 2px 8px rgba(0,0,0,.15);border-radius:10px;padding:4px 8px;font-size:22px;font-weight:600">27</div></div></div></div></div>
+</div></div>
+<!-- 07 -->
+<div class="rule" id="r7"><div><div class="no">07</div><h3>间距只有 8 / 16 / 32</h3>
+<p class="why"><b>为什么：</b>间距表达关系：越近越相关。只用三档，关系就一眼可读；随手写 13、19、27，页面就散了。</p>
+<p class="tok">--rhythm-in 8 · --rhythm-group 16 · --rhythm-block 32</p></div>
+<div class="pair">
+<div class="ex ok"><div class="lab"><i></i>对<span>标签与值 8 · 字段之间 16</span></div><div class="stage"><div class="paper card" style="gap:16px"><div style="display:flex;flex-direction:column;gap:8px"><span class="t12">收货人</span><span class="t13">王先生 · 138****2041</span></div><div style="display:flex;flex-direction:column;gap:8px"><span class="t12">地址</span><span class="t13">朝阳区建国路 88 号</span></div></div></div></div>
+<div class="ex no"><div class="lab"><i></i>错<span>间距随手，分不清谁跟谁</span></div><div class="stage"><div class="paper card" style="gap:0;padding:11px 19px"><span class="t12" style="margin-bottom:13px">收货人</span><span class="t13" style="margin-bottom:5px">王先生 · 138****2041</span><span class="t12" style="margin-bottom:3px">地址</span><span class="t13">朝阳区建国路 88 号</span></div></div></div>
+</div></div>
+
+<!-- 08 -->
+<div class="rule" id="r8"><div><div class="no">08</div><h3>13px 为正文，层级靠字重和灰度</h3>
+<p class="why"><b>为什么：</b>页标题 18/600 · 区块标题 13/500 · 正文和表格 13 · 辅助 12 · KPI 22/500。字号差很小，层级靠字重（400/500/600）和三级灰。不用大写疏排小字。</p>
+<p class="tok">13 / 12 / 18 / 22 · 字重 400 / 500 / 600</p></div>
+<div class="pair">
+<div class="ex ok"><div class="lab"><i></i>对<span>18 标题 · 13 说明 · 12 辅助</span></div><div class="stage"><div class="paper" style="padding:16px"><div style="font-size:18px;line-height:26px;font-weight:600">订单售后</div><div style="font-size:13px;color:var(--color-text-secondary);margin-top:4px">23 单待处理，<span style="color:var(--color-danger-text)">6 单超时</span></div><div style="font-size:12px;color:var(--color-text-tertiary);margin-top:8px">更新于 10:42</div></div></div></div>
+<div class="ex no"><div class="lab"><i></i>错<span>满屏 10–11px 大写小字</span></div><div class="stage"><div class="paper" style="padding:16px"><div style="font-size:10px;letter-spacing:.16em;color:var(--color-text-tertiary)">AFTER-SALES · QUEUE · 10-17</div><div style="font-size:15px;font-weight:600;margin-top:4px">订单售后</div><div style="font-size:10.5px;letter-spacing:.1em;color:var(--color-text-tertiary);margin-top:6px">PENDING 23 · LATE 6 · SLA 72H · UPDATED 10:42</div></div></div></div>
+</div></div>
+<!-- 09 -->
+<div class="rule" id="R10"><div><div class="no">09</div><h3>危险操作先写后果</h3>
+<p class="why"><b>为什么：</b>“确定吗？”什么也没说。要写清楚会发生什么、能不能撤销，按钮上直接说出动作和数量。</p>
+<p class="tok">--role-danger 只用于确认按钮 · 默认焦点落在“取消”</p></div>
+<div class="pair">
+<div class="ex ok"><div class="lab"><i></i>对<span>后果 + 动作 + 数量</span></div><div class="stage"><div class="paper card" style="box-shadow:var(--shadow-pop)"><div class="ttl">作废 3 张优惠券？</div><div class="t13" style="color:var(--color-text-secondary)">已领取的 214 位用户将立即无法使用，<b style="color:var(--color-danger)">不可撤销</b>。已用券的订单不受影响。</div><div style="display:flex;justify-content:flex-end;gap:8px"><button class="b s">取消</button><button class="b d">作废 3 张</button></div></div></div></div>
+<div class="ex no"><div class="lab"><i></i>错<span>只有“确定吗”</span></div><div class="stage"><div class="paper card" style="box-shadow:var(--shadow-pop)"><div class="ttl">提示</div><div class="t13">确定要执行此操作吗？</div><div style="display:flex;justify-content:flex-end;gap:8px"><button class="b s">否</button><button class="b p">确定</button></div></div></div></div>
+</div></div>
+
+<!-- 10 -->
+<div class="rule" id="r10"><div><div class="no">10</div><h3>每个状态都有出口</h3>
+<p class="why"><b>为什么：</b>空、加载、出错是常态。每一种都要说明“为什么这样”和“现在可以做什么”，不留死胡同。</p>
+<p class="tok">空：原因 + 下一步 · 加载：骨架行 · 出错：影响范围 + 重试 + 编号</p></div>
+<div class="pair">
+<div class="ex ok"><div class="lab"><i></i>对<span>说明原因，给出下一步</span></div><div class="stage" style="display:flex;flex-direction:column;gap:12px"><div class="paper card" style="gap:6px"><div class="t13" style="font-weight:600">没有符合“已超时”的订单</div><div class="t12">筛选条件：近 7 天 · 朝阳门店。超时规则：承诺 3 天未处理。</div><div><button class="b s">清除筛选</button></div></div><div class="paper card" style="gap:6px"><span class="st da">订单列表加载失败</span><div class="t12">退款和审批不受影响 · 错误编号 E-5021</div><div><button class="b s">重试</button></div></div></div></div>
+<div class="ex no"><div class="lab"><i></i>错<span>只有一句话或一个图</span></div><div class="stage" style="display:flex;flex-direction:column;gap:12px"><div class="paper card" style="align-items:center;color:#aaa"><div style="font-size:32px">☹</div><div class="t13">暂无数据</div></div><div class="paper card" style="align-items:center;color:#aaa"><div class="t13">出错了</div></div></div></div>
+</div></div>
+
+<!-- 11 -->
+<div class="rule" id="r11"><div><div class="no">11</div><h3>表格密而不挤</h3>
+<p class="why"><b>为什么：</b>后台要一屏看得多，但不能挤。行高 44（紧凑 36），主信息正文色，次要信息降一级灰，操作悬停时才出现。</p>
+<p class="tok">--row-h-default 44 · --row-h-compact 36 · text-2 / text-3</p></div>
+<div class="pair">
+<div class="ex ok"><div class="lab"><i></i>对<span>主次两级，一眼扫得下去</span></div><div class="stage"><div class="paper"><table class="mini"><tr><th>订单</th><th>客户</th><th class="r">实付</th></tr><tr style="height:44px"><td>#2410-0917<div class="t12">朝阳门店</div></td><td>王先生</td><td class="amt"><s>¥</s>612.00</td></tr><tr><td>#2410-0918<div class="t12">望京门店</div></td><td>李女士</td><td class="amt"><s>¥</s>1,012.00</td></tr></table></div></div></div>
+<div class="ex no"><div class="lab"><i></i>错<span>全部同等重量，按钮堆满</span></div><div class="stage"><div class="paper"><table class="mini" style="font-size:12px"><tr><th>订单</th><th>门店</th><th>客户</th><th>实付</th><th>操作</th></tr><tr><td style="height:28px">2410-0917</td><td>朝阳门店</td><td>王先生</td><td>612</td><td style="color:#1677ff">查看 编辑 删除 复制</td></tr><tr><td style="height:28px">2410-0918</td><td>望京门店</td><td>李女士</td><td>1012</td><td style="color:#1677ff">查看 编辑 删除 复制</td></tr></table></div></div></div>
+</div></div>
+
+<!-- 12 -->
+<div class="rule" id="r12"><div><div class="no">12</div><h3>焦点看得见</h3>
+<p class="why"><b>为什么：</b>用键盘的人要知道自己在哪。焦点是 2px 主色实线外框，离开元素 2px，不靠颜色变化暗示。（试试按 Tab）</p>
+<p class="tok">--focus-outline 2px solid · --focus-offset 2px</p></div>
+<div class="pair">
+<div class="ex ok"><div class="lab"><i></i>对<span>清晰外框</span></div><div class="stage" style="display:flex;gap:12px;align-items:center"><button class="b s">取消</button><button class="b p" style="outline:2px solid var(--color-primary);outline-offset:2px">批准 6 笔</button><button class="b p" style="display:none"></button><span class="t12">← 当前焦点</span></div></div>
+<div class="ex no"><div class="lab"><i></i>错<span>outline:none，焦点消失</span></div><div class="stage" style="display:flex;gap:12px;align-items:center"><button class="b s">取消</button><button class="b p" style="outline:none;background:#1A1F2C">批准 6 笔</button><span class="t12">← 焦点在哪？</span></div></div>
+</div></div>
+<!-- 14 -->
+<div class="rule" id="r14"><div><div class="no">14</div><h3>每屏最多三种视觉手段</h3>
+<p class="why"><b>为什么：</b>页头（标题 + 一句结论 + 操作）、一条 KPI 数字带、主体（表格，或列表 + 详情）。再加图表就替换掉一种，而不是叠上去。R15/R16 首屏同时有主图卡、堆叠条、队列、明细、表内进度条、时间脊、浮动后果条，每样都合理，叠在一起就没有落点。</p>
+<p class="tok">页头 · KPI 行 · 主体</p></div>
+<div class="pair">
+<div class="ex ok"><div class="lab"><i></i>对<span>三块，各司其职</span></div><div class="stage"><div style="display:flex;flex-direction:column;gap:8px;background:var(--color-bg);padding:12px;border-radius:8px;font-size:11px"><div style="font-size:14px;font-weight:600">订单售后 <span style="font-weight:400;color:var(--color-text-tertiary);font-size:11px">23 单待处理</span></div><div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px"><div style="background:var(--color-surface);border:1px solid var(--color-hairline);border-radius:10px;"><div style="padding:6px 8px"><div style="color:var(--color-text-tertiary)">待处理</div><b style="font-size:15px">23</b></div></div><div style="background:var(--color-surface);border:1px solid var(--color-hairline);border-radius:10px;"><div style="padding:6px 8px"><div style="color:var(--color-text-tertiary)">超时</div><b style="font-size:15px">6</b></div></div><div style="background:var(--color-surface);border:1px solid var(--color-hairline);border-radius:10px;"><div style="padding:6px 8px"><div style="color:var(--color-text-tertiary)">待退</div><b style="font-size:15px">¥6,946</b></div></div><div style="background:var(--color-surface);border:1px solid var(--color-hairline);border-radius:10px;"><div style="padding:6px 8px"><div style="color:var(--color-text-tertiary)">完结率</div><b style="font-size:15px">86%</b></div></div></div><div style="background:var(--color-surface);border:1px solid var(--color-hairline);border-radius:10px;"><div style="height:62px;padding:6px 8px;color:var(--color-text-tertiary)">表格 · 11 行</div></div></div></div></div>
+<div class="ex no"><div class="lab"><i></i>错<span>七种手段叠在一屏</span></div><div class="stage"><div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:5px;background:var(--color-bg);padding:8px;border-radius:8px;font-size:10px"><div style="grid-column:span 2;background:#fff;border-radius:12px;box-shadow:0 4px 12px rgba(0,0,0,.08);padding:6px;font-size:16px;font-weight:600">今天还有 9 件事</div><div style="background:#fff;border-radius:12px;padding:6px"><div style="height:6px;display:flex"><i style="flex:2;background:#e5484d"></i><i style="flex:3;background:#6246ea"></i><i style="flex:4;background:#ccc"></i></div></div><div style="background:#fff;border-radius:12px;padding:6px">◆ ◆ ◐ ○ ○ 队列</div><div style="background:#fff;border-radius:12px;padding:6px">明细 ▬▬ ▬ ▬▬▬</div><div style="background:#fff;border-radius:12px;padding:6px">● 经过 ● ● ●</div><div style="grid-column:span 3;background:#fff;border-radius:12px;box-shadow:0 8px 20px rgba(0,0,0,.2);padding:6px">● 后果条 · ● 撤销 · <b style="background:#6246ea;color:#fff;padding:1px 6px;border-radius:5px">批准</b></div></div></div></div>
+</div></div>
+<div class="rule" id="r15"><div><div class="no">15</div><h3>只用无衬线；数字固定 Geist，自托管</h3>
+<p class="why"><b>为什么：</b>汉字和字母走系统黑体（苹方 / 鸿蒙黑体 / 微软雅黑），数字固定用 Geist（R16 选定），woff2 放在仓库 <code>fonts/</code>，用 unicode-range 只覆盖数字和 ¥ % + − 等符号，不依赖任何 CDN，每台机器一样。全部 tabular-nums；大数 600，表格 500，坐标轴 400。Geist Mono 只给代码；单号用 Geist 表格数字。</p>
+<p class="tok">--font-sans（"Geist Fig" 打头）· --font-mono = Geist Mono（只给代码） · font-variant-numeric: tabular-nums</p></div>
+<div class="pair">
+<div class="ex ok"><div class="lab"><i></i>对<span>自托管数字 · 600 · 符号降级 · 列对齐</span></div><div class="stage"><div class="paper" style="padding:16px 18px"><div style="font-size:12px;font-weight:500;color:var(--color-text-tertiary)">本周 GMV</div><div  style="font-size:32px;line-height:40px"><span class="cur">¥</span>2,318<span class="dec">.40</span><small>万</small></div><div style="display:grid;grid-template-columns:1fr auto;gap:2px 16px;margin-top:8px;font-size:13px;font-variant-numeric:tabular-nums"><span class="id">AS-0042</span><span style="text-align:right">¥1,111.00</span><span class="id">AS-0198</span><span style="text-align:right">¥8,088.00</span><span class="id">AS-0007</span><span style="text-align:right;color:var(--color-danger-text)">−¥108.00</span></div></div></div></div>
+<div class="ex no"><div class="lab"><i></i>错<span>赌本机字体 · 细体紧字距 · 等宽编号 · 连字符负号</span></div><div class="stage"><div class="paper" style="padding:16px 18px;font-family:'Microsoft YaHei','PingFang SC',sans-serif"><div style="font-size:12px;color:var(--color-text-tertiary)">本周 GMV</div><div style="font-family:'Microsoft YaHei','PingFang SC',sans-serif;font-size:40px;line-height:44px;font-weight:200;letter-spacing:-.05em;font-variant-numeric:proportional-nums">¥2,318.40万</div><div style="display:grid;grid-template-columns:1fr auto;gap:2px 16px;margin-top:8px;font-size:13px;font-variant-numeric:proportional-nums"><span style="font-family:monospace">AS-0042</span><span style="text-align:right">¥1,111.00</span><span style="font-family:monospace">AS-0198</span><span style="text-align:right">¥8,088.00</span><span style="font-family:monospace">AS-0007</span><span style="text-align:right">-¥108.00</span></div></div></div></div>
+</div></div>
+</section>
+
+<section id="craft" style="margin-top:56px">
+<div class="eng">R16 新增 · 回应 R14 的 5 分</div>
+<h2>宋体不适合后台，展示感也收回来</h2>
+<p class="muted">R14 的反馈是“宋体似乎不符合这个风格”。复盘后，三件事一起收：</p>
+<div class="gap"><div><b>去掉全部衬线</b><p>宋体有书卷气、编辑感，放在每天要处理几十件事的工作台上显得端着。全站只用无衬线，中文走系统黑体，不依赖任何网络字体。</p></div><div><b>字号收回到工作尺度</b><p>48–72px 的展示字像海报。现在页面标题 24、主图卡结论 28、关键数 40，靠字重和留白拉开层级。</p></div><div><b>纵深和动效变轻</b><p>浮起的大投影换成 1px 细描边 + 极浅阴影；入场只淡入 3px，240ms 内完成；保留更好的图表和主图卡。</p></div></div>
+<h2 style="margin-top:40px;font-size:18px">字阶：五档，只用 400 / 500 / 600</h2>
+<div class="scale">
+<div><small>主图卡结论</small><span style="font-size:28px;line-height:36px;font-weight:600;letter-spacing:-.01em">今天还有 9 件事</span><code>--fs-display-xl 28/36 · 600</code></div>
+<div><small>关键数</small><span style="font-family:var(--font-figure);font-size:40px;line-height:1;font-weight:600;letter-spacing:-.02em;font-variant-numeric:tabular-nums">¥2,318<span style="font-size:16px;font-weight:500;color:var(--color-text-tertiary)"> 万</span></span><code>--fs-figure-xl 40 · 600 · tnum · -2%</code></div>
+<div><small>页面 / 区块标题</small><span style="font-size:18px;line-height:26px;font-weight:600">批准 6 笔超时退款</span><code>--fs-headline 18/26 · 600</code></div>
+<div><small>正文</small><span style="font-size:14px;line-height:22px">门店都已确认商品问题，单笔都低于免审阈值。</span><code>14/22 · 400</code></div>
+<div><small>辅助 / 小标题</small><span style="font-size:12px;font-weight:500;color:var(--color-text-tertiary)">经营周报 · 10-11 ~ 10-17</span><code>--fs-eyebrow 12 · 500</code></div>
+</div>
+<p class="muted" style="margin-top:10px;font-size:12.5px">字体栈：<code>"Inter", "SF Pro Text", -apple-system, "Segoe UI", "PingFang SC", "HarmonyOS Sans SC", "Noto Sans CJK SC", "Microsoft YaHei", system-ui, sans-serif</code>。Inter 是可选的：本机没有就用系统字体，国内网络下不会白屏或闪字。</p>
+
+<!-- 16 -->
+<div class="rule" id="r16"><div><div class="no">16</div><h3>主操作带快捷键，⌘K 能到达一切</h3>
+<p class="why"><b>为什么：</b>精简界面靠键盘提效：⌘K 命令面板能搜到每个页面和操作；常用操作有单键（J 下一件、E 办完、Z 撤销、C 新建），按钮上直接显示键帽；G + 字母跳页。键帽是 18px 灰色小块，不抢视线。</p>
+<p class="tok">kbd 18px · ⌘K · / · G+字母 · J / E / Z / C</p></div>
+<div class="pair">
+<div class="ex ok"><div class="lab"><i></i>对<span>按钮写快捷键，命令面板可达</span></div><div class="stage"><div class="paper" style="padding:14px 16px;display:flex;gap:8px;align-items:center"><span class="kbd">⌘</span><span class="kbd">K</span><span style="font-size:12px;color:var(--color-text-tertiary);margin-right:auto">搜索或命令</span><span style="display:inline-flex;align-items:center;gap:6px;height:28px;padding:0 10px;border:1px solid var(--color-hairline);border-radius:6px;font-size:13px">稍后 <span class="kbd">J</span></span><span style="display:inline-flex;align-items:center;gap:6px;height:28px;padding:0 10px;border-radius:6px;font-size:13px;background:var(--color-primary);color:#fff">批准 6 笔 <span class="kbd" style="background:transparent;color:rgba(255,255,255,.85);border-color:rgba(255,255,255,.3);box-shadow:none">E</span></span></div></div></div>
+<div class="ex no"><div class="lab"><i></i>错<span>只能用鼠标，快捷键藏在帮助里</span></div><div class="stage"><div class="paper" style="padding:14px 16px;display:flex;gap:8px;align-items:center;justify-content:flex-end"><span style="font-size:12px;color:var(--color-text-tertiary);margin-right:auto">帮助 → 快捷键列表（第 3 页）</span><span style="display:inline-flex;align-items:center;height:28px;padding:0 10px;border:1px solid var(--color-hairline);border-radius:6px;font-size:13px">稍后</span><span style="display:inline-flex;align-items:center;height:28px;padding:0 10px;border-radius:6px;font-size:13px;background:var(--color-primary);color:#fff">确定</span></div></div></div>
+</div></div>
+
+</section>
+<section id="roles">
+<div class="eng">第二层 · 角色 · 界面里每类东西的身份</div>
+<h2>角色 → 视觉处理</h2>
+<p class="muted">组件只认角色，不认色值。换主题时只换取值，角色和处理方式不变。</p>
+<table class="roles">
+<tr><th>角色</th><th>样本</th><th>视觉处理</th><th>令牌</th></tr>
+<tr><td>框架（侧栏）</td><td><span class="sw" style="background:var(--color-frame)"></span></td><td>浅灰侧栏 + 1px 发丝线；当前项 = 浅灰底 + 发丝边，不用主色</td><td><code>--role-frame</code></td></tr>
+<tr><td>画布</td><td><span class="sw" style="background:var(--color-bg)"></span></td><td>画布，所有纸面的底</td><td><code>--role-canvas</code></td></tr>
+<tr><td>区块</td><td><span class="sw" style="background:var(--color-surface)"></span></td><td>白纸上的区块：上方 1px 发丝线 + 留白，没有卡片、底色、投影</td><td><code>--role-surface</code></td></tr>
+<tr><td>主操作</td><td><button class="b p">批准 6 笔</button></td><td>主色实底，每屏 1 个，写出动作 + 数量</td><td><code>--role-action</code></td></tr>
+<tr><td>次操作</td><td><button class="b s">逐笔查看</button></td><td>纸底 + 1px 强边</td><td><code>--role-border-strong</code></td></tr>
+<tr><td>轻操作</td><td><button class="b t">导出</button></td><td>无边无底，悬停才出底色</td><td><code>--role-text-2</code></td></tr>
+<tr><td>危险操作</td><td><button class="b d">作废 3 张</button></td><td>只出现在确认层里，配后果说明</td><td><code>--role-danger</code></td></tr>
+<tr><td>状态 · 成功 / 进行 / 注意 / 异常</td><td><span class="st ok"></span> <span class="st in"></span> <span class="st wa"></span> <span class="st da"></span></td><td>6px 圆点 + 12.5 文字，无底色；五种语义：默认 / 进行中 / 提醒 / 异常 / 完成，只有异常文字着色</td><td><code>--role-success … danger</code></td></tr>
+<tr><td>正文 / 次要 / 辅助</td><td><span style="color:var(--color-text)">正文</span> <span style="color:var(--color-text-secondary)">次要</span> <span style="color:var(--color-text-tertiary)">辅助</span></td><td>三级文字，不再用更多灰</td><td><code>--role-text-1/2/3</code></td></tr>
+<tr><td>数字 / 金额</td><td><span class="amt"><s>¥</s>4,218.00</span></td><td>Geist 表格数字（自托管），右对齐；¥ 与小数降为三级灰</td><td><code>tabular-nums</code></td></tr>
+<tr><td>卡头</td><td><b style="font-size:14px">告警</b> <span class="muted" style="font-size:13px">按严重程度</span></td><td>40px 高，标题 13/500 + 12 灰色说明，下方一条发丝线</td><td><code>--h-card-head</code></td></tr>
+<tr><td>焦点</td><td><button class="b s" style="outline:2px solid var(--color-primary);outline-offset:2px">焦点</button></td><td>2px 主色实线，偏移 2px</td><td><code>--focus-outline</code></td></tr>
+</table>
+</section>
+
+<section id="tokens">
+<div class="eng">第三层 · 取值 · 可整套替换</div>
+<h2>取值与组件库映射</h2>
+<p class="muted">下面是当前这一套值。换成别的值也可以，只要仍满足 12 条规矩（例如主操作对白字对比 ≥ 4.5:1（AA）、状态色不做大面积底色）。</p>
+<div class="tokgrid">
+<div class="paper"><h5>颜色</h5><ul><li><span class="sw" style="background:var(--color-frame)"></span>侧栏<code><b class="tk" data-tok="--color-frame">#17131F</b></code></li><li><span class="sw" style="background:var(--color-primary)"></span>主色<code><b class="tk" data-tok="--color-primary">#6246EA</b></code></li><li><span class="sw" style="background:var(--color-bg)"></span>画布<code><b class="tk" data-tok="--color-bg">#F5F4F9</b></code></li><li><span class="sw" style="background:var(--color-surface)"></span>纸<code><b class="tk" data-tok="--color-surface">#FFFFFF</b></code></li><li><span class="sw" style="background:var(--color-hairline)"></span>发丝<code><b class="tk" data-tok="--color-hairline">#E9E6F1</b></code></li><li><span class="sw" style="background:var(--color-danger)"></span>异常<code><b class="tk" data-tok="--color-danger">#CF2F44</b></code></li><li><span class="sw" style="background:var(--color-success)"></span>成功<code><b class="tk" data-tok="--color-success">#12805C</b></code></li></ul></div>
+<div class="paper"><h5>字号 / 行高</h5><ul><li>辅助<code>12 / 16</code></li><li>表格<code>13 / 20</code></li><li>正文<code>14 / 22</code></li><li>小标题<code>16 / 24</code></li><li>结论句<code>20 / 28</code></li><li>页标题<code>24 / 32</code></li><li>数字<code>28 / 32</code></li></ul></div>
+<div class="paper"><h5>间距</h5><ul><li><span style="display:inline-block;width:8px;height:8px;background:var(--color-primary)"></span>组内<code>8</code></li><li><span style="display:inline-block;width:16px;height:8px;background:var(--color-primary)"></span>组间<code>16</code></li><li><span style="display:inline-block;width:32px;height:8px;background:var(--color-primary)"></span>区块<code>32</code></li><li>页边<code>40</code></li></ul></div>
+<div class="paper"><h5>形状 / 尺寸</h5><ul><li>圆角 控件<code>6</code></li><li>圆角 浮层<code>10</code></li><li>控件高<code>28</code></li><li>行高 默认<code>36</code></li><li>行高 紧凑<code>32</code></li><li>侧栏宽<code>232</code></li></ul></div>
+</div>
+
+<h2 style="margin-top:48px;font-size:20px">同一套规矩，两个组件库，一个样子</h2>
+<p class="muted">上排：Ant Design 5 与 MUI 的默认外观（示意）。下排：只改主题配置、不改组件代码之后。</p>
+<div class="libs">
+<div class="libcol"><h5>Ant Design 5 <span>默认</span></h5><div class="ant-def card"><div class="mrow"><div class="ttl">退款审批 · 6 笔</div><span class="tag">待处理</span></div><div class="t12">合计 ¥4218 · 最久 3 天</div><div style="display:flex;gap:8px;justify-content:flex-end"><button class="b s">查看</button><button class="b p">批准</button></div></div></div>
+<div class="libcol"><h5>MUI <span>默认</span></h5><div class="mui-def card"><div class="mrow"><div class="ttl">退款审批 · 6 笔</div><span class="tag">待处理</span></div><div class="t12">合计 ¥4218 · 最久 3 天</div><div style="display:flex;gap:8px;justify-content:flex-end"><button class="b s">查看</button><button class="b p">批准</button></div></div></div>
+<div class="libcol"><h5>Ant Design 5 <span>套用本语言</span></h5><div class="paper card"><div class="mrow"><div class="ttl">退款审批 · 6 笔</div><span class="st da">超时</span></div><div class="t12">合计 <span class="amt">¥4,218</span> · 最久 3 天</div><div style="display:flex;gap:8px;justify-content:flex-end"><button class="b s">逐笔查看</button><button class="b p">批准 6 笔</button></div></div>
+<pre class="map"><i>// ConfigProvider theme</i>
+token: { colorPrimary:'<b class="tk" data-tok="--color-primary">#6246EA</b>', colorBgLayout:'<b class="tk" data-tok="--color-bg">#F5F4F9</b>',
+  colorBgContainer:'<b class="tk" data-tok="--color-surface">#FFFFFF</b>', colorBorderSecondary:'<b class="tk" data-tok="--color-hairline">#E9E6F1</b>',
+  colorError:'<b class="tk" data-tok="--color-danger">#CF2F44</b>', colorSuccess:'<b class="tk" data-tok="--color-success">#12805C</b>',
+  borderRadius:6, controlHeight:28, fontSize:13,
+  boxShadow:'none', wireframe:false }
+components: { Table:{ cellPaddingBlock:12, headerBg:'<b class="tk" data-tok="--color-surface-subtle">#F9F8FC</b>' },
+  Tag: <i>// 不用 Tag 表示状态 → 用 Badge status + 文字</i> }</pre></div>
+<div class="libcol"><h5>MUI <span>套用本语言</span></h5><div class="paper card"><div class="mrow"><div class="ttl">退款审批 · 6 笔</div><span class="st da">超时</span></div><div class="t12">合计 <span class="amt">¥4,218</span> · 最久 3 天</div><div style="display:flex;gap:8px;justify-content:flex-end"><button class="b s">逐笔查看</button><button class="b p">批准 6 笔</button></div></div>
+<pre class="map"><i>// createTheme</i>
+palette:{ primary:{main:'<b class="tk" data-tok="--color-primary">#6246EA</b>'}, error:{main:'<b class="tk" data-tok="--color-danger">#CF2F44</b>'},
+  background:{default:'<b class="tk" data-tok="--color-bg">#F5F4F9</b>', paper:'<b class="tk" data-tok="--color-surface">#FFFFFF</b>'}, divider:'<b class="tk" data-tok="--color-hairline">#E9E6F1</b>' },
+shape:{ borderRadius:6 }, shadows: Array(25).fill('none'),
+typography:{ fontSize:14, button:{ textTransform:'none', fontWeight:550 } },
+components:{ MuiButton:{ defaultProps:{ disableElevation:true } },
+  MuiChip: <i>// 状态改用 6px 圆点 + 文字</i> }</pre></div>
+</div>
+
+<table class="roles" style="margin-top:32px">
+<tr><th>角色</th><th>Ant Design 5</th><th>Element Plus</th><th>shadcn/ui</th><th>MUI</th></tr>
+<tr><td>主操作</td><td><code>colorPrimary</code></td><td><code>--el-color-primary</code></td><td><code>--primary</code></td><td><code>palette.primary.main</code></td></tr>
+<tr><td>画布</td><td><code>colorBgLayout</code></td><td><code>--el-bg-color-page</code></td><td><code>--background</code></td><td><code>background.default</code></td></tr>
+<tr><td>白纸</td><td><code>colorBgContainer</code></td><td><code>--el-bg-color</code></td><td><code>--card</code></td><td><code>background.paper</code></td></tr>
+<tr><td>发丝线</td><td><code>colorBorderSecondary</code></td><td><code>--el-border-color-lighter</code></td><td><code>--border</code></td><td><code>divider</code></td></tr>
+<tr><td>异常</td><td><code>colorError</code></td><td><code>--el-color-danger</code></td><td><code>--destructive</code></td><td><code>palette.error.main</code></td></tr>
+<tr><td>正文 / 次要</td><td><code>colorText / colorTextSecondary</code></td><td><code>--el-text-color-primary / regular</code></td><td><code>--foreground / --muted-foreground</code></td><td><code>text.primary / secondary</code></td></tr>
+<tr><td>圆角</td><td><code>borderRadius: 6</code></td><td><code>--el-border-radius-base</code></td><td><code>--radius: .375rem</code></td><td><code>shape.borderRadius</code></td></tr>
+<tr><td>投影</td><td><code>boxShadow: none</code></td><td><code>--el-box-shadow-light: none</code></td><td>去掉 <code>shadow-sm</code></td><td><code>shadows: none</code></td></tr>
+<tr><td>控件高 / 字号</td><td><code>controlHeight: 28 · fontSize: 13</code></td><td><code>--el-component-size: 28px · --el-font-size-base: 13px</code></td><td><code>h-7 · text-[13px]</code></td><td><code>size="small" · typography.fontSize: 13</code></td></tr><tr><td>表格行</td><td><code>Table size="small"（cellPaddingBlockSM: 8）</code></td><td><code>size="small"</code></td><td><code>TableCell h-9</code></td><td><code>Table size="small"</code></td></tr><tr><td>卡片</td><td><code>Card bordered={false}</code> + 上发丝线</td><td><code>--el-card-border-color: transparent</code></td><td>不用 <code>Card</code>，用 <code>border-t</code></td><td><code>Paper elevation={0} square</code></td></tr><tr><td>数字字体</td><td colspan="4"><code>fontFamily: "Geist Fig", -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif</code>（四个库都一样，Geist 自托管）</td></tr><tr><td>焦点</td><td><code>controlOutline</code> + outline 覆盖</td><td><code>:focus-visible</code> 覆盖</td><td><code>--ring</code></td><td><code>focusVisible</code> 覆盖</td></tr>
+</table>
+</section>
+
+<section id="themes">
+<div class="eng">第四层 · 主题 · 默认之外的 6 套取值</div>
+<h2>主题：只换取值，不换语言</h2>
+<p class="muted">默认是 <b>雾紫·鸢尾</b>，不写任何属性就是它。其余 6 套是正式主题，用 <code>&lt;html data-theme="lake"&gt;</code> 打开；主题文件只覆盖和默认不同的值。右上角「主题」可以随时切换，本页所有色样、示例和下面的代码会跟着变。当前：<b data-themename></b>。</p>
+<div class="pair" style="margin-top:20px">
+<div class="paper card"><div class="ttl">主题可以改</div><ul class="ul">
+<li>角色的<b>取值</b>：画布、纸面、发丝线、三级文字、侧栏、主色及其悬停 / 按下 / 主色上文字</li>
+<li>状态色的<b>具体色相</b>（为了和主色拉开，或在深色下保证对比度）</li>
+<li>纸面纵深（深色主题可去掉投影）、图表序列</li>
+<li>侧栏深 / 浅、整页浅色 / 深色模式</li></ul></div>
+<div class="paper card"><div class="ttl">主题不能改</div><ul class="ul">
+<li><b>12 条规矩</b>：一屏一个主操作、颜色只表示状态、发丝线不画框……</li>
+<li><b>结构与尺寸</b>：间距 8/16/32、7 档字号、圆角、控件高、行高、侧栏宽</li>
+<li><b>状态语义</b>：成功 / 进行 / 注意 / 异常的含义和表现方式（6px 点 + 文字），异常永远是红色系</li>
+<li><b>对比度底线</b>：文字 ≥ 4.5:1，主按钮文字 ≥ 4.5:1，焦点线 ≥ 3:1</li></ul></div>
+</div>
+
+<div class="rule" id="r13"><div><div class="no">13</div><h3>主题只换取值</h3>
+<p class="why"><b>为什么：</b>换主题后，人仍要靠同样的位置和同样的颜色含义找到“下一步”和“出问题的地方”。主题一旦改了结构或状态含义，就变成了另一套产品。</p>
+<p class="tok">[data-theme] 只覆盖 --color-*</p></div>
+<div class="pair">
+<div class="ex ok"><div class="lab"><i></i>对<span>换色，结构和语义不动</span></div><div class="stage" style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+<div class="paper card mini2"><div class="mrow"><b>退款 · 6 笔</b><span class="st da">超时</span></div><button class="b p">批准 6 笔</button></div>
+<div class="paper card mini2" data-theme="lake"><div class="mrow"><b>退款 · 6 笔</b><span class="st da">超时</span></div><button class="b p">批准 6 笔</button></div></div></div>
+<div class="ex no"><div class="lab"><i></i>错<span>主题改了异常色、圆角和按钮位置</span></div><div class="stage" style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+<div class="paper card mini2"><div class="mrow"><b>退款 · 6 笔</b><span class="st da">超时</span></div><button class="b p">批准 6 笔</button></div>
+<div class="paper card mini2" data-theme="coral" style="border-radius:16px"><div class="mrow" style="flex-direction:row-reverse"><b>退款 · 6 笔</b><span style="color:#12805C;font-size:12px">● 超时</span></div><div style="display:flex;gap:6px"><button class="b p" style="border-radius:20px">批准</button><button class="b p" style="border-radius:20px">查看</button></div></div></div></div>
+</div></div>
+
+<h2 style="margin-top:48px;font-size:20px">主题一览</h2>
+<table class="roles themes"><tr><th>主题</th><th>类型</th><th>性格</th><th>色样（侧栏 · 画布 · 纸面 · 主色 · 成功 · 注意 · 异常）</th><th>主色</th><th>对比度</th><th></th></tr>
+<tr data-theme-row="iris"><td><b>雾紫·鸢尾</b><br><code>iris（无属性）</code></td><td>默认</td><td>偏紫的靛色更有当代感；侧栏是紫调墨色，安静但不老气</td><td><span class="sw sm" style="background:#17131F" title="侧栏"></span><span class="sw sm" style="background:#F5F4F9" title="画布"></span><span class="sw sm" style="background:#FFFFFF" title="纸面"></span><span class="sw sm" style="background:#6246EA" title="主色"></span><span class="sw sm" style="background:#12805C" title="成功"></span><span class="sw sm" style="background:#AD5A0A" title="注意"></span><span class="sw sm" style="background:#CF2F44" title="异常"></span></td><td><code>#6246EA</code></td><td>21/21 AA</td><td><button class="b s sm" data-try-theme="iris">回到默认</button></td></tr>
+<tr data-theme-row="cobalt"><td><b>霜白·钴蓝</b><br><code>cobalt</code></td><td>深色侧栏</td><td>R10 原版：冷白纸面、夜蓝侧栏，钴蓝只给动作，最稳的默认</td><td><span class="sw sm" style="background:#11151F" title="侧栏"></span><span class="sw sm" style="background:#F3F5F8" title="画布"></span><span class="sw sm" style="background:#FFFFFF" title="纸面"></span><span class="sw sm" style="background:#3D4BE0" title="主色"></span><span class="sw sm" style="background:#13805A" title="成功"></span><span class="sw sm" style="background:#B25E09" title="注意"></span><span class="sw sm" style="background:#D12F2F" title="异常"></span></td><td><code>#3D4BE0</code></td><td>21/21 AA</td><td><button class="b s sm" data-try-theme="cobalt">试用</button></td></tr>
+<tr data-theme-row="lake"><td><b>湖蓝·深青</b><br><code>lake</code></td><td>深色侧栏</td><td>偏青的深湖蓝，冷静、清透，适合数据和运维类后台</td><td><span class="sw sm" style="background:#0C1A21" title="侧栏"></span><span class="sw sm" style="background:#F2F6F8" title="画布"></span><span class="sw sm" style="background:#FFFFFF" title="纸面"></span><span class="sw sm" style="background:#0A6E9C" title="主色"></span><span class="sw sm" style="background:#1A7F4B" title="成功"></span><span class="sw sm" style="background:#A85F06" title="注意"></span><span class="sw sm" style="background:#CC3333" title="异常"></span></td><td><code>#0A6E9C</code></td><td>21/21 AA</td><td><button class="b s sm" data-try-theme="lake">试用</button></td></tr>
+<tr data-theme-row="graphite"><td><b>石墨·电蓝</b><br><code>graphite</code></td><td>深色侧栏</td><td>纯中性石墨灰 + 唯一一支高亮电蓝，像专业工具软件</td><td><span class="sw sm" style="background:#181818" title="侧栏"></span><span class="sw sm" style="background:#F4F4F3" title="画布"></span><span class="sw sm" style="background:#FFFFFF" title="纸面"></span><span class="sw sm" style="background:#0B5FFF" title="主色"></span><span class="sw sm" style="background:#15803D" title="成功"></span><span class="sw sm" style="background:#B45309" title="注意"></span><span class="sw sm" style="background:#D92D20" title="异常"></span></td><td><code>#0B5FFF</code></td><td>21/21 AA</td><td><button class="b s sm" data-try-theme="graphite">试用</button></td></tr>
+<tr data-theme-row="daylight"><td><b>晴窗·蓝宝</b><br><code>daylight</code></td><td>浅色侧栏</td><td>浅色侧栏版：整页通透明亮，蓝宝石色做动作，层次靠细线</td><td><span class="sw sm" style="background:#FFFFFF" title="侧栏"></span><span class="sw sm" style="background:#F4F6F9" title="画布"></span><span class="sw sm" style="background:#FFFFFF" title="纸面"></span><span class="sw sm" style="background:#2B59C3" title="主色"></span><span class="sw sm" style="background:#127A55" title="成功"></span><span class="sw sm" style="background:#AE5C08" title="注意"></span><span class="sw sm" style="background:#D12F2F" title="异常"></span></td><td><code>#2B59C3</code></td><td>21/21 AA</td><td><button class="b s sm" data-try-theme="daylight">试用</button></td></tr>
+<tr data-theme-row="coral"><td><b>暖砂·珊瑚</b><br><code>coral</code></td><td>深色侧栏</td><td>暖米灰纸面 + 克制的珊瑚红，有温度但依然整齐</td><td><span class="sw sm" style="background:#1E1A17" title="侧栏"></span><span class="sw sm" style="background:#F6F4F1" title="画布"></span><span class="sw sm" style="background:#FFFFFF" title="纸面"></span><span class="sw sm" style="background:#C4402A" title="主色"></span><span class="sw sm" style="background:#2F7D4F" title="成功"></span><span class="sw sm" style="background:#A35F00" title="注意"></span><span class="sw sm" style="background:#B3184A" title="异常"></span></td><td><code>#C4402A</code></td><td>21/21 AA</td><td><button class="b s sm" data-try-theme="coral">试用</button></td></tr>
+<tr data-theme-row="midnight"><td><b>夜幕·星蓝</b><br><code>midnight</code></td><td>深色模式</td><td>深色模式：深夜蓝灰底、柔和星蓝，长时间盯屏更省眼</td><td><span class="sw sm" style="background:#090B10" title="侧栏"></span><span class="sw sm" style="background:#0D1017" title="画布"></span><span class="sw sm" style="background:#151922" title="纸面"></span><span class="sw sm" style="background:#5163F0" title="主色"></span><span class="sw sm" style="background:#4CC38A" title="成功"></span><span class="sw sm" style="background:#E6A452" title="注意"></span><span class="sw sm" style="background:#F2676B" title="异常"></span></td><td><code>#5163F0</code></td><td>21/21 AA</td><td><button class="b s sm" data-try-theme="midnight">试用</button></td></tr>
+</table>
+
+<h2 style="margin-top:48px;font-size:20px">主题在组件库里怎么落地</h2>
+<p class="muted">原则都一样：默认一份配置，主题只放差异；切换时只换配置对象或根节点属性，组件代码不动。</p>
+<div class="libs">
+<div class="libcol"><h5>Ant Design 5 <span>ConfigProvider</span></h5><pre class="map"><i>// themes.ts —— 默认 + 差异</i>
+const base = { colorPrimary:'<b class="tk" data-tok="--color-primary">#6246EA</b>',
+  colorBgLayout:'<b class="tk" data-tok="--color-bg">#F5F4F9</b>', colorBgContainer:'<b class="tk" data-tok="--color-surface">#FFFFFF</b>',
+  colorError:'<b class="tk" data-tok="--color-danger">#CF2F44</b>', borderRadius:6, boxShadow:'none' };
+const themes = { lake:{ colorPrimary:'#0A6E9C', … },
+  midnight:{ algorithm: theme.darkAlgorithm, … } };
+&lt;ConfigProvider theme={{ token:{...base,...themes[id]} }}&gt;</pre></div>
+<div class="libcol"><h5>Element Plus <span>CSS 变量</span></h5><pre class="map"><i>/* 默认写 :root，主题只写差异 */</i>
+:root { --el-color-primary: <b class="tk" data-tok="--color-primary">#6246EA</b>;
+  --el-bg-color-page: <b class="tk" data-tok="--color-bg">#F5F4F9</b>;
+  --el-border-color-lighter: <b class="tk" data-tok="--color-hairline">#E9E6F1</b>; }
+html[data-theme="lake"] { --el-color-primary:#0A6E9C; … }
+html[data-theme="midnight"] { <i>/* 再加 class="dark" */</i> }</pre></div>
+<div class="libcol"><h5>shadcn/ui <span>CSS 变量</span></h5><pre class="map"><i>/* globals.css */</i>
+:root { --primary: <b class="tk" data-tok="--color-primary">#6246EA</b>; --background: <b class="tk" data-tok="--color-bg">#F5F4F9</b>;
+  --card: <b class="tk" data-tok="--color-surface">#FFFFFF</b>; --border: <b class="tk" data-tok="--color-hairline">#E9E6F1</b>;
+  --destructive: <b class="tk" data-tok="--color-danger">#CF2F44</b>; --radius:.375rem; }
+[data-theme="lake"] { --primary:#0A6E9C; … }
+<i>/* next-themes: attribute="data-theme" */</i></pre></div>
+<div class="libcol"><h5>MUI <span>createTheme</span></h5><pre class="map"><i>// 一份基础 + 每个主题 deepmerge</i>
+const base = createTheme({ palette:{ primary:{main:'<b class="tk" data-tok="--color-primary">#6246EA</b>'},
+  background:{default:'<b class="tk" data-tok="--color-bg">#F5F4F9</b>', paper:'<b class="tk" data-tok="--color-surface">#FFFFFF</b>'},
+  error:{main:'<b class="tk" data-tok="--color-danger">#CF2F44</b>'} }, shape:{borderRadius:6} });
+const themes = { lake: createTheme(base,{ palette:{primary:{main:'#0A6E9C'}} }),
+  midnight: createTheme(base,{ palette:{mode:'dark', …} }) };</pre></div>
+</div>
+<p class="muted" style="margin-top:12px">完整取值见 <a href="reference-tokens.css" style="color:var(--color-primary-text)">reference-tokens.css</a>：② 默认（鸢尾）③ 6 个主题的覆盖块 ④ 不随主题变化的尺寸 / 字号 / 间距。</p>
+</section>
+
+
+<section id="check">
+<div class="eng">验收清单</div>
+<h2>交付前逐条勾</h2>
+<div class="check" style="columns:2;margin-top:16px;font-size:14px;line-height:30px">
+<label style="display:block"><input type="checkbox"> 每屏只有一个主色按钮 <em class="muted" style="font-style:normal;font-size:12px">01</em></label><label style="display:block"><input type="checkbox"> 状态是圆点 + 文字，无底色，红色只给异常 <em class="muted" style="font-style:normal;font-size:12px">02</em></label><label style="display:block"><input type="checkbox"> 列表 + 详情，操作栏在详情卡底部，不浮动 <em class="muted" style="font-style:normal;font-size:12px">03</em></label><label style="display:block"><input type="checkbox"> 金额 / 数量右对齐，Geist 表格数字 <em class="muted" style="font-style:normal;font-size:12px">04 · 15</em></label><label style="display:block"><input type="checkbox"> 只有 1px 发丝线，没有粗边框 <em class="muted" style="font-style:normal;font-size:12px">05</em></label><label style="display:block"><input type="checkbox"> 没有卡片，区块只用发丝线分隔 <em class="muted" style="font-style:normal;font-size:12px">06</em></label><label style="display:block"><input type="checkbox"> 间距来自 4 / 8 / 12 / 16 / 20 / 24 <em class="muted" style="font-style:normal;font-size:12px">07</em></label><label style="display:block"><input type="checkbox"> 正文 13，只用 400 / 500 / 600 <em class="muted" style="font-style:normal;font-size:12px">08</em></label><label style="display:block"><input type="checkbox"> 危险操作写了后果和能否撤销 <em class="muted" style="font-style:normal;font-size:12px">09</em></label><label style="display:block"><input type="checkbox"> 空 / 加载 / 出错都设计过，并有下一步 <em class="muted" style="font-style:normal;font-size:12px">10</em></label><label style="display:block"><input type="checkbox"> 表头 32、行 36，次要信息降一级灰 <em class="muted" style="font-style:normal;font-size:12px">11</em></label><label style="display:block"><input type="checkbox"> 焦点 2px 主色外框可见 <em class="muted" style="font-style:normal;font-size:12px">12</em></label><label style="display:block"><input type="checkbox"> 换主题只换取值 <em class="muted" style="font-style:normal;font-size:12px">13</em></label><label style="display:block"><input type="checkbox"> 主操作写了快捷键，⌘K 能打开命令面板 <em class="muted" style="font-style:normal;font-size:12px">16</em></label><label style="display:block"><input type="checkbox"> 首屏最多三种视觉手段 <em class="muted" style="font-style:normal;font-size:12px">14</em></label><label style="display:block"><input type="checkbox"> 没有衬线字；Geist Mono 只给代码 <em class="muted" style="font-style:normal;font-size:12px">15</em></label>
+</div></section>
+<div class="foot"><span>后台设计语言 v21.0 · Round 19「素线」</span><span>取值文件：<a href="reference-tokens.css">reference-tokens.css</a> · 原文：<a href="STYLE.md">STYLE.md</a> </span></div>
+</div>
+<link rel="stylesheet" href="../../assets/feedback.css"><script src="../../assets/feedback-config.js" defer></script><script src="theme-switcher.js" defer></script><script src="../../assets/feedback.js" data-round="r19" defer></script>
+</body></html>
