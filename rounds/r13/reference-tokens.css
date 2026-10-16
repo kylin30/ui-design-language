@@ -1,0 +1,443 @@
+/* ==========================================================
+   reference-tokens.css · 后台视觉规范 v14.0（Round 12 · 鸢尾 + 主题）
+   ----------------------------------------------------------
+   默认 = 雾紫·鸢尾（:root）。主题 = [data-theme="x"]，只覆盖取值层里与默认不同的值。
+   主题可以改：角色的取值（颜色 / 投影）。主题不能改：规矩、结构、尺寸、字号、间距、状态语义。
+   ① 角色层（组件只引用 --role-*） ② 默认取值 ③ 主题覆盖 ④ 不随主题变化
+   ========================================================== */
+:root, [data-theme] {
+  --role-frame:            var(--color-frame);          
+  --role-frame-text:       var(--color-frame-text);
+  --role-canvas:           var(--color-bg);             
+  --role-surface:          var(--color-surface);
+  --role-surface-subtle:   var(--color-surface-subtle);
+  --role-surface-hover:    var(--color-surface-hover);
+  --role-surface-selected: var(--color-surface-selected);
+  --role-border:           var(--color-border);
+  --role-border-strong:    var(--color-border-strong);
+  --role-text-1:           var(--color-text);
+  --role-text-2:           var(--color-text-secondary);
+  --role-text-3:           var(--color-text-tertiary);
+  --role-text-disabled:    var(--color-text-disabled);
+  --role-action:           var(--color-primary);        /* 主色：只给动作 */
+  --role-success:          var(--color-success);
+  --role-warning:          var(--color-warning);
+  --role-danger:           var(--color-danger);
+  --role-info:             var(--color-info);  --role-action-text:      var(--color-primary-text);
+  --role-on-action:        var(--color-on-primary);
+  --focus-outline: 2px solid var(--color-primary);
+}
+
+/* ---------- ② 默认：雾紫·鸢尾 iris ---------- */
+:root, [data-theme="iris"] {
+  --color-on-primary: #FFFFFF;
+  --color-on-danger: #FFFFFF;
+  --color-frame-line: rgba(255,255,255,.07);
+  --color-overlay: rgba(15,20,32,.36);
+  --color-frame: #17131F;
+  --color-frame-raise: #221C2D;
+  --color-frame-active: #2C2440;
+  --color-frame-text: #ADA6BF;
+  --color-frame-text-1: #F7F5FB;
+  --color-frame-text-3: #8C84A2;
+  --color-frame-alert: #F0677A;
+  --color-frame-alert-text: #F6B8C1;
+  --color-bg: #F5F4F9;
+  --color-surface: #FFFFFF;
+  --color-surface-subtle: #F9F8FC;
+  --color-surface-hover: #F2F0F8;
+  --color-surface-selected: #F0EDFD;
+  --color-border: #E4E0EE;
+  --color-border-strong: #CFCADD;
+  --color-border-hover: #9E97B3;
+  --color-divider: #EDEBF3;
+  --color-hairline: #E9E6F1;
+  --color-text: #16131F;
+  --color-text-secondary: #474159;
+  --color-text-tertiary: #686280;
+  --color-text-disabled: #ADA8BD;
+  --color-primary: #6246EA;
+  --color-primary-hover: #5236D6;
+  --color-primary-active: #4329BF;
+  --color-focus-ring: rgba(98,70,234,.24);
+  --color-success: #12805C;
+  --color-warning: #AD5A0A;
+  --color-danger: #CF2F44;
+  --color-danger-hover: #AD2336;
+  --color-danger-text: #AD2336;
+  --color-danger-soft: #FCEEF0;
+  --color-danger-border: #F4C3CB;
+  --color-info: #5F5C86;
+  --color-neutral: #686280;
+  --color-skeleton: #EDEBF3;
+  --color-chart-1: #6246EA;
+  --color-chart-2: #C2589D;
+  --color-chart-3: #2E8FB8;
+  --color-chart-4: #E3A33A;
+  --color-chart-5: #A9A3BC;
+  --color-topbar: rgba(245,244,249,.86);
+  --color-toast-bg: #17131F;
+  --color-primary-text: #5A3EE0;
+  --color-text-inverse: #FFFFFF;
+  --shadow-paper: inset 0 1px 0 rgba(255,255,255,.7), 0 1px 0 rgba(23,19,31,.04), 0 1px 3px rgba(40,24,90,.05);
+  --shadow-pop: 0 12px 32px rgba(32,20,70,.14), 0 2px 6px rgba(32,20,70,.06);
+  color-scheme: light;
+}
+
+/* ---------- ③ 主题 cobalt「霜白·钴蓝」· R10 原版：冷白纸面、夜蓝侧栏，钴蓝只给动作，最稳的默认 · 覆盖 44 个值 ---------- */
+[data-theme="cobalt"] {
+  --color-frame: #11151F;
+  --color-frame-raise: #1A1F2C;
+  --color-frame-active: #252B3B;
+  --color-frame-text: #A3ABBD;
+  --color-frame-text-1: #F5F7FB;
+  --color-frame-text-3: #7D869B;
+  --color-frame-alert: #F06363;
+  --color-frame-alert-text: #F5B4B4;
+  --color-bg: #F3F5F8;
+  --color-surface-subtle: #F8F9FB;
+  --color-surface-hover: #F1F4F8;
+  --color-surface-selected: #EBEEFD;
+  --color-border: #E3E7EE;
+  --color-border-strong: #CDD3DE;
+  --color-border-hover: #98A1B2;
+  --color-divider: #ECEFF4;
+  --color-hairline: #E6E9EF;
+  --color-text: #0F1420;
+  --color-text-secondary: #424B5E;
+  --color-text-tertiary: #626B80;
+  --color-text-disabled: #A6AEBD;
+  --color-primary: #3D4BE0;
+  --color-primary-hover: #3442CC;
+  --color-primary-active: #2A35B8;
+  --color-focus-ring: rgba(61,75,224,.22);
+  --color-success: #13805A;
+  --color-warning: #B25E09;
+  --color-danger: #D12F2F;
+  --color-danger-hover: #A82424;
+  --color-danger-text: #A82424;
+  --color-danger-soft: #FDEEEE;
+  --color-danger-border: #F5C4C4;
+  --color-info: #5B6B86;
+  --color-neutral: #626B80;
+  --color-skeleton: #ECEFF4;
+  --color-chart-1: #3D4BE0;
+  --color-chart-2: #0E8FA0;
+  --color-chart-3: #8B5CF6;
+  --color-chart-5: #98A1B2;
+  --color-topbar: rgba(243,245,248,.86);
+  --color-toast-bg: #11151F;
+  --color-primary-text: #3D4BE0;
+  --shadow-paper: inset 0 1px 0 rgba(255,255,255,.7), 0 1px 0 rgba(16,24,40,.04), 0 1px 3px rgba(16,24,40,.04);
+  --shadow-pop: 0 12px 32px rgba(16,24,40,.14), 0 2px 6px rgba(16,24,40,.06);
+}
+
+/* ---------- ③ 主题 lake「湖蓝·深青」· 偏青的深湖蓝，冷静、清透，适合数据和运维类后台 · 覆盖 45 个值 ---------- */
+[data-theme="lake"] {
+  --color-frame: #0C1A21;
+  --color-frame-raise: #13252E;
+  --color-frame-active: #1C323D;
+  --color-frame-text: #9DB1BB;
+  --color-frame-text-1: #F2F7F9;
+  --color-frame-text-3: #7B95A2;
+  --color-frame-alert: #F06A63;
+  --color-frame-alert-text: #F5B8B4;
+  --color-bg: #F2F6F8;
+  --color-surface-subtle: #F7FAFB;
+  --color-surface-hover: #EEF4F6;
+  --color-surface-selected: #E3F1F6;
+  --color-border: #DFE7EB;
+  --color-border-strong: #C7D3D9;
+  --color-border-hover: #8FA0A9;
+  --color-divider: #E8EEF1;
+  --color-hairline: #E2E9EC;
+  --color-text: #0D1A20;
+  --color-text-secondary: #3C4D56;
+  --color-text-tertiary: #5B6D77;
+  --color-text-disabled: #A2B1B8;
+  --color-primary: #0A6E9C;
+  --color-primary-hover: #085F87;
+  --color-primary-active: #064F72;
+  --color-focus-ring: rgba(10,110,156,.24);
+  --color-success: #1A7F4B;
+  --color-warning: #A85F06;
+  --color-danger: #CC3333;
+  --color-danger-hover: #A82828;
+  --color-danger-text: #A82828;
+  --color-danger-soft: #FCEEEE;
+  --color-danger-border: #F3C3C3;
+  --color-info: #4F6B8A;
+  --color-neutral: #5B6D77;
+  --color-skeleton: #E8EEF1;
+  --color-chart-1: #0A6E9C;
+  --color-chart-2: #3BA7C9;
+  --color-chart-3: #7B6CD9;
+  --color-chart-4: #E2A72E;
+  --color-chart-5: #9FB1BA;
+  --color-topbar: rgba(242,246,248,.86);
+  --color-toast-bg: #0C1A21;
+  --color-primary-text: #0A6E9C;
+  --shadow-paper: inset 0 1px 0 rgba(255,255,255,.7), 0 1px 0 rgba(16,24,40,.04), 0 1px 3px rgba(16,24,40,.04);
+  --shadow-pop: 0 12px 32px rgba(16,24,40,.14), 0 2px 6px rgba(16,24,40,.06);
+}
+
+/* ---------- ③ 主题 graphite「石墨·电蓝」· 纯中性石墨灰 + 唯一一支高亮电蓝，像专业工具软件 · 覆盖 45 个值 ---------- */
+[data-theme="graphite"] {
+  --color-frame: #181818;
+  --color-frame-raise: #232323;
+  --color-frame-active: #303030;
+  --color-frame-text: #AFAFAF;
+  --color-frame-text-1: #F7F7F7;
+  --color-frame-text-3: #8E8E8E;
+  --color-frame-alert: #F26B60;
+  --color-frame-alert-text: #F5B9B4;
+  --color-bg: #F4F4F3;
+  --color-surface-subtle: #F9F9F8;
+  --color-surface-hover: #F1F1EF;
+  --color-surface-selected: #E8EFFF;
+  --color-border: #E4E4E1;
+  --color-border-strong: #CDCDC9;
+  --color-border-hover: #9A9A95;
+  --color-divider: #ECECE9;
+  --color-hairline: #E6E6E3;
+  --color-text: #161616;
+  --color-text-secondary: #45454A;
+  --color-text-tertiary: #67676B;
+  --color-text-disabled: #ABABAA;
+  --color-primary: #0B5FFF;
+  --color-primary-hover: #0050E0;
+  --color-primary-active: #0043BD;
+  --color-focus-ring: rgba(11,95,255,.25);
+  --color-success: #15803D;
+  --color-warning: #B45309;
+  --color-danger: #D92D20;
+  --color-danger-hover: #B42318;
+  --color-danger-text: #B42318;
+  --color-danger-soft: #FEF0EF;
+  --color-danger-border: #F8C6C1;
+  --color-info: #5D6470;
+  --color-neutral: #67676B;
+  --color-skeleton: #ECECE9;
+  --color-chart-1: #0B5FFF;
+  --color-chart-2: #6E6E73;
+  --color-chart-3: #00A3BF;
+  --color-chart-4: #F2B01E;
+  --color-chart-5: #B8B8B5;
+  --color-topbar: rgba(244,244,243,.86);
+  --color-toast-bg: #181818;
+  --color-primary-text: #0B5FFF;
+  --shadow-paper: inset 0 1px 0 rgba(255,255,255,.7), 0 1px 0 rgba(16,24,40,.04), 0 1px 3px rgba(16,24,40,.04);
+  --shadow-pop: 0 12px 32px rgba(16,24,40,.14), 0 2px 6px rgba(16,24,40,.06);
+}
+
+/* ---------- ③ 主题 daylight「晴窗·蓝宝」· 浅色侧栏版：整页通透明亮，蓝宝石色做动作，层次靠细线 · 覆盖 45 个值 ---------- */
+[data-theme="daylight"] {
+  --color-frame-line: rgba(16,24,40,.08);
+  --color-frame: #FFFFFF;
+  --color-frame-raise: #F2F4F8;
+  --color-frame-active: #E8EDFB;
+  --color-frame-text: #4A5366;
+  --color-frame-text-1: #101828;
+  --color-frame-text-3: #667085;
+  --color-frame-alert: #D12F2F;
+  --color-frame-alert-text: #B42318;
+  --color-bg: #F4F6F9;
+  --color-surface-subtle: #F8F9FB;
+  --color-surface-hover: #F1F4F8;
+  --color-surface-selected: #E9EEFB;
+  --color-border: #E2E6ED;
+  --color-border-strong: #CCD2DC;
+  --color-border-hover: #97A0B0;
+  --color-divider: #EBEEF3;
+  --color-hairline: #E5E8EE;
+  --color-text: #101828;
+  --color-text-secondary: #3F4859;
+  --color-text-tertiary: #616A7D;
+  --color-text-disabled: #A5ADBB;
+  --color-primary: #2B59C3;
+  --color-primary-hover: #234BAA;
+  --color-primary-active: #1C3E8F;
+  --color-focus-ring: rgba(43,89,195,.24);
+  --color-success: #127A55;
+  --color-warning: #AE5C08;
+  --color-danger: #D12F2F;
+  --color-danger-hover: #A82424;
+  --color-danger-text: #A82424;
+  --color-danger-soft: #FDEEEE;
+  --color-danger-border: #F5C4C4;
+  --color-info: #56688A;
+  --color-neutral: #616A7D;
+  --color-skeleton: #EBEEF3;
+  --color-chart-1: #2B59C3;
+  --color-chart-2: #2C9DB5;
+  --color-chart-3: #8B6FE0;
+  --color-chart-5: #A5ADBB;
+  --color-topbar: rgba(244,246,249,.86);
+  --color-toast-bg: #101828;
+  --color-primary-text: #2B59C3;
+  --shadow-paper: inset 0 1px 0 rgba(255,255,255,.7), 0 1px 0 rgba(16,24,40,.04), 0 1px 3px rgba(16,24,40,.04);
+  --shadow-pop: 0 12px 32px rgba(16,24,40,.14), 0 2px 6px rgba(16,24,40,.06);
+}
+
+/* ---------- ③ 主题 coral「暖砂·珊瑚」· 暖米灰纸面 + 克制的珊瑚红，有温度但依然整齐 · 覆盖 45 个值 ---------- */
+[data-theme="coral"] {
+  --color-frame: #1E1A17;
+  --color-frame-raise: #29241F;
+  --color-frame-active: #37302A;
+  --color-frame-text: #B5ACA3;
+  --color-frame-text-1: #FAF7F3;
+  --color-frame-text-3: #958A82;
+  --color-frame-alert: #F07A8E;
+  --color-frame-alert-text: #F6C0CA;
+  --color-bg: #F6F4F1;
+  --color-surface-subtle: #FAF8F5;
+  --color-surface-hover: #F3F0EC;
+  --color-surface-selected: #FBEDE8;
+  --color-border: #E8E3DD;
+  --color-border-strong: #D3CCC4;
+  --color-border-hover: #A39A90;
+  --color-divider: #EFEBE6;
+  --color-hairline: #EAE5DF;
+  --color-text: #1C1714;
+  --color-text-secondary: #4D4540;
+  --color-text-tertiary: #6F655D;
+  --color-text-disabled: #B3AAA1;
+  --color-primary: #C4402A;
+  --color-primary-hover: #AE3722;
+  --color-primary-active: #962E1C;
+  --color-focus-ring: rgba(196,64,42,.24);
+  --color-success: #2F7D4F;
+  --color-warning: #A35F00;
+  --color-danger: #B3184A;
+  --color-danger-hover: #94123C;
+  --color-danger-text: #94123C;
+  --color-danger-soft: #FCEDF2;
+  --color-danger-border: #F2BFD0;
+  --color-info: #5C6577;
+  --color-neutral: #6F655D;
+  --color-skeleton: #EFEBE6;
+  --color-chart-1: #C4402A;
+  --color-chart-2: #5C6577;
+  --color-chart-3: #2A8C9A;
+  --color-chart-4: #E0A526;
+  --color-chart-5: #BDB3A9;
+  --color-topbar: rgba(246,244,241,.86);
+  --color-toast-bg: #1E1A17;
+  --color-primary-text: #C4402A;
+  --shadow-paper: inset 0 1px 0 rgba(255,255,255,.7), 0 1px 0 rgba(16,24,40,.04), 0 1px 3px rgba(16,24,40,.04);
+  --shadow-pop: 0 12px 32px rgba(16,24,40,.14), 0 2px 6px rgba(16,24,40,.06);
+}
+
+/* ---------- ③ 主题 midnight「夜幕·星蓝」· 深色模式：深夜蓝灰底、柔和星蓝，长时间盯屏更省眼 · 覆盖 50 个值 ---------- */
+[data-theme="midnight"] {
+  --color-on-danger: #1A0B0C;
+  --color-frame-line: rgba(255,255,255,.06);
+  --color-overlay: rgba(0,0,0,.55);
+  --color-frame: #090B10;
+  --color-frame-raise: #131720;
+  --color-frame-active: #1C2230;
+  --color-frame-text: #A0A8BA;
+  --color-frame-text-1: #F2F4F8;
+  --color-frame-text-3: #7F889C;
+  --color-frame-alert: #F2676B;
+  --color-frame-alert-text: #F7A5A7;
+  --color-bg: #0D1017;
+  --color-surface: #151922;
+  --color-surface-subtle: #1A1F2A;
+  --color-surface-hover: #1E2430;
+  --color-surface-selected: #232C48;
+  --color-border: #262D3B;
+  --color-border-strong: #363F51;
+  --color-border-hover: #5A647D;
+  --color-divider: #1F2532;
+  --color-hairline: #232A37;
+  --color-text: #E8EBF2;
+  --color-text-secondary: #B3BACA;
+  --color-text-tertiary: #8D96A9;
+  --color-text-disabled: #565F72;
+  --color-primary: #5163F0;
+  --color-primary-hover: #4657E3;
+  --color-primary-active: #3B4BCC;
+  --color-primary-text: #8E9BFF;
+  --color-focus-ring: rgba(120,138,255,.35);
+  --color-success: #4CC38A;
+  --color-warning: #E6A452;
+  --color-danger: #F2676B;
+  --color-danger-hover: #F5888B;
+  --color-danger-text: #F7A5A7;
+  --color-danger-soft: #2A1619;
+  --color-danger-border: #5A2A2E;
+  --color-info: #93A1BD;
+  --color-neutral: #8D96A9;
+  --color-skeleton: #1F2532;
+  --color-chart-1: #7385FF;
+  --color-chart-2: #4FC1D6;
+  --color-chart-3: #B08CFF;
+  --color-chart-4: #E6B450;
+  --color-chart-5: #6B7489;
+  --color-topbar: rgba(13,16,23,.86);
+  --color-toast-bg: #232A37;
+  --shadow-paper: none;
+  --shadow-pop: 0 16px 40px rgba(0,0,0,.5), 0 2px 6px rgba(0,0,0,.3);
+  color-scheme: dark;
+}
+
+/* ---------- ④ 不随主题变化 ---------- */
+:root {
+  /* ---------- 字体 ---------- */
+  --font-sans: "Inter", "SF Pro Text", "PingFang SC", "HarmonyOS Sans SC", "Noto Sans CJK SC",
+               "Microsoft YaHei", system-ui, -apple-system, sans-serif;
+  --font-mono: "Geist Mono", "JetBrains Mono", "IBM Plex Mono", "SF Mono", Menlo, Consolas, monospace;
+
+  --fs-12: 12px; --fs-13: 13px; --fs-14: 14px; --fs-16: 16px;
+  --fs-11: 11px; --fs-15: 15px; --fs-20: 20px;
+  --fs-title: 24px; --fs-figure: 28px;   /* 7 档字号，只用这 7+2 档 */
+  --lh-normal: 1.57;
+  --lh-tight: 1.3;
+  /* 行高对齐 4px 网格：12/16 13/20 14/22 16/24 22/28 28/32 */
+
+  /* 刻字标签（签名）：小、疏、带一条延伸发丝线 */
+  --eng-size: 11px;
+  --eng-track: .14em;
+  --eng-color: var(--color-text-tertiary);
+
+  /* 金额分级（格式，非身份） */
+  --num-minor-scale: .74;
+  --num-minor-color: var(--color-text-tertiary);
+
+  /* ---------- 间距 / 圆角 / 阴影 ---------- */
+  --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px;
+  --space-5: 20px; --space-6: 24px; --space-8: 32px; --space-10: 40px;
+  /* 节奏：组内 8 · 组间 16 · 区块 32 · 页边 32/40 */
+  --rhythm-in: 8px; --rhythm-group: 16px; --rhythm-block: 32px;
+
+  --radius-xs: 3px; --radius-sm: 6px; --radius-md: 10px; --radius-lg: 12px;
+
+  --shadow-0: none;
+  /* R8 纸面纵深：顶部 1px 纯白高光 + 1px 落地影，不是卡片阴影 */
+  --overlay:  var(--color-overlay);
+
+  --z-sticky: 10; --z-drawer: 200; --z-modal: 300; --z-toast: 400;
+
+  --sig-status-size: 6px;
+  --focus-offset: 2px;
+
+  --control-h-sm: 28px; --control-h-md: 32px; --control-h-lg: 40px;
+  --row-h-compact: 36px; --row-h-default: 44px; --row-h-record: 56px;
+  --sidebar-w: 232px;
+  --topbar-h: 56px;
+  --content-max: 1560px;
+  --page-padding: 28px 40px 48px;
+  --desk-tray-w: 344px;   /* 案头：右侧等候托盘宽 */
+  --desk-edge: 2px;       /* 打开中的工作项左缘墨线 */
+
+  --duration-fast: 120ms; --duration-base: 180ms;
+  --ease: cubic-bezier(.2, 0, 0, 1);
+}
+
+[data-density="compact"] {
+  --row-h-record: 44px;
+  --row-h-default: var(--row-h-compact);
+  --control-h-md: var(--control-h-sm);
+  --page-padding: 18px 24px;
+}
