@@ -1,0 +1,303 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>R7 规范 · 案头</title><link rel="stylesheet" href="reference-tokens.css"><link rel="stylesheet" href="../../assets/site.css">
+<style>.md h1,.md h2{font-family:var(--font-sans)!important;letter-spacing:-.02em}.md table{background:var(--color-surface)}
+.topnav{background:var(--color-frame)!important;border-bottom:0!important}.topnav a{color:var(--color-frame-text-1)}
+.uifb-scores button.on,.uifb-submit{background:var(--color-primary)!important;border-color:var(--color-primary)!important}.uifb-submit:disabled{background:var(--color-text-disabled)!important}</style></head>
+<body class="doc"><nav class="topnav"><a href="../../">← 全部轮次</a><a href="demo.html">演示页</a><a href="demo.html#decision">审批决策页</a><a href="demo.html#toast">回执撤销</a><a href="demo.html#empty">空态</a><a href="demo.html#loading">加载</a><a href="demo.html#error">出错</a><a href="demo.html#confirm">危险确认</a><a href="STYLE.md">STYLE.md 原文</a></nav>
+<main class="md"><h1>后台视觉规范 v9.0（Round 7 ·「案头」）</h1>
+<blockquote>
+<p><strong>一句话</strong>：与 UI 库无关的后台视觉规范。用 Ant Design、Element Plus、shadcn/ui、MUI 还是手写 CSS，照着做出来都是同一个产品。气质：<strong>冷静、专业、整齐</strong>。</p>
+<p>v9.0 是 R6（6 分，目前最高）的<strong>精修，不是重来</strong>：墨栏、暖绢、近黑主操作、颜色只给状态全部保留；把“今天要办完”从一张清单推进成<strong>案头</strong>——一件打开、其余等候。</p>
+</blockquote>
+<hr />
+<h2>0. 设计主张（Design Thesis）</h2>
+<p><strong>后台是一张案头：一次只摊开一件事，其余在旁边排队；每件事办完都有交代。</strong></p>
+<p>这是我自己对后台的判断，不来自某个参考作品：运营人员的注意力是一条单线程，界面应该替他决定“现在办哪件”，而不是把所有待办平铺给他挑。</p>
+<ol>
+<li><strong>一件打开</strong>：最紧急的工作项直接在首页展开——一句话结论、前 4 条明细、后果（可撤销 / 不可逆）、唯一主按钮「批准 6 笔 · ¥4,218」。不用跳页就能办完 80% 的情况；要细看才去「逐笔核对」。</li>
+<li><strong>其余等候</strong>：右侧托盘（344px）按紧急度排其余待办，只给文字链接，不给墨块。办完一件，自动提示“下一件”。</li>
+<li><strong>办完有交代</strong>：成功 → 回执条 + 倒计时撤销；危险 → 二次确认写清不可逆；无结果 / 加载中 / 出错 → 都有出口，且说明“哪些不受影响”。</li>
+<li><strong>节奏统一</strong>：组内 8、组间 16、区块 32；行高全部落在 4px 网格上；字号只用 11/12/13/14/16/20/22 + 数字 28。</li>
+<li><strong>墨只出现两处</strong>：侧栏框架，和内容区唯一的主按钮。打开的工作项只用 2px 墨缘标记，不加底色。</li>
+</ol>
+<h2>0.1 为什么这样改（Rationale）</h2>
+<table>
+<thead>
+<tr>
+<th>评分</th>
+<th>读到的信号</th>
+<th>v9.0 的处理</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>R1 青石 3「不喜欢绿色」</td>
+<td>有色相的身份色是风险</td>
+<td>身份色仍是墨</td>
+</tr>
+<tr>
+<td>R2 靛墨 4</td>
+<td>换色相解决不了问题</td>
+<td>不用靛蓝/藏青；info 再降饱和为石板灰蓝</td>
+</tr>
+<tr>
+<td>R3 纸灰·砚墨 5 / R5 清册 5</td>
+<td>安静规则有效但外形单调</td>
+<td>规则保留</td>
+</tr>
+<tr>
+<td>R4 账页 4</td>
+<td>主张做成戏服会扣分</td>
+<td>不做账本符号</td>
+</tr>
+<tr>
+<td><strong>R6 墨栏·暖绢 6（最高，无备注）</strong></td>
+<td>外形身份（墨栏 + 暖绢 + 先办事）被认可</td>
+<td><strong>外形不动</strong>；把“句子队列”升级为“案头”，补齐节奏、字阶和加载/出错出口</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>风险：首页展开一件工作项会让首屏更“重”。对冲：打开项只有一个、明细最多 4 行 + “还有 N 笔”，托盘全部降为文字链接。</p>
+</blockquote>
+<h2>0.5 Identity：五个签名</h2>
+<ol>
+<li><strong>墨栏</strong>：侧栏 <code>frame #1E1C19</code>，与主按钮同一支墨。</li>
+<li><strong>暖绢纸面</strong>：画布 <code>#F3EFE7</code>，可操作纸面 <code>#FFFDF9</code>，只有两层。</li>
+<li><strong>刻字标签</strong>：11px / 0.14em / text-3 + 延伸发丝线，可带数字小注（「正在办 1 / 3 · 最紧急」）。</li>
+<li><strong>案头</strong>（v9.0 新）：左「正在办」打开项（纸面 + 2px 墨缘 + 20px 结论句 + ≤4 行明细 + 后果条 + 唯一主按钮）；右「等候」托盘（无纸面，上 1px 深线、条目间发丝线，文字链接）。</li>
+<li><strong>回执与撤销</strong>：墨色回执条倒计时撤销，打开项变“已完成 · 撤销 · 下一件”。</li>
+</ol>
+<blockquote>
+<p><strong>明确不做</strong>：KPI 卡片组、卡中卡、行号/节线、彩色侧栏高亮、托盘里的第二个主按钮。</p>
+</blockquote>
+<h2>1. 三层结构</h2>
+<ul>
+<li><strong>规则</strong>（不变）：§0、§2、§6、§7。</li>
+<li><strong>角色</strong>（很少变）：§3.1（v8.0 新增 <code>frame</code> 角色）。</li>
+<li><strong>取值</strong>（可替换）：<code>reference-tokens.css</code>，须满足 §3.2。</li>
+</ul>
+<h2>2. 判断原则</h2>
+<ol>
+<li>内容区一屏只有一个墨块（主按钮）；侧栏是框架，不算内容。</li>
+<li>先刻字标签与发丝线，再纸面边框，最后阴影（阴影只给浮层）。</li>
+<li>有颜色的元素必须能说出代表什么状态。</li>
+<li>页面第一块回答“我现在该做什么”，数字其次，明细最后。</li>
+<li>有后果的按钮写对象 + 数量 + 金额；完成后给回执；可撤销就给撤销入口。</li>
+<li>新人不迷路：主路径、成功出口（回执）、失败出口（空态/确认）都看得见。</li>
+</ol>
+<h2>3. 颜色：角色</h2>
+<h3>3.1 角色与参考值（墨栏 · 暖绢）</h3>
+<table>
+<thead>
+<tr>
+<th>角色</th>
+<th>用途</th>
+<th>参考值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>frame</td>
+<td>侧栏整块</td>
+<td><code>#1E1C19</code>（hover <code>#2A2723</code>，当前 <code>#34302B</code>）</td>
+</tr>
+<tr>
+<td>frame-text / text-1 / text-3</td>
+<td>侧栏文字 / 当前项 / 分组</td>
+<td><code>#B7AFA3</code> / <code>#F6F2EB</code> / <code>#7F776B</code></td>
+</tr>
+<tr>
+<td>canvas</td>
+<td>内容画布（暖绢）</td>
+<td><code>#F3EFE7</code></td>
+</tr>
+<tr>
+<td>surface</td>
+<td>可操作纸面、弹窗、抽屉</td>
+<td><code>#FFFDF9</code></td>
+</tr>
+<tr>
+<td>surface-subtle / hover / selected</td>
+<td>槽 / 悬停 / 选中行、批量条</td>
+<td><code>#F8F5EF</code> / <code>#F4F0E8</code> / <code>#EEE9DF</code></td>
+</tr>
+<tr>
+<td>border / divider / border-strong</td>
+<td>发丝线 / 行分隔 / 控件边</td>
+<td><code>#E5DFD3</code> / <code>#EDE8DE</code> / <code>#D3CBBC</code></td>
+</tr>
+<tr>
+<td>text-1 / 2 / 3</td>
+<td>正文 / 次 / 说明</td>
+<td><code>#1C1A17</code> / <code>#4D4840</code> / <code>#7A7367</code></td>
+</tr>
+<tr>
+<td>action</td>
+<td>主按钮、当前页、选中框、回执条</td>
+<td><code>#1E1C19</code>（= frame）</td>
+</tr>
+<tr>
+<td>success / warning / danger / info</td>
+<td>状态点、涨跌</td>
+<td><code>#3B7A55</code> / <code>#A15C07</code> / <code>#B3261E</code> / <code>#4A5A70</code></td>
+</tr>
+</tbody>
+</table>
+<h3>3.2 约束</h3>
+<ul>
+<li>frame 与 action 必须是<strong>同一支墨</strong>：HSL S ≤ 10%，L ≤ 13%，色相 30–45°（暖）；对白字 ≥ 14:1。不得为藏青、靛蓝、绿、琥珀、黄。</li>
+<li>暖绢：OKLCH 色相 70–85，色度 C 0.006–0.016。超过 0.02 会显黄，禁止。禁止冷灰（zinc/slate）。</li>
+<li>surface 不用纯白 <code>#FFF</code>，用 L 98–99% 的暖白；与 canvas 明度差 4–6%。</li>
+<li>状态色只以 ≤6px 圆点、文字、2px 线出现；soft 底只给提示条/危险确认。</li>
+<li>灰度截图下：框架（墨）/ 画布 / 纸面三档明显可分。</li>
+</ul>
+<h3>3.3 映射到 UI 库</h3>
+<table>
+<thead>
+<tr>
+<th>角色</th>
+<th>Ant Design 5</th>
+<th>Element Plus</th>
+<th>shadcn/ui</th>
+<th>MUI</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>frame</td>
+<td><code>Layout.Sider theme="dark"</code> + <code>colorBgContainer</code> 改墨</td>
+<td><code>el-menu</code> <code>background-color</code></td>
+<td><code>--sidebar</code></td>
+<td><code>Drawer</code> paper bg</td>
+</tr>
+<tr>
+<td>canvas</td>
+<td><code>colorBgLayout</code></td>
+<td><code>--el-bg-color-page</code></td>
+<td><code>--background</code></td>
+<td><code>palette.background.default</code></td>
+</tr>
+<tr>
+<td>surface</td>
+<td><code>colorBgContainer</code></td>
+<td><code>--el-bg-color</code></td>
+<td><code>--card</code></td>
+<td><code>palette.background.paper</code></td>
+</tr>
+<tr>
+<td>action</td>
+<td><code>colorPrimary</code> + 关 primaryShadow</td>
+<td><code>--el-color-primary</code></td>
+<td><code>--primary</code></td>
+<td><code>primary.main</code> + <code>disableElevation</code></td>
+</tr>
+<tr>
+<td>status</td>
+<td><code>colorSuccess/...</code></td>
+<td><code>--el-color-*</code></td>
+<td>自定义</td>
+<td><code>palette.success/...</code></td>
+</tr>
+<tr>
+<td>radius</td>
+<td>6 / 10 / 12</td>
+<td>base 6px</td>
+<td><code>--radius:0.625rem</code></td>
+<td><code>borderRadius:6</code></td>
+</tr>
+<tr>
+<td>type scale</td>
+<td><code>fontSize:14</code>, <code>fontSizeHeading3:22</code></td>
+<td><code>--el-font-size-base:14px</code></td>
+<td>Tailwind <code>text-[13px]</code> 等 7 档</td>
+<td><code>typography.fontSize:14</code>, <code>h5:22</code></td>
+</tr>
+<tr>
+<td>案头/托盘</td>
+<td><code>Card</code>(无阴影) + <code>List</code></td>
+<td><code>el-card shadow="never"</code> + 列表</td>
+<td><code>Card</code> + 自定义</td>
+<td><code>Paper variant="outlined"</code> + <code>List</code></td>
+</tr>
+<tr>
+<td>loading</td>
+<td><code>Skeleton</code> 行高 56</td>
+<td><code>el-skeleton</code></td>
+<td><code>Skeleton</code></td>
+<td><code>Skeleton variant="rectangular"</code></td>
+</tr>
+</tbody>
+</table>
+<p>须手动补：刻字标签组件、句子队列、无卡数字行、回执条（Ant <code>message</code> / Element <code>ElMessage</code> 默认样式要改成墨底 + 撤销按钮）。Ant/Element 暗色侧栏默认是藏青——<strong>必须改成墨</strong>，否则直接退回“10 年前后台”。</p>
+<h2>4. 字体排印</h2>
+<ul>
+<li>字族：Inter / SF Pro + PingFang SC / HarmonyOS Sans / Noto Sans CJK；等宽只给单号、手机号、计数、时间。不用衬线。</li>
+<li>阶梯：11（刻字标签）/ 12 / 13 / 14 / 16 / 20（打开项结论句）/ 22（页标题）/ 28（概况数字）。</li>
+<li>行高落 4px 网格：12/16、13/20、14/22、16/24、20/28、22/28、28/32。</li>
+<li>字重：400 / 550（按钮、当前项）/ 600（数字、小标题）/ 650（页标题）/ 700（句子里的数量）。≥24 字距 −0.025 ~ −0.03em。</li>
+<li>金额：整数承重；<code>¥</code> 与小数 0.74em + text-3。</li>
+</ul>
+<h2>5. 间距、密度、圆角</h2>
+<ul>
+<li>4px 基线；页面内边距 28×40；<strong>节奏 8 / 16 / 32</strong>：组内 8、组间 16、区块 32。案头左右间距 24。</li>
+<li>圆角：控件 6、纸面 10、弹窗 12。不用胶囊。</li>
+<li>行高：两行记录 56（标题 + 等宽编号）；单行 44；紧凑 36/44（<code>data-density="compact"</code>）。</li>
+<li>层级：frame（墨）| canvas（暖绢）→ surface（暖白纸面，1px border）。浮层才有阴影。</li>
+</ul>
+<h2>6. 版式模式</h2>
+<ol>
+<li><strong>骨架</strong>：左侧墨栏 232px（品牌 / 跳转 ⌘K / 分组导航 / 用户）；右侧暖绢，顶栏透明 + 底部发丝线，放面包屑、视图切换、同步状态。</li>
+<li><strong>页头</strong>：标题 → 摘要句（说“今天还有几件事”，数量加粗）→ 口径；次按钮底对齐。主按钮不放页头。</li>
+<li><strong>案头（第一块，v9.0 取代句子队列）</strong>：左「正在办」打开项 + 右 344px「等候」托盘；以下旧规则仅用于托盘条目——：刻字标签 + 纸面上的纵向句子队列。列：状态点+时效 168px | 句子 + 后果 | 动作。最紧急一行：左 3px 墨线 + 唯一主按钮「去审批 N 笔」；其余行只给文字链接。附键盘提示 J/K/↵。</li>
+<li><strong>今日概况（第二块）</strong>：刻字标签 + 4 个数字直接排在暖绢上，用 1px 竖发丝线分隔，<strong>不用卡片</strong>。需关注只在标签旁加红字「需关注」，并说明“已在上方待办”。</li>
+<li><strong>列表纸面</strong>：标签页 → 筛选（搜索框 + 带标签的下拉）→ 批量条（浅选中底，不用墨，文案含数量/金额/不可恢复）→ 两行记录表格 → 分页。</li>
+<li><strong>决策页</strong>：问题 | 建议 两栏散文（刻字标签起头，不进卡）→ 批准后会发生什么（三格前后对比数字行，<code>37 → 31</code>）→ 涉及条目（纸面）；右侧摘要纸面：合计、可撤销 / 不可逆、唯一主按钮「批准 N 笔 · ¥X」。</li>
+<li><strong>运营出口（全部示范）</strong>：</li>
+<li>成功：回执条 + 倒计时撤销；待办行同步变“已完成 · 撤销”。</li>
+<li>危险：二次确认，主按钮是红底「确认取消 N 笔」，次按钮写「返回，不取消」。</li>
+<li>空态：列出当前生效的条件（虚线小签），给“清空条件”和“只去掉某一个条件”两个出口。</li>
+<li>加载（v9.0）：只在出问题的区域放骨架行（与真实行同高 56），页脚写“正在加载…”；不整页转圈。</li>
+<li>出错（v9.0）：红点 + 一句标题“X 没有加载出来” + 说明哪些不受影响 + 「重试」「复制错误编号」+ 等宽错误编号与时间。不用红色大块背景。</li>
+</ol>
+<h2>7. 组件规则</h2>
+<ul>
+<li>按钮：主（墨底）内容区每屏 ≤1；次（暖白底 + border-strong）；文字按钮。红底只出现在危险确认层。</li>
+<li>状态：6px 圆点 + 词 + 灰色时效（超时时效变红字）。</li>
+<li>刻字标签：只做分区标题，不做按钮或标签云；每屏 ≤5 个。</li>
+<li>焦点：2px 墨 outline，偏移 2px；输入框聚焦 = 墨边 + 3px 墨色淡环。</li>
+<li>链接：text-1 + 浅下划线，不用蓝色。</li>
+<li>侧栏计数：等宽小字 text-3；异常才红底白字（一屏 ≤1）。</li>
+<li>回执条：墨底、近白字、绿色 6px 点、倒计时等宽字、描边「撤销」按钮；10 秒后收起，撤销入口留在待办行与「操作记录」。</li>
+</ul>
+<h2>8. 落地步骤</h2>
+<ol>
+<li>按 §3.3 填 token，把库的暗色侧栏改成墨；2. 关掉库默认卡片阴影与 KPI 卡片；3. 实现刻字标签组件；4. 页面顺序改为 待办 → 概况 → 列表；5. Tag → 圆点 + 词；6. 补金额分级、后果文案、回执撤销；7. 用 §9 验收。</li>
+</ol>
+<h2>9. 验收清单</h2>
+<ul>
+<li>[ ] 侧栏是暖墨，不是藏青/纯黑/彩色；与主按钮同色。</li>
+<li>[ ] 内容区一屏只有一个墨块。</li>
+<li>[ ] 页面第一块是案头：只有一件打开，托盘里没有墨块；概况数字不在卡片里。</li>
+<li>[ ] 加载与出错只影响出问题的区域，并写明哪些不受影响。</li>
+<li>[ ] 无三层套娃（画布 → 白纸 → 灰槽 → 白卡）。</li>
+<li>[ ] 灰度下 墨 / 绢 / 纸 三档可分；彩色都能说出状态含义。</li>
+<li>[ ] 成功回执（可撤销）、危险确认、空态三种出口都能看到。</li>
+</ul>
+<h2>10. 不做的事</h2>
+<p>藏青暗色侧栏、彩色当前项高亮、KPI 卡片组、卡中卡、账本戏服、荧光强调、胶囊按钮、渐变、玻璃拟态、模仿参考作品皮肤。</p>
+<h2>附录 · 版本记录</h2>
+<ul>
+<li>
+<p>v9.0（2026-10-16，R7）案头：精修 R6；句子队列 → 一件打开 + 等候托盘；字阶 7 档、节奏 8/16/32；新增加载/出错出口；info 降饱和。</p>
+</li>
+<li>
+<p>v8.0（R6，6 分）墨栏·暖绢：换外形身份（墨栏、暖绢、刻字标签、句子队列、无卡概况、回执撤销）；保留 R3/R5 全部安静规则。</p>
+</li>
+<li>v7.0（R5，5 分）清册。</li>
+<li>v6.0（R4，4 分）账页。</li>
+<li>v5.0（R3，5 分）纸灰·砚墨。</li>
+<li>v4.0（R2，4 分）暖石灰·靛墨·朱印。</li>
+<li>v3.0（R1，3 分）青石·朱印。</li>
+</ul></main>
+<link rel="stylesheet" href="../../assets/feedback.css"><script src="../../assets/feedback-config.js" defer></script><script src="../../assets/feedback.js" data-round="r7" defer></script></body></html>
