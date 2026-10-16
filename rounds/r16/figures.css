@@ -1,0 +1,48 @@
+/* R16 数字字体：自托管字体只覆盖数字和数字符号（unicode-range），汉字和字母仍走系统字体。不引用任何 CDN。 */
+@font-face{font-family:"Fig Inter";src:url("fonts/inter-latin-400-normal.woff2") format("woff2");font-weight:400;font-style:normal;font-display:swap;unicode-range:U+0020,U+0024-0025,U+0028-0029,U+002B-002F,U+0030-003A,U+00A5,U+00B1,U+2212,U+2030,U+FFE5}
+@font-face{font-family:"Fig Inter";src:url("fonts/inter-latin-500-normal.woff2") format("woff2");font-weight:500;font-style:normal;font-display:swap;unicode-range:U+0020,U+0024-0025,U+0028-0029,U+002B-002F,U+0030-003A,U+00A5,U+00B1,U+2212,U+2030,U+FFE5}
+@font-face{font-family:"Fig Inter";src:url("fonts/inter-latin-600-normal.woff2") format("woff2");font-weight:600;font-style:normal;font-display:swap;unicode-range:U+0020,U+0024-0025,U+0028-0029,U+002B-002F,U+0030-003A,U+00A5,U+00B1,U+2212,U+2030,U+FFE5}
+@font-face{font-family:"Fig Geist";src:url("fonts/geist-sans-latin-400-normal.woff2") format("woff2");font-weight:400;font-style:normal;font-display:swap;unicode-range:U+0020,U+0024-0025,U+0028-0029,U+002B-002F,U+0030-003A,U+00A5,U+00B1,U+2212,U+2030,U+FFE5}
+@font-face{font-family:"Fig Geist";src:url("fonts/geist-sans-latin-500-normal.woff2") format("woff2");font-weight:500;font-style:normal;font-display:swap;unicode-range:U+0020,U+0024-0025,U+0028-0029,U+002B-002F,U+0030-003A,U+00A5,U+00B1,U+2212,U+2030,U+FFE5}
+@font-face{font-family:"Fig Geist";src:url("fonts/geist-sans-latin-600-normal.woff2") format("woff2");font-weight:600;font-style:normal;font-display:swap;unicode-range:U+0020,U+0024-0025,U+0028-0029,U+002B-002F,U+0030-003A,U+00A5,U+00B1,U+2212,U+2030,U+FFE5}
+@font-face{font-family:"Fig Plex";src:url("fonts/ibm-plex-sans-latin-400-normal.woff2") format("woff2");font-weight:400;font-style:normal;font-display:swap;unicode-range:U+0020,U+0024-0025,U+0028-0029,U+002B-002F,U+0030-003A,U+00A5,U+00B1,U+2212,U+2030,U+FFE5}
+@font-face{font-family:"Fig Plex";src:url("fonts/ibm-plex-sans-latin-500-normal.woff2") format("woff2");font-weight:500;font-style:normal;font-display:swap;unicode-range:U+0020,U+0024-0025,U+0028-0029,U+002B-002F,U+0030-003A,U+00A5,U+00B1,U+2212,U+2030,U+FFE5}
+@font-face{font-family:"Fig Plex";src:url("fonts/ibm-plex-sans-latin-600-normal.woff2") format("woff2");font-weight:600;font-style:normal;font-display:swap;unicode-range:U+0020,U+0024-0025,U+0028-0029,U+002B-002F,U+0030-003A,U+00A5,U+00B1,U+2212,U+2030,U+FFE5}
+@font-face{font-family:"Fig Barlow";src:url("fonts/barlow-latin-400-normal.woff2") format("woff2");font-weight:400;font-style:normal;font-display:swap;unicode-range:U+0020,U+0024-0025,U+0028-0029,U+002B-002F,U+0030-003A,U+00A5,U+00B1,U+2212,U+2030,U+FFE5}
+@font-face{font-family:"Fig Barlow";src:url("fonts/barlow-latin-500-normal.woff2") format("woff2");font-weight:500;font-style:normal;font-display:swap;unicode-range:U+0020,U+0024-0025,U+0028-0029,U+002B-002F,U+0030-003A,U+00A5,U+00B1,U+2212,U+2030,U+FFE5}
+@font-face{font-family:"Fig Barlow";src:url("fonts/barlow-latin-600-normal.woff2") format("woff2");font-weight:600;font-style:normal;font-display:swap;unicode-range:U+0020,U+0024-0025,U+0028-0029,U+002B-002F,U+0030-003A,U+00A5,U+00B1,U+2212,U+2030,U+FFE5}
+@font-face{font-family:"Fig Roboto";src:url("fonts/roboto-latin-400-normal.woff2") format("woff2");font-weight:400;font-style:normal;font-display:swap;unicode-range:U+0020,U+0024-0025,U+0028-0029,U+002B-002F,U+0030-003A,U+00A5,U+00B1,U+2212,U+2030,U+FFE5}
+@font-face{font-family:"Fig Roboto";src:url("fonts/roboto-latin-500-normal.woff2") format("woff2");font-weight:500;font-style:normal;font-display:swap;unicode-range:U+0020,U+0024-0025,U+0028-0029,U+002B-002F,U+0030-003A,U+00A5,U+00B1,U+2212,U+2030,U+FFE5}
+@font-face{font-family:"Fig Roboto";src:url("fonts/roboto-latin-600-normal.woff2") format("woff2");font-weight:600;font-style:normal;font-display:swap;unicode-range:U+0020,U+0024-0025,U+0028-0029,U+002B-002F,U+0030-003A,U+00A5,U+00B1,U+2212,U+2030,U+FFE5}
+
+:root{
+  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", "PingFang SC", "HarmonyOS Sans SC", "Noto Sans CJK SC", "Source Han Sans SC", "Microsoft YaHei", system-ui, sans-serif;
+  /* 默认：geist */
+  --fig-face: "Fig Geist";
+  --fig-w: 600; --fig-w-cell: 500; --fig-tr: -.01em; --fig-tr-cell: 0; --fig-feat: "tnum" 1;
+  --fig-cur: .56em; --fig-unit: .42em; --fig-dec: .62em;
+}
+[data-figure="sys"]   {--fig-face: "SF Pro Display", "SF Pro Text", -apple-system, "Segoe UI Variable Display", "Segoe UI"; --fig-w:600; --fig-w-cell:500; --fig-tr:-.005em;}
+[data-figure="inter"] {--fig-face: "Fig Inter"; --fig-w:600; --fig-w-cell:500; --fig-tr:-.015em; --fig-feat:"tnum" 1,"cv11" 1;}
+[data-figure="geist"] {--fig-face: "Fig Geist"; --fig-w:600; --fig-w-cell:500; --fig-tr:-.01em;}
+[data-figure="plex"]  {--fig-face: "Fig Plex"; --fig-w:500; --fig-w-cell:400; --fig-tr:0;}
+[data-figure="barlow"]{--fig-face: "Fig Barlow"; --fig-w:600; --fig-w-cell:500; --fig-tr:.005em; --fig-tr-cell:.01em;}
+[data-figure="roboto"]{--fig-face: "Fig Roboto"; --fig-w:500; --fig-w-cell:400; --fig-tr:-.005em;}
+
+html body{font-family:var(--fig-face),var(--font-sans);font-variant-numeric:tabular-nums;font-feature-settings:var(--fig-feat)}
+:root{--font-figure:var(--fig-face),var(--font-sans)}
+/* 大数字：只有一档字重，字距按字体单独调，不再一律收紧 */
+.fig,.figx,[data-fig]{font-family:var(--fig-face),var(--font-sans)!important;font-weight:var(--fig-w)!important;letter-spacing:var(--fig-tr)!important;font-variant-numeric:tabular-nums lining-nums;font-feature-settings:var(--fig-feat)}
+.fig .cur,.fig>s,.fig .u{font-weight:500}
+.fig .cur{font-size:var(--fig-cur);color:var(--color-text-secondary);margin-right:.06em;vertical-align:.32em;letter-spacing:0}
+.fig .u,.fig .unit,.fig small{font-size:var(--fig-unit);color:var(--color-text-tertiary);margin-left:.18em;letter-spacing:0;font-weight:500}
+.fig .dec{font-size:var(--fig-dec);color:var(--color-text-secondary)}
+.fig .pct{font-size:.6em;margin-left:.04em;font-weight:500}
+/* 表格 / 正文里的数：常规字号，字重低一档，不收字距 */
+td,.amt,.num{font-weight:var(--fig-w-cell);letter-spacing:var(--fig-tr-cell)}
+.amt s{text-decoration:none;font-size:.86em;color:var(--color-text-tertiary);margin-right:1px;font-weight:400}
+.amt i{font-style:normal;font-size:.86em;color:var(--color-text-tertiary)}
+/* 等宽只给代码；编号 / 单号改用表格数字 */
+.mono,.id{font-family:var(--fig-face),var(--font-sans)!important;font-size:12.5px;color:var(--color-text-secondary);letter-spacing:.01em}
+code,pre,kbd{font-family:var(--font-mono)}
+svg text{font-family:var(--fig-face),var(--font-sans);font-variant-numeric:tabular-nums}
