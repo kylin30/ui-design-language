@@ -1,10 +1,22 @@
 [
  {
+  "id": "r7",
+  "title": "Round 7 · 案头",
+  "version": "v9.0",
+  "date": "2026-10-16",
+  "status": "待评分",
+  "summary": "精修 R6、不重来：墨栏·暖绢·近黑主操作不动；「今天要办完」升级为案头——最紧急的一件直接摊开（结论句、明细、后果、唯一主按钮），其余进右侧等候托盘；字阶收为 7 档、节奏 8/16/32；补加载与出错出口。",
+  "screenshot": "rounds/r7/screenshot.png",
+  "demo": "rounds/r7/demo.html",
+  "spec": "rounds/r7/spec.html",
+  "tokens": "rounds/r7/reference-tokens.css"
+ },
+ {
   "id": "r6",
   "title": "Round 6 · 墨栏·暖绢",
   "version": "v8.0",
   "date": "2026-10-16",
-  "status": "待评分",
+  "status": "已评分",
   "summary": "换外形身份、不换性格：暖近黑墨栏（与主按钮同一支墨）+ 暖绢纸面；去掉白纸浮层/灰槽/卡中卡；页面先摆「今天要办完」句子队列，概况降为无卡数字行；刻字标签做分区；批准后墨色回执条可倒计时撤销，另有危险确认与空态出口。",
   "screenshot": "rounds/r6/screenshot.png",
   "demo": "rounds/r6/demo.html",
