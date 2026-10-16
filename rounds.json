@@ -1,10 +1,22 @@
 [
  {
+  "id": "r8",
+  "title": "Round 8 · 案头·精工",
+  "version": "v10.0",
+  "date": "2026-10-16",
+  "status": "待评分",
+  "summary": "身份不动、只提做工：数字排印（等宽数字、mono 只留给机器码、靠字重强调、带符号涨跌）；一档发丝线 + 纸面微纵深；概况加 14 天走势线、案头加 SLA 超时条；表格 sticky 表头、时刻/日期拆分、悬停才出现次要操作、批量条实时计数；侧栏短刻与告警点、图标 1.5 线宽。",
+  "screenshot": "rounds/r8/screenshot.png",
+  "demo": "rounds/r8/demo.html",
+  "spec": "rounds/r8/spec.html",
+  "tokens": "rounds/r8/reference-tokens.css"
+ },
+ {
   "id": "r7",
   "title": "Round 7 · 案头",
   "version": "v9.0",
   "date": "2026-10-16",
-  "status": "待评分",
+  "status": "已评分",
   "summary": "精修 R6、不重来：墨栏·暖绢·近黑主操作不动；「今天要办完」升级为案头——最紧急的一件直接摊开（结论句、明细、后果、唯一主按钮），其余进右侧等候托盘；字阶收为 7 档、节奏 8/16/32；补加载与出错出口。",
   "screenshot": "rounds/r7/screenshot.png",
   "demo": "rounds/r7/demo.html",
