@@ -1,17 +1,31 @@
 [
  {
+  "id": "r12",
+  "title": "Round 12 · 鸢尾",
+  "version": "v14.0",
+  "date": "2026-10-16",
+  "status": "待评分",
+  "summary": "雾紫·鸢尾成为默认（不写属性即鸢尾），其余 6 套成为正式主题：页头轻量主题菜单、规范新增「主题」章节（能改 / 不能改、第 13 条规矩对错示例、主题一览、四个组件库的主题写法），取值文件改为默认 + [data-theme] 覆盖。鸢尾精修：主按钮高光、焦点柔光环、状态点光晕、紫调阴影、侧栏当前项与选中行细节。",
+  "screenshot": "rounds/r12/screenshot.png",
+  "demo": "rounds/r12/demo.html",
+  "spec": "rounds/r12/spec.html",
+  "tokens": "rounds/r12/reference-tokens.css",
+  "primary": "spec"
+ },
+ {
   "id": "r11",
   "title": "Round 11 · 配色选择",
   "version": "v13.0",
   "date": "2026-10-16",
-  "status": "待评分",
+  "status": "已评分",
   "summary": "规矩与角色不变，取值层做成 7 套可切换配色：霜白·钴蓝、雾紫·鸢尾、湖蓝·深青、石墨·电蓝、晴窗·蓝宝（浅侧栏）、暖砂·珊瑚、夜幕·星蓝（深色）。全部 AA；配色对比页并排看缩略后台，右上角选择器即时切换整页，「设为我的默认」把选择写进打分面板。",
   "screenshot": "rounds/r11/screenshot.png",
   "demo": "rounds/r11/demo.html",
   "spec": "rounds/r11/spec.html",
   "palettes": "rounds/r11/palettes.html",
   "tokens": "rounds/r11/reference-tokens.css",
-  "primary": "palettes"
+  "primary": "palettes",
+  "score": 6
  },
  {
   "id": "r10",
