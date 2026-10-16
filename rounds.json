@@ -1,10 +1,24 @@
 [
  {
+  "id": "r11",
+  "title": "Round 11 · 配色选择",
+  "version": "v13.0",
+  "date": "2026-10-16",
+  "status": "待评分",
+  "summary": "规矩与角色不变，取值层做成 7 套可切换配色：霜白·钴蓝、雾紫·鸢尾、湖蓝·深青、石墨·电蓝、晴窗·蓝宝（浅侧栏）、暖砂·珊瑚、夜幕·星蓝（深色）。全部 AA；配色对比页并排看缩略后台，右上角选择器即时切换整页，「设为我的默认」把选择写进打分面板。",
+  "screenshot": "rounds/r11/screenshot.png",
+  "demo": "rounds/r11/demo.html",
+  "spec": "rounds/r11/spec.html",
+  "palettes": "rounds/r11/palettes.html",
+  "tokens": "rounds/r11/reference-tokens.css",
+  "primary": "palettes"
+ },
+ {
   "id": "r10",
   "title": "Round 10 · 霜白·钴蓝",
   "version": "v12.0",
   "date": "2026-10-16",
-  "status": "待评分",
+  "status": "未评分",
   "summary": "结构与 12 条规矩不变，整套换色：冷中性霜白画布 + 纯白纸面，夜蓝近黑侧栏，钴蓝 #3D4BE0 只给主操作与选中；状态色重调并全部通过 AA 对比度。",
   "screenshot": "rounds/r10/screenshot.png",
   "demo": "rounds/r10/demo.html",

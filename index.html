@@ -10,9 +10,9 @@ fetch('rounds.json').then(r=>r.json()).then(async rounds=>{
   rounds.sort((a,b)=>b.date.localeCompare(a.date)||b.id.localeCompare(a.id,undefined,{numeric:true}));
   if(rounds[0]) document.getElementById('tok').href=rounds[0].tokens;
   const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-  document.getElementById('list').innerHTML=rounds.map(r=>`<section class="round"><a href="${r.primary==='spec'?r.spec:r.demo}"><img src="${r.screenshot}" alt="${esc(r.title)} 截图" loading="lazy"></a>
+  document.getElementById('list').innerHTML=rounds.map(r=>`<section class="round"><a href="${r.primary==='palettes'?r.palettes:r.primary==='spec'?r.spec:r.demo}"><img src="${r.screenshot}" alt="${esc(r.title)} 截图" loading="lazy"></a>
   <div><div class="meta">${esc(r.id.toUpperCase())} · ${esc(r.version||'')} · ${esc(r.date)} · ${esc(r.status)}</div><h2>${esc(r.title)}</h2><p>${esc(r.summary)}</p>
-  <div class="links">${r.primary==='spec'?`<a class="btn primary" href="${r.spec}">读规范并打分</a><a class="btn" href="${r.demo}">看演示</a>`:`<a class="btn primary" href="${r.demo}">看演示并打分</a><a class="btn" href="${r.spec}">读规范</a>`}</div>
+  <div class="links">${r.primary==='palettes'?`<a class="btn primary" href="${r.palettes}">选配色并打分</a><a class="btn" href="${r.spec}">读规范</a><a class="btn" href="${r.demo}">看演示</a>`:r.primary==='spec'?`<a class="btn primary" href="${r.spec}">读规范并打分</a><a class="btn" href="${r.demo}">看演示</a>`:`<a class="btn primary" href="${r.demo}">看演示并打分</a><a class="btn" href="${r.spec}">读规范</a>`}</div>
   <div class="fbsum" id="fb-${r.id}">反馈加载中…</div></div></section>`).join('');
   const issues=await UIFeedback.fetchAll();
   rounds.forEach(r=>{const el=document.getElementById('fb-'+r.id);
