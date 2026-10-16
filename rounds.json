@@ -1,10 +1,26 @@
 [
   {
+    "id": "r16",
+    "title": "Round 16 · 刻度",
+    "version": "v18.0",
+    "date": "2026-10-17",
+    "status": "待评分",
+    "summary": "回应 R15“数字字体不好”：诊断出 Inter 首位但多数机器未安装导致数字随机回落、细字重加紧字距、编号用等宽字三个问题。数字单独设计成 6 套可切换方案（Geist 默认 / Inter / 系统 / Barlow / Plex / Roboto），字体自托管在仓库（OFL，unicode-range 只覆盖数字），全站 data-figure 切换、figures.html 并排比较并可「设为我的默认」；新增规则 16。",
+    "screenshot": "rounds/r16/screenshot.png",
+    "demo": "rounds/r16/demo.html",
+    "spec": "rounds/r16/spec.html",
+    "tokens": "rounds/r16/reference-tokens.css",
+    "primary": "figures",
+    "demos": "rounds/r16/demos.html",
+    "name": "刻度",
+    "figures": "rounds/r16/figures.html"
+  },
+  {
     "id": "r15",
     "title": "Round 15 · 素笺",
     "version": "v17.0",
     "date": "2026-10-17",
-    "status": "待评分",
+    "status": "已评分",
     "summary": "回应 R14“宋体似乎不符合这个风格”：全站去掉衬线，只用无衬线（Inter / 系统字体 + 苹方 / 鸿蒙黑体 / 微软雅黑，不依赖网络字体），层级靠 400/500/600 字重和五档字号，数字等宽；新增规则 15 对错示例。同时收敛 R14 的展示感：标题 28、数字 40，细描边加极浅阴影，动效只淡入；保留主图卡、更好的图表、鸢尾默认 + 6 主题与 6 个演示。",
     "screenshot": "rounds/r15/screenshot.png",
     "demo": "rounds/r15/demo.html",
@@ -12,7 +28,9 @@
     "tokens": "rounds/r15/reference-tokens.css",
     "primary": "spec",
     "demos": "rounds/r15/demos.html",
-    "name": "素笺"
+    "name": "素笺",
+    "score": 5,
+    "note": "数字字体不好"
   },
   {
     "id": "r14",
