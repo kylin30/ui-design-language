@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>R10 规范 · 霜白·钴蓝 · 后台设计语言 v12.0</title>
+<link rel="stylesheet" href="reference-tokens.css">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font-sans);font-size:14px;line-height:1.57;color:var(--color-text);background:var(--color-bg);-webkit-font-smoothing:antialiased;font-feature-settings:"tnum"}
+a{color:inherit}
+.top{position:sticky;top:0;z-index:20;background:var(--color-frame);color:var(--color-frame-text);height:48px;display:flex;align-items:center;gap:20px;padding:0 40px;font-size:13px}
+.top b{color:var(--color-frame-text-1);font-weight:600;font-size:14px;margin-right:12px}
+.top a{text-decoration:none}.top a:hover{color:var(--color-frame-text-1)}
+.top .r{margin-left:auto;display:flex;gap:20px}
+.wrap{max-width:1180px;margin:0 auto;padding:48px 40px 96px}
+.eng{display:flex;align-items:center;gap:10px;font-size:11px;letter-spacing:.12em;color:var(--color-text-tertiary);font-weight:500;margin-bottom:16px}
+.eng::after{content:"";flex:1;border-top:1px solid var(--color-hairline)}
+h1{font-size:32px;line-height:40px;font-weight:650;letter-spacing:-.025em}
+h2{font-size:24px;line-height:32px;font-weight:650;letter-spacing:-.02em;margin-bottom:8px}
+.lead{font-size:16px;line-height:26px;color:var(--color-text-secondary);max-width:760px;margin-top:12px}
+.lead b{color:var(--color-text);font-weight:600}
+section{margin-top:72px}
+.muted{color:var(--color-text-tertiary)}
+/* 总览 */
+.thesis{margin-top:32px;display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--color-hairline);border:1px solid var(--color-hairline);border-radius:10px;overflow:hidden}
+.thesis div{background:var(--color-surface);padding:20px 24px}
+.thesis small{display:block;font-size:12px;color:var(--color-text-tertiary);margin-bottom:6px}
+.thesis p{font-size:15px;line-height:24px;font-weight:550}
+.rules{margin-top:24px;display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-top:1px solid var(--color-hairline)}
+.rules a{display:block;text-decoration:none;padding:16px 20px 16px 0;border-bottom:1px solid var(--color-hairline)}
+.rules a:hover h4{text-decoration:underline;text-underline-offset:3px}
+.rules em{font-style:normal;font-size:12px;color:var(--color-text-tertiary);font-variant-numeric:tabular-nums}
+.rules h4{font-size:15px;font-weight:600;margin:2px 0}
+.rules p{font-size:13px;line-height:20px;color:var(--color-text-secondary)}
+.layers{margin-top:24px;display:flex;gap:8px;font-size:13px;color:var(--color-text-secondary);align-items:center;flex-wrap:wrap}
+.layers span{padding:4px 10px;border:1px solid var(--color-border);border-radius:6px;background:var(--color-surface)}
+/* 规则块 */
+.rule{margin-top:40px;padding-top:32px;border-top:1px solid var(--color-hairline);display:grid;grid-template-columns:260px 1fr;gap:32px}
+.rule:first-of-type{border-top:0}
+.rule .no{font-size:12px;color:var(--color-text-tertiary);font-variant-numeric:tabular-nums}
+.rule h3{font-size:20px;line-height:28px;font-weight:650;letter-spacing:-.015em;margin:4px 0 8px}
+.rule .why{font-size:13px;line-height:21px;color:var(--color-text-secondary)}
+.rule .why b{color:var(--color-text);font-weight:600}
+.rule .tok{margin-top:12px;font-family:var(--font-mono);font-size:11.5px;color:var(--color-text-tertiary);line-height:18px}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.ex{border-radius:10px;overflow:hidden;border:1px solid var(--color-hairline);background:var(--color-surface);display:flex;flex-direction:column}
+.ex .lab{display:flex;align-items:center;gap:8px;padding:8px 14px;font-size:12px;font-weight:550;border-bottom:1px solid var(--color-hairline);background:var(--color-surface-subtle)}
+.ex .lab i{width:6px;height:6px;border-radius:50%}
+.ex.ok .lab i{background:var(--color-success)}.ex.no .lab i{background:var(--color-danger)}
+.ex.ok .lab{color:var(--color-text)}.ex.no .lab{color:var(--color-text-secondary)}
+.ex .lab span{margin-left:auto;font-weight:400;color:var(--color-text-tertiary)}
+.ex .stage{padding:20px;flex:1;background:var(--color-bg)}
+.ex.no .stage{background:var(--color-bg)}
+/* 迷你组件（对 = 本规范，错 = 常见做法） */
+.paper{background:var(--color-surface);border:1px solid var(--color-hairline);border-radius:8px;box-shadow:var(--shadow-paper)}
+.b{height:30px;padding:0 12px;border-radius:6px;border:1px solid transparent;font:inherit;font-size:13px;font-weight:550;display:inline-flex;align-items:center;gap:6px;cursor:pointer;white-space:nowrap}
+.b.p{background:var(--color-primary);color:#fff}.b.p:hover{background:var(--color-primary-hover)}
+.b.s{background:var(--color-surface);border-color:var(--color-border-strong);color:var(--color-text)}
+.b.t{background:none;color:var(--color-text-secondary);padding:0 6px}
+.b.d{background:var(--color-danger);color:#fff}
+.b:focus-visible{outline:2px solid var(--color-primary);outline-offset:2px}
+.st{display:inline-flex;align-items:center;gap:6px;font-size:13px}.st::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor}
+.st.ok{color:var(--color-success)}.st.wa{color:var(--color-warning)}.st.da{color:var(--color-danger)}.st.in{color:var(--color-info)}
+.st span{color:var(--color-text-secondary)}
+.mrow{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.t13{font-size:13px}.t12{font-size:12px;color:var(--color-text-tertiary)}
+.amt{font-variant-numeric:tabular-nums;text-align:right}.amt s{text-decoration:none;color:var(--color-text-tertiary);font-size:.8em;margin-right:1px}
+table.mini{width:100%;border-collapse:collapse;font-size:13px}
+table.mini td,table.mini th{padding:0 12px;height:36px;text-align:left;border-bottom:1px solid var(--color-hairline)}
+table.mini th{font-weight:500;font-size:12px;color:var(--color-text-tertiary);background:var(--color-surface-subtle)}
+table.mini tr:last-child td{border-bottom:0}
+.r,td.amt{text-align:right!important}
+/* 角色表 */
+table.roles{width:100%;border-collapse:collapse;margin-top:20px;background:var(--color-surface);border:1px solid var(--color-hairline);border-radius:10px;overflow:hidden;font-size:13px}
+table.roles th,table.roles td{text-align:left;padding:10px 16px;border-bottom:1px solid var(--color-hairline);vertical-align:middle}
+table.roles th{font-size:12px;font-weight:500;color:var(--color-text-tertiary);background:var(--color-surface-subtle)}
+table.roles td:first-child{font-weight:600;white-space:nowrap}
+.sw{display:inline-block;width:28px;height:20px;border-radius:4px;border:1px solid rgba(0,0,0,.08);vertical-align:middle}
+code{font-family:var(--font-mono);font-size:12px;color:var(--color-text-secondary)}
+.tokgrid{margin-top:20px;display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.tokgrid .paper{padding:16px}
+.tokgrid h5{font-size:12px;font-weight:500;color:var(--color-text-tertiary);margin-bottom:10px}
+.tokgrid li{list-style:none;display:flex;align-items:center;gap:10px;font-size:13px;line-height:28px}
+.tokgrid li code{margin-left:auto}
+/* 两库对照 */
+.libs{margin-top:20px;display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.libcol h5{font-size:13px;font-weight:600;margin-bottom:8px;display:flex;justify-content:space-between}
+.libcol h5 span{font-weight:400;color:var(--color-text-tertiary);font-size:12px}
+.card{padding:16px;display:flex;flex-direction:column;gap:12px}
+.card .ttl{font-size:15px;font-weight:600}
+/* 模拟库默认外观 */
+.ant-def{background:#fff;border:1px solid #f0f0f0;border-radius:8px;font-family:-apple-system,"Segoe UI",sans-serif}
+.ant-def .b.p{background:#1677ff;border-radius:6px;font-weight:400}.ant-def .b.s{border-color:#d9d9d9;background:#fff;color:rgba(0,0,0,.88);font-weight:400}
+.ant-def .tag{font-size:12px;padding:0 7px;border-radius:4px;background:#fff7e6;color:#d46b08;border:1px solid #ffd591;line-height:20px}
+.mui-def{background:#fff;border-radius:4px;box-shadow:0 2px 1px -1px rgba(0,0,0,.2),0 1px 1px rgba(0,0,0,.14),0 1px 3px rgba(0,0,0,.12);font-family:Roboto,Arial,sans-serif}
+.mui-def .b{text-transform:uppercase;letter-spacing:.03em;border-radius:4px;font-weight:500}.mui-def .b.p{background:#1976d2;box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px rgba(0,0,0,.14)}.mui-def .b.s{border-color:rgba(25,118,210,.5);color:#1976d2;background:#fff}
+.mui-def .tag{font-size:12px;padding:0 10px;border-radius:16px;background:#ed6c02;color:#fff;line-height:22px}
+pre.map{margin-top:12px;background:var(--color-frame);color:var(--color-frame-text-1);border-radius:8px;padding:14px 16px;font-family:var(--font-mono);font-size:11.5px;line-height:19px;overflow:auto}
+pre.map i{color:var(--color-frame-text-3);font-style:normal}
+/* 清单 */
+.check{margin-top:20px;columns:2;column-gap:40px}
+.check label{display:flex;gap:10px;align-items:flex-start;break-inside:avoid;padding:9px 0;border-bottom:1px solid var(--color-hairline);font-size:13.5px;line-height:21px;cursor:pointer}
+.check input{margin-top:3px;accent-color:var(--color-primary)}
+.check em{font-style:normal;color:var(--color-text-tertiary);font-size:12px;margin-left:auto;white-space:nowrap;font-variant-numeric:tabular-nums}
+.foot{margin-top:72px;padding-top:24px;border-top:1px solid var(--color-hairline);font-size:12px;color:var(--color-text-tertiary);display:flex;justify-content:space-between}
+/* 反馈面板钴蓝 */
+.uifb-scores button.on,.uifb-submit{background:var(--color-primary)!important;border-color:var(--color-primary)!important;color:#fff!important}.uifb-submit:disabled{background:var(--color-text-disabled)!important}
+.uifb{border-radius:10px!important;border-color:var(--color-border-strong)!important;background:var(--color-surface)!important}
+@media(max-width:900px){.rule{grid-template-columns:1fr}.pair,.libs,.thesis{grid-template-columns:1fr}.rules,.tokgrid{grid-template-columns:1fr 1fr}.check{columns:1}}
+</style></head>
+<body>
+<nav class="top"><b>霜白·钴蓝</b><a href="#summary">总览</a><a href="#rules">12 条规矩</a><a href="#roles">角色</a><a href="#tokens">取值与映射</a><a href="#check">验收清单</a><span class="r"><a href="demo.html">演示页 →</a><a href="../../">全部轮次</a></span></nav>
+<div class="wrap">
+
+<header id="summary">
+  <div class="eng">后台设计语言 · v12.0 · Round 10</div>
+  <h1>后台是办事的桌面，不是展示的橱窗。</h1>
+  <p class="lead">这套语言只做一件事：<b>让人在任何组件库里，都能更快地看懂、核对、做决定、离开。</b>它不规定按钮长什么样，只规定东西该“怎么说话”——谁最重要、什么时候能用颜色、线有多重、空白有多大。</p>
+  <div class="thesis">
+    <div><small>主张一 · 秩序</small><p>对齐和节奏代替装饰。整齐本身就是高级感。</p></div>
+    <div><small>主张二 · 克制</small><p>钴蓝给操作，颜色只给状态。一屏只有一个声音最大。</p></div>
+    <div><small>主张三 · 负责</small><p>先说结论和后果，再给明细；每条路都有出口。</p></div>
+  </div>
+  <div class="rules" id="rules-index">
+    <a href="#r1"><em>01</em><h4>一屏一个主操作</h4><p>只有一个钴蓝按钮</p></a>
+    <a href="#r2"><em>02</em><h4>颜色只表示状态</h4><p>点 + 文字，不铺色块</p></a>
+    <a href="#r3"><em>03</em><h4>先结论，后明细</h4><p>一句话说完要办的事</p></a>
+    <a href="#r4"><em>04</em><h4>数字右对齐、等宽</h4><p>能纵向比较</p></a>
+    <a href="#r5"><em>05</em><h4>发丝线，不画框</h4><p>线只有一档：1px 浅线</p></a>
+    <a href="#r6"><em>06</em><h4>分层靠底色</h4><p>霜白 → 纯白，不靠投影</p></a>
+    <a href="#r7"><em>07</em><h4>间距只有 8/16/32</h4><p>组内 · 组间 · 区块</p></a>
+    <a href="#r8"><em>08</em><h4>字号只有 7 档</h4><p>靠字重强调，不靠放大</p></a>
+    <a href="#R10"><em>09</em><h4>危险操作写清后果</h4><p>按钮说出动作和数量</p></a>
+    <a href="#r10"><em>10</em><h4>每个状态都有出口</h4><p>空 · 加载 · 出错</p></a>
+    <a href="#r11"><em>11</em><h4>表格密而不挤</h4><p>行高 44，次要信息降级</p></a>
+    <a href="#r12"><em>12</em><h4>焦点看得见</h4><p>2px 钴蓝实线外框</p></a>
+  </div>
+  <div class="layers"><span>规矩（本页 12 条，长期不变）</span>→<span>角色（界面元素的身份，很少变）</span>→<span>取值（颜色 / 字号 / 间距，可整套替换）</span></div>
+</header>
+
+<section id="rules">
+<div class="eng">第一层 · 规矩 · 每条都给出 对 / 错 的现场渲染</div>
+<h2>12 条规矩</h2>
+<p class="muted">左边是本语言的做法，右边是常见但被禁止的做法。两边内容完全相同，只差规矩。</p>
+
+<!-- 01 -->
+<div class="rule" id="r1"><div><div class="no">01</div><h3>一屏一个主操作</h3>
+<p class="why"><b>为什么：</b>钴蓝按钮是“下一步该做什么”的唯一答案。出现两个，就等于没有答案。</p>
+<p class="tok">--role-action · 其余用次按钮 / 文字按钮</p></div>
+<div class="pair">
+<div class="ex ok"><div class="lab"><i></i>对<span>1 个钴蓝，其余降级</span></div><div class="stage"><div class="paper card"><div class="ttl">退款审批 · 6 笔</div><div class="mrow"><span class="t12">合计 ¥4,218 · 可撤销 10 分钟</span><span style="display:flex;gap:8px"><button class="b t">导出</button><button class="b s">逐笔查看</button><button class="b p">批准 6 笔</button></span></div></div></div></div>
+<div class="ex no"><div class="lab"><i></i>错<span>三个按钮都在喊</span></div><div class="stage"><div class="paper card"><div class="ttl">退款审批 · 6 笔</div><div class="mrow"><span class="t12">合计 ¥4,218 · 可撤销 10 分钟</span><span style="display:flex;gap:8px"><button class="b p">导出</button><button class="b p">查看</button><button class="b p">批准</button></span></div></div></div></div>
+</div></div>
+
+<!-- 02 -->
+<div class="rule" id="r2"><div><div class="no">02</div><h3>颜色只表示状态</h3>
+<p class="why"><b>为什么：</b>颜色一旦拿来装饰，真正出问题时的红色就不再醒目。状态用 6px 圆点 + 文字，色盲也能读。</p>
+<p class="tok">--role-success / warning / danger / info · 仅点、字、2px 线</p></div>
+<div class="pair">
+<div class="ex ok"><div class="lab"><i></i>对<span>点 + 字，只有异常显眼</span></div><div class="stage"><div class="paper"><table class="mini"><tr><td>#2410-0917</td><td><span class="st ok"><span>已完成</span></span></td></tr><tr><td>#2410-0918</td><td><span class="st in"><span>配送中</span></span></td></tr><tr><td>#2410-0919</td><td><span class="st da">超时 2 天</span></td></tr></table></div></div></div>
+<div class="ex no"><div class="lab"><i></i>错<span>彩色标签铺满，异常淹没</span></div><div class="stage"><div class="paper"><table class="mini"><tr><td>#2410-0917</td><td><span style="background:#2e9d5b;color:#fff;padding:2px 10px;border-radius:12px;font-size:12px">已完成</span></td></tr><tr><td>#2410-0918</td><td><span style="background:#3e7bfa;color:#fff;padding:2px 10px;border-radius:12px;font-size:12px">配送中</span></td></tr><tr><td>#2410-0919</td><td><span style="background:#e8590c;color:#fff;padding:2px 10px;border-radius:12px;font-size:12px">超时</span></td></tr></table></div></div></div>
+</div></div>
+
+<!-- 03 -->
+<div class="rule" id="r3"><div><div class="no">03</div><h3>先结论，后明细</h3>
+<p class="why"><b>为什么：</b>人打开后台是为了做决定。第一行就告诉他“有什么事、多严重、该做什么”，明细是给要核对的人看的。</p>
+<p class="tok">标题下一行摘要 · 数字加粗不加大</p></div>
+<div class="pair">
+<div class="ex ok"><div class="lab"><i></i>对<span>一句话 → 明细</span></div><div class="stage"><div class="paper card"><div style="font-size:16px;font-weight:600;line-height:24px">6 笔退款已超时，最久等了 <b>3 天</b>，批准后 10 分钟内可撤销。</div><div class="t12">朝阳门店 4 笔 · 望京门店 2 笔 · 合计 ¥4,218</div></div></div></div>
+<div class="ex no"><div class="lab"><i></i>错<span>先堆字段，结论要自己算</span></div><div class="stage"><div class="paper card t13" style="gap:4px"><div>门店：朝阳、朝阳、望京、朝阳、望京、朝阳</div><div>申请时间：10-13、10-13、10-14、10-14、10-15、10-15</div><div>金额：612、1012、498、702、880、514</div><div>状态：待处理</div></div></div></div>
+</div></div>
+
+<!-- 04 -->
+<div class="rule" id="r4"><div><div class="no">04</div><h3>数字右对齐、等宽</h3>
+<p class="why"><b>为什么：</b>金额要上下比较大小。等宽数字（tabular）+ 右对齐，个位对个位，一眼看出谁大。</p>
+<p class="tok">font-variant-numeric: tabular-nums · ¥ 与小数降一级</p></div>
+<div class="pair">
+<div class="ex ok"><div class="lab"><i></i>对<span>位数对齐</span></div><div class="stage"><div class="paper"><table class="mini"><tr><th>门店</th><th class="r">实付</th></tr><tr><td>朝阳</td><td class="amt"><s>¥</s>12,480.00</td></tr><tr><td>望京</td><td class="amt"><s>¥</s>968.50</td></tr><tr><td>国贸</td><td class="amt"><s>¥</s>1,111.00</td></tr></table></div></div></div>
+<div class="ex no"><div class="lab"><i></i>错<span>左对齐、比例数字</span></div><div class="stage"><div class="paper"><table class="mini" style="font-feature-settings:'pnum'"><tr><th>门店</th><th>实付</th></tr><tr><td>朝阳</td><td>¥12480</td></tr><tr><td>望京</td><td>¥968.5</td></tr><tr><td>国贸</td><td>¥1111.00</td></tr></table></div></div></div>
+</div></div>
+
+<!-- 05 -->
+<div class="rule" id="r5"><div><div class="no">05</div><h3>发丝线，不画框</h3>
+<p class="why"><b>为什么：</b>线是用来分隔的，不是用来装饰的。只有一档浅色 1px 线，内容才是主角。</p>
+<p class="tok">--color-hairline #E6E9EF · 禁止 2px+ 边框与深色描边</p></div>
+<div class="pair">
+<div class="ex ok"><div class="lab"><i></i>对<span>1px 浅线只分行</span></div><div class="stage"><div class="paper"><table class="mini"><tr><td>朝阳门店</td><td class="r">128 单</td></tr><tr><td>望京门店</td><td class="r">96 单</td></tr><tr><td>国贸门店</td><td class="r">71 单</td></tr></table></div></div></div>
+<div class="ex no"><div class="lab"><i></i>错<span>粗框网格，像 Excel</span></div><div class="stage"><table class="mini" style="background:#fff;border:2px solid #555"><tr><td style="border:1px solid #777">朝阳门店</td><td class="r" style="border:1px solid #777">128 单</td></tr><tr><td style="border:1px solid #777">望京门店</td><td class="r" style="border:1px solid #777">96 单</td></tr><tr><td style="border:1px solid #777">国贸门店</td><td class="r" style="border:1px solid #777">71 单</td></tr></table></div></div>
+</div></div>
+
+<!-- 06 -->
+<div class="rule" id="r6"><div><div class="no">06</div><h3>分层靠底色，不靠投影</h3>
+<p class="why"><b>为什么：</b>只有两层：霜白画布、纯白纸面。投影留给真正浮起来的东西（弹窗、抽屉），否则满屏都在漂。</p>
+<p class="tok">--role-canvas → --role-surface · --shadow-pop 只给浮层</p></div>
+<div class="pair">
+<div class="ex ok"><div class="lab"><i></i>对<span>霜白 → 纯白，两层</span></div><div class="stage" style="display:flex;gap:12px"><div class="paper card" style="flex:1"><div class="t12">今日订单</div><div style="font-size:22px;font-weight:650">1,284</div></div><div class="paper card" style="flex:1"><div class="t12">待退款</div><div style="font-size:22px;font-weight:650">27</div></div></div></div>
+<div class="ex no"><div class="lab"><i></i>错<span>卡片浮起、卡中套卡</span></div><div class="stage" style="display:flex;gap:12px;background:#fff"><div class="card" style="flex:1;border-radius:14px;box-shadow:0 8px 24px rgba(0,0,0,.14);background:#fff"><div class="t12">今日订单</div><div style="box-shadow:0 2px 8px rgba(0,0,0,.12);border-radius:10px;padding:6px 10px;font-size:22px;font-weight:650">1,284</div></div><div class="card" style="flex:1;border-radius:14px;box-shadow:0 8px 24px rgba(0,0,0,.14);background:#fff"><div class="t12">待退款</div><div style="box-shadow:0 2px 8px rgba(0,0,0,.12);border-radius:10px;padding:6px 10px;font-size:22px;font-weight:650">27</div></div></div></div>
+</div></div>
+
+<!-- 07 -->
+<div class="rule" id="r7"><div><div class="no">07</div><h3>间距只有 8 / 16 / 32</h3>
+<p class="why"><b>为什么：</b>间距表达关系：越近越相关。只用三档，关系就一眼可读；随手写 13、19、27，页面就散了。</p>
+<p class="tok">--rhythm-in 8 · --rhythm-group 16 · --rhythm-block 32</p></div>
+<div class="pair">
+<div class="ex ok"><div class="lab"><i></i>对<span>标签与值 8 · 字段之间 16</span></div><div class="stage"><div class="paper card" style="gap:16px"><div style="display:flex;flex-direction:column;gap:8px"><span class="t12">收货人</span><span class="t13">王先生 · 138****2041</span></div><div style="display:flex;flex-direction:column;gap:8px"><span class="t12">地址</span><span class="t13">朝阳区建国路 88 号</span></div></div></div></div>
+<div class="ex no"><div class="lab"><i></i>错<span>间距随手，分不清谁跟谁</span></div><div class="stage"><div class="paper card" style="gap:0;padding:11px 19px"><span class="t12" style="margin-bottom:13px">收货人</span><span class="t13" style="margin-bottom:5px">王先生 · 138****2041</span><span class="t12" style="margin-bottom:3px">地址</span><span class="t13">朝阳区建国路 88 号</span></div></div></div>
+</div></div>
+
+<!-- 08 -->
+<div class="rule" id="r8"><div><div class="no">08</div><h3>字号只有 7 档，靠字重强调</h3>
+<p class="why"><b>为什么：</b>12 / 13 / 14 / 16 / 20 / 24 / 28。档位少，层级才清楚。要强调某个数字，加粗而不是放大。</p>
+<p class="tok">--fs-12 … --fs-figure · 行高落 4px 网格</p></div>
+<div class="pair">
+<div class="ex ok"><div class="lab"><i></i>对<span>24 标题 · 14 摘要 · 加粗数字</span></div><div class="stage"><div style="font-size:24px;line-height:32px;font-weight:650;letter-spacing:-.02em">订单管理</div><div style="font-size:14px;color:var(--color-text-secondary);margin-top:8px"><b style="color:var(--color-text)">27</b> 笔待处理，最早的已等 <b style="color:var(--color-text)">3 天</b></div></div></div>
+<div class="ex no"><div class="lab"><i></i>错<span>字号乱跳，数字放大</span></div><div class="stage"><div style="font-size:30px;font-weight:800">订单管理</div><div style="font-size:15px;color:#666;margin-top:3px"><span style="font-size:26px;font-weight:700">27</span> 笔待处理，最早的已等 <span style="font-size:19px">3 天</span></div></div></div>
+</div></div>
+
+<!-- 09 -->
+<div class="rule" id="R10"><div><div class="no">09</div><h3>危险操作先写后果</h3>
+<p class="why"><b>为什么：</b>“确定吗？”什么也没说。要写清楚会发生什么、能不能撤销，按钮上直接说出动作和数量。</p>
+<p class="tok">--role-danger 只用于确认按钮 · 默认焦点落在“取消”</p></div>
+<div class="pair">
+<div class="ex ok"><div class="lab"><i></i>对<span>后果 + 动作 + 数量</span></div><div class="stage"><div class="paper card" style="box-shadow:var(--shadow-pop)"><div class="ttl">作废 3 张优惠券？</div><div class="t13" style="color:var(--color-text-secondary)">已领取的 214 位用户将立即无法使用，<b style="color:var(--color-danger)">不可撤销</b>。已用券的订单不受影响。</div><div style="display:flex;justify-content:flex-end;gap:8px"><button class="b s">取消</button><button class="b d">作废 3 张</button></div></div></div></div>
+<div class="ex no"><div class="lab"><i></i>错<span>只有“确定吗”</span></div><div class="stage"><div class="paper card" style="box-shadow:var(--shadow-pop)"><div class="ttl">提示</div><div class="t13">确定要执行此操作吗？</div><div style="display:flex;justify-content:flex-end;gap:8px"><button class="b s">否</button><button class="b p">确定</button></div></div></div></div>
+</div></div>
+
+<!-- 10 -->
+<div class="rule" id="r10"><div><div class="no">10</div><h3>每个状态都有出口</h3>
+<p class="why"><b>为什么：</b>空、加载、出错是常态。每一种都要说明“为什么这样”和“现在可以做什么”，不留死胡同。</p>
+<p class="tok">空：原因 + 下一步 · 加载：骨架行 · 出错：影响范围 + 重试 + 编号</p></div>
+<div class="pair">
+<div class="ex ok"><div class="lab"><i></i>对<span>说明原因，给出下一步</span></div><div class="stage" style="display:flex;flex-direction:column;gap:12px"><div class="paper card" style="gap:6px"><div class="t13" style="font-weight:600">没有符合“已超时”的订单</div><div class="t12">筛选条件：近 7 天 · 朝阳门店。超时规则：承诺 3 天未处理。</div><div><button class="b s">清除筛选</button></div></div><div class="paper card" style="gap:6px"><span class="st da">订单列表加载失败</span><div class="t12">退款和审批不受影响 · 错误编号 E-5021</div><div><button class="b s">重试</button></div></div></div></div>
+<div class="ex no"><div class="lab"><i></i>错<span>只有一句话或一个图</span></div><div class="stage" style="display:flex;flex-direction:column;gap:12px"><div class="paper card" style="align-items:center;color:#aaa"><div style="font-size:32px">☹</div><div class="t13">暂无数据</div></div><div class="paper card" style="align-items:center;color:#aaa"><div class="t13">出错了</div></div></div></div>
+</div></div>
+
+<!-- 11 -->
+<div class="rule" id="r11"><div><div class="no">11</div><h3>表格密而不挤</h3>
+<p class="why"><b>为什么：</b>后台要一屏看得多，但不能挤。行高 44（紧凑 36），主信息正文色，次要信息降一级灰，操作悬停时才出现。</p>
+<p class="tok">--row-h-default 44 · --row-h-compact 36 · text-2 / text-3</p></div>
+<div class="pair">
+<div class="ex ok"><div class="lab"><i></i>对<span>主次两级，一眼扫得下去</span></div><div class="stage"><div class="paper"><table class="mini"><tr><th>订单</th><th>客户</th><th class="r">实付</th></tr><tr style="height:44px"><td>#2410-0917<div class="t12">朝阳门店</div></td><td>王先生</td><td class="amt"><s>¥</s>612.00</td></tr><tr><td>#2410-0918<div class="t12">望京门店</div></td><td>李女士</td><td class="amt"><s>¥</s>1,012.00</td></tr></table></div></div></div>
+<div class="ex no"><div class="lab"><i></i>错<span>全部同等重量，按钮堆满</span></div><div class="stage"><div class="paper"><table class="mini" style="font-size:12px"><tr><th>订单</th><th>门店</th><th>客户</th><th>实付</th><th>操作</th></tr><tr><td style="height:28px">2410-0917</td><td>朝阳门店</td><td>王先生</td><td>612</td><td style="color:#1677ff">查看 编辑 删除 复制</td></tr><tr><td style="height:28px">2410-0918</td><td>望京门店</td><td>李女士</td><td>1012</td><td style="color:#1677ff">查看 编辑 删除 复制</td></tr></table></div></div></div>
+</div></div>
+
+<!-- 12 -->
+<div class="rule" id="r12"><div><div class="no">12</div><h3>焦点看得见</h3>
+<p class="why"><b>为什么：</b>用键盘的人要知道自己在哪。焦点是 2px 钴蓝实线外框，离开元素 2px，不靠颜色变化暗示。（试试按 Tab）</p>
+<p class="tok">--focus-outline 2px solid · --focus-offset 2px</p></div>
+<div class="pair">
+<div class="ex ok"><div class="lab"><i></i>对<span>清晰外框</span></div><div class="stage" style="display:flex;gap:12px;align-items:center"><button class="b s">取消</button><button class="b p" style="outline:2px solid var(--color-primary);outline-offset:2px">批准 6 笔</button><button class="b p" style="display:none"></button><span class="t12">← 当前焦点</span></div></div>
+<div class="ex no"><div class="lab"><i></i>错<span>outline:none，焦点消失</span></div><div class="stage" style="display:flex;gap:12px;align-items:center"><button class="b s">取消</button><button class="b p" style="outline:none;background:#1A1F2C">批准 6 笔</button><span class="t12">← 焦点在哪？</span></div></div>
+</div></div>
+</section>
+
+<section id="roles">
+<div class="eng">第二层 · 角色 · 界面里每类东西的身份</div>
+<h2>角色 → 视觉处理</h2>
+<p class="muted">组件只认角色，不认色值。换主题时只换取值，角色和处理方式不变。</p>
+<table class="roles">
+<tr><th>角色</th><th>样本</th><th>视觉处理</th><th>令牌</th></tr>
+<tr><td>框架（侧栏）</td><td><span class="sw" style="background:#11151F"></span></td><td>冷调夜蓝近黑，只做框架，不与主操作抢；承担“这是一个工具”的身份</td><td><code>--role-frame</code></td></tr>
+<tr><td>画布</td><td><span class="sw" style="background:#F3F5F8"></span></td><td>霜白，所有纸面的底</td><td><code>--role-canvas</code></td></tr>
+<tr><td>纸面</td><td><span class="sw" style="background:#FFFFFF"></span></td><td>纯白，1px 发丝边，不浮起</td><td><code>--role-surface</code></td></tr>
+<tr><td>主操作</td><td><button class="b p">批准 6 笔</button></td><td>钴蓝实底，每屏 1 个，写出动作 + 数量</td><td><code>--role-action</code></td></tr>
+<tr><td>次操作</td><td><button class="b s">逐笔查看</button></td><td>纸底 + 1px 强边</td><td><code>--role-border-strong</code></td></tr>
+<tr><td>轻操作</td><td><button class="b t">导出</button></td><td>无边无底，悬停才出底色</td><td><code>--role-text-2</code></td></tr>
+<tr><td>危险操作</td><td><button class="b d">作废 3 张</button></td><td>只出现在确认层里，配后果说明</td><td><code>--role-danger</code></td></tr>
+<tr><td>状态 · 成功 / 进行 / 注意 / 异常</td><td><span class="st ok"></span> <span class="st in"></span> <span class="st wa"></span> <span class="st da"></span></td><td>6px 圆点 + 文字；只有“异常”允许文字着色</td><td><code>--role-success … danger</code></td></tr>
+<tr><td>正文 / 次要 / 辅助</td><td><span style="color:#0F1420">正文</span> <span style="color:#424B5E">次要</span> <span style="color:#667085">辅助</span></td><td>三级文字，不再用更多灰</td><td><code>--role-text-1/2/3</code></td></tr>
+<tr><td>数字 / 金额</td><td><span class="amt"><s>¥</s>4,218.00</span></td><td>等宽右对齐，¥ 与小数降级</td><td><code>tabular-nums</code></td></tr>
+<tr><td>分区标签</td><td><span class="t12" style="letter-spacing:.12em">今日概况 ——</span></td><td>11px 疏排 + 延伸发丝线，代替卡片标题</td><td><code>--eng-*</code></td></tr>
+<tr><td>焦点</td><td><button class="b s" style="outline:2px solid #3D4BE0;outline-offset:2px">焦点</button></td><td>2px 钴蓝实线，偏移 2px</td><td><code>--focus-outline</code></td></tr>
+</table>
+</section>
+
+<section id="tokens">
+<div class="eng">第三层 · 取值 · 可整套替换</div>
+<h2>取值与组件库映射</h2>
+<p class="muted">下面是当前这一套值。换成别的值也可以，只要仍满足 12 条规矩（例如主操作对白字对比 ≥ 4.5:1（AA）、状态色不做大面积底色）。</p>
+<div class="tokgrid">
+<div class="paper"><h5>颜色</h5><ul><li><span class="sw" style="background:#11151F"></span>夜蓝栏<code>#11151F</code></li><li><span class="sw" style="background:#3D4BE0"></span>钴蓝<code>#3D4BE0</code></li><li><span class="sw" style="background:#F3F5F8"></span>霜白<code>#F3F5F8</code></li><li><span class="sw" style="background:#FFFFFF"></span>纸<code>#FFFFFF</code></li><li><span class="sw" style="background:#E6E9EF"></span>发丝<code>#E6E9EF</code></li><li><span class="sw" style="background:#D12F2F"></span>异常<code>#D12F2F</code></li><li><span class="sw" style="background:#13805A"></span>成功<code>#13805A</code></li></ul></div>
+<div class="paper"><h5>字号 / 行高</h5><ul><li>辅助<code>12 / 16</code></li><li>表格<code>13 / 20</code></li><li>正文<code>14 / 22</code></li><li>小标题<code>16 / 24</code></li><li>结论句<code>20 / 28</code></li><li>页标题<code>24 / 32</code></li><li>数字<code>28 / 32</code></li></ul></div>
+<div class="paper"><h5>间距</h5><ul><li><span style="display:inline-block;width:8px;height:8px;background:#3D4BE0"></span>组内<code>8</code></li><li><span style="display:inline-block;width:16px;height:8px;background:#3D4BE0"></span>组间<code>16</code></li><li><span style="display:inline-block;width:32px;height:8px;background:#3D4BE0"></span>区块<code>32</code></li><li>页边<code>40</code></li></ul></div>
+<div class="paper"><h5>形状 / 尺寸</h5><ul><li>圆角 控件<code>6</code></li><li>圆角 纸面<code>10</code></li><li>控件高<code>32</code></li><li>行高 默认<code>44</code></li><li>行高 紧凑<code>36</code></li><li>侧栏宽<code>232</code></li></ul></div>
+</div>
+
+<h2 style="margin-top:48px;font-size:20px">同一套规矩，两个组件库，一个样子</h2>
+<p class="muted">上排：Ant Design 5 与 MUI 的默认外观（示意）。下排：只改主题配置、不改组件代码之后。</p>
+<div class="libs">
+<div class="libcol"><h5>Ant Design 5 <span>默认</span></h5><div class="ant-def card"><div class="mrow"><div class="ttl">退款审批 · 6 笔</div><span class="tag">待处理</span></div><div class="t12">合计 ¥4218 · 最久 3 天</div><div style="display:flex;gap:8px;justify-content:flex-end"><button class="b s">查看</button><button class="b p">批准</button></div></div></div>
+<div class="libcol"><h5>MUI <span>默认</span></h5><div class="mui-def card"><div class="mrow"><div class="ttl">退款审批 · 6 笔</div><span class="tag">待处理</span></div><div class="t12">合计 ¥4218 · 最久 3 天</div><div style="display:flex;gap:8px;justify-content:flex-end"><button class="b s">查看</button><button class="b p">批准</button></div></div></div>
+<div class="libcol"><h5>Ant Design 5 <span>套用本语言</span></h5><div class="paper card"><div class="mrow"><div class="ttl">退款审批 · 6 笔</div><span class="st da">超时</span></div><div class="t12">合计 <span class="amt">¥4,218</span> · 最久 3 天</div><div style="display:flex;gap:8px;justify-content:flex-end"><button class="b s">逐笔查看</button><button class="b p">批准 6 笔</button></div></div>
+<pre class="map"><i>// ConfigProvider theme</i>
+token: { colorPrimary:'#3D4BE0', colorBgLayout:'#F3F5F8',
+  colorBgContainer:'#FFFFFF', colorBorderSecondary:'#E6E9EF',
+  colorError:'#D12F2F', colorSuccess:'#13805A',
+  borderRadius:6, controlHeight:32, fontSize:14,
+  boxShadow:'none', wireframe:false }
+components: { Table:{ cellPaddingBlock:12, headerBg:'#F8F9FB' },
+  Tag: <i>// 不用 Tag 表示状态 → 用 Badge status + 文字</i> }</pre></div>
+<div class="libcol"><h5>MUI <span>套用本语言</span></h5><div class="paper card"><div class="mrow"><div class="ttl">退款审批 · 6 笔</div><span class="st da">超时</span></div><div class="t12">合计 <span class="amt">¥4,218</span> · 最久 3 天</div><div style="display:flex;gap:8px;justify-content:flex-end"><button class="b s">逐笔查看</button><button class="b p">批准 6 笔</button></div></div>
+<pre class="map"><i>// createTheme</i>
+palette:{ primary:{main:'#3D4BE0'}, error:{main:'#D12F2F'},
+  background:{default:'#F3F5F8', paper:'#FFFFFF'}, divider:'#E6E9EF' },
+shape:{ borderRadius:6 }, shadows: Array(25).fill('none'),
+typography:{ fontSize:14, button:{ textTransform:'none', fontWeight:550 } },
+components:{ MuiButton:{ defaultProps:{ disableElevation:true } },
+  MuiChip: <i>// 状态改用 6px 圆点 + 文字</i> }</pre></div>
+</div>
+
+<table class="roles" style="margin-top:32px">
+<tr><th>角色</th><th>Ant Design 5</th><th>Element Plus</th><th>shadcn/ui</th><th>MUI</th></tr>
+<tr><td>主操作</td><td><code>colorPrimary</code></td><td><code>--el-color-primary</code></td><td><code>--primary</code></td><td><code>palette.primary.main</code></td></tr>
+<tr><td>画布</td><td><code>colorBgLayout</code></td><td><code>--el-bg-color-page</code></td><td><code>--background</code></td><td><code>background.default</code></td></tr>
+<tr><td>纸面</td><td><code>colorBgContainer</code></td><td><code>--el-bg-color</code></td><td><code>--card</code></td><td><code>background.paper</code></td></tr>
+<tr><td>发丝线</td><td><code>colorBorderSecondary</code></td><td><code>--el-border-color-lighter</code></td><td><code>--border</code></td><td><code>divider</code></td></tr>
+<tr><td>异常</td><td><code>colorError</code></td><td><code>--el-color-danger</code></td><td><code>--destructive</code></td><td><code>palette.error.main</code></td></tr>
+<tr><td>正文 / 次要</td><td><code>colorText / colorTextSecondary</code></td><td><code>--el-text-color-primary / regular</code></td><td><code>--foreground / --muted-foreground</code></td><td><code>text.primary / secondary</code></td></tr>
+<tr><td>圆角</td><td><code>borderRadius: 6</code></td><td><code>--el-border-radius-base</code></td><td><code>--radius: .375rem</code></td><td><code>shape.borderRadius</code></td></tr>
+<tr><td>投影</td><td><code>boxShadow: none</code></td><td><code>--el-box-shadow-light: none</code></td><td>去掉 <code>shadow-sm</code></td><td><code>shadows: none</code></td></tr>
+<tr><td>焦点</td><td><code>controlOutline</code> + outline 覆盖</td><td><code>:focus-visible</code> 覆盖</td><td><code>--ring</code></td><td><code>focusVisible</code> 覆盖</td></tr>
+</table>
+</section>
+
+<section id="check">
+<div class="eng">验收 · 每个页面上线前过一遍</div>
+<h2>验收清单</h2>
+<p class="muted">可以直接勾选，自查用；不会上传。</p>
+<div class="check">
+<label><input type="checkbox">这一屏只有一个钴蓝主按钮<em>01</em></label>
+<label><input type="checkbox">按钮文字是“动作 + 数量”，没有“确定 / 提交”<em>01 · 09</em></label>
+<label><input type="checkbox">彩色只出现在状态点、状态字、2px 线上<em>02</em></label>
+<label><input type="checkbox">标题下有一句结论摘要<em>03</em></label>
+<label><input type="checkbox">所有金额 / 数量列右对齐、等宽数字<em>04</em></label>
+<label><input type="checkbox">没有 2px 以上边框，没有深色描边<em>05</em></label>
+<label><input type="checkbox">只有弹窗 / 抽屉 / 下拉有投影<em>06</em></label>
+<label><input type="checkbox">间距值全部来自 8 / 16 / 32（及 4 / 40）<em>07</em></label>
+<label><input type="checkbox">字号全部来自 7 档，强调靠字重<em>08</em></label>
+<label><input type="checkbox">危险操作写了后果和能否撤销，默认焦点在“取消”<em>09</em></label>
+<label><input type="checkbox">空 / 加载 / 出错 三种状态都设计过，并有下一步<em>10</em></label>
+<label><input type="checkbox">表格行高 44 或 36，次要信息降一级灰<em>11</em></label>
+<label><input type="checkbox">Tab 键走一遍，每一步都看得到焦点<em>12</em></label>
+<label><input type="checkbox">换一个组件库后，以上全部仍然成立<em>全部</em></label>
+</div>
+</section>
+
+<div class="foot"><span>后台设计语言 v12.0 · Round 10「霜白·钴蓝」</span><span>取值文件：<a href="reference-tokens.css">reference-tokens.css</a> · 原文：<a href="STYLE.md">STYLE.md</a></span></div>
+</div>
+<link rel="stylesheet" href="../../assets/feedback.css"><script src="../../assets/feedback-config.js" defer></script><script src="../../assets/feedback.js" data-round="R10" defer></script>
+</body></html>
