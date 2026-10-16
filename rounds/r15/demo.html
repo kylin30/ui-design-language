@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>演示 · 运营待办 · 后台设计语言 v17.0 · Round 15 素笺</title>
+<link rel="stylesheet" href="reference-tokens.css"><script src="themes.js"></script><link rel="stylesheet" href="theme-switcher.css"><link rel="stylesheet" href="shell.css">
+<style>@keyframes draw{to{stroke-dashoffset:0}}.work{display:grid;grid-template-columns:360px minmax(0,1fr);gap:14px;margin-top:14px;align-items:start}
+.q{padding:8px;position:sticky;top:14px}.q .qh{padding:12px 16px 4px;display:flex;align-items:baseline;gap:8px}.q .qh b{font-size:15px;font-weight:620}
+.seg{display:flex;gap:2px;margin:10px 8px 4px;padding:3px;border-radius:9px;background:var(--color-surface-subtle)}.seg button{flex:1;height:28px;border:0;border-radius:7px;background:none;font-size:12.5px;color:var(--color-text-secondary);cursor:pointer}.seg button.on{background:var(--color-surface);color:var(--color-text);font-weight:600;box-shadow:var(--shadow-card)}.seg em{font-style:normal;color:var(--color-text-tertiary);margin-left:4px}
+.det{display:grid;grid-template-columns:minmax(0,1fr) 280px;gap:14px}
+.verdict{padding:28px 32px}.verdict .eyebrow{margin-bottom:12px}
+
+.stack{display:flex;height:14px;border-radius:99px;overflow:hidden;gap:3px;margin:18px 0 14px}.stack i{display:block;height:100%;border-radius:3px;transform-origin:left;animation:grow .8s var(--ease-out) both}
+.mini3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.mini3 small{display:block;font-size:12px;color:var(--color-text-tertiary)}.mini3 b{font-family:var(--font-figure);font-size:22px;font-weight:400;letter-spacing:-.02em}
+</style></head>
+<body>
+<svg width="0" height="0" style="position:absolute"><defs>
+<symbol id="i-inbox" viewBox="0 0 24 24"><path d="M3 13h5l1.5 3h5L16 13h5M5 5h14l2 8v6H3v-6z"/></symbol>
+<symbol id="i-order" viewBox="0 0 24 24"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2zM9 8h6M9 12h6"/></symbol>
+<symbol id="i-box" viewBox="0 0 24 24"><path d="M3 7l9-4 9 4-9 4zM3 7v10l9 4 9-4V7M12 11v10"/></symbol>
+<symbol id="i-chart" viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></symbol>
+<symbol id="i-gear" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M5 19l2-2M17 7l2-2"/></symbol>
+<symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></symbol>
+<!-- 状态字形 -->
+<symbol id="g-todo" viewBox="0 0 14 14"><circle cx="7" cy="7" r="5.25" fill="none" stroke="currentColor" stroke-width="1.5"/></symbol>
+<symbol id="g-prog" viewBox="0 0 14 14"><circle cx="7" cy="7" r="5.25" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M7 1.75A5.25 5.25 0 0 1 7 12.25z" fill="currentColor"/></symbol>
+<symbol id="g-done" viewBox="0 0 14 14"><circle cx="7" cy="7" r="6" fill="currentColor"/><path d="M4.5 7.2l1.8 1.8 3.4-3.6" fill="none" stroke="var(--color-surface)" stroke-width="1.5"/></symbol>
+<symbol id="g-late" viewBox="0 0 14 14"><path d="M7 1l6 6-6 6-6-6z" fill="currentColor"/><path d="M7 4.2v3.4M7 9.6v.1" stroke="var(--color-surface)" stroke-width="1.5" stroke-linecap="round"/></symbol>
+<symbol id="i-pulse" viewBox="0 0 24 24"><path d="M3 12h4l3-8 4 16 3-8h4"/></symbol><symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="4"/><path d="M2 21c0-4 3-7 7-7s7 3 7 7M17 4a4 4 0 0 1 0 8M22 21c0-3-2-6-5-7"/></symbol><symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></symbol></defs></svg>
+<div class="app">
+<aside class="side"><div class="side-in"><div class="brand"><i>云</i>云栈运营</div><div class="lab">工作</div><a class="nv on" href="demo.html" data-keep-theme><svg class="ico"><use href="#i-inbox"/></svg>运营待办<span class="c al">9</span></a><a class="nv" href="demo-orders.html" data-keep-theme><svg class="ico"><use href="#i-order"/></svg>订单售后<span class="c">23</span></a><a class="nv" href="demo-analytics.html" data-keep-theme><svg class="ico"><use href="#i-chart"/></svg>数据看板</a><a class="nv" href="demo-ops.html" data-keep-theme><svg class="ico"><use href="#i-pulse"/></svg>运维告警<span class="c al">3</span></a><a class="nv" href="demo-crm.html" data-keep-theme><svg class="ico"><use href="#i-users"/></svg>客户管理<span class="c">5</span></a><a class="nv" href="demo-content.html" data-keep-theme><svg class="ico"><use href="#i-eye"/></svg>内容审核<span class="c">37</span></a><span class="sp"></span><a class="nv" href="spec.html" data-keep-theme><svg class="ico"><use href="#i-gear"/></svg>设计规范</a><div class="me"><span class="av">周</span><div><b>周凯</b>运营 · 华东一区</div></div></div></aside>
+<main class="main">
+<div class="top"><div class="crumb">云栈运营 / <b>今日待办</b></div><span data-demo-nav></span><div class="r"><div class="cmd"><svg class="ico" style="width:14px;height:14px"><use href="#i-search"/></svg>搜索或输入命令<kbd>⌘K</kbd></div><span data-theme-slot></span></div></div>
+<section class="card hero enter"><div><div class="eyebrow">10 月 17 日 · 周六 · 运营待办</div><div class="display xl">今天还有 <span class="fig" style="font-weight:600" data-count="9">9</span> 件事</div>
+<p class="lede">其中 <b style="color:var(--color-danger)">2 件已超时</b>，最急的一件已经等了 <b>11 天</b>。照下面的顺序办，大约 <b>40 分钟</b>能清空。</p></div>
+<div class="hero-r"><div class="eyebrow">按紧急度</div><div class="stack"><i style="flex:2;background:var(--color-danger)"></i><i style="flex:3;background:var(--color-primary);animation-delay:80ms"></i><i style="flex:4;background:var(--color-border-strong);animation-delay:160ms"></i></div>
+<div class="legend"><span><i style="background:var(--color-danger)"></i>超时 2</span><span><i style="background:var(--color-primary)"></i>今天 3</span><span><i style="background:var(--color-border-strong)"></i>本周 4</span></div>
+<div class="mini3" style="margin-top:22px"><div><small>待退款金额</small><b>¥<span data-count="4218">4,218</span></b></div><div><small>即将关闭</small><b data-count="14">14</b></div><div><small>今日已办</small><b data-count="12">12</b></div></div></div></section>
+<div class="work"><div class="card q"><div class="qh"><b>队列</b><span class="muted" style="font-size:12.5px">9 件</span></div><div class="seg"><button class="on">需要我<em>9</em></button><button class="">等别人<em>14</em></button><button class="">已办<em>12</em></button></div><div id="list"></div></div><div id="focus"></div></div><div class="act" id="act"></div>
+</main></div>
+<div class="toast" id="toast"><span id="tmsg"></span><button onclick="window.undo&&undo()">撤销 Z</button></div>
+<script>
+function G(k){return '<svg class="g '+k+'"><use href="#g-'+k+'"/></svg>';}
+function money(n,d){return '<span class="amt"><s>¥</s>'+Math.floor(n).toLocaleString()+'<i>.'+String(d||0).padStart(2,'0')+'</i></span>';}
+var _tt;function toast(m){document.getElementById('tmsg').textContent=m;var T=document.getElementById('toast');T.classList.add('show');clearTimeout(_tt);_tt=setTimeout(function(){T.classList.remove('show');},5000);}
+function countUp(root){(root||document).querySelectorAll('[data-count]').forEach(function(el){var to=parseFloat(el.dataset.count),dec=(el.dataset.count.split('.')[1]||'').length,t0=null,dur=matchMedia('(prefers-reduced-motion:reduce)').matches?0:700;
+ function f(t){if(!t0)t0=t;var p=dur?Math.min(1,(t-t0)/dur):1;p=1-Math.pow(1-p,3);el.textContent=(to*p).toLocaleString(undefined,{minimumFractionDigits:dec,maximumFractionDigits:dec});if(p<1)requestAnimationFrame(f);}requestAnimationFrame(f);});}
+function dots(n,cls,cols){var h='';for(var i=0;i<n;i++)h+='<i class="'+(cls(i)||'')+'" style="animation-delay:'+(i*8)+'ms"></i>';return '<div class="dots" style="grid-template-columns:repeat('+(cols||12)+',1fr)">'+h+'</div>';}
+function area(el,S,o){o=o||{};var W=760,H=o.h||220,P=28,all=[].concat.apply([],S.map(function(s){return s.d;})),mx=o.max||Math.max.apply(0,all)*1.1,mn=o.min||0,n=S[0].d.length;
+ function X(i){return P+i*(W-P-8)/(n-1);}function Y(v){return H-22-(v-mn)/(mx-mn)*(H-40);}
+ var g='<defs><linearGradient id="ga'+el.id+'" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--color-primary)" stop-opacity=".22"/><stop offset="1" stop-color="var(--color-primary)" stop-opacity="0"/></linearGradient></defs>';
+ (o.grid||[]).forEach(function(v){g+='<line x1="'+P+'" x2="'+W+'" y1="'+Y(v)+'" y2="'+Y(v)+'" stroke="var(--color-divider)"/><text x="0" y="'+(Y(v)+4)+'" font-size="10.5" fill="var(--color-text-tertiary)" font-family="var(--font-sans)">'+v+'</text>';});
+ if(o.target)g+='<line x1="'+P+'" x2="'+W+'" y1="'+Y(o.target)+'" y2="'+Y(o.target)+'" stroke="var(--color-chart-4)" stroke-width="1.5" stroke-dasharray="2 5" stroke-linecap="round"/>';
+ S.forEach(function(s){var p=s.d.map(function(v,i){return (i?'L':'M')+X(i).toFixed(1)+','+Y(v).toFixed(1);}).join('');
+  if(s.fill)g+='<path d="'+p+'L'+X(n-1)+','+(H-22)+'L'+X(0)+','+(H-22)+'Z" fill="url(#ga'+el.id+')"/>';
+  g+='<path d="'+p+'" fill="none" stroke="'+s.c+'" stroke-width="'+(s.w||2.25)+'" stroke-linejoin="round" stroke-linecap="round"'+(s.dash?' stroke-dasharray="4 4"':'')+' pathLength="1" style="stroke-dasharray:'+(s.dash?'':'1')+';stroke-dashoffset:'+(s.dash?'0':'1')+';animation:draw 1.1s var(--ease-out) forwards"/>';});
+ (o.marks||[]).forEach(function(m){g+='<circle cx="'+X(m.i)+'" cy="'+Y(m.v)+'" r="5" fill="'+(m.c||'var(--color-danger)')+'" stroke="var(--color-surface)" stroke-width="2.5"/>'+(m.t?'<text x="'+(X(m.i)+10)+'" y="'+(Y(m.v)+18)+'" font-size="11.5" font-weight="600" fill="'+(m.c||'var(--color-danger)')+'">'+m.t+'</text>':'');});
+ (o.xl||[]).forEach(function(l){g+='<text x="'+X(l[0])+'" y="'+(H-4)+'" font-size="10.5" text-anchor="middle" fill="var(--color-text-tertiary)" font-family="var(--font-sans)">'+l[1]+'</text>';});
+ g+='<line class="hv" x1="0" x2="0" y1="8" y2="'+(H-22)+'" stroke="var(--color-border-strong)" opacity="0"/><circle class="hd" r="4.5" fill="var(--color-primary)" stroke="var(--color-surface)" stroke-width="2" opacity="0"/>';
+ el.innerHTML='<svg viewBox="0 0 '+W+' '+H+'" style="width:100%;height:'+H+'px;display:block;overflow:visible" preserveAspectRatio="none">'+g+'</svg><div class="tip"></div>';
+ var sv=el.querySelector('svg'),tip=el.querySelector('.tip'),hv=el.querySelector('.hv'),hd=el.querySelector('.hd');
+ el.onmousemove=function(e){var r=sv.getBoundingClientRect(),x=(e.clientX-r.left)/r.width*W,i=Math.max(0,Math.min(n-1,Math.round((x-P)/((W-P-8)/(n-1)))));
+  hv.setAttribute('x1',X(i));hv.setAttribute('x2',X(i));hv.setAttribute('opacity',1);hd.setAttribute('cx',X(i));hd.setAttribute('cy',Y(S[0].d[i]));hd.setAttribute('opacity',1);
+  tip.style.left=(X(i)/W*r.width)+'px';tip.style.top=(Y(S[0].d[i])/H*r.height)+'px';tip.style.opacity=1;tip.innerHTML=(o.label?o.label(i):'')+' · <b>'+S[0].d[i]+(o.unit||'')+'</b>';};
+ el.onmouseleave=function(){tip.style.opacity=0;hv.setAttribute('opacity',0);hd.setAttribute('opacity',0);};}
+
+var Q=[{g:'late',grp:'超时',t:'6 笔退款等你批准',m:'4 家门店 · 均低于免审阈值',w:'11 天',late:1,h:'批准 6 笔超时退款',big:4218,p:'门店都已确认商品问题，单笔都低于 ¥1,500 免审阈值。建议原路退款，不要求寄回。',
+ rows:[['刘佳琪','苏州 · 观前店','香薰礼盒破损',11,238],['王梓涵','上海 · 徐汇店','耳机左耳无声',9,799],['赵一鸣','南京 · 新街口店','发错颜色',8,356],['陈思远','杭州 · 湖滨店','拉链损坏',7,699],['吴俊杰','苏州 · 观前店','重复扣款',4,1490],['郑可欣','上海 · 徐汇店','未收到货',3,636]],
+ cons:[['','10 分钟内可撤销'],['w','之后进入支付通道，无法撤回']],btn:'批准 6 笔 · ¥4,218',sec:'逐笔核对'},
+ {g:'late',grp:'超时',t:'2 笔待发货已超时',m:'需补填运单号',w:'2 小时',late:1,h:'补运单号，发出 2 单',big:1509,p:'仓库已打包，只缺运单号。填写后系统会自动通知客户。',rows:[['林晓雯','上海 · 静安店','运单号未填',0,329],['赵一鸣','南京 · 新街口店','运单号未填',0,1180]],cons:[['','运单号可随时修改']],btn:'发出 2 单'},
+ {g:'prog',grp:'今天',t:'14 笔未付款即将关闭',m:'30 分钟后自动关闭',w:'30 分',h:'催付 14 笔未付款订单',big:9820,p:'每笔只能催付一次；关闭后库存自动释放。',rows:[],cons:[['w','每笔只能催付一次']],btn:'催付 14 笔'},
+ {g:'todo',grp:'今天',t:'3 张发票待开具',m:'企业客户 · 月结',w:'今天',h:'开具 3 张企业发票',big:12600,p:'抬头和税号都已核对。',rows:[],cons:[['','开具后 24 小时内可作废']],btn:'开具 3 张'},
+ {g:'todo',grp:'今天',t:'「秋冬礼盒」待上架审核',m:'商品部 · 12 个 SKU',w:'今天',h:'审核 12 个新 SKU',big:0,p:'图片、价格、库存均已填写。',rows:[],cons:[['','上架后可随时下架']],btn:'通过上架'},
+ {g:'prog',grp:'本周',t:'望京门店对账差异',m:'差 ¥312.40 · 财务已介入',w:'周五',h:'确认望京门店对账差异',big:312,p:'差额来自一笔重复的优惠券核销。',rows:[],cons:[['','可随时重新对账']],btn:'确认差异'}];
+function detail(q){var rows=q.rows.map(function(r){return '<tr><td>'+r[0]+'<span class="sub">'+r[1]+'</span></td><td class="muted">'+r[2]+'</td><td style="width:150px">'+(r[3]?'<div style="display:flex;align-items:center;gap:10px"><div class="bar" style="flex:1;height:6px"><b class="'+(r[3]>=5?'bad':'mute')+'" style="width:'+Math.min(100,r[3]*9)+'%"></b></div><span style="font-size:12.5px;width:36px">'+r[3]+' 天</span></div>':'')+'</td><td class="n">'+money(r[4])+'</td></tr>';}).join('');
+ return '<div class="card verdict"><div class="eyebrow">'+(q.late?'<span class="tag bad">已超时 '+q.w+'</span>':'<span class="tag">'+q.w+'</span>')+'<span>第 '+(cur+1)+' / '+Q.length+' 件</span></div><div style="display:flex;align-items:flex-end;gap:32px"><div style="flex:1"><div class="display">'+q.h+'</div><p class="lede" style="margin-top:10px">'+q.p+'</p></div>'+(q.big?'<div style="text-align:right"><div class="eyebrow" style="justify-content:flex-end">合计</div><div class="fig xl" style="margin-top:8px">¥<span data-count="'+q.big+'">'+q.big+'</span></div></div>':'')+'</div></div>'+
+ '<div class="det" style="margin-top:14px"><div class="card flush">'+(rows?'<div class="ch" style="padding:18px 24px 0"><h3>明细</h3><span class="muted" style="font-size:12.5px">'+q.rows.length+' 笔 · 按等待时间</span></div><table><thead><tr><th>客户</th><th>原因</th><th>已等待</th><th class="n">金额</th></tr></thead><tbody>'+rows+'</tbody></table>':'<div style="padding:24px" class="muted">批量操作，不需要逐笔查看。</div>')+'</div>'+
+ '<div class="card"><div class="ch"><h3>经过</h3></div><ol class="spine"><li><b>客户申请退款</b><time>10-05 14:20</time></li><li><b>门店确认问题</b><time>10-06 · 4 家门店</time></li><li><b>超过 48 小时，标记超时</b><time>10-07</time></li><li class="now"><b>等你批准</b><time>现在</time></li><li><b>原路退款到账</b><time>批准后 1–3 天</time></li></ol><div class="inset" style="font-size:12.5px;color:var(--color-text-secondary)">免审阈值 ¥1,500，本批最大单笔 ¥1,490。</div></div></div>';}
+
+var cur=0,done={},lst=null;
+function rl(){var h='',l='';Q.forEach(function(q,i){if(done[i])return;if(q.grp!==l){h+='<div class="grp">'+q.grp+'</div>';l=q.grp;}
+ h+='<div class="it'+(i===cur?' on':'')+'" data-i="'+i+'">'+G(q.g)+'<span class="t">'+q.t+'</span><span class="w'+(q.late?' late':'')+'">'+q.w+'</span><span class="m">'+q.m+'</span></div>';});
+ document.getElementById('list').innerHTML=h;document.querySelectorAll('#list .it').forEach(function(e){e.onclick=function(){cur=+e.dataset.i;R();};});}
+function R(){rl();var F=document.getElementById('focus');F.innerHTML=detail(Q[cur]);F.classList.remove('enter');void F.offsetWidth;F.classList.add('enter');
+ var A=document.getElementById('act');A.innerHTML=actbar(Q[cur]);var b=document.getElementById('go');if(b)b.onclick=ap;countUp(F);if(window.after)after();}
+function actbar(q){return '<div class="cons">'+(q.cons||[]).map(function(c){return '<span><i class="'+c[0]+'"></i>'+c[1]+'</span>';}).join('')+'</div><div class="r"><button class="btn btn-g">稍后 <span class="k">L</span></button>'+(q.sec?'<button class="btn btn-s">'+q.sec+'</button>':'')+'<button class="btn btn-p" id="go">'+q.btn+' <span class="k">E</span></button></div>';}
+function ap(){done[cur]=1;lst=cur;toast('已完成：'+Q[cur].btn+(Q[cur].btn?'':''));for(var i=0;i<Q.length;i++)if(!done[i]){cur=i;break;}R();}
+function undo(){if(lst===null)return;delete done[lst];cur=lst;lst=null;document.getElementById('toast').classList.remove('show');R();}
+document.addEventListener('keydown',function(e){if(e.target.closest('textarea,input'))return;var k=e.key;function st(d){var i=cur;do{i+=d;}while(i>=0&&i<Q.length&&done[i]);if(i>=0&&i<Q.length){cur=i;R();}}
+ if(k==='j')st(1);if(k==='k')st(-1);if(k==='e')ap();if(k==='z')undo();});
+R();
+countUp();</script>
+<link rel="stylesheet" href="../../assets/feedback.css"><script src="../../assets/feedback-config.js" defer></script><script src="theme-switcher.js" defer></script><script src="demo-nav.js" defer></script><script src="../../assets/feedback.js" data-round="r15" defer></script>
+</body></html>
