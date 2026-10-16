@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>演示 · 客户管理 · 后台设计语言 v19.0 · Round 17 清朗</title>
+<link rel="stylesheet" href="reference-tokens.css"><script src="themes.js"></script><link rel="stylesheet" href="theme-switcher.css"><link rel="stylesheet" href="shell.css">
+<style>.co{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--color-divider)}.co:last-child{border:0}.co .av{width:32px;height:32px}.co small{display:block;font-size:12px;color:var(--color-text-tertiary);line-height:16px}.co .r{margin-left:auto}</style></head>
+<body>
+<svg width="0" height="0" style="position:absolute"><defs>
+<symbol id="i-inbox" viewBox="0 0 16 16"><path d="M2 9.5l1.6-5.2A1 1 0 0 1 4.5 3.5h7a1 1 0 0 1 .9.8L14 9.5v3a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1z"/><path d="M2 9.5h3.2l.8 1.5h4l.8-1.5H14"/></symbol>
+<symbol id="i-order" viewBox="0 0 16 16"><rect x="3" y="2" width="10" height="12" rx="1.5"/><path d="M5.5 5.5h5M5.5 8h5M5.5 10.5h3"/></symbol>
+<symbol id="i-chart" viewBox="0 0 16 16"><path d="M2.5 13.5h11"/><path d="M4.5 11V8M8 11V4.5M11.5 11V6.5"/></symbol>
+<symbol id="i-pulse" viewBox="0 0 16 16"><path d="M1.5 8h3l1.5-4 3 8 1.5-4h4"/></symbol>
+<symbol id="i-users" viewBox="0 0 16 16"><circle cx="6" cy="5.5" r="2.5"/><path d="M1.5 13.5c.5-2.5 2.300-3.700 4.500-3.700s4 1.200 4.500 3.700"/><path d="M10.5 3.200a2.300 2.300 0 0 1 0 4.600M12 9.900c1.300.500 2.200 1.700 2.500 3.600"/></symbol>
+<symbol id="i-eye" viewBox="0 0 16 16"><path d="M1.5 8S4 3.500 8 3.500 14.500 8 14.500 8 12 12.500 8 12.500 1.500 8 1.500 8z"/><circle cx="8" cy="8" r="2"/></symbol>
+<symbol id="i-book" viewBox="0 0 16 16"><path d="M3 2.500h7.500a2 2 0 0 1 2 2v9H5a2 2 0 0 1-2-2z"/><path d="M3 11.500a2 2 0 0 1 2-2h7.500"/></symbol>
+<symbol id="i-search" viewBox="0 0 16 16"><circle cx="7" cy="7" r="4.500"/><path d="M10.500 10.500L14 14"/></symbol>
+<symbol id="i-plus" viewBox="0 0 16 16"><path d="M8 3v10M3 8h10"/></symbol>
+<symbol id="i-down" viewBox="0 0 16 16"><path d="M8 2.500v8M4.500 7.500L8 11l3.500-3.500M3 13.500h10"/></symbol>
+<symbol id="i-filter" viewBox="0 0 16 16"><path d="M2.500 3.500h11l-4.200 5v4.500l-2.600-1.300V8.500z"/></symbol>
+<symbol id="i-empty" viewBox="0 0 16 16"><path d="M2 9.500l1.600-5.200A1 1 0 0 1 4.500 3.500h7a1 1 0 0 1 .9.8L14 9.500v3a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1z"/><path d="M2 9.500h3.200l.8 1.500h4l.8-1.500H14"/></symbol>
+</defs></svg>
+<div class="app">
+<aside class="side"><div class="brand"><i>云</i>云栈运营</div><div class="lab">工作台</div><a class="nv" href="demo.html" data-keep-theme><svg class="ico"><use href="#i-inbox"/></svg>运营待办<span class="c al">9</span></a><a class="nv" href="demo-orders.html" data-keep-theme><svg class="ico"><use href="#i-order"/></svg>订单售后<span class="c">23</span></a><a class="nv" href="demo-analytics.html" data-keep-theme><svg class="ico"><use href="#i-chart"/></svg>数据看板</a><a class="nv" href="demo-ops.html" data-keep-theme><svg class="ico"><use href="#i-pulse"/></svg>运维告警<span class="c al">3</span></a><a class="nv on" href="demo-crm.html" data-keep-theme><svg class="ico"><use href="#i-users"/></svg>客户管理</a><a class="nv" href="demo-content.html" data-keep-theme><svg class="ico"><use href="#i-eye"/></svg>内容审核<span class="c">37</span></a><span class="sp"></span><a class="nv" href="spec.html" data-keep-theme><svg class="ico"><use href="#i-book"/></svg>设计规范</a><a class="nv" href="demos.html" data-keep-theme><svg class="ico"><use href="#i-chart"/></svg>全部演示</a><div class="me"><span class="av">周</span><div>周凯<small>运营 · 华东一区</small></div></div></aside>
+<main class="main">
+<div class="top"><div class="crumb">云栈运营 / <b>客户管理 / 鲸选生活</b></div><div class="r"><div class="search"><svg class="ico" style="width:14px;height:14px"><use href="#i-search"/></svg>搜索订单、客户、命令<kbd>⌘K</kbd></div><span data-theme-slot></span></div></div>
+<div class="page">
+<div class="ph"><div style="display:flex;gap:16px;align-items:center"><span class="av" style="width:48px;height:48px;font-size:18px;border-radius:12px">鲸</span><div><h1 style="display:flex;align-items:center;gap:10px">鲸选生活<span class="tag warn">续约风险</span></h1><p>企业版客户 · 杭州 · 签约 3 年 · 客户成功：周凯</p></div></div><div class="acts"><button class="btn btn-s">记录拜访</button><button class="btn btn-p">安排续约会议</button></div></div>
+<div class="grid"><div class="card kpi c3"><div class="l">年合同额</div><div class="v"><span class="cur">¥</span>264,000</div><div class="d">2 份合同执行中</div></div><div class="card kpi c3"><div class="l">距续约</div><div class="v">18<small>天</small></div><div class="d">2025-11-04 到期</div></div><div class="card kpi c3"><div class="l">健康分</div><div class="v"><span class="bad">58</span><small>/ 100</small></div><div class="d"><span class="bad">30 天内下降 14</span></div><div class="meter"><i style="width:58%;background:var(--color-danger)"></i></div></div><div class="card kpi c3"><div class="l">活跃席位</div><div class="v"><span class="bad">61</span><small>/ 120</small></div><div class="d">使用率 51%，上月 72%</div></div></div>
+<div class="grid mt" style="align-items:start">
+<section class="card c8"><div class="tabs"><button class="tab on">动态</button><button class="tab">合同<span class="n">3</span></button><button class="tab">工单<span class="n">2</span></button><button class="tab">备注</button></div>
+<div class="cb"><div style="display:flex;align-items:center;margin-bottom:12px"><span style="font-size:13px;font-weight:500">每周活跃席位</span><span class="meta muted" style="margin-left:auto;font-size:12px">近 12 周</span></div><div class="chart" id="wk"></div></div>
+<div class="cb" style="border-top:1px solid var(--color-hairline)"><ul class="tl"><li class="on">10-15 王总在邮件里提到“在评估其他方案”<small>周凯 · 邮件</small></li><li>10-09 两位管理员离职，未指定新管理员<small>系统 · 账号变更</small></li><li>09-28 季度回顾会，满意度 7/10<small>周凯 · 会议纪要</small></li><li>09-12 工单：报表导出慢<small>已解决 · 2 天</small></li></ul></div></section>
+<div class="c4" style="display:flex;flex-direction:column;gap:16px">
+<section class="card"><div class="ch"><h2>联系人</h2><span class="r"><button class="btn btn-g sm">添加</button></span></div><div class="cb" style="padding-top:4px;padding-bottom:4px">
+<div class="co"><span class="av">王</span><div>王海涛<small>CEO · 决策人</small></div><span class="r tag warn">冷淡</span></div><div class="co"><span class="av">李</span><div>李佳<small>运营总监 · 使用者</small></div><span class="r tag done">积极</span></div><div class="co"><span class="av">陈</span><div>陈晨<small>IT 负责人</small></div><span class="r tag plain">一般</span></div></div></section>
+<section class="card"><div class="ch"><h2>下一步</h2></div><div class="cb"><div class="field"><label for="nx">续约会议议题</label><textarea class="inp" id="nx" rows="3">复盘使用率下降原因；为新管理员做一次培训；给出 120→80 席位的灵活方案。</textarea><span class="hint">会议邀请会发给王海涛、李佳</span></div></div><div class="cf"><span>18 天后到期</span><span class="r"><button class="btn btn-p sm" id="mt">发送会议邀请</button></span></div></section>
+</div></div>
+<section class="card mt"><div class="ch"><h2>合同</h2><span class="meta">3 份</span></div><table><thead><tr><th>合同号</th><th>内容</th><th>开始</th><th>结束</th><th>状态</th><th class="r">金额</th></tr></thead><tbody><tr><td class="sec">HT-2024-118</td><td>年度订阅 · 企业版</td><td class="sec">2024-11-05</td><td class="sec">2025-11-04</td><td><span class="tag prog">执行中</span></td><td class="r num">¥216,000.00</td></tr><tr><td class="sec">HT-2024-073</td><td>增购 40 席位</td><td class="sec">2025-03-01</td><td class="sec">2025-11-04</td><td><span class="tag prog">执行中</span></td><td class="r num">¥48,000.00</td></tr><tr><td class="sec">HT-2023-041</td><td>年度订阅 · 企业版</td><td class="sec">2023-11-05</td><td class="sec">2024-11-04</td><td><span class="tag done">已完成</span></td><td class="r num">¥180,000.00</td></tr></tbody></table></section>
+</div></main></div>
+<div class="toast" id="toast" role="status"><span id="tmsg"></span><button onclick="doUndo()">撤销</button></div>
+<script>
+function money(n,d){return '<span class="amt"><s>¥</s>'+Math.floor(n).toLocaleString()+'<i>.'+String(d||0).padStart(2,'0')+'</i></span>';}
+var _tt;function toast(m,undo){document.getElementById('tmsg').textContent=m;var T=document.getElementById('toast');T.querySelector('button').style.display=undo?'':'none';window._undo=undo;T.classList.add('show');clearTimeout(_tt);_tt=setTimeout(function(){T.classList.remove('show');},5000);}
+function doUndo(){var u=window._undo;document.getElementById('toast').classList.remove('show');if(u)u();}
+function line(el,S,o){o=o||{};var W=el.clientWidth||700,H=o.h||220,L=40,B=24,T=8,all=[].concat.apply([],S.map(function(s){return s.d;})),mx=o.max||Math.ceil(Math.max.apply(0,all)*1.1),mn=o.min||0,n=S[0].d.length;
+ function X(i){return L+i*(W-L-4)/(n-1);}function Y(v){return T+(H-B-T)*(1-(v-mn)/(mx-mn));}
+ var g='<defs><linearGradient id="g'+el.id+'" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--color-primary)" stop-opacity=".14"/><stop offset="1" stop-color="var(--color-primary)" stop-opacity="0"/></linearGradient></defs>';
+ (o.grid||[]).forEach(function(v){g+='<line x1="'+L+'" x2="'+W+'" y1="'+Y(v)+'" y2="'+Y(v)+'" stroke="var(--color-divider)"/><text x="'+(L-8)+'" y="'+(Y(v)+4)+'" text-anchor="end">'+v+'</text>';});
+ if(o.target!=null)g+='<line x1="'+L+'" x2="'+W+'" y1="'+Y(o.target)+'" y2="'+Y(o.target)+'" stroke="var(--color-text-tertiary)" stroke-dasharray="3 4"/><text x="'+W+'" y="'+(Y(o.target)-6)+'" text-anchor="end">'+(o.tlabel||'目标')+'</text>';
+ S.forEach(function(s){var p=s.d.map(function(v,i){return (i?'L':'M')+X(i).toFixed(1)+','+Y(v).toFixed(1);}).join('');
+  if(s.fill)g+='<path d="'+p+'L'+X(n-1)+','+(H-B)+'L'+X(0)+','+(H-B)+'Z" fill="url(#g'+el.id+')"/>';
+  g+='<path d="'+p+'" fill="none" stroke="'+s.c+'" stroke-width="'+(s.w||2)+'" stroke-linejoin="round" stroke-linecap="round"'+(s.dash?' stroke-dasharray="4 4"':'')+'/>';});
+ (o.marks||[]).forEach(function(m){g+='<circle cx="'+X(m.i)+'" cy="'+Y(m.v)+'" r="4" fill="var(--color-danger)" stroke="var(--color-surface)" stroke-width="2"/>';});
+ (o.xl||[]).forEach(function(l){g+='<text x="'+X(l[0])+'" y="'+(H-6)+'" text-anchor="middle">'+l[1]+'</text>';});
+ g+='<line class="hv" y1="'+T+'" y2="'+(H-B)+'" stroke="var(--color-border-strong)" opacity="0"/><circle class="hd" r="4" fill="var(--color-primary)" stroke="var(--color-surface)" stroke-width="2" opacity="0"/>';
+ el.innerHTML='<svg viewBox="0 0 '+W+' '+H+'" height="'+H+'">'+g+'</svg><div class="tip"></div>';
+ var sv=el.querySelector('svg'),tip=el.querySelector('.tip'),hv=el.querySelector('.hv'),hd=el.querySelector('.hd');
+ el.onmousemove=function(e){var r=sv.getBoundingClientRect(),x=(e.clientX-r.left)/r.width*W,i=Math.max(0,Math.min(n-1,Math.round((x-L)/((W-L-4)/(n-1)))));
+  hv.setAttribute('x1',X(i));hv.setAttribute('x2',X(i));hv.setAttribute('opacity',1);hd.setAttribute('cx',X(i));hd.setAttribute('cy',Y(S[0].d[i]));hd.setAttribute('opacity',1);
+  tip.style.left=(X(i)/W*r.width)+'px';tip.style.top=(Y(S[0].d[i])/H*r.height)+'px';tip.style.opacity=1;tip.innerHTML=(o.label?o.label(i)+'　':'')+'<b>'+S[0].d[i]+(o.unit||'')+'</b>';};
+ el.onmouseleave=function(){tip.style.opacity=0;hv.setAttribute('opacity',0);hd.setAttribute('opacity',0);};}
+function spark(el,d,c){var W=200,H=32,mx=Math.max.apply(0,d),mn=Math.min.apply(0,d);var p=d.map(function(v,i){return (i?'L':'M')+(i*W/(d.length-1)).toFixed(1)+','+(2+(H-4)*(1-(v-mn)/((mx-mn)||1))).toFixed(1);}).join('');
+ el.innerHTML='<svg viewBox="0 0 '+W+' '+H+'" preserveAspectRatio="none" style="width:100%;height:32px;display:block"><path d="'+p+'" fill="none" stroke="'+(c||'var(--color-border-strong)')+'" stroke-width="1.5" vector-effect="non-scaling-stroke"/></svg>';}
+function bars(el,d,o){o=o||{};var W=el.clientWidth||600,H=o.h||200,L=36,B=24,mx=o.max||Math.max.apply(0,d)*1.15,n=d.length,bw=(W-L)/n;var g='';
+ (o.grid||[]).forEach(function(v){var y=(H-B)*(1-v/mx);g+='<line x1="'+L+'" x2="'+W+'" y1="'+y+'" y2="'+y+'" stroke="var(--color-divider)"/><text x="'+(L-8)+'" y="'+(y+4)+'" text-anchor="end">'+v+'</text>';});
+ d.forEach(function(v,i){var h=(H-B)*v/mx,x=L+i*bw+bw*.22;g+='<rect x="'+x+'" y="'+(H-B-h)+'" width="'+(bw*.56)+'" height="'+h+'" rx="3" fill="'+(o.color?o.color(i,v):'var(--color-primary)')+'"><title>'+v+'</title></rect>';if(o.xl)g+='<text x="'+(x+bw*.28)+'" y="'+(H-6)+'" text-anchor="middle">'+o.xl[i]+'</text>';});
+ el.innerHTML='<svg viewBox="0 0 '+W+' '+H+'" height="'+H+'">'+g+'</svg>';}
+
+bars(document.getElementById('wk'),[92,95,90,88,86,84,80,76,72,68,64,61],{h:160,max:120,grid:[0,40,80,120],xl:['W31','','W33','','W35','','W37','','W39','','W41',''],color:function(i){return i>=9?'var(--color-danger)':'color-mix(in srgb,var(--color-border-strong) 70%,transparent)';}});
+document.getElementById('mt').onclick=function(){toast('会议邀请已发送给 2 位联系人',function(){});};</script>
+<link rel="stylesheet" href="../../assets/feedback.css"><script src="../../assets/feedback-config.js" defer></script><script src="theme-switcher.js" defer></script><script src="../../assets/feedback.js" data-round="r17" defer></script>
+</body></html>
