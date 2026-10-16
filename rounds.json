@@ -1,10 +1,23 @@
 [
  {
+  "id": "r9",
+  "title": "Round 9 · 案头·规矩",
+  "version": "v11.0",
+  "date": "2026-10-16",
+  "status": "待评分",
+  "summary": "规范先行：spec.html 成为主交付——一屏总览（主张 + 12 条规矩），每条规矩配「对 / 错」现场渲染和一句为什么；角色表带色样；取值层 + Ant/Element/shadcn/MUI 映射，并演示 Ant 与 MUI 套用后外观一致；验收清单。演示页加「显示标注」，标出每块用的规矩。",
+  "screenshot": "rounds/r9/screenshot.png",
+  "demo": "rounds/r9/demo.html",
+  "spec": "rounds/r9/spec.html",
+  "tokens": "rounds/r9/reference-tokens.css",
+  "primary": "spec"
+ },
+ {
   "id": "r8",
   "title": "Round 8 · 案头·精工",
   "version": "v10.0",
   "date": "2026-10-16",
-  "status": "待评分",
+  "status": "已评分",
   "summary": "身份不动、只提做工：数字排印（等宽数字、mono 只留给机器码、靠字重强调、带符号涨跌）；一档发丝线 + 纸面微纵深；概况加 14 天走势线、案头加 SLA 超时条；表格 sticky 表头、时刻/日期拆分、悬停才出现次要操作、批量条实时计数；侧栏短刻与告警点、图标 1.5 线宽。",
   "screenshot": "rounds/r8/screenshot.png",
   "demo": "rounds/r8/demo.html",
