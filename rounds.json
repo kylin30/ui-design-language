@@ -1,10 +1,25 @@
 [
   {
+    "id": "r17",
+    "title": "Round 17 · 清朗",
+    "version": "v19.0",
+    "date": "2026-10-17",
+    "status": "待评分",
+    "summary": "先复盘再做（review.md）：R13–R16 一直在加东西。R17 做减法：白色侧栏 + 发丝线、12 栏网格、页头 → KPI 行 → 主体三段、一种卡片（发丝边无投影）、“圆点 + 文字”状态标签代替字形、操作栏回到详情卡底部、最小字号 12；按钮 / 输入 / 页签 / 表格 / 空状态 / 骨架统一规格；Geist 数字固定（自托管）。6 个演示与规范全部重做，鸢尾 + 6 主题保留。",
+    "screenshot": "rounds/r17/screenshot.png",
+    "demo": "rounds/r17/demo.html",
+    "spec": "rounds/r17/spec.html",
+    "tokens": "rounds/r17/reference-tokens.css",
+    "primary": "spec",
+    "demos": "rounds/r17/demos.html",
+    "name": "清朗"
+  },
+  {
     "id": "r16",
     "title": "Round 16 · 刻度",
     "version": "v18.0",
     "date": "2026-10-17",
-    "status": "待评分",
+    "status": "已评分",
     "summary": "回应 R15“数字字体不好”：诊断出 Inter 首位但多数机器未安装导致数字随机回落、细字重加紧字距、编号用等宽字三个问题。数字单独设计成 6 套可切换方案（Geist 默认 / Inter / 系统 / Barlow / Plex / Roboto），字体自托管在仓库（OFL，unicode-range 只覆盖数字），全站 data-figure 切换、figures.html 并排比较并可「设为我的默认」；新增规则 16。",
     "screenshot": "rounds/r16/screenshot.png",
     "demo": "rounds/r16/demo.html",
@@ -13,7 +28,9 @@
     "primary": "figures",
     "demos": "rounds/r16/demos.html",
     "name": "刻度",
-    "figures": "rounds/r16/figures.html"
+    "figures": "rounds/r16/figures.html",
+    "score": 5,
+    "note": "[选定数字字体: geist]"
   },
   {
     "id": "r15",
