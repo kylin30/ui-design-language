@@ -1,0 +1,149 @@
+/* R20「成品」：在 R19「素线」上按真实产品截图逐像素校正。R19 原注：方向 A 精简正式版，白底、发丝线、13px、单色界面，鸢尾只给操作和选中 */
+body{background:var(--color-surface);font-size:13px;line-height:20px}
+.side{background:var(--color-surface-subtle);border-right:1px solid var(--color-hairline);padding:10px}
+.brand{height:36px;font-size:13px}.brand i{border-radius:5px}.brand i{border-radius:5px}
+.nv{height:28px;font-size:13px;border-radius:6px;color:var(--color-text-secondary)}
+.nv.on{background:var(--color-surface-hover);color:var(--color-text);box-shadow:0 0 0 1px var(--color-hairline)}
+.top{height:44px;padding:0 24px}
+.search{height:28px;width:220px}
+.page{padding:20px 24px 40px}
+.ph{margin-bottom:16px}.ph h1{font-size:18px;line-height:26px}.ph p{font-size:13px}
+.grid{gap:0}
+.grid>.kpi{border:0;border-radius:0;border-top:1px solid var(--color-hairline);border-bottom:1px solid var(--color-hairline);padding:12px 16px 12px 0}
+.grid>.kpi+.kpi{border-left:1px solid var(--color-hairline);padding-left:16px}
+.kpi .l{font-size:12px;color:var(--color-text-tertiary)}.kpi .v{font-size:22px;line-height:28px;font-weight:500}.kpi .v .cur{font-size:14px}
+.kpi .spark{height:24px}.meter{height:3px}
+.mt{margin-top:20px}
+.grid.mt{gap:0 20px}
+.card{border:0;border-radius:0;background:transparent}
+.card:not(.kpi){border-top:1px solid var(--color-hairline)}
+.ch{height:40px;padding:0;border-bottom:1px solid var(--color-hairline)}.ch h2{font-size:13px;font-weight:500}
+.cb{padding:16px 0}.cf{background:transparent;padding:10px 0;border-radius:0}
+.tabs{padding:0;height:36px;gap:20px}.tab{font-size:13px}
+.filters{padding:10px 0}
+th{height:32px;background:transparent;font-size:12px;padding:0 8px}td{height:36px;font-size:13px;padding:0 8px}
+th:first-child,td:first-child{padding-left:0}th:last-child,td:last-child{padding-right:0}
+td .sub{display:inline;margin-left:6px}
+.tag{background:transparent!important;padding:0;height:18px;font-weight:400;color:var(--color-text-secondary)!important}
+.tag.bad{color:var(--color-danger-text)!important}.tag.prog::before{background:var(--color-primary)}.tag.warn::before{background:var(--color-warning)}.tag.done::before{background:var(--color-success)}
+.btn{height:28px;padding:0 10px;font-size:13px;border-radius:6px}
+.btn-s{border-color:var(--color-hairline);box-shadow:0 1px 1px rgba(0,0,0,.03)}
+.inp,.sel{height:28px;font-size:13px;border-radius:6px;border-color:var(--color-hairline)}.sbox .ico{top:6px}
+.row{padding:9px 0}.row .t{font-size:13px}.row .m{font-size:12px}
+.row.on{background:var(--color-surface-hover);box-shadow:inset 2px 0 0 var(--color-text)}
+.track{height:4px}.track i:not(.bad){background:var(--color-text-secondary)}
+.pager{padding:10px 0}.bulk{padding:0 8px}
+.post{background:transparent}
+
+
+/* ---- R19 精修 ---- */
+:root{--h-row:36px;--h-control:28px;--radius-control:6px}
+.side{width:auto}
+.nv{gap:8px;padding:0 8px;transition:background 80ms,color 80ms}
+.nv .ico{color:var(--color-text-tertiary)}.nv.on .ico,.nv:hover .ico{color:var(--color-text)}
+.nv .c{font-size:12px}
+.side .lab{padding:14px 8px 4px;font-size:11.5px}
+.top{gap:12px}
+.search{cursor:pointer;border-color:var(--color-hairline);background:var(--color-surface-subtle);transition:border-color 80ms}.search:hover{border-color:var(--color-border)}
+kbd{height:18px;min-width:18px;display:inline-grid;place-items:center;padding:0 4px;font-family:var(--font-sans);font-size:11px;font-weight:500;border-radius:4px;border:1px solid var(--color-hairline);background:var(--color-surface);color:var(--color-text-tertiary);box-shadow:0 1px 0 var(--color-hairline)}
+.btn kbd{margin-left:4px;height:16px;min-width:16px;font-size:10.5px;background:transparent;box-shadow:none}
+.btn-p kbd{border-color:rgba(255,255,255,.3);color:rgba(255,255,255,.85)}
+.btn-p{box-shadow:inset 0 1px 0 rgba(255,255,255,.12),0 1px 1px rgba(0,0,0,.08)}
+.btn-s:hover{background:var(--color-surface-hover);border-color:var(--color-border)}
+.btn-g{padding:0 8px}
+.ph .acts{align-self:center}
+.ph h1{display:flex;align-items:center;gap:8px}
+.ph h1 .n{font-size:13px;font-weight:400;color:var(--color-text-tertiary)}
+tbody tr{transition:background 60ms}
+tbody tr:hover td{background:var(--color-surface-hover)}
+tr.sel td{background:color-mix(in srgb,var(--color-primary) 6%,transparent)!important}
+td.num,.num{font-weight:450}
+.row{transition:background 60ms}
+.row.on{background:color-mix(in srgb,var(--color-primary) 6%,transparent);box-shadow:inset 2px 0 0 var(--color-primary)}
+.tab.on{border-bottom-color:var(--color-text)}
+.tab .n{font-weight:400}
+.seg{border-color:var(--color-hairline);background:var(--color-surface-subtle)}.seg button{height:22px;font-size:12px;padding:0 8px}
+.inp:focus,.sel:focus,textarea.inp:focus{border-color:var(--color-primary);box-shadow:0 0 0 3px color-mix(in srgb,var(--color-primary) 14%,transparent)}
+.kpi .v{font-weight:500;letter-spacing:-.015em}
+.tag::before{width:6px;height:6px}
+.empty .ei{border-radius:8px}
+.chart text{font-size:10.5px}
+.toast{border-radius:8px;font-size:13px}
+.cf{font-size:12.5px}
+.hint-bar{display:flex;gap:16px;font-size:12px;color:var(--color-text-tertiary);padding:10px 0;border-top:1px solid var(--color-hairline);margin-top:auto}.hint-bar span{display:flex;align-items:center;gap:6px}
+/* 命令面板 */
+.cmdk-bg{position:fixed;inset:0;background:color-mix(in srgb,var(--color-text) 18%,transparent);display:none;align-items:flex-start;justify-content:center;padding-top:14vh;z-index:200}
+.cmdk-bg.on{display:flex}
+.cmdk{width:560px;max-width:92vw;background:var(--color-surface);border-radius:10px;border:1px solid var(--color-hairline);box-shadow:0 0 0 1px rgba(0,0,0,.02),0 16px 48px -12px rgba(20,16,40,.28);overflow:hidden}
+.cmdk input{width:100%;height:48px;border:0;border-bottom:1px solid var(--color-hairline);padding:0 16px;font-size:14px;background:transparent;outline:none;color:var(--color-text)}
+.cmdk .ls{max-height:320px;overflow:auto;padding:6px}
+.cmdk .g{font-size:11.5px;color:var(--color-text-tertiary);padding:8px 10px 4px}
+.cmdk .it{display:flex;align-items:center;gap:10px;height:34px;padding:0 10px;border-radius:6px;font-size:13px;cursor:pointer;color:var(--color-text-secondary)}
+.cmdk .it .ico{color:var(--color-text-tertiary)}
+.cmdk .it.on{background:var(--color-surface-hover);color:var(--color-text)}
+.cmdk .it kbd{margin-left:auto}
+.cmdk .ft{display:flex;gap:14px;padding:8px 14px;border-top:1px solid var(--color-hairline);font-size:11.5px;color:var(--color-text-tertiary)}.cmdk .ft span{display:flex;gap:4px;align-items:center}
+.cmdk .none{padding:24px;text-align:center;font-size:13px;color:var(--color-text-tertiary)}
+/* r19 · 反馈面板避让：收起为药丸，停在侧栏底部；展开时右侧预留 332px，内容与后果条不被遮挡 */
+body.fb-docked .side{padding-bottom:60px}
+body.fb-docked .uifb-collapsed{left:12px;right:auto;bottom:12px;max-width:calc(var(--w-sidebar) - 24px)}
+body.fb-docked .uifb-collapsed .uifb-head{padding:8px 10px;font-size:12px}
+body.fb-open .app{padding-right:332px}
+body.fb-open .uifb{top:16px;bottom:16px;max-height:calc(100vh - 32px);overflow:auto}
+body.fb-docked .uifb-collapsed{box-shadow:0 1px 2px rgba(0,0,0,.06)}
+
+/* ================= R20「成品」校正（对照 Linear / Vercel / Attio 截图，详见 gap.md） ================= */
+/* G1 灰阶：去紫调、只留 3 档文字灰 + 2 档线；三档对白底对比度 16.8 / 8.6 / 4.8 */
+:root:not([data-theme]),[data-theme="iris"]{
+  --color-text:#1A1A1F;--color-text-secondary:#4F4F59;--color-text-tertiary:#6E6E78;--color-text-disabled:#AEAEB6;
+  --color-surface-subtle:#FAFAFB;--color-surface-hover:#F4F4F6;--color-hairline:#ECECEF;--color-border:#E3E3E7;--color-border-strong:#D0D0D6;--color-border-hover:#A3A3AC;
+  --color-bg:#F7F7F8;--color-divider:#EFEFF2;
+}
+/* G2 中文字号：CJK 在 13px 下笔画糊、行距挤 → 正文 14/22，列表标题 14/500，辅助 12/18；表格行 40，控件 30 */
+:root{--h-row:40px;--h-control:30px}
+body{font-size:14px;line-height:22px;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;font-feature-settings:"tnum" 0}
+.nv{height:30px;font-size:13.5px}
+.btn,.inp,.sel{height:30px;font-size:13px}.btn{padding:0 12px;font-weight:500}
+.search{height:30px}
+.ph h1{font-size:20px;line-height:28px;font-weight:600;letter-spacing:-.01em}.ph p{font-size:13.5px;color:var(--color-text-secondary)}
+td{height:40px;font-size:13.5px}th{height:34px;font-size:12px;font-weight:500;color:var(--color-text-tertiary)}
+.row .t{font-size:14px;line-height:22px;font-weight:500;color:var(--color-text)}.row .m{font-size:12px;line-height:18px;color:var(--color-text-tertiary)}
+.ch h2{font-size:14px;font-weight:600}
+.kpi .l{font-size:12px;font-weight:500}.kpi .v{font-size:24px;line-height:30px;font-weight:600}
+.sec,p.sec{color:var(--color-text-secondary);line-height:22px}
+dt{font-size:12px;color:var(--color-text-tertiary)}dd{font-size:14px;font-weight:500}
+/* G3 对齐：选中/悬停底色贴边、文字却顶着指示线 → 行内留 12px 内距，底色带 6px 圆角，指示线改为左侧 2px 圆条 */
+.list{margin:0 -12px}
+.row{padding:10px 12px;border-radius:6px;position:relative;border-bottom:0!important}
+.row+.row::before{content:"";position:absolute;left:12px;right:12px;top:0;border-top:1px solid var(--color-hairline)}
+.row:hover{background:var(--color-surface-hover)}
+.row.on{background:color-mix(in srgb,var(--color-primary) 7%,transparent);box-shadow:none}
+.row.on::after{content:"";position:absolute;left:0;top:10px;bottom:10px;width:2px;border-radius:2px;background:var(--color-primary)}
+.row.on+.row::before,.row:hover+.row::before{border-color:transparent}
+.hint-bar{margin:0 12px}
+/* G4 状态噪声：列表里 4 种色点 → 只剩 红（超时）/ 鸢尾（进行中）/ 灰；时限文字一律灰 */
+.tag{font-size:12.5px}.tag::before{background:var(--color-border-strong)}
+.tag.warn::before{background:var(--color-text-tertiary)}.tag.prog::before{background:var(--color-primary)}.tag.done::before{background:var(--color-text-disabled)}
+.tag.bad{font-weight:500}
+/* G5 图标：描边 1.6/2 混用、尺寸 14/16 混用 → 统一 16px 网格、1.5 描边、tertiary 灰 */
+.ico{stroke-width:1.5}
+.btn .ico{width:15px;height:15px}
+/* G6 空白与层级：详情底部大片空白 → 加“动态”时间线；页头与 KPI 间距拉开，分区标题用 600 */
+.act-log{border-top:1px solid var(--color-hairline);padding:14px 0 8px}
+.act-log h3{font-size:12px;font-weight:500;color:var(--color-text-tertiary);margin:0 0 8px}
+.act-log ol{list-style:none;margin:0;padding:0}
+.act-log li{display:flex;align-items:center;gap:8px;min-height:28px;font-size:13px;color:var(--color-text-secondary);position:relative;padding-left:20px}
+.act-log li::before{content:"";position:absolute;left:5px;top:50%;width:7px;height:7px;margin-top:-3.5px;border-radius:50%;border:1.5px solid var(--color-border-strong);background:var(--color-surface)}
+.act-log li+li::after{content:"";position:absolute;left:8.5px;top:-10px;height:16px;border-left:1px solid var(--color-hairline)}
+.act-log b{font-weight:500;color:var(--color-text)}
+.act-log time{margin-left:auto;font-size:12px;color:var(--color-text-tertiary)}
+.ph{margin-bottom:20px}
+.grid>.kpi{padding-top:14px;padding-bottom:14px}
+/* G7 外框比例：顶栏 44→48、侧栏项 30、品牌行与搜索对齐；页面最大宽 1320 居中，超宽屏不发散 */
+.top{height:48px}
+.page{max-width:1320px;width:100%;box-sizing:border-box;padding:24px 32px 48px}
+.side .lab{font-size:11.5px;font-weight:500;color:var(--color-text-tertiary)}
+kbd{color:var(--color-text-tertiary);font-weight:500}
+.tag.bad::before{background:var(--color-danger)}
+.act-log li::before{left:4px}.act-log li+li::after{left:8px;top:-9px;height:14px}
+td.r.bad{color:var(--color-text)!important;font-weight:500}
