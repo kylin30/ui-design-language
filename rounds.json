@@ -1,11 +1,26 @@
 [
   {
+    "id": "r19",
+    "name": "素线",
+    "title": "Round 19 · 素线",
+    "version": "v21.0",
+    "date": "2026-10-17",
+    "status": "待评分",
+    "primary": "spec",
+    "spec": "rounds/r19/spec.html",
+    "demo": "rounds/r19/demo.html",
+    "demos": "rounds/r19/demos.html",
+    "screenshot": "rounds/r19/screenshot.png",
+    "tokens": "rounds/r19/reference-tokens.css",
+    "summary": "把 R18 选定的方向 A「精简」写成完整语言：白纸 + 发丝线代替卡片，正文 13、表格行 36、控件 28、圆角 6，界面近乎黑白灰，鸢尾只给操作和选中，状态是圆点 + 文字；⌘K 命令面板、G + 字母跳页、按钮键帽；图表只用灰和鸢尾。16 条规则、角色、取值、四个组件库映射、组件展示；六个演示重做；鸢尾默认 + 6 主题（midnight 深色）。"
+  },
+  {
     "id": "r18",
     "name": "定向",
     "title": "Round 18 · 定向",
     "version": "v20.0",
     "date": "2026-10-17",
-    "status": "待评分",
+    "status": "已评分",
     "primary": "directions",
     "directions": "rounds/r18/directions.html",
     "spec": "rounds/r18/spec.html",
@@ -13,7 +28,9 @@
     "demos": "rounds/r18/directions.html",
     "screenshot": "rounds/r18/screenshot.png",
     "tokens": "rounds/r18/reference-tokens.css",
-    "summary": "连续 5 分后改为选方向：四个明显不同的方向——A 精简（Linear 式）、B 卡片（柔和 SaaS）、C 深色工作台、D 信息密集（AntD Pro / Stripe 式），都用鸢尾 + Geist 数字 + 无衬线，套在同样的订单售后、数据看板、内容审核三个页面上。directions.html 可切换、可操作、可比较，「选这个方向」写入反馈；选中的方向下一轮写成完整规范。"
+    "summary": "连续 5 分后改为选方向：四个明显不同的方向——A 精简（Linear 式）、B 卡片（柔和 SaaS）、C 深色工作台、D 信息密集（AntD Pro / Stripe 式），都用鸢尾 + Geist 数字 + 无衬线，套在同样的订单售后、数据看板、内容审核三个页面上。directions.html 可切换、可操作、可比较，「选这个方向」写入反馈；选中的方向下一轮写成完整规范。",
+    "score": 5,
+    "note": "[选定方向: a] 精简"
   },
   {
     "id": "r17",
