@@ -1,0 +1,131 @@
+/* ==========================================================
+   reference-tokens.css · 参考实现 I「案头·规矩」· 不是唯一源
+   ----------------------------------------------------------
+   后台视觉规范 v11.0（Round 9）· 取值与 R8 相同，规矩写进 spec.html
+   墨色框架（侧栏）+ 暖绢纸面（内容）+ 同一支墨做主操作 + 颜色只给状态
+   规范本体在 STYLE.md；色值可整套替换，须满足 STYLE.md §3.2。
+   结构：① 角色层（--role-*，组件只引用这一层） ② 取值层
+   ========================================================== */
+:root {
+  /* ---------- ① 角色层 ---------- */
+  --role-frame:            var(--color-frame);          /* 墨栏 */
+  --role-frame-text:       var(--color-frame-text);
+  --role-canvas:           var(--color-bg);             /* 暖绢 */
+  --role-surface:          var(--color-surface);
+  --role-surface-subtle:   var(--color-surface-subtle);
+  --role-surface-hover:    var(--color-surface-hover);
+  --role-surface-selected: var(--color-surface-selected);
+  --role-border:           var(--color-border);
+  --role-border-strong:    var(--color-border-strong);
+  --role-text-1:           var(--color-text);
+  --role-text-2:           var(--color-text-secondary);
+  --role-text-3:           var(--color-text-tertiary);
+  --role-text-disabled:    var(--color-text-disabled);
+  --role-action:           var(--color-primary);        /* 与墨栏同一支墨 */
+  --role-success:          var(--color-success);
+  --role-warning:          var(--color-warning);
+  --role-danger:           var(--color-danger);
+  --role-info:             var(--color-info);
+
+  /* ---------- ② 取值层 · 墨栏（暖近黑，OKLCH h≈70，C≤0.012） ---------- */
+  --color-frame:           #1E1C19;
+  --color-frame-raise:     #2A2723;   /* 悬停 */
+  --color-frame-active:    #34302B;   /* 当前项 */
+  --color-frame-line:      rgba(247, 243, 236, .08);
+  --color-frame-text:      #B7AFA3;
+  --color-frame-text-1:    #F6F2EB;
+  --color-frame-text-3:    #7F776B;
+
+  /* ---------- ② 取值层 · 暖绢（OKLCH h 75–85，C 0.006–0.016） ---------- */
+  --color-bg:              #F3EFE7;   /* 画布：暖绢 */
+  --color-surface:         #FFFDF9;   /* 纸面：暖白，不用纯白 */
+  --color-surface-subtle:  #F8F5EF;   /* 表头、槽 */
+  --color-surface-hover:   #F4F0E8;
+  --color-surface-selected:#EEE9DF;
+  --color-border:          #E5DFD3;
+  --color-border-strong:   #D3CBBC;
+  --color-border-hover:    #A79F90;
+  --color-divider:         #EDE8DE;
+  --color-hairline:        #E9E3D8;   /* R8：纸面外框/行线统一一档发丝线 */
+
+  --color-text:            #1C1A17;
+  --color-text-secondary:  #4D4840;
+  --color-text-tertiary:   #7A7367;
+  --color-text-disabled:   #ACA496;
+  --color-text-inverse:    #FFFDF9;
+
+  /* 主操作 = 墨栏同一支墨（HSL S≤10%，对白字 ≥ 14:1） */
+  --color-primary:         #1E1C19;
+  --color-primary-hover:   #34302B;
+  --color-primary-active:  #000000;
+  --color-focus-ring:      rgba(30, 28, 25, .18);
+
+  /* 状态色：只以 ≤6px 点 / 文字 / 2px 线出现 */
+  --color-success:         #3B7A55;
+  --color-warning:         #A15C07;
+  --color-danger:          #B3261E;
+  --color-danger-soft:     #F9ECE9;
+  --color-danger-border:   #EBC4BD;
+  --color-info:            #4A5A70;   /* 降饱和石板蓝，只做"进行中" */
+  --color-skeleton:        #EDE8DE;   /* 加载骨架 */
+
+  /* ---------- 字体 ---------- */
+  --font-sans: "Inter", "SF Pro Text", "PingFang SC", "HarmonyOS Sans SC", "Noto Sans CJK SC",
+               "Microsoft YaHei", system-ui, -apple-system, sans-serif;
+  --font-mono: "Geist Mono", "JetBrains Mono", "IBM Plex Mono", "SF Mono", Menlo, Consolas, monospace;
+
+  --fs-12: 12px; --fs-13: 13px; --fs-14: 14px; --fs-16: 16px;
+  --fs-11: 11px; --fs-15: 15px; --fs-20: 20px;
+  --fs-title: 24px; --fs-figure: 28px;   /* 7 档字号，只用这 7+2 档 */
+  --lh-normal: 1.57;
+  --lh-tight: 1.3;
+  /* 行高对齐 4px 网格：12/16 13/20 14/22 16/24 22/28 28/32 */
+
+  /* 刻字标签（签名）：小、疏、带一条延伸发丝线 */
+  --eng-size: 11px;
+  --eng-track: .14em;
+  --eng-color: var(--color-text-tertiary);
+
+  /* 金额分级（格式，非身份） */
+  --num-minor-scale: .74;
+  --num-minor-color: var(--color-text-tertiary);
+
+  /* ---------- 间距 / 圆角 / 阴影 ---------- */
+  --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px;
+  --space-5: 20px; --space-6: 24px; --space-8: 32px; --space-10: 40px;
+  /* 节奏：组内 8 · 组间 16 · 区块 32 · 页边 32/40 */
+  --rhythm-in: 8px; --rhythm-group: 16px; --rhythm-block: 32px;
+
+  --radius-xs: 3px; --radius-sm: 6px; --radius-md: 10px; --radius-lg: 12px;
+
+  --shadow-0: none;
+  /* R8 纸面纵深：顶部 1px 暖白高光 + 1px 落地影，不是卡片阴影 */
+  --shadow-paper: inset 0 1px 0 rgba(255,255,255,.7), 0 1px 0 rgba(60,48,30,.04), 0 1px 3px rgba(60,48,30,.04);
+  --shadow-pop: 0 12px 32px rgba(30, 24, 16, .14), 0 2px 6px rgba(30, 24, 16, .06);
+  --overlay:  rgba(30, 28, 25, .32);
+
+  --z-sticky: 10; --z-drawer: 200; --z-modal: 300; --z-toast: 400;
+
+  --sig-status-size: 6px;
+  --focus-outline: 2px solid var(--color-primary);
+  --focus-offset: 2px;
+
+  --control-h-sm: 28px; --control-h-md: 32px; --control-h-lg: 40px;
+  --row-h-compact: 36px; --row-h-default: 44px; --row-h-record: 56px;
+  --sidebar-w: 232px;
+  --topbar-h: 56px;
+  --content-max: 1560px;
+  --page-padding: 28px 40px 48px;
+  --desk-tray-w: 344px;   /* 案头：右侧等候托盘宽 */
+  --desk-edge: 2px;       /* 打开中的工作项左缘墨线 */
+
+  --duration-fast: 120ms; --duration-base: 180ms;
+  --ease: cubic-bezier(.2, 0, 0, 1);
+}
+
+[data-density="compact"] {
+  --row-h-record: 44px;
+  --row-h-default: var(--row-h-compact);
+  --control-h-md: var(--control-h-sm);
+  --page-padding: 18px 24px;
+}
