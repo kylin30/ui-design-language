@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>R13 规范 · 流转台 · 后台设计语言 v15.0</title>
+<title>R13 规范 · 流转台 · 后台设计语言 v15.1</title>
 <link rel="stylesheet" href="reference-tokens.css"><script src="themes.js"></script><link rel="stylesheet" href="theme-switcher.css">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -127,6 +127,13 @@ table.themes tr.on td{background:var(--color-surface-selected)}
 .mini2[data-theme]{background:var(--color-surface);color:var(--color-text);border-color:var(--color-hairline)}
 @media(min-width:900px){.libs:has(.libcol:nth-child(4)){grid-template-columns:1fr 1fr}}
 .hero{display:block;margin-top:28px;border-radius:14px;overflow:hidden;box-shadow:0 0 0 1px var(--color-hairline),var(--shadow-pop);text-decoration:none;position:relative}.hero img{display:block;width:100%}.hero span{position:absolute;right:14px;bottom:14px;background:var(--color-toast-bg);color:#fff;font-size:12.5px;padding:6px 12px;border-radius:8px}
+.dgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:20px;margin-top:20px}
+.dc{display:block;text-decoration:none;color:inherit;border:1px solid var(--color-hairline);border-radius:12px;overflow:hidden;background:var(--color-surface)}
+.dc:hover{border-color:var(--color-border-hover)}.dc:focus-visible{outline:2px solid var(--color-primary);outline-offset:2px}
+.dc img{display:block;width:100%;aspect-ratio:16/10;object-fit:cover;object-position:top left;border-bottom:1px solid var(--color-hairline)}
+.dc div{display:flex;align-items:center;gap:8px;padding:12px 14px 0}.dc b{font-size:15px;font-weight:650}.dc span{font-size:11.5px;color:var(--color-text-tertiary);border:1px solid var(--color-hairline);border-radius:4px;padding:0 6px}
+.dc p{padding:4px 14px 14px;font-size:13px;color:var(--color-text-secondary)}
+table.pat td{vertical-align:top;padding-top:10px;padding-bottom:10px;line-height:20px}
 </style></head>
 <body><svg width="0" height="0" style="position:absolute"><defs>
 <symbol id="g-todo" viewBox="0 0 14 14"><circle cx="7" cy="7" r="5.25" fill="none" stroke="currentColor" stroke-width="1.5"/></symbol>
@@ -134,11 +141,11 @@ table.themes tr.on td{background:var(--color-surface-selected)}
 <symbol id="g-done" viewBox="0 0 14 14"><circle cx="7" cy="7" r="6" fill="currentColor"/><path d="M4.5 7.2l1.8 1.8 3.4-3.6" fill="none" stroke="var(--color-surface)" stroke-width="1.5"/></symbol>
 <symbol id="g-late" viewBox="0 0 14 14"><path d="M7 1l6 6-6 6-6-6z" fill="currentColor"/><path d="M7 4.2v3.4M7 9.6v.1" stroke="var(--color-surface)" stroke-width="1.5" stroke-linecap="round"/></symbol>
 </defs></svg>
-<nav class="top"><b>流转台</b><a href="#summary">总览</a><a href="#layout">版式</a><a href="#rules">12 条规矩</a><a href="#roles">角色</a><a href="#tokens">取值与映射</a><a href="#themes">主题</a><a href="#check">验收清单</a><span class="r"><span data-theme-slot></span><a href="demo.html" data-keep-theme>演示页 →</a><a href="../../">全部轮次</a></span></nav>
+<nav class="top"><b>流转台</b><a href="#summary">总览</a><a href="#layout">版式</a><a href="#demos">演示</a><a href="#rules">12 条规矩</a><a href="#roles">角色</a><a href="#tokens">取值与映射</a><a href="#themes">主题</a><a href="#check">验收清单</a><span class="r"><span data-theme-slot></span><a href="demo.html" data-keep-theme>演示页 →</a><a href="../../">全部轮次</a></span></nav>
 <div class="wrap">
 
 <header id="summary">
-  <div class="eng">后台设计语言 · v15.0 · Round 13</div>
+  <div class="eng">后台设计语言 · v15.1 · Round 13</div>
   <h1>流转台：后台是一条队列，一次办完一件。</h1>
   <p class="lead">这套语言只做一件事：<b>让人在任何组件库里，都能更快地看懂、核对、做决定、离开。</b>它不规定按钮长什么样，只规定东西该“怎么说话”——谁最重要、什么时候能用颜色、线有多重、空白有多大。</p>
   <a href="demo.html" data-keep-theme class="hero"><img src="demo-hero.png" alt="流转台演示：左侧队列、右侧当前事、底部后果条"><span>打开可操作的演示 → J / K 切换 · E 批准 · Z 撤销</span></a>
@@ -176,6 +183,17 @@ table.themes tr.on td{background:var(--color-surface-selected)}
 </div></section>
 
 
+
+<section id="demos" style="margin-top:56px">
+<div class="eng">演示 · 六种后台 · 四种页面模式</div>
+<h2>同一套语言怎么落到不同类型的后台</h2>
+<p class="muted">骨架和规矩不变，按任务性质选页面模式。点卡片打开演示，演示之间有顶部导航互通。全部见 <a href="demos.html" data-keep-theme style="color:var(--color-primary-text)">演示总览 →</a></p>
+<div class="dgrid"><a class="dc" href="demo.html" data-keep-theme><img src="thumbs/demo.png" alt="运营待办 截图" loading="lazy"><div><b>运营待办</b><span>队列</span></div><p>一天要办完的 9 件事排成队列，右侧当场批准 6 笔超时退款，J/K/E/Z 键盘流转。</p></a><a class="dc" href="demo-orders.html" data-keep-theme><img src="thumbs/demo-orders.png" alt="订单售后 截图" loading="lazy"><div><b>订单售后</b><span>列表</span></div><p>售后单表格 + 筛选；勾选后底部出现后果条，按钮实时写出单数和金额。</p></a><a class="dc" href="demo-analytics.html" data-keep-theme><img src="thumbs/demo-analytics.png" alt="数据看板 截图" loading="lazy"><div><b>数据看板</b><span>看板</span></div><p>经营周报：一句结论 + 4 个关键数 + 走势图；只有越线的点、行、数字是红色，黄色只做目标线。</p></a><a class="dc" href="demo-ops.html" data-keep-theme><img src="thumbs/demo-ops.png" alt="运维告警 截图" loading="lazy"><div><b>运维告警</b><span>队列</span></div><p>支付网关延迟告警：结论写清起因和影响，曲线只把越线段标红，主操作是“回滚到 v2.31”。</p></a><a class="dc" href="demo-crm.html" data-keep-theme><img src="thumbs/demo-crm.png" alt="客户管理 截图" loading="lazy"><div><b>客户管理</b><span>记录详情</span></div><p>企业客户档案：先写“续约 18 天后到期、活跃下降 37%”，再给动态时间脊和下一步。</p></a><a class="dc" href="demo-content.html" data-keep-theme><img src="thumbs/demo-content.png" alt="内容审核 截图" loading="lazy"><div><b>内容审核</b><span>队列 + 预览</span></div><p>待审内容逐条处理：原文命中处红色波浪线，右侧命中规则，驳回 / 通过都可撤销。</p></a></div><table class="roles pat"><tr><th>模式</th><th>什么时候用</th><th>骨架怎么变</th><th>不变的</th><th>演示</th></tr>
+<tr><td><b>队列</b></td><td>一件件处理、每件都要做决定（审批、告警、审核）</td><td>队列 400 + 当前事；办完自动下一件</td><td rowspan="4">图标轨 + 工作纸；结论句在最前；状态字形 ○◐●◆，只有异常是红色；一屏一个主操作，钉在后果条右端，写清能否撤销</td><td>运营待办 · 运维告警 · 内容审核</td></tr>
+<tr><td><b>列表</b></td><td>同类记录很多，要筛选、比较、批量处理</td><td>整宽表格 + 筛选条；后果条只在勾选后出现，按钮带数量和金额</td><td>订单售后</td></tr>
+<tr><td><b>看板</b></td><td>看整体状况、找异常</td><td>标题句 + 关键数 + 图表 + “需要注意”栏；图表用灰色和主色，越线才标红，黄色只做目标线</td><td>数据看板</td></tr>
+<tr><td><b>记录详情</b></td><td>围绕一个对象（客户、合同）长期跟进</td><td>窄队列 300 + 档案：结论 → 关键数 → 页签 → 动态时间脊；后果条给“下一步”</td><td>客户管理</td></tr></table>
+</section>
 
 <section id="rules">
 <div class="eng">第一层 · 规矩 · 每条都给出 对 / 错 的现场渲染</div>
@@ -460,7 +478,7 @@ const themes = { lake: createTheme(base,{ palette:{primary:{main:'#0A6E9C'}} }),
 </div>
 </section>
 
-<div class="foot"><span>后台设计语言 v15.0 · Round 13「流转台」</span><span>取值文件：<a href="reference-tokens.css">reference-tokens.css</a> · 原文：<a href="STYLE.md">STYLE.md</a></span></div>
+<div class="foot"><span>后台设计语言 v15.1 · Round 13「流转台」</span><span>取值文件：<a href="reference-tokens.css">reference-tokens.css</a> · 原文：<a href="STYLE.md">STYLE.md</a></span></div>
 </div>
 <link rel="stylesheet" href="../../assets/feedback.css"><script src="../../assets/feedback-config.js" defer></script><script src="theme-switcher.js" defer></script><script src="../../assets/feedback.js" data-round="r13" defer></script>
 </body></html>

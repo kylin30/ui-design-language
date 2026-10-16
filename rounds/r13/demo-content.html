@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>演示 · 内容审核 · 后台设计语言 v15.1 · Round 13 流转台</title>
+<link rel="stylesheet" href="reference-tokens.css"><script src="themes.js"></script><link rel="stylesheet" href="theme-switcher.css"><link rel="stylesheet" href="shell.css">
+<style>
+.post{border:1px solid var(--color-hairline);border-radius:10px;padding:16px;max-width:560px}
+.post .au{display:flex;align-items:center;gap:10px;font-size:12.5px;color:var(--color-text-tertiary)}.post .au b{color:var(--color-text)}
+.post .av2{width:28px;height:28px;border-radius:50%;background:var(--color-surface-subtle);display:grid;place-items:center;font-size:11px;color:var(--color-text-secondary)}
+.post p{margin-top:10px;font-size:14px;line-height:23px}
+.post mark{background:none;color:inherit;text-decoration:underline wavy var(--color-danger);text-underline-offset:4px}
+.imgs{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:12px}.imgs div{aspect-ratio:1;border-radius:6px;background:var(--color-surface-hover);display:grid;place-items:center;font-size:11px;color:var(--color-text-tertiary)}
+.imgs div.hit{box-shadow:inset 0 0 0 2px var(--color-danger)}
+.hits{list-style:none;margin-top:8px}.hits li{display:flex;gap:8px;padding:8px 0;border-bottom:1px solid var(--color-divider);font-size:12.5px}.hits li span{margin-left:auto;color:var(--color-text-tertiary)}
+</style></head>
+<body>
+<svg width="0" height="0" style="position:absolute"><defs>
+<symbol id="i-inbox" viewBox="0 0 24 24"><path d="M3 13h5l1.5 3h5L16 13h5M5 5h14l2 8v6H3v-6z"/></symbol>
+<symbol id="i-order" viewBox="0 0 24 24"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2zM9 8h6M9 12h6"/></symbol>
+<symbol id="i-box" viewBox="0 0 24 24"><path d="M3 7l9-4 9 4-9 4zM3 7v10l9 4 9-4V7M12 11v10"/></symbol>
+<symbol id="i-chart" viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></symbol>
+<symbol id="i-gear" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M5 19l2-2M17 7l2-2"/></symbol>
+<symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></symbol>
+<!-- 状态字形 -->
+<symbol id="g-todo" viewBox="0 0 14 14"><circle cx="7" cy="7" r="5.25" fill="none" stroke="currentColor" stroke-width="1.5"/></symbol>
+<symbol id="g-prog" viewBox="0 0 14 14"><circle cx="7" cy="7" r="5.25" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M7 1.75A5.25 5.25 0 0 1 7 12.25z" fill="currentColor"/></symbol>
+<symbol id="g-done" viewBox="0 0 14 14"><circle cx="7" cy="7" r="6" fill="currentColor"/><path d="M4.5 7.2l1.8 1.8 3.4-3.6" fill="none" stroke="var(--color-surface)" stroke-width="1.5"/></symbol>
+<symbol id="g-late" viewBox="0 0 14 14"><path d="M7 1l6 6-6 6-6-6z" fill="currentColor"/><path d="M7 4.2v3.4M7 9.6v.1" stroke="var(--color-surface)" stroke-width="1.5" stroke-linecap="round"/></symbol>
+<symbol id="i-pulse" viewBox="0 0 24 24"><path d="M3 12h4l3-8 4 16 3-8h4"/></symbol><symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="4"/><path d="M2 21c0-4 3-7 7-7s7 3 7 7M17 4a4 4 0 0 1 0 8M22 21c0-3-2-6-5-7"/></symbol><symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></symbol></defs></svg>
+<div class="app">
+<nav class="rail" aria-label="主导航"><div class="logo">云</div><a href="demo.html" data-keep-theme title="待办"><svg class="ico"><use href="#i-inbox"/></svg></a><a href="demo-orders.html" data-keep-theme title="订单"><svg class="ico"><use href="#i-order"/></svg></a><a href="demo-analytics.html" data-keep-theme title="看板"><svg class="ico"><use href="#i-chart"/></svg></a><a href="demo-ops.html" data-keep-theme title="运维"><svg class="ico"><use href="#i-pulse"/></svg></a><a href="demo-crm.html" data-keep-theme title="客户"><svg class="ico"><use href="#i-users"/></svg></a><a href="demo-content.html" data-keep-theme title="审核" class="on"><svg class="ico"><use href="#i-eye"/></svg></a><span class="sp"></span><a title="设置"><svg class="ico"><use href="#i-gear"/></svg></a><div class="av">周</div></nav>
+<div class="desk">
+ <header class="bar"><div class="crumb">云栈运营 / <b>内容 · 审核队列</b></div><span data-demo-nav></span>
+  <div class="cmd" title="命令面板"><svg class="ico" style="width:14px;height:14px"><use href="#i-search"/></svg>搜索或输入命令…<kbd>⌘K</kbd></div>
+  <div class="r"><span data-theme-slot></span><span class="sync">已同步 20:30</span></div></header>
+<div class="work"><section class="queue"><div class="qhead"><h1>待审核 <span>37 条 · 机审已拦 112 条</span></h1><div class="lanes"><button class="on">需人审 <em>37</em></button><button>申诉 <em>4</em></button><button>今日已审 <em>286</em></button></div></div><div class="list" id="list"></div></section><section class="focus" id="focus"></section></div>
+</div></div>
+<div class="toast" id="toast"><span id="tmsg"></span><button onclick="window.undo&&undo()">撤销 <span class="k" style="border-color:rgba(255,255,255,.25);color:#ccc">Z</span></button></div>
+<script>
+function G(k,c){return '<svg class="g '+(c||k)+'"><use href="#g-'+k+'"/></svg>';}
+function money(n,d){return '<span class="amt"><s>¥</s>'+Math.floor(n).toLocaleString()+'<i>.'+String(d||0).padStart(2,'0')+'</i></span>';}
+var _tt;function toast(m){document.getElementById('tmsg').textContent=m;var T=document.getElementById('toast');T.classList.add('show');clearTimeout(_tt);_tt=setTimeout(function(){T.classList.remove('show');},5000);}
+
+var Q=[{g:'late',grp:'疑似违规',t:'「秋冬礼盒低价转让」',m:'晓风 · 笔记 · 机审 0.91 广告引流',w:'举报 6',late:1,au:'晓风',lv:'Lv2 · 注册 9 天',
+ txt:'全新香薰礼盒，公司发的用不上，原价 ¥399 现 ¥99 包邮。<mark>加微 xf_9981 发图</mark>，<mark>私聊更便宜</mark>，量大可批发。',img:[0,1,0],h:'疑似站外引流：正文含微信号和“私聊更便宜”，第 2 张图有二维码',hits:[['广告引流 · 站外联系方式','规则 3.2'],['图片二维码','规则 3.4'],['近 7 天同类发布 5 次','账号行为']],btn:'驳回并限流 7 天'},
+ {g:'late',grp:'疑似违规',t:'「这家店客服态度太差」',m:'林小满 · 评价 · 举报 3',w:'举报 3',late:1,au:'林小满',lv:'Lv5 · 注册 2 年',txt:'等了 11 天退款都没处理，客服一直说在核实。<mark>这家店就是骗子</mark>，大家别买。',img:[0,0,0],h:'真实差评含一处人身攻击，建议仅隐去该词后通过',hits:[['人身攻击 · “骗子”','规则 5.1'],['订单真实 · 售后已超时','订单 SH2410170931']],btn:'隐去 1 处后通过'},
+ {g:'prog',grp:'需复核',t:'「双十一攻略合集」',m:'省钱研究所 · 长文 · 外链 4 个',w:'12 分',au:'省钱研究所',lv:'Lv7',txt:'整理了 32 个品类的满减规则……',img:[0,0,0],h:'含 4 个外部链接，均为官方活动页',hits:[['外链 4 个 · 白名单域名','规则 3.1']],btn:'通过'},
+ {g:'todo',grp:'需复核',t:'「门店探访 vlog」',m:'阿杰 · 视频 · 4:12',w:'20 分',au:'阿杰',lv:'Lv3',txt:'带大家看看朝阳门店新上的秋冬系列。',img:[0,0,0],h:'未命中规则，人工抽检',hits:[],btn:'通过'}];
+var cur=0,done={};
+function rl(){var h='',l='';Q.forEach(function(q,i){if(done[i])return;if(q.grp!==l){h+='<div class="grp">'+q.grp+'</div>';l=q.grp;}h+='<div class="it'+(i===cur?' on':'')+'" data-i="'+i+'">'+G(q.g)+'<span class="t">'+q.t+'</span><span class="a"></span><span class="m">'+q.m+'</span><span class="w'+(q.late?' late':'')+'">'+q.w+'</span></div>';});
+document.getElementById('list').innerHTML=h;document.querySelectorAll('.it').forEach(function(e){e.onclick=function(){cur=+e.dataset.i;R();};});}
+function rf(){var q=Q[cur];document.getElementById('focus').innerHTML='<div class="verdict"><div class="eyebrow">'+(q.late?'<span class="late">'+G('late')+'疑似违规</span>':'<span>需复核</span>')+'<span>·</span><span>第 '+(cur+1)+' / '+Q.length+' 条</span></div><h2>'+q.h+'</h2></div>'+
+'<div class="body"><div><div class="sec">原文 · 命中处带红色波浪线</div><div class="post"><div class="au"><span class="av2">'+q.au[0]+'</span><b>'+q.au+'</b>'+q.lv+' · 10-17 01:42</div><p>'+q.txt+'</p><div class="imgs">'+q.img.map(function(x,i){return '<div class="'+(x?'hit':'')+'">图 '+(i+1)+(x?' · 二维码':'')+'</div>';}).join('')+'</div></div></div>'+
+'<aside><div class="sec">命中</div>'+(q.hits.length?'<ul class="hits">'+q.hits.map(function(x){return '<li>'+x[0]+'<span>'+x[1]+'</span></li>';}).join('')+'</ul>':'<p class="muted">无</p>')+'<div class="note">驳回会通知作者并附理由，作者可在 3 天内申诉。</div></aside></div>'+
+'<div class="act"><div class="cons"><span><i></i>5 分钟内可撤销</span><span><i class="w"></i>作者会收到通知</span></div><div class="r"><button class="btn btn-g">跳过 <span class="k">L</span></button><button class="btn btn-s">通过 <span class="k">A</span></button><button class="btn btn-p" id="go">'+q.btn+' <span class="k">E</span></button></div></div>';document.getElementById('go').onclick=ap;}
+function R(){rl();rf();}var lst=null;function ap(){done[cur]=1;lst=cur;toast('已处理：'+Q[cur].btn);for(var i=0;i<Q.length;i++)if(!done[i]){cur=i;break;}R();}
+function undo(){if(lst===null)return;delete done[lst];cur=lst;lst=null;document.getElementById('toast').classList.remove('show');R();}
+document.addEventListener('keydown',function(e){if(e.target.closest('textarea,input'))return;if(e.key==='j'&&cur<Q.length-1){cur++;R();}if(e.key==='k'&&cur>0){cur--;R();}if(e.key==='e')ap();if(e.key==='z')undo();});R();
+</script>
+<link rel="stylesheet" href="../../assets/feedback.css"><script src="../../assets/feedback-config.js" defer></script><script src="theme-switcher.js" defer></script><script src="demo-nav.js" defer></script><script src="../../assets/feedback.js" data-round="r13" defer></script>
+</body></html>

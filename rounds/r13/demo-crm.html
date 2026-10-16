@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>演示 · 客户管理 · 后台设计语言 v15.1 · Round 13 流转台</title>
+<link rel="stylesheet" href="reference-tokens.css"><script src="themes.js"></script><link rel="stylesheet" href="theme-switcher.css"><link rel="stylesheet" href="shell.css">
+<style>
+.crm{display:grid;grid-template-columns:300px 1fr;min-height:0}
+.crm .queue{min-width:0}.it .a{font-size:12px;font-weight:500;color:var(--color-text-tertiary)}
+.rec{display:grid;grid-template-rows:auto 1fr auto;min-height:0}
+.who{display:flex;gap:14px;align-items:center}.who .lg{width:40px;height:40px;border-radius:10px;background:var(--color-surface-subtle);border:1px solid var(--color-hairline);display:grid;place-items:center;font-weight:650;color:var(--color-text-secondary)}
+.who small{color:var(--color-text-tertiary)}
+.tabs{display:flex;gap:20px;border-bottom:1px solid var(--color-hairline);margin-top:8px}.tabs a{padding:10px 0;color:var(--color-text-tertiary);border-bottom:2px solid transparent;cursor:pointer}.tabs a.on{color:var(--color-text);font-weight:600;border-color:var(--color-primary)}
+.kv{display:grid;grid-template-columns:72px 1fr;row-gap:8px;font-size:12.5px}.kv dt{color:var(--color-text-tertiary)}
+.use{display:flex;align-items:flex-end;gap:3px;height:56px;margin-top:8px}.use i{flex:1;background:var(--color-border-strong);border-radius:2px 2px 0 0}.use i.dn{background:var(--color-danger)}
+</style></head>
+<body>
+<svg width="0" height="0" style="position:absolute"><defs>
+<symbol id="i-inbox" viewBox="0 0 24 24"><path d="M3 13h5l1.5 3h5L16 13h5M5 5h14l2 8v6H3v-6z"/></symbol>
+<symbol id="i-order" viewBox="0 0 24 24"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2zM9 8h6M9 12h6"/></symbol>
+<symbol id="i-box" viewBox="0 0 24 24"><path d="M3 7l9-4 9 4-9 4zM3 7v10l9 4 9-4V7M12 11v10"/></symbol>
+<symbol id="i-chart" viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></symbol>
+<symbol id="i-gear" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M5 19l2-2M17 7l2-2"/></symbol>
+<symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></symbol>
+<!-- 状态字形 -->
+<symbol id="g-todo" viewBox="0 0 14 14"><circle cx="7" cy="7" r="5.25" fill="none" stroke="currentColor" stroke-width="1.5"/></symbol>
+<symbol id="g-prog" viewBox="0 0 14 14"><circle cx="7" cy="7" r="5.25" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M7 1.75A5.25 5.25 0 0 1 7 12.25z" fill="currentColor"/></symbol>
+<symbol id="g-done" viewBox="0 0 14 14"><circle cx="7" cy="7" r="6" fill="currentColor"/><path d="M4.5 7.2l1.8 1.8 3.4-3.6" fill="none" stroke="var(--color-surface)" stroke-width="1.5"/></symbol>
+<symbol id="g-late" viewBox="0 0 14 14"><path d="M7 1l6 6-6 6-6-6z" fill="currentColor"/><path d="M7 4.2v3.4M7 9.6v.1" stroke="var(--color-surface)" stroke-width="1.5" stroke-linecap="round"/></symbol>
+<symbol id="i-pulse" viewBox="0 0 24 24"><path d="M3 12h4l3-8 4 16 3-8h4"/></symbol><symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="4"/><path d="M2 21c0-4 3-7 7-7s7 3 7 7M17 4a4 4 0 0 1 0 8M22 21c0-3-2-6-5-7"/></symbol><symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></symbol></defs></svg>
+<div class="app">
+<nav class="rail" aria-label="主导航"><div class="logo">云</div><a href="demo.html" data-keep-theme title="待办"><svg class="ico"><use href="#i-inbox"/></svg></a><a href="demo-orders.html" data-keep-theme title="订单"><svg class="ico"><use href="#i-order"/></svg></a><a href="demo-analytics.html" data-keep-theme title="看板"><svg class="ico"><use href="#i-chart"/></svg></a><a href="demo-ops.html" data-keep-theme title="运维"><svg class="ico"><use href="#i-pulse"/></svg></a><a href="demo-crm.html" data-keep-theme title="客户" class="on"><svg class="ico"><use href="#i-users"/></svg></a><a href="demo-content.html" data-keep-theme title="审核"><svg class="ico"><use href="#i-eye"/></svg></a><span class="sp"></span><a title="设置"><svg class="ico"><use href="#i-gear"/></svg></a><div class="av">周</div></nav>
+<div class="desk">
+ <header class="bar"><div class="crumb">云栈运营 / <b>客户 · 企业客户</b></div><span data-demo-nav></span>
+  <div class="cmd" title="命令面板"><svg class="ico" style="width:14px;height:14px"><use href="#i-search"/></svg>搜索或输入命令…<kbd>⌘K</kbd></div>
+  <div class="r"><span data-theme-slot></span><span class="sync">已同步 20:30</span></div></header>
+<div class="crm"><section class="queue"><div class="qhead"><h1>我的客户 <span>42 家</span></h1><div class="lanes"><button class="on">要跟进 <em>5</em></button><button>全部 <em>42</em></button></div></div><div class="list" id="list"></div></section>
+<section class="rec"><div class="verdict" style="padding-bottom:0"><div class="who"><div class="lg">鲸</div><div><h2 style="margin:0;font-size:20px">鲸选生活（杭州）有限公司</h2><small>企业版 · 120 席 · 客户编号 C-20231108 · 负责人 周凯</small></div></div>
+<p style="margin-top:14px;font-size:15px;color:var(--color-text)"><b>续约 18 天后到期（11-04），近 30 天活跃席位下降 37%</b>，建议本周安排一次业务回顾。</p>
+<div class="facts"><div><small>年合同额</small><b>¥216,000</b></div><div><small>活跃席位</small><b style="color:var(--color-danger)">◆ 61 / 120</b></div><div><small>未结工单</small><b>2</b></div><div><small>健康分</small><b>58</b></div></div>
+<div class="tabs"><a class="on">动态</a><a>联系人 4</a><a>合同 3</a><a>工单 12</a></div></div>
+<div class="body"><div><div class="sec">动态</div><ol class="spine">
+<li class="now"><b>系统提醒：活跃度连续 3 周下降</b><time>今天 09:00</time></li>
+<li><b>工单 #8812「批量导出超时」仍未解决</b><time>10-14 · 技术支持 刘洋</time></li>
+<li><b>电话：采购负责人沈琳表示正在比较其他方案</b><time>10-09 · 周凯 · 18 分钟</time></li>
+<li><b>邮件：发送 Q3 使用报告</b><time>10-02 · 周凯</time></li>
+<li><b>扩容 +20 席</b><time>06-18 · 合同 HT-2406-117</time></li></ol></div>
+<aside><div class="sec">近 12 周活跃席位</div><div class="use" id="use"></div><div class="sec" style="margin-top:20px">关键联系人</div><dl class="kv"><dt>决策人</dt><dd>沈琳 · 采购总监</dd><dt>使用方</dt><dd>葛文 · 运营经理</dd><dt>电话</dt><dd class="mono">138 **** 6021</dd></dl><div class="note">上次续约折扣 9 折；本次授权上限 8.5 折。</div></aside></div>
+<div class="act"><div class="cons"><span><i></i>会写入日历并通知沈琳</span><span><i class="w"></i>同时把工单 #8812 升级为高优先</span></div><div class="r"><button class="btn btn-g">记一笔</button><button class="btn btn-s">发邮件</button><button class="btn btn-p" onclick="toast('已安排 10-21 14:00 业务回顾')">安排业务回顾 · 10-21</button></div></div></section></div>
+</div></div>
+<div class="toast" id="toast"><span id="tmsg"></span><button onclick="window.undo&&undo()">撤销 <span class="k" style="border-color:rgba(255,255,255,.25);color:#ccc">Z</span></button></div>
+<script>
+function G(k,c){return '<svg class="g '+(c||k)+'"><use href="#g-'+k+'"/></svg>';}
+function money(n,d){return '<span class="amt"><s>¥</s>'+Math.floor(n).toLocaleString()+'<i>.'+String(d||0).padStart(2,'0')+'</i></span>';}
+var _tt;function toast(m){document.getElementById('tmsg').textContent=m;var T=document.getElementById('toast');T.classList.add('show');clearTimeout(_tt);_tt=setTimeout(function(){T.classList.remove('show');},5000);}
+
+var C=[['late','鲸选生活','续约 18 天 · 活跃 −37%','¥21.6 万'],['late','禾木连锁','工单超时 2 单','¥8.4 万'],['prog','山海优品','试用第 9 天 · 已邀请 14 人','试用'],['todo','初见咖啡','续约 46 天','¥3.6 万'],['todo','北辰物流','想加购 30 席','¥12 万'],['done','青柠教育','已续约 · 10-12','¥9.8 万']];
+document.getElementById('list').innerHTML=C.map(function(c,i){return '<div class="it'+(i?'':' on')+'">'+G(c[0])+'<span class="t">'+c[1]+'</span><span class="a">'+c[3]+'</span><span class="m">'+c[2]+'</span><span class="w"></span></div>';}).join('');
+document.getElementById('use').innerHTML=[98,101,104,103,99,102,97,93,84,76,68,61].map(function(v,i){return '<i class="'+(i>8?'dn':'')+'" style="height:'+(v/104*100)+'%"></i>';}).join('');
+</script>
+<link rel="stylesheet" href="../../assets/feedback.css"><script src="../../assets/feedback-config.js" defer></script><script src="theme-switcher.js" defer></script><script src="demo-nav.js" defer></script><script src="../../assets/feedback.js" data-round="r13" defer></script>
+</body></html>

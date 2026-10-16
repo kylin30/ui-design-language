@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>演示 · 数据看板 · 后台设计语言 v15.1 · Round 13 流转台</title>
+<link rel="stylesheet" href="reference-tokens.css"><script src="themes.js"></script><link rel="stylesheet" href="theme-switcher.css"><link rel="stylesheet" href="shell.css">
+<style>
+.grid2{display:grid;grid-template-columns:1fr 320px;gap:32px;margin-top:24px}
+.sec2{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:8px}.sec2 h3{font-size:14px;font-weight:600}.sec2 span{font-size:12px;color:var(--color-text-tertiary)}
+.legend{display:flex;gap:16px;font-size:12px;color:var(--color-text-tertiary)}.legend i{display:inline-block;width:14px;height:2px;vertical-align:3px;margin-right:6px}
+svg.ch{width:100%;height:240px;display:block}
+.bars td{height:36px}.hb{display:block;height:6px;border-radius:3px;background:var(--color-border-strong)}.hb.bad{background:var(--color-danger)}
+.watch{list-style:none}.watch li{display:grid;grid-template-columns:16px 1fr;gap:4px 10px;padding:10px 0;border-bottom:1px solid var(--color-divider)}.watch li p{grid-column:2;color:var(--color-text-tertiary);font-size:12px}
+.watch li a{color:var(--color-primary-text);font-size:12px;grid-column:2;text-decoration:none}
+</style></head>
+<body>
+<svg width="0" height="0" style="position:absolute"><defs>
+<symbol id="i-inbox" viewBox="0 0 24 24"><path d="M3 13h5l1.5 3h5L16 13h5M5 5h14l2 8v6H3v-6z"/></symbol>
+<symbol id="i-order" viewBox="0 0 24 24"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2zM9 8h6M9 12h6"/></symbol>
+<symbol id="i-box" viewBox="0 0 24 24"><path d="M3 7l9-4 9 4-9 4zM3 7v10l9 4 9-4V7M12 11v10"/></symbol>
+<symbol id="i-chart" viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></symbol>
+<symbol id="i-gear" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M5 19l2-2M17 7l2-2"/></symbol>
+<symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></symbol>
+<!-- 状态字形 -->
+<symbol id="g-todo" viewBox="0 0 14 14"><circle cx="7" cy="7" r="5.25" fill="none" stroke="currentColor" stroke-width="1.5"/></symbol>
+<symbol id="g-prog" viewBox="0 0 14 14"><circle cx="7" cy="7" r="5.25" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M7 1.75A5.25 5.25 0 0 1 7 12.25z" fill="currentColor"/></symbol>
+<symbol id="g-done" viewBox="0 0 14 14"><circle cx="7" cy="7" r="6" fill="currentColor"/><path d="M4.5 7.2l1.8 1.8 3.4-3.6" fill="none" stroke="var(--color-surface)" stroke-width="1.5"/></symbol>
+<symbol id="g-late" viewBox="0 0 14 14"><path d="M7 1l6 6-6 6-6-6z" fill="currentColor"/><path d="M7 4.2v3.4M7 9.6v.1" stroke="var(--color-surface)" stroke-width="1.5" stroke-linecap="round"/></symbol>
+<symbol id="i-pulse" viewBox="0 0 24 24"><path d="M3 12h4l3-8 4 16 3-8h4"/></symbol><symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="4"/><path d="M2 21c0-4 3-7 7-7s7 3 7 7M17 4a4 4 0 0 1 0 8M22 21c0-3-2-6-5-7"/></symbol><symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></symbol></defs></svg>
+<div class="app">
+<nav class="rail" aria-label="主导航"><div class="logo">云</div><a href="demo.html" data-keep-theme title="待办"><svg class="ico"><use href="#i-inbox"/></svg></a><a href="demo-orders.html" data-keep-theme title="订单"><svg class="ico"><use href="#i-order"/></svg></a><a href="demo-analytics.html" data-keep-theme title="看板" class="on"><svg class="ico"><use href="#i-chart"/></svg></a><a href="demo-ops.html" data-keep-theme title="运维"><svg class="ico"><use href="#i-pulse"/></svg></a><a href="demo-crm.html" data-keep-theme title="客户"><svg class="ico"><use href="#i-users"/></svg></a><a href="demo-content.html" data-keep-theme title="审核"><svg class="ico"><use href="#i-eye"/></svg></a><span class="sp"></span><a title="设置"><svg class="ico"><use href="#i-gear"/></svg></a><div class="av">周</div></nav>
+<div class="desk">
+ <header class="bar"><div class="crumb">云栈运营 / <b>报表 · 经营周报</b></div><span data-demo-nav></span>
+  <div class="cmd" title="命令面板"><svg class="ico" style="width:14px;height:14px"><use href="#i-search"/></svg>搜索或输入命令…<kbd>⌘K</kbd></div>
+  <div class="r"><span data-theme-slot></span><span class="sync">已同步 20:30</span></div></header>
+<div style="display:grid;grid-template-rows:1fr auto;min-height:0"><div class="page">
+<div class="ph"><div><h1>经营周报 · 10-11 ~ 10-17</h1><p>本周 GMV <b>¥2,318 万</b>，比上周 <b>+4.2%</b>，达成月目标 <b>61%</b>；只有一件事需要处理：<b style="color:var(--color-danger)">华东退款率 4.8%，超过 3% 警戒线</b>。</p></div><div class="r"><span class="chip">近 14 天 ▾</span><span class="chip">全部区域 ▾</span></div></div>
+<div class="kpis"><div><small>GMV</small><b>¥2,318<span style="font-size:15px;color:var(--color-text-tertiary)"> 万</span></b><em>较上周 +4.2%</em></div><div><small>订单数</small><b>86,412</b><em>较上周 +2.9%</em></div><div><small>客单价</small><b>¥268.3</b><em>较上周 +1.3%</em></div><div><small>退款率</small><b style="color:var(--color-danger)">3.4%</b><em class="bad">◆ 超警戒线 0.4pt</em></div></div>
+<div class="grid2"><div>
+<div class="sec2"><h3>每日 GMV</h3><div class="legend"><span><i style="background:var(--color-primary)"></i>本期</span><span><i style="background:var(--color-border-strong)"></i>上期</span><span><i style="background:var(--color-chart-4)"></i>日目标</span></div></div>
+<svg class="ch" id="ch" viewBox="0 0 760 240" preserveAspectRatio="none"></svg>
+<div class="sec2" style="margin-top:24px"><h3>区域</h3><span>按 GMV 排序 · 只有越线的区域着色</span></div>
+<table class="tb bars"><tr><th>区域</th><th>GMV</th><th style="width:34%"></th><th class="n">环比</th><th class="n">退款率</th></tr>
+<tr><td>华东</td><td>¥892 万</td><td><span class="hb bad" style="width:100%"></span></td><td class="n">+6.1%</td><td class="n" style="color:var(--color-danger);font-weight:600">◆ 4.8%</td></tr>
+<tr><td>华南</td><td>¥541 万</td><td><span class="hb" style="width:61%"></span></td><td class="n">+3.4%</td><td class="n">2.6%</td></tr>
+<tr><td>华北</td><td>¥463 万</td><td><span class="hb" style="width:52%"></span></td><td class="n">+2.2%</td><td class="n">2.1%</td></tr>
+<tr><td>西南</td><td>¥258 万</td><td><span class="hb" style="width:29%"></span></td><td class="n">+5.0%</td><td class="n">2.4%</td></tr>
+<tr><td>华中</td><td>¥164 万</td><td><span class="hb" style="width:18%"></span></td><td class="n">−1.8%</td><td class="n">1.9%</td></tr></table>
+</div><aside><div class="sec2"><h3>需要注意</h3><span>3 项</span></div><ul class="watch">
+<li><svg class="g late"><use href="#g-late"/></svg><b>华东退款率 4.8%</b><p>苏州观前店、上海徐汇店贡献 62%，集中在“香薰礼盒破损”。</p><a href="demo-orders.html" data-keep-theme>去售后单处理 →</a></li>
+<li><svg class="g prog"><use href="#g-prog"/></svg><b>10-15 GMV 低于目标</b><p>系统维护 40 分钟，次日已回补。</p></li>
+<li><svg class="g todo"><use href="#g-todo"/></svg><b>华中环比 −1.8%</b><p>连续 2 周下滑，暂未到警戒线。</p></li></ul>
+<p class="muted" style="font-size:12px;margin-top:16px">看板规则：图表默认灰与主色，<b>只有越线的点、行、数字用红色</b>；黄色只用于目标线这类细小参照。</p></aside></div>
+</div><div class="act"><div class="cons"><span><i></i>可随时撤回</span><span>会给华东区运营负责人张蕾发一条待办</span></div><div class="r"><button class="btn btn-s">下载 PDF</button><button class="btn btn-p" onclick="toast('已转给 华东运营 · 张蕾')">把华东退款异常转给运营</button></div></div></div>
+</div></div>
+<div class="toast" id="toast"><span id="tmsg"></span><button onclick="window.undo&&undo()">撤销 <span class="k" style="border-color:rgba(255,255,255,.25);color:#ccc">Z</span></button></div>
+<script>
+function G(k,c){return '<svg class="g '+(c||k)+'"><use href="#g-'+k+'"/></svg>';}
+function money(n,d){return '<span class="amt"><s>¥</s>'+Math.floor(n).toLocaleString()+'<i>.'+String(d||0).padStart(2,'0')+'</i></span>';}
+var _tt;function toast(m){document.getElementById('tmsg').textContent=m;var T=document.getElementById('toast');T.classList.add('show');clearTimeout(_tt);_tt=setTimeout(function(){T.classList.remove('show');},5000);}
+
+(function(){var cur=[148,156,151,163,171,158,149,166,174,169,121,182,188,176],prev=[139,147,150,152,160,155,147,151,160,163,158,165,170,166],W=760,H=240,P=24,mx=200,mn=100;
+function x(i){return P+i*(W-2*P)/13;}function y(v){return H-P-(v-mn)/(mx-mn)*(H-2*P);}
+function path(a){return a.map(function(v,i){return (i?'L':'M')+x(i).toFixed(1)+','+y(v).toFixed(1);}).join('');}
+var g='';[120,140,160,180].forEach(function(v){g+='<line x1="'+P+'" x2="'+(W-P)+'" y1="'+y(v)+'" y2="'+y(v)+'" stroke="var(--color-divider)"/><text x="0" y="'+(y(v)+4)+'" font-size="10" fill="var(--color-text-tertiary)">'+v+'</text>';});
+g+='<line x1="'+P+'" x2="'+(W-P)+'" y1="'+y(155)+'" y2="'+y(155)+'" stroke="var(--color-chart-4)" stroke-dasharray="4 4" stroke-width="1.2"/>';
+g+='<path d="'+path(prev)+'" fill="none" stroke="var(--color-border-strong)" stroke-width="1.5"/>';
+g+='<path d="'+path(cur)+' L'+x(13)+','+(H-P)+' L'+x(0)+','+(H-P)+'Z" fill="var(--color-primary)" opacity=".06"/><path d="'+path(cur)+'" fill="none" stroke="var(--color-primary)" stroke-width="2"/>';
+g+='<circle cx="'+x(10)+'" cy="'+y(121)+'" r="4.5" fill="var(--color-danger)" stroke="var(--color-surface)" stroke-width="2"/><text x="'+(x(10)+8)+'" y="'+(y(121)+16)+'" font-size="11" fill="var(--color-danger)" font-weight="600">10-15 · 121 万 · 系统维护</text>';
+g+='<circle cx="'+x(13)+'" cy="'+y(176)+'" r="3.5" fill="var(--color-primary)"/>';
+['10-04','10-07','10-10','10-13','10-17'].forEach(function(t,j){g+='<text x="'+x([0,3,6,9,13][j])+'" y="'+(H-6)+'" font-size="10" text-anchor="middle" fill="var(--color-text-tertiary)">'+t+'</text>';});
+document.getElementById('ch').innerHTML=g;})();
+</script>
+<link rel="stylesheet" href="../../assets/feedback.css"><script src="../../assets/feedback-config.js" defer></script><script src="theme-switcher.js" defer></script><script src="demo-nav.js" defer></script><script src="../../assets/feedback.js" data-round="r13" defer></script>
+</body></html>

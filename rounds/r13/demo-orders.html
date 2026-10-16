@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>演示 · 订单售后 · 后台设计语言 v15.1 · Round 13 流转台</title>
+<link rel="stylesheet" href="reference-tokens.css"><script src="themes.js"></script><link rel="stylesheet" href="theme-switcher.css"><link rel="stylesheet" href="shell.css">
+<style>
+.flt{display:flex;gap:8px;align-items:center;margin-bottom:12px}.flt .sp{flex:1}
+.tb .n{text-align:right}.tb td:first-child,.tb th:first-child{width:28px}
+.sel-bar{display:none}.sel-bar.show{display:flex}
+.work1{display:grid;grid-template-rows:1fr auto;min-height:0}
+</style></head>
+<body>
+<svg width="0" height="0" style="position:absolute"><defs>
+<symbol id="i-inbox" viewBox="0 0 24 24"><path d="M3 13h5l1.5 3h5L16 13h5M5 5h14l2 8v6H3v-6z"/></symbol>
+<symbol id="i-order" viewBox="0 0 24 24"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2zM9 8h6M9 12h6"/></symbol>
+<symbol id="i-box" viewBox="0 0 24 24"><path d="M3 7l9-4 9 4-9 4zM3 7v10l9 4 9-4V7M12 11v10"/></symbol>
+<symbol id="i-chart" viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></symbol>
+<symbol id="i-gear" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M5 19l2-2M17 7l2-2"/></symbol>
+<symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></symbol>
+<!-- 状态字形 -->
+<symbol id="g-todo" viewBox="0 0 14 14"><circle cx="7" cy="7" r="5.25" fill="none" stroke="currentColor" stroke-width="1.5"/></symbol>
+<symbol id="g-prog" viewBox="0 0 14 14"><circle cx="7" cy="7" r="5.25" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M7 1.75A5.25 5.25 0 0 1 7 12.25z" fill="currentColor"/></symbol>
+<symbol id="g-done" viewBox="0 0 14 14"><circle cx="7" cy="7" r="6" fill="currentColor"/><path d="M4.5 7.2l1.8 1.8 3.4-3.6" fill="none" stroke="var(--color-surface)" stroke-width="1.5"/></symbol>
+<symbol id="g-late" viewBox="0 0 14 14"><path d="M7 1l6 6-6 6-6-6z" fill="currentColor"/><path d="M7 4.2v3.4M7 9.6v.1" stroke="var(--color-surface)" stroke-width="1.5" stroke-linecap="round"/></symbol>
+<symbol id="i-pulse" viewBox="0 0 24 24"><path d="M3 12h4l3-8 4 16 3-8h4"/></symbol><symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="4"/><path d="M2 21c0-4 3-7 7-7s7 3 7 7M17 4a4 4 0 0 1 0 8M22 21c0-3-2-6-5-7"/></symbol><symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></symbol></defs></svg>
+<div class="app">
+<nav class="rail" aria-label="主导航"><div class="logo">云</div><a href="demo.html" data-keep-theme title="待办"><svg class="ico"><use href="#i-inbox"/></svg></a><a href="demo-orders.html" data-keep-theme title="订单" class="on"><svg class="ico"><use href="#i-order"/></svg></a><a href="demo-analytics.html" data-keep-theme title="看板"><svg class="ico"><use href="#i-chart"/></svg></a><a href="demo-ops.html" data-keep-theme title="运维"><svg class="ico"><use href="#i-pulse"/></svg></a><a href="demo-crm.html" data-keep-theme title="客户"><svg class="ico"><use href="#i-users"/></svg></a><a href="demo-content.html" data-keep-theme title="审核"><svg class="ico"><use href="#i-eye"/></svg></a><span class="sp"></span><a title="设置"><svg class="ico"><use href="#i-gear"/></svg></a><div class="av">周</div></nav>
+<div class="desk">
+ <header class="bar"><div class="crumb">云栈运营 / <b>订单 · 售后单</b></div><span data-demo-nav></span>
+  <div class="cmd" title="命令面板"><svg class="ico" style="width:14px;height:14px"><use href="#i-search"/></svg>搜索或输入命令…<kbd>⌘K</kbd></div>
+  <div class="r"><span data-theme-slot></span><span class="sync">已同步 20:30</span></div></header>
+<div class="work1"><div class="page">
+<div class="ph"><div><h1>售后单</h1><p>本周 <b>148</b> 单，<b>23</b> 单待处理，其中 <b>6</b> 单已超过 48 小时承诺时效。</p></div><div class="r"><button class="btn btn-g">导出</button><button class="btn btn-s">新建售后</button></div></div>
+<div class="flt"><span class="chip on">待处理 <b>23</b></span><span class="chip">处理中 <b>41</b></span><span class="chip">已完成 <b>84</b></span><span class="sp"></span><span class="chip">门店：全部 ▾</span><span class="chip">类型：退款 / 换货 ▾</span><span class="chip">10-11 ~ 10-17 ▾</span></div>
+<table class="tb"><thead><tr><th><span class="cb" id="all"></span></th><th>售后单</th><th>状态</th><th>客户 · 门店</th><th>原因</th><th>已等待</th><th class="n">金额</th></tr></thead><tbody id="rows"></tbody></table>
+<p class="muted" style="margin-top:12px;font-size:12px">共 23 单 · 已按等待时间倒序 · 勾选后底部出现批量操作</p>
+</div>
+<div class="act sel-bar" id="sb"><div class="cons"><span><b id="sn">0</b>&nbsp;单已选 · 合计&nbsp;<b id="sa">¥0</b></span><span><i></i>10 分钟内可撤销</span><span><i class="w"></i>退款将原路退回，1–3 天到账</span></div><div class="r"><button class="btn btn-g" onclick="clr()">取消选择</button><button class="btn btn-p" id="go">批准退款</button></div></div></div>
+</div></div>
+<div class="toast" id="toast"><span id="tmsg"></span><button onclick="window.undo&&undo()">撤销 <span class="k" style="border-color:rgba(255,255,255,.25);color:#ccc">Z</span></button></div>
+<script>
+function G(k,c){return '<svg class="g '+(c||k)+'"><use href="#g-'+k+'"/></svg>';}
+function money(n,d){return '<span class="amt"><s>¥</s>'+Math.floor(n).toLocaleString()+'<i>.'+String(d||0).padStart(2,'0')+'</i></span>';}
+var _tt;function toast(m){document.getElementById('tmsg').textContent=m;var T=document.getElementById('toast');T.classList.add('show');clearTimeout(_tt);_tt=setTimeout(function(){T.classList.remove('show');},5000);}
+
+var D=[['SH2410170931','late','超时 3 天','刘佳琪','苏州 · 观前店','香薰礼盒破损',72,238],['SH2410170926','late','超时 2 天','王梓涵','上海 · 徐汇店','耳机左耳无声',55,799],['SH2410170918','late','超时 1 天','赵一鸣','南京 · 新街口店','发错颜色',30,356],
+['SH2410170902','prog','门店核实中','陈思远','杭州 · 湖滨店','拉链损坏',20,699],['SH2410170877','todo','待处理','吴俊杰','苏州 · 观前店','重复扣款',14,1490],['SH2410170861','todo','待处理','郑可欣','上海 · 徐汇店','未收到货',9,636],
+['SH2410170850','todo','待处理','孙婉清','北京 · 朝阳门店','尺码不合适',6,329],['SH2410170843','prog','等客户寄回','何嘉怡','北京 · 望京店','质量问题',5,1180],['SH2410170839','todo','待处理','马文博','成都 · 春熙路店','少发配件',4,89],
+['SH2410170821','todo','待处理','黄子轩','广州 · 天河店','七天无理由',3,459],['SH2410170817','done','已退款','周若彤','深圳 · 南山店','商品破损',2,268],['SH2410170802','todo','待处理','林晓雯','上海 · 静安店','包装破损',1,129]];
+var sel={};function r(){document.getElementById('rows').innerHTML=D.map(function(d,i){return '<tr class="'+(sel[i]?'sel':'')+'" data-i="'+i+'"><td><span class="cb'+(sel[i]?' on':'')+'"></span></td><td class="mono">'+d[0]+'</td><td><span class="st2 '+(d[1]=='late'?'late':'')+'">'+G(d[1])+d[2]+'</span></td><td>'+d[3]+' <span class="muted">'+d[4]+'</span></td><td style="color:var(--color-text-secondary)">'+d[5]+'</td><td><span class="age'+(d[6]<48?' ok':'')+'"><i><b style="width:'+Math.min(100,d[6])+'%"></b></i>'+(d[6]>=24?Math.floor(d[6]/24)+' 天':d[6]+' 小时')+'</span></td><td class="n">'+money(d[7])+'</td></tr>';}).join('');
+document.querySelectorAll('#rows tr').forEach(function(t){t.onclick=function(){var i=+t.dataset.i;if(sel[i])delete sel[i];else sel[i]=1;r();};});
+var k=Object.keys(sel),sum=k.reduce(function(a,i){return a+D[i][7];},0);document.getElementById('sb').classList.toggle('show',k.length>0);document.getElementById('sn').textContent=k.length;document.getElementById('sa').textContent='¥'+sum.toLocaleString();
+document.getElementById('go').textContent='批准退款 '+k.length+' 单 · ¥'+sum.toLocaleString();document.getElementById('all').className='cb'+(k.length===D.length?' on':'');}
+function clr(){sel={};r();}document.getElementById('all').onclick=function(){if(Object.keys(sel).length===D.length)sel={};else D.forEach(function(_,i){sel[i]=1;});r();};
+var last=null;document.getElementById('go').onclick=function(){last=JSON.parse(JSON.stringify(D));var n=Object.keys(sel).length;Object.keys(sel).forEach(function(i){D[i][1]='done';D[i][2]='已批准';});toast('已批准 '+n+' 单退款，10 分钟内可撤销');sel={};r();};
+function undo(){if(last){D=last;last=null;r();document.getElementById('toast').classList.remove('show');}}
+[0,1,2].forEach(function(i){sel[i]=1;});r();
+</script>
+<link rel="stylesheet" href="../../assets/feedback.css"><script src="../../assets/feedback-config.js" defer></script><script src="theme-switcher.js" defer></script><script src="demo-nav.js" defer></script><script src="../../assets/feedback.js" data-round="r13" defer></script>
+</body></html>

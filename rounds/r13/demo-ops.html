@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>演示 · 运维告警 · 后台设计语言 v15.1 · Round 13 流转台</title>
+<link rel="stylesheet" href="reference-tokens.css"><script src="themes.js"></script><link rel="stylesheet" href="theme-switcher.css"><link rel="stylesheet" href="shell.css">
+<style>
+.metric{width:100%;height:120px;display:block;margin-top:4px}
+</style></head>
+<body>
+<svg width="0" height="0" style="position:absolute"><defs>
+<symbol id="i-inbox" viewBox="0 0 24 24"><path d="M3 13h5l1.5 3h5L16 13h5M5 5h14l2 8v6H3v-6z"/></symbol>
+<symbol id="i-order" viewBox="0 0 24 24"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2zM9 8h6M9 12h6"/></symbol>
+<symbol id="i-box" viewBox="0 0 24 24"><path d="M3 7l9-4 9 4-9 4zM3 7v10l9 4 9-4V7M12 11v10"/></symbol>
+<symbol id="i-chart" viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></symbol>
+<symbol id="i-gear" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M5 19l2-2M17 7l2-2"/></symbol>
+<symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></symbol>
+<!-- 状态字形 -->
+<symbol id="g-todo" viewBox="0 0 14 14"><circle cx="7" cy="7" r="5.25" fill="none" stroke="currentColor" stroke-width="1.5"/></symbol>
+<symbol id="g-prog" viewBox="0 0 14 14"><circle cx="7" cy="7" r="5.25" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M7 1.75A5.25 5.25 0 0 1 7 12.25z" fill="currentColor"/></symbol>
+<symbol id="g-done" viewBox="0 0 14 14"><circle cx="7" cy="7" r="6" fill="currentColor"/><path d="M4.5 7.2l1.8 1.8 3.4-3.6" fill="none" stroke="var(--color-surface)" stroke-width="1.5"/></symbol>
+<symbol id="g-late" viewBox="0 0 14 14"><path d="M7 1l6 6-6 6-6-6z" fill="currentColor"/><path d="M7 4.2v3.4M7 9.6v.1" stroke="var(--color-surface)" stroke-width="1.5" stroke-linecap="round"/></symbol>
+<symbol id="i-pulse" viewBox="0 0 24 24"><path d="M3 12h4l3-8 4 16 3-8h4"/></symbol><symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="4"/><path d="M2 21c0-4 3-7 7-7s7 3 7 7M17 4a4 4 0 0 1 0 8M22 21c0-3-2-6-5-7"/></symbol><symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></symbol></defs></svg>
+<div class="app">
+<nav class="rail" aria-label="主导航"><div class="logo">云</div><a href="demo.html" data-keep-theme title="待办"><svg class="ico"><use href="#i-inbox"/></svg></a><a href="demo-orders.html" data-keep-theme title="订单"><svg class="ico"><use href="#i-order"/></svg></a><a href="demo-analytics.html" data-keep-theme title="看板"><svg class="ico"><use href="#i-chart"/></svg></a><a href="demo-ops.html" data-keep-theme title="运维" class="on"><svg class="ico"><use href="#i-pulse"/></svg></a><a href="demo-crm.html" data-keep-theme title="客户"><svg class="ico"><use href="#i-users"/></svg></a><a href="demo-content.html" data-keep-theme title="审核"><svg class="ico"><use href="#i-eye"/></svg></a><span class="sp"></span><a title="设置"><svg class="ico"><use href="#i-gear"/></svg></a><div class="av">周</div></nav>
+<div class="desk">
+ <header class="bar"><div class="crumb">云栈运营 / <b>运维 · 告警</b></div><span data-demo-nav></span>
+  <div class="cmd" title="命令面板"><svg class="ico" style="width:14px;height:14px"><use href="#i-search"/></svg>搜索或输入命令…<kbd>⌘K</kbd></div>
+  <div class="r"><span data-theme-slot></span><span class="sync">已同步 20:30</span></div></header>
+<div class="work"><section class="queue"><div class="qhead"><h1>告警 <span>3 条在响 · 1 条影响支付</span></h1><div class="lanes"><button class="on">在响 <em>3</em></button><button>已确认 <em>5</em></button><button>已恢复 <em>27</em></button></div></div><div class="list" id="list"></div></section><section class="focus" id="focus"></section></div>
+</div></div>
+<div class="toast" id="toast"><span id="tmsg"></span><button onclick="window.undo&&undo()">撤销 <span class="k" style="border-color:rgba(255,255,255,.25);color:#ccc">Z</span></button></div>
+<script>
+function G(k,c){return '<svg class="g '+(c||k)+'"><use href="#g-'+k+'"/></svg>';}
+function money(n,d){return '<span class="amt"><s>¥</s>'+Math.floor(n).toLocaleString()+'<i>.'+String(d||0).padStart(2,'0')+'</i></span>';}
+var _tt;function toast(m){document.getElementById('tmsg').textContent=m;var T=document.getElementById('toast');T.classList.add('show');clearTimeout(_tt);_tt=setTimeout(function(){T.classList.remove('show');},5000);}
+
+var Q=[{g:'late',grp:'P1 · 影响用户',t:'支付网关 P99 延迟 2.4s',m:'pay-gateway · 华东 2 区 · v2.32',w:'14 分',late:1,
+ h:'支付网关 P99 延迟 2.4 秒，超阈值 4 倍；始于 v2.32 发布后 6 分钟',p:'错误率 0.9%（平时 0.05%），约 1,200 笔/分钟支付受影响。上一个稳定版本 v2.31，回滚约需 3 分钟。',
+ f:[['P99 延迟','2.41 s'],['错误率','0.9 %'],['受影响','1,200 笔/分']],btn:'回滚到 v2.31',cons:[['','回滚可再次发布 v2.32'],['w','回滚期间约 40 秒只读']]},
+ {g:'late',grp:'P1 · 影响用户',t:'订单库主从延迟 38s',m:'order-db-02 · 只读查询变慢',w:'9 分',late:1,h:'订单库从库延迟 38 秒，后台查询可能看到旧数据',p:'主库写入正常。延迟来自 02:00 的批量对账任务，预计 15 分钟内追平。',f:[['延迟','38 s'],['QPS','4,210']],btn:'暂停对账任务',cons:[['','任务可随时恢复']]},
+ {g:'prog',grp:'P3 · 观察中',t:'CDN 命中率降至 86%',m:'static.yunzhan.cn · 回源增加',w:'1 时',h:'CDN 命中率 86%，低于 92% 目标，暂不影响用户',p:'新版首页资源未预热，已自动预热 70%。',f:[['命中率','86 %'],['回源带宽','1.8 Gbps']],btn:'确认并观察',cons:[['','30 分钟后自动复查']]},
+ {g:'todo',grp:'P3 · 观察中',t:'日志磁盘 78%',m:'log-03 · 按当前速度 3 天后满',w:'3 时',h:'日志磁盘 78%，约 3 天后写满',p:'可清理 30 天前日志释放约 40%。',f:[['使用率','78 %']],btn:'清理 30 天前日志',cons:[['w','清理后无法恢复']]}];
+var cur=0,done={};
+function rl(){var h='',l='';Q.forEach(function(q,i){if(done[i])return;if(q.grp!==l){h+='<div class="grp">'+q.grp+'</div>';l=q.grp;}h+='<div class="it'+(i===cur?' on':'')+'" data-i="'+i+'">'+G(q.g)+'<span class="t">'+q.t+'</span><span class="a"></span><span class="m">'+q.m+'</span><span class="w'+(q.late?' late':'')+'">'+q.w+'</span></div>';});
+document.getElementById('list').innerHTML=h;document.querySelectorAll('.it').forEach(function(e){e.onclick=function(){cur=+e.dataset.i;R();};});}
+function chart(){var a=[180,175,190,182,188,176,185,620,1450,1980,2210,2380,2410,2350,2400],W=600,H=120,mx=2600;function X(i){return i*W/14;}function Y(v){return H-6-v/mx*(H-16);}
+var p=a.map(function(v,i){return (i?'L':'M')+X(i)+','+Y(v);}).join('');var g='<line x1="0" x2="'+W+'" y1="'+Y(600)+'" y2="'+Y(600)+'" stroke="var(--color-chart-4)" stroke-dasharray="4 4"/><text x="'+(W-4)+'" y="'+(Y(600)-4)+'" font-size="10" text-anchor="end" fill="var(--color-text-tertiary)">阈值 600ms</text>';
+g+='<line x1="'+X(6.5)+'" x2="'+X(6.5)+'" y1="0" y2="'+H+'" stroke="var(--color-border-strong)"/><text x="'+(X(6.5)+4)+'" y="12" font-size="10" fill="var(--color-text-tertiary)">v2.32 发布 02:03</text>';
+g+='<path d="'+p+'" fill="none" stroke="var(--color-text-tertiary)" stroke-width="1.5"/><path d="'+a.map(function(v,i){return i<7?'':((i==7?'M':'L')+X(i)+','+Y(v));}).join('')+'" fill="none" stroke="var(--color-danger)" stroke-width="2"/>';
+return '<svg class="metric" viewBox="0 0 '+W+' '+H+'" preserveAspectRatio="none">'+g+'</svg>';}
+function rf(){var q=Q[cur];document.getElementById('focus').innerHTML='<div class="verdict"><div class="eyebrow">'+(q.late?'<span class="late">'+G('late')+'持续 '+q.w+'</span>':'<span>'+q.w+'</span>')+'<span>·</span><span>值班：周凯</span></div><h2>'+q.h+'</h2><p>'+q.p+'</p><div class="facts">'+q.f.map(function(x){return '<div><small>'+x[0]+'</small><b>'+x[1]+'</b></div>';}).join('')+'</div></div>'+
+'<div class="body"><div>'+(cur===0?'<div class="sec"><span>P99 延迟 · 近 30 分钟</span><span>红色段 = 越线</span></div>'+chart()+'<div class="sec"><span>受影响的服务</span></div><table><tr><th>服务</th><th>状态</th><th class="n">错误率</th><th class="n">P99</th></tr><tr><td>pay-gateway</td><td><span class="st2 late">'+G('late')+'越线</span></td><td class="n">0.90%</td><td class="n">2,410 ms</td></tr><tr><td>order-api</td><td><span class="st2">'+G('prog')+'受牵连</span></td><td class="n">0.21%</td><td class="n">880 ms</td></tr><tr><td>coupon-svc</td><td><span class="st2">'+G('done')+'正常</span></td><td class="n">0.02%</td><td class="n">96 ms</td></tr></table>':'<div class="sec">明细</div><p class="muted">演示数据只展开第一条。</p>')+'</div>'+
+'<aside><div class="sec">经过</div><ol class="spine"><li><b>v2.32 发布</b><time>02:03 · 发布人 李航</time></li><li><b>延迟开始上升</b><time>02:09</time></li><li><b>触发 P1，电话通知值班</b><time>02:12</time></li><li class="now"><b>等你决定</b><time>现在 02:26</time></li><li><b>回滚后 3 分钟内恢复</b><time>预计</time></li></ol><div class="note">同类故障 9 月 21 日出现过一次，当时回滚 3 分钟内恢复。</div></aside></div>'+
+'<div class="act"><div class="cons">'+q.cons.map(function(c){return '<span><i class="'+c[0]+'"></i>'+c[1]+'</span>';}).join('')+'</div><div class="r"><button class="btn btn-g">稍后 <span class="k">L</span></button><button class="btn btn-s">打开监控</button><button class="btn btn-p" id="go">'+q.btn+' <span class="k">E</span></button></div></div>';document.getElementById('go').onclick=ap;}
+function R(){rl();rf();}var lst=null;function ap(){done[cur]=1;lst=cur;toast('已执行：'+Q[cur].btn);for(var i=0;i<Q.length;i++)if(!done[i]){cur=i;break;}R();}
+function undo(){if(lst===null)return;delete done[lst];cur=lst;lst=null;document.getElementById('toast').classList.remove('show');R();}
+document.addEventListener('keydown',function(e){if(e.target.closest('textarea,input'))return;if(e.key==='j'&&cur<Q.length-1){cur++;R();}if(e.key==='k'&&cur>0){cur--;R();}if(e.key==='e')ap();if(e.key==='z')undo();});R();
+</script>
+<link rel="stylesheet" href="../../assets/feedback.css"><script src="../../assets/feedback-config.js" defer></script><script src="theme-switcher.js" defer></script><script src="demo-nav.js" defer></script><script src="../../assets/feedback.js" data-round="r13" defer></script>
+</body></html>
