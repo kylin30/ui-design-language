@@ -1,18 +1,35 @@
 [
   {
+    "id": "r20",
+    "name": "成品",
+    "title": "Round 20 · 成品",
+    "version": "v22.0",
+    "date": "2026-10-17",
+    "status": "待评分",
+    "primary": "spec",
+    "spec": "rounds/r20/spec.html",
+    "demo": "rounds/r20/demo.html",
+    "demos": "rounds/r20/demos.html",
+    "screenshot": "rounds/r20/screenshot.png",
+    "tokens": "rounds/r20/reference-tokens.css",
+    "summary": "仍是方向 A「精简」，但改了方法：把 R19 截图和 Linear、Vercel、Stripe、Attio 的真实界面并排，逐像素找差距（gap.md）。改动：中文正文 14/22、标题 500；5 档带紫调的文字灰收成 3 档中性灰；选中行补 12px 内距并加圆角；状态点只剩红、鸢尾、灰；图标统一 1.5 描边；详情加动态时间线；顶栏 48、页边 32、表格行 40、控件 30；假数据校正。规范、六个演示与主题同步更新。"
+  },
+  {
     "id": "r19",
     "name": "素线",
     "title": "Round 19 · 素线",
     "version": "v21.0",
     "date": "2026-10-17",
-    "status": "待评分",
+    "status": "已评分",
     "primary": "spec",
     "spec": "rounds/r19/spec.html",
     "demo": "rounds/r19/demo.html",
     "demos": "rounds/r19/demos.html",
     "screenshot": "rounds/r19/screenshot.png",
     "tokens": "rounds/r19/reference-tokens.css",
-    "summary": "把 R18 选定的方向 A「精简」写成完整语言：白纸 + 发丝线代替卡片，正文 13、表格行 36、控件 28、圆角 6，界面近乎黑白灰，鸢尾只给操作和选中，状态是圆点 + 文字；⌘K 命令面板、G + 字母跳页、按钮键帽；图表只用灰和鸢尾。16 条规则、角色、取值、四个组件库映射、组件展示；六个演示重做；鸢尾默认 + 6 主题（midnight 深色）。"
+    "summary": "把 R18 选定的方向 A「精简」写成完整语言：白纸 + 发丝线代替卡片，正文 13、表格行 36、控件 28、圆角 6，界面近乎黑白灰，鸢尾只给操作和选中，状态是圆点 + 文字；⌘K 命令面板、G + 字母跳页、按钮键帽；图表只用灰和鸢尾。16 条规则、角色、取值、四个组件库映射、组件展示；六个演示重做；鸢尾默认 + 6 主题（midnight 深色）。",
+    "score": 5,
+    "note": "无备注（在 demo.html 提交）"
   },
   {
     "id": "r18",
