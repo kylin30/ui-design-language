@@ -1,0 +1,37 @@
+/* R11 配色选择器（评审工具，不属于规范） */
+.pp{position:fixed;top:10px;right:16px;z-index:600;font:13px/1.4 var(--font-sans);color:var(--color-text)}
+.pp-btn{display:flex;align-items:center;gap:8px;height:30px;padding:0 10px 0 6px;border-radius:8px;border:1px solid var(--color-border-strong);background:var(--color-surface);color:var(--color-text);cursor:pointer;font:inherit;font-weight:550;box-shadow:0 1px 2px rgba(16,24,40,.08)}
+.pp-btn:focus-visible,.pp-chip:focus-visible,.pp-act:focus-visible{outline:2px solid var(--color-primary);outline-offset:2px}
+.pp-dot{width:18px;height:18px;border-radius:5px;display:inline-grid;grid-template-columns:1fr 1fr;overflow:hidden;border:1px solid rgba(127,127,127,.25);flex:none}
+.pp-dot i{display:block}
+.pp-panel{display:none;position:absolute;right:0;top:36px;width:340px;background:var(--color-surface);border:1px solid var(--color-border);border-radius:10px;box-shadow:var(--shadow-pop);padding:8px}
+.pp.open .pp-panel{display:block}
+.pp-chip{display:flex;align-items:center;gap:10px;width:100%;text-align:left;padding:8px;border:0;border-radius:7px;background:none;color:var(--color-text);cursor:pointer;font:inherit}
+.pp-chip:hover{background:var(--color-surface-hover)}
+.pp-chip.on{background:var(--color-surface-selected)}
+.pp-chip b{font-weight:600;display:block}
+.pp-chip small{display:block;color:var(--color-text-tertiary);font-size:12px;line-height:17px}
+.pp-chip .pp-dot{width:30px;height:30px;border-radius:7px}
+.pp-foot{display:flex;gap:8px;align-items:center;border-top:1px solid var(--color-divider);margin-top:6px;padding:10px 4px 2px}
+.pp-act{height:30px;padding:0 12px;border-radius:6px;border:1px solid var(--color-border-strong);background:var(--color-surface);color:var(--color-text);cursor:pointer;font:inherit;font-weight:550;text-decoration:none;display:inline-flex;align-items:center}
+.pp-act.p{background:var(--color-primary);border-color:var(--color-primary);color:var(--color-on-primary)}
+.pp-act.p:hover{background:var(--color-primary-hover)}
+.pp-foot span{margin-left:auto;font-size:12px;color:var(--color-text-tertiary)}
+.pp-flash{animation:ppf 1.2s ease}
+@keyframes ppf{0%{box-shadow:0 0 0 0 var(--color-primary)}30%{box-shadow:0 0 0 4px var(--color-focus-ring)}100%{box-shadow:none}}
+/* 规范页配色卡 */
+.palgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px;margin-top:20px}
+.palcard{display:flex;gap:12px;align-items:center;padding:12px;border:1px solid var(--color-hairline);border-radius:10px;background:var(--color-surface);cursor:pointer;text-align:left;font:inherit;color:var(--color-text)}
+.palcard:hover{border-color:var(--color-border-hover)}
+.palcard.on{border-color:var(--color-primary);box-shadow:0 0 0 1px var(--color-primary)}
+.palcard b{display:block;font-weight:600}.palcard small{display:block;color:var(--color-text-tertiary);font-size:12px;line-height:17px}
+.palcard .pp-dot{width:40px;height:40px;border-radius:8px}
+nav.top,header.topbar{padding-right:260px!important}
+body:has(.spec-banner) .pp{top:36px}
+.uifb{background:var(--color-surface)!important;color:var(--color-text)!important;border-color:var(--color-border-strong)!important}
+.uifb-head{color:var(--color-text)!important;border-bottom-color:var(--color-divider)!important}
+.uifb textarea{background:var(--color-surface)!important;color:var(--color-text)!important;border-color:var(--color-border-strong)!important}
+.uifb-scores button{background:var(--color-surface)!important;color:var(--color-text)!important;border-color:var(--color-border-strong)!important}
+.uifb-scores button.on,.uifb-submit{background:var(--color-primary)!important;border-color:var(--color-primary)!important;color:var(--color-on-primary)!important}
+.uifb-submit:disabled{background:var(--color-text-disabled)!important}
+.uifb-list,.uifb-hint{color:var(--color-text-secondary)!important}
