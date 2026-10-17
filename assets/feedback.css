@@ -1,20 +1,42 @@
-.uifb{position:fixed;right:16px;bottom:16px;z-index:9999;width:300px;background:#fff;color:#1A1F1C;border:1px solid #C9CDC3;border-radius:6px;box-shadow:0 6px 24px rgba(20,30,25,.14);font:13px/1.5 -apple-system,"PingFang SC","Microsoft YaHei",sans-serif}
+/* 反馈面板 · 方向 A：白底、发丝线、鸢尾只给操作。各轮主题通过 --color-* 变量自动适配，未定义时回落到鸢尾默认值 */
+.uifb{position:fixed;right:16px;bottom:16px;z-index:9999;width:304px;background:var(--color-surface,#fff);color:var(--color-text,#111114);border:1px solid var(--color-hairline,#EAEAEE);border-radius:10px;box-shadow:0 12px 32px -12px rgba(17,17,20,.22),0 1px 2px rgba(17,17,20,.06);font:14px/1.6 -apple-system,"PingFang SC","HarmonyOS Sans SC","Noto Sans CJK SC","Microsoft YaHei",sans-serif}
 .uifb *{box-sizing:border-box}
-.uifb-head{all:unset;box-sizing:border-box;display:flex;justify-content:space-between;width:100%;padding:10px 12px;cursor:pointer;font-weight:600;border-bottom:1px solid #DFE2DA}
+.uifb-head{all:unset;box-sizing:border-box;display:flex;justify-content:space-between;align-items:center;width:100%;padding:10px 14px;cursor:pointer;font-weight:600;font-size:13.5px;border-bottom:1px solid var(--color-hairline,#EAEAEE)}
+.uifb-head:focus-visible{outline:2px solid var(--color-primary,#6246EA);outline-offset:-2px;border-radius:10px}
 .uifb-tog::after{content:"收起"}.uifb-collapsed .uifb-tog::after{content:"展开"}
-.uifb-tog{font-weight:400;color:#6A726C}
+.uifb-tog{font-weight:400;color:var(--color-text-tertiary,#5C5C66);font-size:13px;margin-left:10px}
 .uifb-collapsed{width:auto}.uifb-collapsed .uifb-body{display:none}.uifb-collapsed .uifb-head{border-bottom:0}
-.uifb-body{padding:12px}
-.uifb-scores{display:grid;grid-template-columns:repeat(10,1fr);gap:3px;margin-bottom:8px}
-.uifb-scores button{padding:5px 0;border:1px solid #C9CDC3;background:#fff;border-radius:2px;cursor:pointer;font:12px ui-monospace,Menlo,monospace}
-.uifb-scores button:hover{background:#EFF1EC}
-.uifb-scores button.on{background:#1F4D43;border-color:#1F4D43;color:#fff}
-.uifb textarea{width:100%;border:1px solid #C9CDC3;border-radius:4px;padding:6px 8px;font:inherit;resize:vertical}
-.uifb textarea:focus,.uifb button:focus-visible{outline:2px solid #1F4D43;outline-offset:1px}
-.uifb-submit{width:100%;margin-top:8px;padding:7px;border:0;border-radius:4px;background:#1F4D43;color:#fff;cursor:pointer;font:inherit}
-.uifb-submit:disabled{background:#A3A9A2;cursor:not-allowed}
-.uifb-hint{margin:6px 0 0;color:#6A726C;font-size:12px}
-.uifb-list{margin-top:10px;padding-top:8px;border-top:1px solid #ECEEE8;max-height:180px;overflow:auto;font-size:12px}
-.uifb-list ul{padding-left:16px;margin:4px 0}
-.uifb-ok{color:#2f7a4f}.uifb-err{color:#b3261e}
-.uifb-list ul{max-height:240px;overflow:auto}
+.uifb-body{padding:14px}
+/* 百分制滑块 */
+.uifb-scores{margin-bottom:12px}
+.uifb-read{display:flex;align-items:baseline;gap:6px;margin-bottom:6px}
+.uifb-num{font:600 40px/44px "Geist Fig",-apple-system,"PingFang SC",sans-serif;font-variant-numeric:tabular-nums;letter-spacing:-.02em;min-width:2.2ch;color:var(--color-text,#111114)}
+.uifb-of{font-size:14px;color:var(--color-text-tertiary,#5C5C66)}
+.uifb-cap{margin-left:auto;font-size:13px;color:var(--color-text-tertiary,#5C5C66)}
+.uifb-range{-webkit-appearance:none;appearance:none;width:100%;height:24px;margin:0;background:transparent;cursor:pointer;--uifb-pct:50%}
+.uifb-range::-webkit-slider-runnable-track{height:6px;border-radius:3px;background:linear-gradient(to right,var(--color-primary,#6246EA) 0 var(--uifb-pct),var(--color-border,#E3E3E7) var(--uifb-pct) 100%)}
+.uifb-range::-moz-range-track{height:6px;border-radius:3px;background:var(--color-border,#E3E3E7)}
+.uifb-range::-moz-range-progress{height:6px;border-radius:3px;background:var(--color-primary,#6246EA)}
+.uifb-range::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;margin-top:-7px;border-radius:50%;background:var(--color-surface,#fff);border:2px solid var(--color-primary,#6246EA);box-shadow:0 1px 3px rgba(17,17,20,.2)}
+.uifb-range::-moz-range-thumb{width:16px;height:16px;border-radius:50%;background:var(--color-surface,#fff);border:2px solid var(--color-primary,#6246EA)}
+.uifb-range.unset::-webkit-slider-runnable-track{background:var(--color-border,#E3E3E7)}
+.uifb-range.unset::-moz-range-progress{background:transparent}
+.uifb-range.unset::-webkit-slider-thumb{border-color:var(--color-border-strong,#D0D0D6)}
+.uifb-range.unset::-moz-range-thumb{border-color:var(--color-border-strong,#D0D0D6)}
+.uifb-range:focus{outline:none}
+.uifb-range:focus-visible::-webkit-slider-thumb{box-shadow:0 0 0 4px color-mix(in srgb,var(--color-primary,#6246EA) 22%,transparent)}
+.uifb-range:focus-visible::-moz-range-thumb{box-shadow:0 0 0 4px rgba(98,70,234,.22)}
+.uifb-ticks{display:flex;justify-content:space-between;font:12.5px "Geist Fig",-apple-system,sans-serif;color:var(--color-text-tertiary,#5C5C66);padding:0 2px}
+.uifb textarea{width:100%;border:1px solid var(--color-border,#E3E3E7);border-radius:6px;padding:8px 10px;font:inherit;font-size:14px;resize:vertical;background:var(--color-surface,#fff);color:var(--color-text,#111114)}
+.uifb textarea:focus{outline:none;border-color:var(--color-primary,#6246EA);box-shadow:0 0 0 3px color-mix(in srgb,var(--color-primary,#6246EA) 16%,transparent)}
+.uifb button:focus-visible{outline:2px solid var(--color-primary,#6246EA);outline-offset:2px}
+.uifb-submit{width:100%;height:34px;margin-top:10px;border:0;border-radius:6px;background:var(--color-primary,#6246EA);color:var(--color-on-primary,#fff);cursor:pointer;font:inherit;font-weight:500}
+.uifb-submit:disabled{background:var(--color-surface-hover,#F2F2F5)!important;color:var(--color-text-tertiary,#5C5C66)!important;cursor:not-allowed}
+.uifb-hint{margin:8px 0 0;color:var(--color-text-tertiary,#5C5C66);font-size:13px}
+.uifb-hint:empty{display:none}
+.uifb-list{margin-top:12px;padding-top:10px;border-top:1px solid var(--color-hairline,#EAEAEE);max-height:180px;overflow:auto;font-size:13px;color:var(--color-text-secondary,#3E3E46)}
+.uifb-list ul{padding-left:16px;margin:4px 0;max-height:240px;overflow:auto}
+.uifb-list b{color:var(--color-text,#111114);font-weight:600}
+.uifb-legacy{display:inline-block;font-size:12px;line-height:18px;padding:0 6px;border-radius:4px;background:var(--color-surface-hover,#F2F2F5);color:var(--color-text-tertiary,#5C5C66);font-weight:400}
+.uifb-ok{color:var(--color-success-text,#2f7a4f)}.uifb-err{color:var(--color-danger-text,#b3261e)}
+.fbsum .uifb-legacy{margin-left:4px}
