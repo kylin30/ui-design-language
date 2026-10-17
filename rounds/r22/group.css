@@ -1,0 +1,100 @@
+/* R22「成组」：让分组一眼可见（研究与诊断见 grouping.md）。加载在 minimal.css 之后。
+   三条硬规则：① 组内间距 ≤ 组间间距的一半；② 一个任务对象 = 一个区域（面板），标题、内容、操作都在里面；
+   ③ 底色分两层：画布 #F0F0F3 承载导航与页头，白色面板承载内容。 */
+:root{
+  /* 间距：按“关系远近”命名，而不是按大小 */
+  --gap-pair:4px;      /* 标签 ↔ 值、标题 ↔ 说明：同一件事 */
+  --gap-item:8px;      /* 组内并列项：按钮组、图标 ↔ 文字、标签 ↔ 标签 */
+  --gap-field:16px;    /* 字段 ↔ 字段（同一组） */
+  --gap-group:24px;    /* 面板内两组之间（需要时配组标题） */
+  --pad-panel:20px;    /* 面板内边距 */
+  --gap-panel:20px;    /* 面板 ↔ 面板（≥ 面板内边距） */
+  --gap-section:32px;  /* 页头 ↔ 内容、大区块之间 */
+  --radius-panel:12px;
+}
+:root:not([data-theme]),[data-theme="iris"]{--color-bg:#F0F0F3;--color-panel-border:#E1E1E7;--color-well:#F7F7F9}
+[data-theme]:not([data-theme="iris"]){--color-panel-border:var(--color-border);--color-well:var(--color-surface-subtle)}
+[data-theme="midnight"]{--color-panel-border:var(--color-border)}
+/* ③ 两层底色 */
+body{background:var(--color-bg)}
+.side{background:var(--color-bg);border-right:0;padding:12px 12px 12px 14px}
+.top{background:color-mix(in srgb,var(--color-bg) 88%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid transparent}
+.top.scrolled{border-bottom-color:var(--color-panel-border)}
+.nv.on{background:var(--color-surface);box-shadow:0 0 0 1px var(--color-panel-border),0 1px 2px rgba(17,17,20,.04)}
+.side .lab{padding:20px 10px 6px}
+.page{padding:20px 32px 48px}
+/* 页头：标题与说明紧贴（4），与内容拉开（32） */
+.ph{margin-bottom:var(--gap-section);align-items:flex-end}
+.ph p{margin-top:var(--gap-pair)}
+/* ② 面板 = 共同区域 */
+.card{background:var(--color-surface)!important;border:1px solid var(--color-panel-border)!important;border-radius:var(--radius-panel)!important;box-shadow:0 1px 2px rgba(17,17,20,.03)}
+.card:not(.kpi){border-top:1px solid var(--color-panel-border)!important}
+.ch{height:56px!important;padding:0 var(--pad-panel)!important;border-bottom:1px solid var(--color-hairline)!important;gap:var(--gap-item)}
+.ch h2{font-size:16px!important;line-height:24px;font-weight:600}
+.ch .meta{font-size:14px;color:var(--color-text-tertiary)}
+.cb{padding:var(--pad-panel)!important}
+.cf{padding:14px var(--pad-panel)!important;background:var(--color-well)!important;border-top:1px solid var(--color-hairline)!important;border-radius:0 0 var(--radius-panel) var(--radius-panel)!important}
+.grid.mt,.mt{margin-top:var(--gap-panel)!important}
+.grid.mt{gap:var(--gap-panel)!important}
+.grid{gap:var(--gap-panel)}
+/* KPI：一个面板、四个格；格内 4/8 紧，格间用竖线 + 24 */
+.grid:has(>.kpi){gap:0!important;background:var(--color-surface);border:1px solid var(--color-panel-border);border-radius:var(--radius-panel);overflow:hidden;box-shadow:0 1px 2px rgba(17,17,20,.03)}
+.grid>.kpi,.grid>.kpi+.kpi{background:transparent!important;border:0!important;border-radius:0!important;box-shadow:none!important;padding:18px 24px!important}
+.grid>.kpi+.kpi{border-left:1px solid var(--color-hairline)!important}
+.kpi .l{font-size:14px}.kpi .v{margin-top:var(--gap-pair)!important;font-size:28px;line-height:36px}.kpi .d{margin-top:var(--gap-pair)!important}
+.kpi .meter{margin-top:10px}
+/* 列表面板：页签在面板头里（页签只管这一栏） */
+.card .tabs{height:52px!important;padding:0 var(--pad-panel)!important;border-bottom:1px solid var(--color-hairline)!important;gap:24px!important;margin:0}
+.list{margin:0!important}
+.row{padding:14px var(--pad-panel)!important;border-radius:0!important;border-bottom:1px solid var(--color-divider)!important}
+.row+.row::before{display:none!important}
+.row:last-child{border-bottom:0!important}
+.row .t{font-size:15px;line-height:22px}.row .m{margin-top:2px}
+.row.on{background:color-mix(in srgb,var(--color-primary) 6%,var(--color-surface))!important}
+.row.on::after{left:0!important;top:0!important;bottom:0!important;width:3px!important;border-radius:0 2px 2px 0!important}
+/* 表格面板：工具条一组、表格一组、分页一组 */
+.filters{padding:12px var(--pad-panel)!important;background:var(--color-well);border-bottom:1px solid var(--color-hairline)!important;gap:var(--gap-item)!important}
+th{background:transparent}
+th:first-child,td:first-child{padding-left:var(--pad-panel)!important}th:last-child,td:last-child{padding-right:var(--pad-panel)!important}
+.pager{padding:12px var(--pad-panel)!important}
+/* 详情面板：固定在视口内，操作条永远在面板底部可见 */
+/* 列表-详情的右栏：面板高度贴合视口，头和操作条钉在面板内，正文在面板里滚动 */
+.grid.mt>.card.c7{position:sticky;top:68px;height:max(520px,calc(100vh - 340px));overflow:auto;align-self:start;overscroll-behavior:contain}
+.grid.mt>.card.c7>.ch{position:sticky;top:0;z-index:3;background:var(--color-surface)}
+.grid.mt>.card.c7>.cf{position:sticky;bottom:0;z-index:3;margin-top:auto!important}
+#detail{overflow:hidden!important}
+#detail>.ch{flex:none}
+#detail .dbody{flex:1;overflow:auto;min-height:0}
+#detail>.cf{flex:none;margin-top:0!important}
+#detail .ch h2{font-size:17px!important}
+/* 详情内三组：结论 → 事实 → 明细，组间 24、组标题 13/600 */
+#detail .cb{padding:var(--pad-panel) var(--pad-panel) 0!important}
+#detail .cb>p.sec{font-size:15px;line-height:1.7;margin:0}
+.dl{background:var(--color-well);border:1px solid var(--color-hairline);border-radius:8px;padding:14px 16px!important;margin-top:16px!important;gap:var(--gap-field) 24px!important}
+.dl dt{font-size:13px;color:var(--color-text-tertiary)}.dl dd{margin-top:var(--gap-pair)!important;font-size:15px}
+.dgrp{padding:var(--gap-group) var(--pad-panel) var(--pad-panel)}
+.grp-h{display:flex;align-items:baseline;gap:8px;font-size:13px;font-weight:600;color:var(--color-text-secondary);margin-bottom:8px}
+.grp-h span{font-weight:400;color:var(--color-text-tertiary)}
+.dgrp table{border:1px solid var(--color-hairline);border-radius:8px;border-collapse:separate;border-spacing:0;overflow:hidden;width:100%}
+.dgrp th{height:36px;background:var(--color-well)!important;border-bottom:1px solid var(--color-hairline)}
+.dgrp td{height:44px}
+.dgrp th:first-child,.dgrp td:first-child{padding-left:14px!important}.dgrp th:last-child,.dgrp td:last-child{padding-right:14px!important}
+.dgrp tr:last-child td{border-bottom:0}
+.dgrp .tot{display:flex;justify-content:space-between;align-items:baseline;padding:12px 14px 0}
+.dgrp .tot b{font-size:26px;font-weight:600}
+#detail .act-log{border-top:0!important;padding:0 var(--pad-panel) var(--pad-panel)!important}
+#detail .act-log h3{font-size:13px;font-weight:600;color:var(--color-text-secondary);margin-bottom:6px}
+/* 工具与按钮组：组内 8，组间 ≥ 24 或推到两端 */
+.ph .acts{gap:var(--gap-item)}
+.cf .r{gap:var(--gap-item)}
+.top .r{gap:16px}
+/* 侧栏底部：工具链接与用户分为两组 */
+.side .me{margin-top:12px;padding-top:12px;border-top:1px solid var(--color-panel-border)}
+/* 次要的一致性 */
+.tag{font-size:13.5px}
+body.fb-open .app{padding-right:332px}
+
+.cb>.dl:first-child,.cb>div:first-child>.dl:first-child{margin-top:0!important}
+/* 迭代 2：面板里的“人/条目列表”——行与行之间是同组（hairline 分隔），首行不再比行距多出 20 的内边距 */
+.cb:has(>.co){padding-top:4px!important;padding-bottom:4px!important}
+.cb>.co{border-bottom-color:var(--color-hairline)}
