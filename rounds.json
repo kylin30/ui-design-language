@@ -1,18 +1,35 @@
 [
   {
+    "id": "r26",
+    "name": "平整",
+    "title": "Round 26 · 平整",
+    "version": "v28.0",
+    "date": "2026-10-17",
+    "status": "待评分",
+    "primary": "spec",
+    "spec": "rounds/r26/spec.html",
+    "demo": "rounds/r26/demo.html",
+    "demos": "rounds/r26/demos.html",
+    "screenshot": "rounds/r26/screenshot.png",
+    "tokens": "rounds/r26/reference-tokens.css",
+    "summary": "R25 得 58 分，批注「按钮不要 3d 的感觉，继续改进」。R26 沿用 R25 的结构、分组和材质令牌，最后加一层 flat.css，把所有控件做成全平。按钮：主按钮是纯鸢尾，悬停和按下各深一阶；次按钮是 1px 透明边；轻按钮只有文字，悬停出现浅色底。分段控件、输入、复选框、头像、品牌标、侧栏当前项都去掉了渐变、内高光、投影、斜面环和按下位移，焦点改为 2px 外框。逐个元素复查后：面板只留透明环和 1px 极淡影；深色主题去掉顶边高光；Toast 去掉内高光；状态点去掉光圈；真正的投影只给菜单、⌘K、提示和 Toast。打磨：GMV 图和右侧面板同高，主序列终点加实心点；表头去掉灰底；复选框改成平的 16px 方块；悬停底统一。规范「质感」章改为「控件全平，深度只给浮层」，新增 M3「控件全平」对 / 错（平 vs 3D），并新增 R25 → R26 比对图。"
+  },
+  {
     "id": "r25",
     "name": "质感",
     "title": "Round 25 · 质感",
     "version": "v27.0",
     "date": "2026-10-17",
-    "status": "待评分",
+    "status": "已评分",
     "primary": "spec",
     "spec": "rounds/r25/spec.html",
     "demo": "rounds/r25/demo.html",
     "demos": "rounds/r25/demos.html",
     "screenshot": "rounds/r25/screenshot.png",
     "tokens": "rounds/r25/reference-tokens.css",
-    "summary": "R24 得 55 分，批注「少一点高级感、质感、设计感」。R25 不动结构（指标面板、分组列表、画布上的面板），只加一层统一的材质 material.css。先调研 Linear 2024 改版、Vercel Geist、Stripe、Attio、Raycast、Mercury、Ramp、Retool、Arc、Height 和 X 上的设计师帖，并从参照截图量出画布、面板、描边、高光的具体色值（craft.md）。材质层的内容：画布 #F5F5F8；面板改用文字色 8% 的发丝环加两层极软的带色投影（e0–e3 四档，ink 24,20,46）；面板内分隔线用 5.5% 的透明线；圆角阶梯 6 / 7 / 9 / 12 / 14；大数字 −0.03em、等宽，单位降一级；主按钮做 12% 以内的渐变、内高光和深一阶的环；焦点用双环；图标统一 1.5 描边；侧栏做成工作区切换器，当前项是浮起的白片；面包屑改用 chevron；分段控件做成凹槽加滑块；指标里加鸢尾趋势线，图表渐变用缓动停点；浮层用 e3；统一 150ms 动效。midnight 改为近黑画布、亮一阶的面板和顶边高光。规范新增「质感」章（令牌表，死平 / 精致 / 过度三档，M1–M8 对 / 错）和「比对」章（三轮迭代，与 Linear / Stripe / Vercel / Attio 并排）。"
+    "summary": "R24 得 55 分，批注「少一点高级感、质感、设计感」。R25 不动结构（指标面板、分组列表、画布上的面板），只加一层统一的材质 material.css。先调研 Linear 2024 改版、Vercel Geist、Stripe、Attio、Raycast、Mercury、Ramp、Retool、Arc、Height 和 X 上的设计师帖，并从参照截图量出画布、面板、描边、高光的具体色值（craft.md）。材质层的内容：画布 #F5F5F8；面板改用文字色 8% 的发丝环加两层极软的带色投影（e0–e3 四档，ink 24,20,46）；面板内分隔线用 5.5% 的透明线；圆角阶梯 6 / 7 / 9 / 12 / 14；大数字 −0.03em、等宽，单位降一级；主按钮做 12% 以内的渐变、内高光和深一阶的环；焦点用双环；图标统一 1.5 描边；侧栏做成工作区切换器，当前项是浮起的白片；面包屑改用 chevron；分段控件做成凹槽加滑块；指标里加鸢尾趋势线，图表渐变用缓动停点；浮层用 e3；统一 150ms 动效。midnight 改为近黑画布、亮一阶的面板和顶边高光。规范新增「质感」章（令牌表，死平 / 精致 / 过度三档，M1–M8 对 / 错）和「比对」章（三轮迭代，与 Linear / Stripe / Vercel / Attio 并排）。",
+    "score100": 58,
+    "note": "按钮不要 3d 的感觉，继续改进。（在 demo.html 提交）"
   },
   {
     "id": "r24",
