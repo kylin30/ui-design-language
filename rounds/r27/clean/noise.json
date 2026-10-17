@@ -1,0 +1,1397 @@
+{
+ "noise": {
+  "r26": {
+   "demo-crm": {
+    "lines": 32,
+    "borderSides": 27,
+    "rings": 5,
+    "borderColors": 4,
+    "fills": 18,
+    "fillColors": 6,
+    "innerTints": 1,
+    "innerList": [
+     "cf"
+    ],
+    "colors": 16,
+    "textColors": 6,
+    "textGreys": 4,
+    "textStyles": 18,
+    "sizes": [
+     "12.5px",
+     "12px",
+     "13.5px",
+     "13px",
+     "14.5px",
+     "14px",
+     "15px",
+     "16px",
+     "18px",
+     "26px",
+     "28px"
+    ],
+    "weights": [
+     "400",
+     "500",
+     "600"
+    ],
+    "icons": 12,
+    "iconSizes": [
+     "14x14",
+     "16x16"
+    ],
+    "dots": 0,
+    "tags": 4,
+    "badges": 4,
+    "deco": {
+     ".av": 5,
+     ".meter": 1,
+     ".chart": 1,
+     ".tl": 1
+    },
+    "chartLines": 4,
+    "leftEdges": 31,
+    "nearMiss": [],
+    "startEdges": 17,
+    "startNear": [],
+    "startList": [
+     256,
+     285,
+     289,
+     313,
+     328,
+     339,
+     406,
+     474,
+     576,
+     861,
+     1061,
+     1105,
+     1147,
+     1215,
+     1298,
+     1309,
+     1350
+    ],
+    "borderColorList": {
+     "color(srgb0.06666670.06666670.0784314/0.12)": " search search search search KBD KBD KBD KBD btn btn btn btn inp",
+     "color(srgb0.06666670.06666670.0784314/0.055)": " card card card tabs ch ch cf",
+     "rgb(17,17,20)": " tab",
+     "rgb(238,237,243)": " cb co co"
+    },
+    "trunc": [],
+    "radii": [
+     "7px",
+     "8px",
+     "50%",
+     "4px",
+     "3px",
+     "12px",
+     "99px",
+     "0px 0px 12px 12px"
+    ],
+    "panels": 8,
+    "panelStyles": 2,
+    "gaps": [
+     "v20",
+     "h0",
+     "h285",
+     "h571",
+     "v21",
+     "h286",
+     "h20",
+     "v16"
+    ],
+    "lineColors": 3
+   },
+   "demo": {
+    "lines": 64,
+    "borderSides": 58,
+    "rings": 6,
+    "borderColors": 3,
+    "fills": 23,
+    "fillColors": 8,
+    "innerTints": 9,
+    "innerList": [
+     "lgh g0",
+     "lgh g1",
+     "lgh g2",
+     "dl",
+     "TH",
+     "r",
+     "cf"
+    ],
+    "colors": 15,
+    "textColors": 6,
+    "textGreys": 4,
+    "textStyles": 22,
+    "sizes": [
+     "12.5px",
+     "12px",
+     "13.5px",
+     "13px",
+     "14.5px",
+     "14px",
+     "15px",
+     "17px",
+     "18px",
+     "26px",
+     "28px"
+    ],
+    "weights": [
+     "400",
+     "450",
+     "500",
+     "600",
+     "700"
+    ],
+    "icons": 13,
+    "iconSizes": [
+     "14x14",
+     "16x16",
+     "15x15"
+    ],
+    "dots": 0,
+    "tags": 7,
+    "badges": 4,
+    "deco": {
+     ".av": 1,
+     ".kseg": 1,
+     ".kspark": 2,
+     ".lgh": 3
+    },
+    "chartLines": 0,
+    "leftEdges": 54,
+    "nearMiss": [
+     "334/336",
+     "368/371",
+     "785/787",
+     "1169/1171",
+     "1171/1172",
+     "1190/1192",
+     "1248/1249",
+     "1309/1312",
+     "1312/1313",
+     "1313/1316"
+    ],
+    "startEdges": 23,
+    "startNear": [
+     "785/787"
+    ],
+    "startList": [
+     256,
+     264,
+     285,
+     289,
+     297,
+     368,
+     455,
+     576,
+     643,
+     770,
+     785,
+     787,
+     861,
+     907,
+     989,
+     1147,
+     1192,
+     1220,
+     1229,
+     1248,
+     1286,
+     1309,
+     1316
+    ],
+    "borderColorList": {
+     "color(srgb0.06666670.06666670.0784314/0.12)": " search search search search KBD KBD KBD KBD btn btn btn btn btn",
+     "color(srgb0.06666670.06666670.0784314/0.055)": " card card card tabs lgh row row lgh lgh row row row lgh lgh row",
+     "rgb(17,17,20)": " tab"
+    },
+    "trunc": [],
+    "radii": [
+     "7px",
+     "8px",
+     "50%",
+     "4px",
+     "3px",
+     "12px",
+     "99px 1px 1px 99px",
+     "1px",
+     "1px 99px 99px 1px",
+     "9px",
+     "0px 0px 12px 12px"
+    ],
+    "panels": 7,
+    "panelStyles": 2,
+    "gaps": [
+     "v20",
+     "h0",
+     "h285",
+     "h571",
+     "v21",
+     "h286",
+     "h20"
+    ],
+    "lineColors": 2
+   },
+   "demo-orders": {
+    "lines": 110,
+    "borderSides": 107,
+    "rings": 3,
+    "borderColors": 4,
+    "fills": 14,
+    "fillColors": 6,
+    "innerTints": 2,
+    "innerList": [
+     "filters",
+     "inp"
+    ],
+    "colors": 14,
+    "textColors": 6,
+    "textGreys": 4,
+    "textStyles": 19,
+    "sizes": [
+     "12.5px",
+     "12px",
+     "13.5px",
+     "13px",
+     "14.5px",
+     "14px",
+     "15px",
+     "18px",
+     "26px",
+     "28px"
+    ],
+    "weights": [
+     "400",
+     "450",
+     "500",
+     "600"
+    ],
+    "icons": 17,
+    "iconSizes": [
+     "14x14",
+     "16x16",
+     "15x15"
+    ],
+    "dots": 0,
+    "tags": 9,
+    "badges": 4,
+    "deco": {
+     ".av": 1,
+     ".meter": 1
+    },
+    "chartLines": 0,
+    "leftEdges": 50,
+    "nearMiss": [
+     "596/599",
+     "1151/1153",
+     "1153/1154",
+     "1154/1157",
+     "1316/1317",
+     "1327/1328"
+    ],
+    "startEdges": 22,
+    "startNear": [],
+    "startList": [
+     256,
+     264,
+     285,
+     289,
+     317,
+     354,
+     422,
+     496,
+     516,
+     548,
+     576,
+     599,
+     629,
+     664,
+     681,
+     861,
+     891,
+     1147,
+     1229,
+     1303,
+     1309,
+     1316
+    ],
+    "borderColorList": {
+     "color(srgb0.06666670.06666670.0784314/0.12)": " search search search search KBD KBD KBD KBD btn btn btn btn inp",
+     "color(srgb0.06666670.06666670.0784314/0.055)": " card card card tabs TH TH TH TH TH r r TD sec TD TD TD r r TD",
+     "rgb(17,17,20)": " tab",
+     "rgb(238,237,243)": " filters"
+    },
+    "trunc": [],
+    "radii": [
+     "7px",
+     "8px",
+     "50%",
+     "4px",
+     "3px",
+     "12px",
+     "99px"
+    ],
+    "panels": 6,
+    "panelStyles": 2,
+    "gaps": [
+     "v20",
+     "h0",
+     "h285",
+     "h571",
+     "v21",
+     "h286"
+    ],
+    "lineColors": 3
+   },
+   "demo-analytics": {
+    "lines": 40,
+    "borderSides": 34,
+    "rings": 6,
+    "borderColors": 3,
+    "fills": 13,
+    "fillColors": 6,
+    "innerTints": 0,
+    "innerList": [],
+    "colors": 16,
+    "textColors": 6,
+    "textGreys": 4,
+    "textStyles": 20,
+    "sizes": [
+     "12.5px",
+     "12px",
+     "13.5px",
+     "13px",
+     "14.5px",
+     "14px",
+     "15px",
+     "16px",
+     "18px",
+     "26px",
+     "28px"
+    ],
+    "weights": [
+     "400",
+     "450",
+     "500",
+     "600",
+     "700"
+    ],
+    "icons": 12,
+    "iconSizes": [
+     "14x14",
+     "16x16",
+     "15x15"
+    ],
+    "dots": 0,
+    "tags": 0,
+    "badges": 4,
+    "deco": {
+     ".av": 1,
+     ".chart": 1,
+     ".track": 5
+    },
+    "chartLines": 6,
+    "leftEdges": 41,
+    "nearMiss": [
+     "909/912",
+     "1122/1125",
+     "1341/1344",
+     "1349/1350",
+     "1350/1352",
+     "1352/1353",
+     "1353/1355",
+     "1355/1358",
+     "1358/1359",
+     "1359/1361"
+    ],
+    "startEdges": 13,
+    "startNear": [],
+    "startList": [
+     256,
+     264,
+     285,
+     289,
+     576,
+     687,
+     861,
+     1061,
+     1125,
+     1147,
+     1309,
+     1324,
+     1344
+    ],
+    "borderColorList": {
+     "color(srgb0.06666670.06666670.0784314/0.12)": " search search search search KBD KBD KBD KBD btn btn btn btn",
+     "color(srgb0.06666670.06666670.0784314/0.055)": " card card card ch ch ch TH TH r r r TD sec r r r TD sec r r r",
+     "rgb(238,237,243)": " DIV"
+    },
+    "trunc": [],
+    "radii": [
+     "7px",
+     "8px",
+     "50%",
+     "4px",
+     "3px",
+     "9px",
+     "6px",
+     "12px",
+     "1px",
+     "99px"
+    ],
+    "panels": 8,
+    "panelStyles": 2,
+    "gaps": [
+     "v20",
+     "v447",
+     "h0",
+     "h285",
+     "h571",
+     "v21",
+     "v448",
+     "h286",
+     "h20"
+    ],
+    "lineColors": 3
+   },
+   "demo-ops": {
+    "lines": 38,
+    "borderSides": 33,
+    "rings": 5,
+    "borderColors": 3,
+    "fills": 19,
+    "fillColors": 8,
+    "innerTints": 5,
+    "innerList": [
+     "lgh g0",
+     "lgh g1",
+     "lgh g2",
+     "dl",
+     "cf"
+    ],
+    "colors": 18,
+    "textColors": 6,
+    "textGreys": 4,
+    "textStyles": 18,
+    "sizes": [
+     "12.5px",
+     "12px",
+     "13.5px",
+     "13px",
+     "14.5px",
+     "14px",
+     "15px",
+     "16px",
+     "26px",
+     "28px"
+    ],
+    "weights": [
+     "400",
+     "500",
+     "600"
+    ],
+    "icons": 11,
+    "iconSizes": [
+     "14x14",
+     "16x16"
+    ],
+    "dots": 0,
+    "tags": 7,
+    "badges": 4,
+    "deco": {
+     ".av": 1,
+     ".kseg": 1,
+     ".meter": 1,
+     ".kspark": 1,
+     ".lgh": 3,
+     ".chart": 1,
+     ".tl": 1
+    },
+    "chartLines": 5,
+    "leftEdges": 34,
+    "nearMiss": [
+     "1257/1260"
+    ],
+    "startEdges": 22,
+    "startNear": [
+     "1257/1260"
+    ],
+    "startList": [
+     256,
+     264,
+     285,
+     289,
+     297,
+     576,
+     619,
+     666,
+     770,
+     787,
+     798,
+     861,
+     989,
+     1147,
+     1155,
+     1192,
+     1257,
+     1260,
+     1274,
+     1309,
+     1315,
+     1337
+    ],
+    "borderColorList": {
+     "color(srgb0.06666670.06666670.0784314/0.12)": " search search search search KBD KBD KBD KBD btn btn btn btn btn",
+     "color(srgb0.06666670.06666670.0784314/0.055)": " card card card ch lgh row lgh lgh row row lgh lgh row row ch",
+     "rgb(238,237,243)": " cb"
+    },
+    "trunc": [],
+    "radii": [
+     "7px",
+     "8px",
+     "50%",
+     "4px",
+     "3px",
+     "12px",
+     "99px 1px 1px 99px",
+     "1px",
+     "1px 99px 99px 1px",
+     "99px",
+     "9px",
+     "0px 0px 12px 12px"
+    ],
+    "panels": 7,
+    "panelStyles": 2,
+    "gaps": [
+     "v20",
+     "h0",
+     "h285",
+     "h571",
+     "v21",
+     "h286",
+     "h20"
+    ],
+    "lineColors": 3
+   },
+   "demo-content": {
+    "lines": 53,
+    "borderSides": 49,
+    "rings": 4,
+    "borderColors": 5,
+    "fills": 19,
+    "fillColors": 9,
+    "innerTints": 4,
+    "innerList": [
+     "post",
+     "hl",
+     "LABEL",
+     "cf"
+    ],
+    "colors": 17,
+    "textColors": 6,
+    "textGreys": 4,
+    "textStyles": 19,
+    "sizes": [
+     "12.5px",
+     "12px",
+     "13.5px",
+     "13px",
+     "14.5px",
+     "14px",
+     "15px",
+     "16px",
+     "26px",
+     "28px"
+    ],
+    "weights": [
+     "400",
+     "500",
+     "600",
+     "700"
+    ],
+    "icons": 11,
+    "iconSizes": [
+     "14x14",
+     "16x16"
+    ],
+    "dots": 0,
+    "tags": 6,
+    "badges": 4,
+    "deco": {
+     ".av": 2,
+     ".kspark": 1,
+     ".track": 3
+    },
+    "chartLines": 0,
+    "leftEdges": 36,
+    "nearMiss": [
+     "649/652",
+     "861/863",
+     "1306/1309",
+     "1337/1339",
+     "1359/1362"
+    ],
+    "startEdges": 19,
+    "startNear": [
+     "861/863"
+    ],
+    "startList": [
+     256,
+     264,
+     285,
+     289,
+     359,
+     427,
+     576,
+     770,
+     783,
+     787,
+     825,
+     861,
+     863,
+     1024,
+     1147,
+     1222,
+     1288,
+     1309,
+     1337
+    ],
+    "borderColorList": {
+     "color(srgb0.06666670.06666670.0784314/0.12)": " search search search search KBD KBD KBD KBD btn btn btn btn LABEL",
+     "color(srgb0.06666670.06666670.0784314/0.055)": " card card card tabs row row row row ch cf",
+     "rgb(17,17,20)": " tab",
+     "rgb(238,237,243)": " lfoot post post post post cb",
+     "rgb(98,70,234)": " LABEL LABEL LABEL LABEL"
+    },
+    "trunc": [],
+    "radii": [
+     "7px",
+     "8px",
+     "50%",
+     "4px",
+     "3px",
+     "12px",
+     "99px",
+     "0px 0px 12px 12px"
+    ],
+    "panels": 7,
+    "panelStyles": 2,
+    "gaps": [
+     "v20",
+     "h0",
+     "h285",
+     "h571",
+     "v21",
+     "h286",
+     "h20"
+    ],
+    "lineColors": 4
+   }
+  },
+  "r27": {
+   "demo-crm": {
+    "lines": 34,
+    "borderSides": 33,
+    "rings": 1,
+    "borderColors": 2,
+    "fills": 12,
+    "fillColors": 4,
+    "innerTints": 0,
+    "innerList": [],
+    "colors": 10,
+    "textColors": 6,
+    "textGreys": 4,
+    "textStyles": 11,
+    "sizes": [
+     "12px",
+     "13px",
+     "14px",
+     "16px",
+     "24px",
+     "28px"
+    ],
+    "weights": [
+     "400",
+     "500",
+     "600"
+    ],
+    "icons": 12,
+    "iconSizes": [
+     "16x16"
+    ],
+    "dots": 0,
+    "tags": 4,
+    "badges": 4,
+    "deco": {
+     ".av": 1,
+     ".chart": 1,
+     ".tl": 1
+    },
+    "chartLines": 4,
+    "leftEdges": 26,
+    "nearMiss": [],
+    "startEdges": 14,
+    "startNear": [],
+    "startList": [
+     272,
+     297,
+     349,
+     417,
+     485,
+     581,
+     864,
+     1070,
+     1148,
+     1221,
+     1290,
+     1301,
+     1311,
+     1346
+    ],
+    "borderColorList": {
+     "rgb(230,230,235)": " search search search search KBD KBD KBD KBD btn btn btn btn grid",
+     "rgb(23,23,28)": " tab"
+    },
+    "trunc": [],
+    "radii": [
+     "8px",
+     "50%",
+     "4px",
+     "3px",
+     "12px"
+    ],
+    "panels": 8,
+    "panelStyles": 2,
+    "gaps": [
+     "v24",
+     "h0",
+     "h283",
+     "h567",
+     "v25",
+     "h284",
+     "h24"
+    ],
+    "lineColors": 1
+   },
+   "demo": {
+    "lines": 56,
+    "borderSides": 55,
+    "rings": 1,
+    "borderColors": 2,
+    "fills": 12,
+    "fillColors": 5,
+    "innerTints": 0,
+    "innerList": [],
+    "colors": 10,
+    "textColors": 6,
+    "textGreys": 4,
+    "textStyles": 12,
+    "sizes": [
+     "12px",
+     "13px",
+     "14px",
+     "16px",
+     "24px",
+     "28px"
+    ],
+    "weights": [
+     "400",
+     "500",
+     "600"
+    ],
+    "icons": 13,
+    "iconSizes": [
+     "16x16"
+    ],
+    "dots": 0,
+    "tags": 7,
+    "badges": 4,
+    "deco": {
+     ".av": 1,
+     ".lgh": 3
+    },
+    "chartLines": 0,
+    "leftEdges": 47,
+    "nearMiss": [
+     "331/332",
+     "344/347",
+     "357/360",
+     "899/902",
+     "1189/1191",
+     "1315/1316",
+     "1349/1352"
+    ],
+    "startEdges": 18,
+    "startNear": [],
+    "startList": [
+     272,
+     297,
+     379,
+     468,
+     581,
+     640,
+     780,
+     864,
+     899,
+     989,
+     1148,
+     1198,
+     1223,
+     1229,
+     1267,
+     1285,
+     1301,
+     1315
+    ],
+    "borderColorList": {
+     "rgb(230,230,235)": " search search search search KBD KBD KBD KBD btn btn btn btn grid",
+     "rgb(23,23,28)": " tab"
+    },
+    "trunc": [],
+    "radii": [
+     "8px",
+     "50%",
+     "4px",
+     "3px",
+     "12px",
+     "0px 0px 12px 12px"
+    ],
+    "panels": 7,
+    "panelStyles": 2,
+    "gaps": [
+     "v24",
+     "h0",
+     "h283",
+     "h567",
+     "v25",
+     "h284",
+     "h24"
+    ],
+    "lineColors": 1
+   },
+   "demo-orders": {
+    "lines": 144,
+    "borderSides": 143,
+    "rings": 1,
+    "borderColors": 3,
+    "fills": 9,
+    "fillColors": 4,
+    "innerTints": 0,
+    "innerList": [],
+    "colors": 10,
+    "textColors": 6,
+    "textGreys": 4,
+    "textStyles": 10,
+    "sizes": [
+     "12px",
+     "13px",
+     "14px",
+     "16px",
+     "24px",
+     "28px"
+    ],
+    "weights": [
+     "400",
+     "500",
+     "600"
+    ],
+    "icons": 17,
+    "iconSizes": [
+     "16x16"
+    ],
+    "dots": 0,
+    "tags": 9,
+    "badges": 4,
+    "deco": {
+     ".av": 1
+    },
+    "chartLines": 0,
+    "leftEdges": 45,
+    "nearMiss": [
+     "333/335",
+     "335/337",
+     "360/362",
+     "1148/1149",
+     "1315/1316"
+    ],
+    "startEdges": 20,
+    "startNear": [],
+    "startList": [
+     272,
+     297,
+     337,
+     373,
+     440,
+     516,
+     536,
+     558,
+     581,
+     618,
+     649,
+     672,
+     700,
+     864,
+     895,
+     1148,
+     1229,
+     1294,
+     1301,
+     1315
+    ],
+    "borderColorList": {
+     "rgb(230,230,235)": " search search search search KBD KBD KBD KBD btn btn btn btn grid",
+     "rgb(23,23,28)": " tab",
+     "rgb(207,207,214)": " cbx cbx cbx cbx cbx cbx cbx cbx cbx cbx cbx cbx cbx cbx cbx cbx"
+    },
+    "trunc": [],
+    "radii": [
+     "8px",
+     "50%",
+     "4px",
+     "3px",
+     "12px"
+    ],
+    "panels": 6,
+    "panelStyles": 2,
+    "gaps": [
+     "v24",
+     "h0",
+     "h283",
+     "h567",
+     "v25",
+     "h284"
+    ],
+    "lineColors": 1
+   },
+   "demo-analytics": {
+    "lines": 48,
+    "borderSides": 47,
+    "rings": 1,
+    "borderColors": 1,
+    "fills": 12,
+    "fillColors": 4,
+    "innerTints": 0,
+    "innerList": [],
+    "colors": 10,
+    "textColors": 6,
+    "textGreys": 4,
+    "textStyles": 11,
+    "sizes": [
+     "12px",
+     "13px",
+     "14px",
+     "16px",
+     "24px",
+     "28px"
+    ],
+    "weights": [
+     "400",
+     "500",
+     "600"
+    ],
+    "icons": 12,
+    "iconSizes": [
+     "16x16"
+    ],
+    "dots": 0,
+    "tags": 0,
+    "badges": 4,
+    "deco": {
+     ".av": 1,
+     ".chart": 1,
+     ".track": 5
+    },
+    "chartLines": 6,
+    "leftEdges": 34,
+    "nearMiss": [
+     "1343/1345",
+     "1352/1355",
+     "1355/1357"
+    ],
+    "startEdges": 11,
+    "startNear": [],
+    "startList": [
+     272,
+     297,
+     581,
+     675,
+     864,
+     1070,
+     1117,
+     1148,
+     1301,
+     1318,
+     1343
+    ],
+    "borderColorList": {
+     "rgb(230,230,235)": " search search search search KBD KBD KBD KBD seg seg seg seg btn"
+    },
+    "trunc": [],
+    "radii": [
+     "8px",
+     "50%",
+     "4px",
+     "3px",
+     "6px",
+     "12px",
+     "1px"
+    ],
+    "panels": 8,
+    "panelStyles": 2,
+    "gaps": [
+     "v24",
+     "v444",
+     "h0",
+     "h283",
+     "h567",
+     "v25",
+     "v445",
+     "h284",
+     "h24"
+    ],
+    "lineColors": 1
+   },
+   "demo-ops": {
+    "lines": 30,
+    "borderSides": 29,
+    "rings": 1,
+    "borderColors": 1,
+    "fills": 12,
+    "fillColors": 5,
+    "innerTints": 0,
+    "innerList": [],
+    "colors": 10,
+    "textColors": 6,
+    "textGreys": 4,
+    "textStyles": 10,
+    "sizes": [
+     "12px",
+     "13px",
+     "14px",
+     "16px",
+     "24px",
+     "28px"
+    ],
+    "weights": [
+     "400",
+     "500",
+     "600"
+    ],
+    "icons": 11,
+    "iconSizes": [
+     "16x16"
+    ],
+    "dots": 0,
+    "tags": 7,
+    "badges": 4,
+    "deco": {
+     ".av": 1,
+     ".lgh": 3,
+     ".chart": 1,
+     ".tl": 1
+    },
+    "chartLines": 5,
+    "leftEdges": 29,
+    "nearMiss": [
+     "661/664",
+     "1299/1301"
+    ],
+    "startEdges": 17,
+    "startNear": [
+     "1299/1301"
+    ],
+    "startList": [
+     272,
+     297,
+     581,
+     613,
+     661,
+     780,
+     864,
+     989,
+     1148,
+     1158,
+     1198,
+     1239,
+     1263,
+     1272,
+     1299,
+     1301,
+     1339
+    ],
+    "borderColorList": {
+     "rgb(230,230,235)": " search search search search KBD KBD KBD KBD btn btn btn btn grid"
+    },
+    "trunc": [],
+    "radii": [
+     "8px",
+     "50%",
+     "4px",
+     "3px",
+     "12px",
+     "1px",
+     "0px 0px 12px 12px"
+    ],
+    "panels": 7,
+    "panelStyles": 2,
+    "gaps": [
+     "v24",
+     "h0",
+     "h283",
+     "h567",
+     "v25",
+     "h284",
+     "h24"
+    ],
+    "lineColors": 1
+   },
+   "demo-content": {
+    "lines": 35,
+    "borderSides": 34,
+    "rings": 1,
+    "borderColors": 2,
+    "fills": 11,
+    "fillColors": 5,
+    "innerTints": 0,
+    "innerList": [],
+    "colors": 10,
+    "textColors": 6,
+    "textGreys": 4,
+    "textStyles": 10,
+    "sizes": [
+     "12px",
+     "13px",
+     "14px",
+     "16px",
+     "24px",
+     "28px"
+    ],
+    "weights": [
+     "400",
+     "500",
+     "600"
+    ],
+    "icons": 11,
+    "iconSizes": [
+     "16x16"
+    ],
+    "dots": 0,
+    "tags": 6,
+    "badges": 4,
+    "deco": {
+     ".av": 1,
+     ".track": 3
+    },
+    "chartLines": 0,
+    "leftEdges": 30,
+    "nearMiss": [
+     "856/858",
+     "924/925",
+     "1301/1303"
+    ],
+    "startEdges": 14,
+    "startNear": [],
+    "startList": [
+     272,
+     297,
+     373,
+     440,
+     581,
+     780,
+     856,
+     864,
+     1016,
+     1148,
+     1224,
+     1286,
+     1301,
+     1339
+    ],
+    "borderColorList": {
+     "rgb(230,230,235)": " search search search search KBD KBD KBD KBD btn btn btn btn grid",
+     "rgb(23,23,28)": " tab"
+    },
+    "trunc": [],
+    "radii": [
+     "8px",
+     "50%",
+     "4px",
+     "3px",
+     "12px",
+     "0px 0px 12px 12px"
+    ],
+    "panels": 7,
+    "panelStyles": 2,
+    "gaps": [
+     "v24",
+     "h0",
+     "h283",
+     "h567",
+     "v25",
+     "h284",
+     "h24"
+    ],
+    "lineColors": 1
+   }
+  }
+ },
+ "vl": {
+  "r26": {
+   "demo-crm": {
+    "h": 23,
+    "v": 19,
+    "total": 42
+   },
+   "demo": {
+    "h": 35,
+    "v": 21,
+    "total": 56
+   },
+   "demo-orders": {
+    "h": 29,
+    "v": 19,
+    "total": 48
+   },
+   "demo-analytics": {
+    "h": 23,
+    "v": 19,
+    "total": 42
+   },
+   "demo-ops": {
+    "h": 28,
+    "v": 19,
+    "total": 47
+   },
+   "demo-content": {
+    "h": 33,
+    "v": 27,
+    "total": 60
+   }
+  },
+  "r27": {
+   "demo-crm": {
+    "h": 17,
+    "v": 16,
+    "total": 33
+   },
+   "demo": {
+    "h": 23,
+    "v": 14,
+    "total": 37
+   },
+   "demo-orders": {
+    "h": 27,
+    "v": 16,
+    "total": 43
+   },
+   "demo-analytics": {
+    "h": 19,
+    "v": 16,
+    "total": 35
+   },
+   "demo-ops": {
+    "h": 14,
+    "v": 14,
+    "total": 28
+   },
+   "demo-content": {
+    "h": 17,
+    "v": 16,
+    "total": 33
+   }
+  }
+ },
+ "img": {
+  "r26": {
+   "demo-crm": 8.4,
+   "demo": 17.4,
+   "demo-orders": 9.0,
+   "demo-analytics": 5.4,
+   "demo-ops": 15.9,
+   "demo-content": 14.8
+  },
+  "r27": {
+   "demo-crm": 3.6,
+   "demo": 3.5,
+   "demo-orders": 1.6,
+   "demo-analytics": 1.4,
+   "demo-ops": 3.3,
+   "demo-content": 3.2
+  }
+ },
+ "refs_img": {
+  "linear-inbox": {
+   "flatColours": 22,
+   "tintedShare": 12.3,
+   "hLines": 0,
+   "vLines": 3,
+   "lines": 3
+  },
+  "linear-initiatives": {
+   "flatColours": 18,
+   "tintedShare": 13.1,
+   "hLines": 0,
+   "vLines": 0,
+   "lines": 0
+  },
+  "linear-home": {
+   "flatColours": 7,
+   "tintedShare": 0.3,
+   "hLines": 2,
+   "vLines": 0,
+   "lines": 2
+  },
+  "vercel-summary": {
+   "flatColours": 20,
+   "tintedShare": 2.1,
+   "hLines": 3,
+   "vLines": 7,
+   "lines": 10
+  },
+  "vercel-resources": {
+   "flatColours": 23,
+   "tintedShare": 6.4,
+   "hLines": 7,
+   "vLines": 0,
+   "lines": 7
+  },
+  "stripe-invoices": {
+   "flatColours": 37,
+   "tintedShare": 0.8,
+   "hLines": 5,
+   "vLines": 0,
+   "lines": 5
+  },
+  "attio-table": {
+   "flatColours": 14,
+   "tintedShare": 21.9,
+   "hLines": 156,
+   "vLines": 0,
+   "lines": 156
+  },
+  "github-issues": {
+   "flatColours": 20,
+   "tintedShare": 8.6,
+   "hLines": 11,
+   "vLines": 5,
+   "lines": 16
+  },
+  "antpro-table": {
+   "flatColours": 15,
+   "tintedShare": 11.1,
+   "hLines": 12,
+   "vLines": 1,
+   "lines": 13
+  },
+  "antpro-workplace": {
+   "flatColours": 25,
+   "tintedShare": 9.0,
+   "hLines": 13,
+   "vLines": 5,
+   "lines": 18
+  }
+ },
+ "method": "1440x900 首屏, iris; noise = tools/noise.js; vl = tools/noise_lines.js; img = tools/imgnoise.py (tintedShare %)"
+}
