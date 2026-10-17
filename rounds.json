@@ -1,18 +1,35 @@
 [
   {
+    "id": "r22",
+    "name": "成组",
+    "title": "Round 22 · 成组",
+    "version": "v24.0",
+    "date": "2026-10-17",
+    "status": "待评分",
+    "primary": "spec",
+    "spec": "rounds/r22/spec.html",
+    "demo": "rounds/r22/demo.html",
+    "demos": "rounds/r22/demos.html",
+    "screenshot": "rounds/r22/screenshot.png",
+    "tokens": "rounds/r22/reference-tokens.css",
+    "summary": "针对 R21「需要人脑去归类哪些是一组」专攻视觉成组：先研究 NN/g、Atlassian、Carbon、Primer、Ant Design、Polaris、Material 3 与 Ant Design Pro、GitHub、Stripe、Linear 等真实界面，写成可度量的分组规则（grouping.md，含 R21 逐处标注诊断与模糊 10px 眯眼对比）。改动：浅灰画布 + 白色面板，一个对象一个面板（标题、内容、操作同框）；关系间距令牌 4/8/16/24/20/32，组内 ≤ 组间一半；列表与详情各一块面板、页签进面板头；详情面板贴合视口、操作条钉底不再出首屏；字段组用浅底井、明细表带组标题和合计；KPI 合成一块面板。规范新增「分组」章：六条对 / 错并排规则、间距刻度、组件展示。"
+  },
+  {
     "id": "r21",
     "name": "舒展",
     "title": "Round 21 · 舒展",
     "version": "v23.0",
     "date": "2026-10-17",
-    "status": "待评分",
+    "status": "已评分",
     "primary": "spec",
     "spec": "rounds/r21/spec.html",
     "demo": "rounds/r21/demo.html",
     "demos": "rounds/r21/demos.html",
     "screenshot": "rounds/r21/screenshot.png",
     "tokens": "rounds/r21/reference-tokens.css",
-    "summary": "针对 R20「看起来有点吃力」降低阅读负担：正文 15/24、接近黑色，次要文字加深；页标题 26、区块标题 17、KPI 30，每屏只有一个焦点；列表行 46 以上，每行只留标题、说明、状态，次要信息悬停才出现，订单表减列；KPI 改用极浅底色带分组，去掉满屏细线；同屏只有一个主色按钮和一处红色。新增第 17 条规则「每屏一个焦点，要读的越少越好」。诊断见 reading.md。"
+    "summary": "针对 R20「看起来有点吃力」降低阅读负担：正文 15/24、接近黑色，次要文字加深；页标题 26、区块标题 17、KPI 30，每屏只有一个焦点；列表行 46 以上，每行只留标题、说明、状态，次要信息悬停才出现，订单表减列；KPI 改用极浅底色带分组，去掉满屏细线；同屏只有一个主色按钮和一处红色。新增第 17 条规则「每屏一个焦点，要读的越少越好」。诊断见 reading.md。",
+    "score100": 55,
+    "note": "依然很吃力，当前的演示页内容需要人脑去归类页面元素哪些是一组。你不要急着交差，多搜搜案例打磨一下，这个没有工期不需要着急。（在 demo.html 提交）"
   },
   {
     "id": "r20",
