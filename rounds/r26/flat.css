@@ -1,0 +1,70 @@
+/* R26「平整」控件全平层：在 R25 material.css 之后加载。
+   Xiang 对 R25 的批注：「按钮不要 3d 的感觉」。所以所有控件都去掉渐变、内高光、投影、斜面环和按下位移。
+   深度只保留给真正浮起来的东西（菜单、⌘K、Toast、提示）。面板只留一圈透明发丝环和一道 1px 的极淡影，用来和画布分开，不做立体。 */
+
+:root{
+  --f-line:color-mix(in srgb,var(--color-text) 12%,transparent);          /* 控件 1px 边：文字色 12% */
+  --f-line-hover:color-mix(in srgb,var(--color-text) 20%,transparent);
+  --f-tint:color-mix(in srgb,var(--color-text) 5%,transparent);           /* 轻按钮 / 侧栏当前项 / 凹槽 */
+  --f-tint-strong:color-mix(in srgb,var(--color-text) 8%,transparent);
+  --f-t:120ms ease;
+  /* 面板：环 + 一道 1px 极淡影；去掉第二层远影 */
+  --m-e1:0 0 0 1px var(--m-line),0 1px 2px rgba(var(--m-ink),.035);
+}
+[data-theme="midnight"]{
+  --m-e1:0 0 0 1px var(--m-line);                                          /* 深色：不要顶边内高光，层级只靠亮一阶 */
+  --m-e3:0 0 0 1px rgba(255,255,255,.09),0 16px 48px -8px rgba(0,0,0,.7);
+  --f-line:rgba(255,255,255,.12);--f-line-hover:rgba(255,255,255,.2);--f-tint:rgba(255,255,255,.06);--f-tint-strong:rgba(255,255,255,.09);
+}
+
+/* ── ① 按钮：纯平 ── */
+.btn{transition:background-color var(--f-t),border-color var(--f-t),color var(--f-t)!important;transform:none!important;filter:none!important}
+.btn:active{transform:none!important}
+.btn-p{background:var(--color-primary)!important;border:1px solid transparent!important;box-shadow:none!important;color:var(--color-on-primary)!important}
+.btn-p:hover{background:var(--color-primary-hover)!important}
+.btn-p:active{background:var(--color-primary-active)!important}
+.btn-s{background:var(--color-surface)!important;border:1px solid var(--f-line)!important;box-shadow:none!important}
+.btn-s:hover{background:var(--color-surface)!important;border-color:var(--f-line-hover)!important}
+.btn-s:active{background:var(--f-tint)!important}
+.btn-g{background:transparent!important;border-color:transparent!important;box-shadow:none!important}
+.btn-g:hover{background:var(--f-tint)!important;color:var(--color-text)!important}
+.btn-g:active{background:var(--f-tint-strong)!important}
+.btn-d{box-shadow:none!important}
+.btn .ico{opacity:1}
+.btn kbd,.btn-p kbd{box-shadow:none!important;background:transparent!important}
+/* 焦点：一圈 2px 主色外框，留 2px 缝；是“焦点”不是“斜面” */
+.btn:focus-visible,.row:focus-visible,.tab:focus-visible,.nv:focus-visible,.dd:focus-visible,.seg button:focus-visible,.inp:focus-visible,.sel:focus-visible{box-shadow:none!important;outline:2px solid color-mix(in srgb,var(--color-primary) 60%,transparent)!important;outline-offset:2px!important}
+
+/* ── ② 输入、搜索、下拉、单选块：1px 透明边，无影 ── */
+.inp,.sel,.search{border:1px solid var(--f-line)!important;box-shadow:none!important;background:var(--color-surface)!important}
+.inp:hover,.sel:hover,.search:hover{border-color:var(--f-line-hover)!important;box-shadow:none!important}
+.inp:focus,.sel:focus,textarea.inp:focus{border-color:var(--color-primary)!important;box-shadow:none!important;outline:none!important}
+kbd{box-shadow:none!important;border:1px solid var(--f-line)!important;background:transparent!important}
+.radio label{border:1px solid var(--f-line)!important;box-shadow:none!important}
+.radio label:has(input:checked){border-color:var(--color-primary)!important;background:color-mix(in srgb,var(--color-primary) 6%,transparent)!important;box-shadow:none!important}
+
+/* ── ③ 分段控件：浅色凹槽 + 平的选中片（1px 边，无影） ── */
+.seg{background:var(--f-tint)!important}
+.seg button.on{background:var(--color-surface)!important;box-shadow:0 0 0 1px var(--f-line)!important}
+[data-theme="midnight"] .seg button.on{background:rgba(255,255,255,.1)!important;box-shadow:none!important}
+
+/* ── ④ 侧栏：当前项 = 平的浅色底，不浮起；品牌标 = 纯鸢尾色块 ── */
+.nv.on{background:var(--f-tint-strong)!important;box-shadow:none!important;color:var(--color-text)!important}
+.nv:not(.on):hover{background:var(--f-tint)!important}
+.brand i{background:var(--color-primary)!important;box-shadow:none!important}
+.brand:hover{background:var(--f-tint)!important}
+
+/* ── ⑤ 头像、状态点、空状态图标、进度：都平 ── */
+.av,.me .av{background:color-mix(in srgb,var(--color-primary) 11%,var(--color-surface))!important;box-shadow:none!important}
+.tag::before,.tag.prog::before{box-shadow:none!important}
+.empty .ei{background:var(--f-tint)!important;box-shadow:none!important}
+.meter i{background:var(--color-primary)!important}
+.cbx{accent-color:var(--color-primary)}
+
+/* ── ⑥ 浮层保留深度（菜单 / ⌘K / 提示 / Toast）；Toast 去掉内高光 ── */
+.toast{box-shadow:0 0 0 1px rgba(0,0,0,.2),0 12px 32px -8px rgba(var(--m-ink),.45)!important}
+.ddm button:hover,.ddm button:focus{background:var(--f-tint)!important}
+
+/* ── ⑦ 打磨：表头不再灰底（Linear / Vercel 表头与行同底，只靠字色区分）；悬停底统一 ── */
+th{background:transparent!important}
+.row:not(.on):hover,tbody tr:hover td{background:color-mix(in srgb,var(--color-text) 2.5%,transparent)!important}

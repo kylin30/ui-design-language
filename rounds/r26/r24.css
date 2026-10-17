@@ -1,0 +1,37 @@
+/* R24「回正」层：在 R22 之上，只加正确性修正和两处保守改进。最后加载。 */
+
+/* ① 同一行的面板头一样高：页签头 52 → 56，与面板头 / 对象头的发丝线对齐 */
+.card .tabs{height:56px!important}
+
+/* ② 列表按紧急程度分段（运营待办：已超时 / 今天到期 / 之后；运维：严重 / 警告 / 其他）
+   组标题是一条安静的浅底条：13 号、次要色、右侧计数；只有“已超时 / 严重”带红点 */
+.lgh{display:flex;align-items:center;gap:8px;height:32px;padding:0 var(--pad-panel);background:var(--color-surface-subtle);border-bottom:1px solid var(--color-hairline);font-size:13px;font-weight:500;color:var(--color-text-secondary);position:sticky;top:0;z-index:1}
+.lgh+.row,.lgh+button.row{border-top:0!important}
+.row+.lgh{border-top:1px solid var(--color-hairline)}
+.lgh .n{font-weight:400;color:var(--color-text-tertiary)}
+.lgh.g0::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--color-danger);margin-right:-2px}
+.list>.lgh:first-child{border-top:0}
+
+/* ③ KPI 里的分段条：和下面列表的分段同顺序、同颜色，一眼看出“紧急的有多少” */
+.kseg{display:flex;gap:2px;height:4px;margin-top:10px;border-radius:2px;overflow:hidden}
+.kseg i{display:block;height:100%;border-radius:1px}
+.kseg .s0{background:var(--color-danger)}
+.kseg .s1{background:color-mix(in srgb,var(--color-text-secondary) 55%,var(--color-surface))}
+.kseg .s2{background:var(--color-border-strong)}
+
+/* ④ 订单工具条：按钮式下拉（取自 R23，替代原生 select） */
+.btn.dd{color:var(--color-text-secondary);gap:4px}
+.btn.dd b{font-weight:500;color:var(--color-text);margin-left:4px}
+.btn.dd .ico{width:14px;height:14px;color:var(--color-text-tertiary);margin-right:-4px}
+.btn.dd.on{border-color:color-mix(in srgb,var(--color-primary) 40%,var(--color-border))}
+.ddm{position:absolute;z-index:80;min-width:184px;padding:4px;background:var(--color-surface);border:1px solid var(--color-panel-border);border-radius:10px;box-shadow:0 10px 28px rgba(17,17,20,.12),0 2px 6px rgba(17,17,20,.06)}
+.ddm button{display:flex;align-items:center;justify-content:space-between;width:100%;height:32px;padding:0 10px;border:0;border-radius:6px;background:none;font:inherit;font-size:14px;color:var(--color-text);text-align:left;cursor:pointer}
+.ddm button:hover,.ddm button:focus{background:var(--color-surface-hover);outline:none}
+.ddm .ico{width:14px;height:14px;color:var(--color-primary)}
+
+/* ⑤ 内容审核：列表面板与详情同底，底部写清楚“显示了多少” */
+.lfoot{padding:12px var(--pad-panel);border-top:1px solid var(--color-hairline);font-size:13px;color:var(--color-text-tertiary)}
+
+/* ⑥ 判断条颜色 bug：minimal.css 的 .track i:not(.bad) 把 mute 也涂成近黑 */
+.track i.mute{background:var(--color-border-strong)!important}
+.track i.mid{background:color-mix(in srgb,var(--color-text-secondary) 60%,var(--color-surface))!important}
