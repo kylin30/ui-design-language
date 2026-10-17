@@ -1,18 +1,35 @@
 [
   {
+    "id": "r25",
+    "name": "质感",
+    "title": "Round 25 · 质感",
+    "version": "v27.0",
+    "date": "2026-10-17",
+    "status": "待评分",
+    "primary": "spec",
+    "spec": "rounds/r25/spec.html",
+    "demo": "rounds/r25/demo.html",
+    "demos": "rounds/r25/demos.html",
+    "screenshot": "rounds/r25/screenshot.png",
+    "tokens": "rounds/r25/reference-tokens.css",
+    "summary": "R24 得 55 分，批注「少一点高级感、质感、设计感」。R25 不动结构（指标面板、分组列表、画布上的面板），只加一层统一的材质 material.css。先调研 Linear 2024 改版、Vercel Geist、Stripe、Attio、Raycast、Mercury、Ramp、Retool、Arc、Height 和 X 上的设计师帖，并从参照截图量出画布、面板、描边、高光的具体色值（craft.md）。材质层的内容：画布 #F5F5F8；面板改用文字色 8% 的发丝环加两层极软的带色投影（e0–e3 四档，ink 24,20,46）；面板内分隔线用 5.5% 的透明线；圆角阶梯 6 / 7 / 9 / 12 / 14；大数字 −0.03em、等宽，单位降一级；主按钮做 12% 以内的渐变、内高光和深一阶的环；焦点用双环；图标统一 1.5 描边；侧栏做成工作区切换器，当前项是浮起的白片；面包屑改用 chevron；分段控件做成凹槽加滑块；指标里加鸢尾趋势线，图表渐变用缓动停点；浮层用 e3；统一 150ms 动效。midnight 改为近黑画布、亮一阶的面板和顶边高光。规范新增「质感」章（令牌表，死平 / 精致 / 过度三档，M1–M8 对 / 错）和「比对」章（三轮迭代，与 Linear / Stripe / Vercel / Attio 并排）。"
+  },
+  {
     "id": "r24",
     "name": "回正",
     "title": "Round 24 · 回正",
     "version": "v26.0",
     "date": "2026-10-17",
-    "status": "待评分",
+    "status": "已评分",
     "primary": "spec",
     "spec": "rounds/r24/spec.html",
     "demo": "rounds/r24/demo.html",
     "demos": "rounds/r24/demos.html",
     "screenshot": "rounds/r24/screenshot.png",
     "tokens": "rounds/r24/reference-tokens.css",
-    "summary": "R23 从 58 掉到 40，先做回归分析（regression.md）：R22 / R23 六个演示 1440×900 并排、眯眼对比、首屏测量，推断主因是去掉了工作台页的指标面板（打分页大字 8 → 1）、结论先行的副标题和有意义的颜色强调，页面失去锚点、变成均匀的字墙。R24 以 R22 为基线重建，只带回 R23 的正确性修正（订单数据一致、按钮式下拉、运维“阈值”统一、同行面板头对齐、内容审核列表与详情同底等）；新增两处保守改进：列表按紧急程度分段（已超时 / 今天到期 / 之后；严重 / 警告 / 其他），指标分段条与列表同序同色并随操作同步。规范新增「回归」「本轮」两章，4 条对 / 错。"
+    "summary": "R23 从 58 掉到 40，先做回归分析（regression.md）：R22 / R23 六个演示 1440×900 并排、眯眼对比、首屏测量，推断主因是去掉了工作台页的指标面板（打分页大字 8 → 1）、结论先行的副标题和有意义的颜色强调，页面失去锚点、变成均匀的字墙。R24 以 R22 为基线重建，只带回 R23 的正确性修正（订单数据一致、按钮式下拉、运维“阈值”统一、同行面板头对齐、内容审核列表与详情同底等）；新增两处保守改进：列表按紧急程度分段（已超时 / 今天到期 / 之后；严重 / 警告 / 其他），指标分段条与列表同序同色并随操作同步。规范新增「回归」「本轮」两章，4 条对 / 错。",
+    "score100": 55,
+    "note": "少一点高级感、质感、设计感。（在 demo.html 提交）"
   },
   {
     "id": "r23",
