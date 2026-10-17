@@ -1,18 +1,34 @@
 [
   {
+    "id": "r23",
+    "name": "精修",
+    "title": "Round 23 · 精修",
+    "version": "v25.0",
+    "date": "2026-10-17",
+    "status": "待评分",
+    "primary": "spec",
+    "spec": "rounds/r23/spec.html",
+    "demo": "rounds/r23/demo.html",
+    "demos": "rounds/r23/demos.html",
+    "screenshot": "rounds/r23/screenshot.png",
+    "tokens": "rounds/r23/reference-tokens.css",
+    "summary": "保留 R22 的成组系统，把六个演示当成已上线的产品，和 Linear、Stripe、Vercel、Attio、GitHub、飞书管理后台、Polaris 的真实截图并排逐页审计（audit.md，含标注图、并排图与眯眼对比），找出 28 处“费劲 / 像演示 / 没磨好”。改动：每屏最多一个主按钮，红色只给超时状态；字号收成 7 档；面板头统一 52；工作台页去掉重复的 KPI，统计并入页头一行，列表 + 详情同顶同底、各自滚动；原生下拉换成按钮式下拉，“1 / 9”配上下按钮（J / K）；表格 ID 等宽、行尾 ⋯；数据前后一致并随操作更新；图表改中性灰。规范新增「审计」「组合」两章：页头、面板头、页签头、对象头、工具条、字段组、列表行、分栏 8 个组合，每个都有对 / 错现场渲染。三轮自查含眯眼测试。"
+  },
+  {
     "id": "r22",
     "name": "成组",
     "title": "Round 22 · 成组",
     "version": "v24.0",
     "date": "2026-10-17",
-    "status": "待评分",
+    "status": "已评分",
     "primary": "spec",
     "spec": "rounds/r22/spec.html",
     "demo": "rounds/r22/demo.html",
     "demos": "rounds/r22/demos.html",
     "screenshot": "rounds/r22/screenshot.png",
     "tokens": "rounds/r22/reference-tokens.css",
-    "summary": "针对 R21「需要人脑去归类哪些是一组」专攻视觉成组：先研究 NN/g、Atlassian、Carbon、Primer、Ant Design、Polaris、Material 3 与 Ant Design Pro、GitHub、Stripe、Linear 等真实界面，写成可度量的分组规则（grouping.md，含 R21 逐处标注诊断与模糊 10px 眯眼对比）。改动：浅灰画布 + 白色面板，一个对象一个面板（标题、内容、操作同框）；关系间距令牌 4/8/16/24/20/32，组内 ≤ 组间一半；列表与详情各一块面板、页签进面板头；详情面板贴合视口、操作条钉底不再出首屏；字段组用浅底井、明细表带组标题和合计；KPI 合成一块面板。规范新增「分组」章：六条对 / 错并排规则、间距刻度、组件展示。"
+    "summary": "针对 R21「需要人脑去归类哪些是一组」专攻视觉成组：先研究 NN/g、Atlassian、Carbon、Primer、Ant Design、Polaris、Material 3 与 Ant Design Pro、GitHub、Stripe、Linear 等真实界面，写成可度量的分组规则（grouping.md，含 R21 逐处标注诊断与模糊 10px 眯眼对比）。改动：浅灰画布 + 白色面板，一个对象一个面板（标题、内容、操作同框）；关系间距令牌 4/8/16/24/20/32，组内 ≤ 组间一半；列表与详情各一块面板、页签进面板头；详情面板贴合视口、操作条钉底不再出首屏；字段组用浅底井、明细表带组标题和合计；KPI 合成一块面板。规范新增「分组」章：六条对 / 错并排规则、间距刻度、组件展示。",
+    "score100": 58
   },
   {
     "id": "r21",
