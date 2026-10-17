@@ -1,0 +1,106 @@
+/* R23 精修层：在 R22 成组（画布 + 面板 + 关系间距）之上，把“演示感”磨成“成品感”。审计见 audit.md。加载在 group.css 之后。 */
+
+/* ① 字号收成 7 档：12 坐标轴 · 13 说明/标签/表头 · 14 表格/按钮/正文小 · 15 正文/列表标题 · 16 面板标题 · 26 页标题 · 28 指标 */
+.nv{font-size:14px!important}
+.side .lab{font-size:12px!important}
+td,.tl li,.inp,.sel,.radio label,.bulk{font-size:14px!important}
+.tag,.row .tag{font-size:13px!important}
+.cf{font-size:13px!important}
+.ch h2,#detail .ch h2{font-size:16px!important;line-height:24px!important}
+.ch .meta{font-size:13px!important}
+.ph p{font-size:14px!important}
+.kpi .l,.kpi .d{font-size:13px!important}
+.kpi .v .cur{font-size:16px!important}
+code,.code{font-size:12px!important}
+td,th,.num,.kpi .v,.stats b,.due,.meta,.bars .b span:last-child{font-variant-numeric:tabular-nums}
+
+/* ② 页头组合：标题 + 一行统计（替代长句和四宫格），右侧只放次要按钮 */
+.ph{margin-bottom:24px!important;align-items:center!important}
+.stats{display:flex;align-items:baseline;margin-top:6px;font-size:14px;line-height:22px;color:var(--color-text-secondary);white-space:nowrap}
+.stats>span{display:inline-flex;align-items:baseline;gap:6px;padding:0 16px;border-left:1px solid var(--color-panel-border)}
+.stats>span:first-child{padding-left:0;border-left:0}
+.stats b{font-size:15px;font-weight:600;color:var(--color-text)}
+.stats .st-bad b{color:var(--color-danger)}
+.ph p .bad{color:inherit;font-weight:500}
+
+/* ③ 面板头统一 52：标题头、页签头、对象头同高，相邻面板的发丝线对齐 */
+.ch,.card .tabs{height:52px!important;flex:none}
+.card .tabs{align-items:stretch}
+.card .tabs>.r{margin-left:auto;display:flex;align-items:center}
+.ch .r,.ch .pagerx{margin-left:auto}
+.pagerx{display:flex;align-items:center;gap:2px}
+.pagerx .meta{margin-right:8px}
+.btn.ib{width:32px;padding:0!important;justify-content:center}
+.btn.sm.ib{width:28px}
+.btn .ico{flex:none}
+
+/* ④ 分栏视图：列表与详情两块面板同顶同底、各自滚动（Linear / Primer split page） */
+.page:has(>.work){height:calc(100vh - 48px);min-height:640px;display:flex;flex-direction:column;padding-bottom:24px!important}
+.page:has(>.work)>.work{flex:1;min-height:0;margin-top:0!important;align-items:stretch!important;grid-template-rows:minmax(0,1fr)}
+.work>.card{position:static!important;top:auto!important;height:auto!important;min-height:0;display:flex;flex-direction:column;overflow:hidden!important;align-self:stretch!important}
+.work>.card>.list{flex:1;min-height:0;overflow:auto;max-height:none!important;overscroll-behavior:contain}
+.work>.card>.dbody{flex:1;min-height:0;overflow:auto;overscroll-behavior:contain}
+.work>.card>.cf{flex:none;margin-top:0!important;position:static!important}
+.list-end{padding:14px 20px 18px;text-align:center;font-size:13px;color:var(--color-text-tertiary)}
+
+/* ⑤ 列表行：固定 2×2 —— 左上标题、右上时间；左下说明、右下状态。不再悬停才出现、不再一行两种高度 */
+.row{display:grid!important;grid-template-columns:minmax(0,1fr) auto!important;column-gap:16px!important;row-gap:2px!important;align-items:baseline!important}
+.row .w{display:contents!important}
+.row .t{grid-column:1;grid-row:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.row .m{grid-column:1;grid-row:2;font-size:13px!important;line-height:20px!important;color:var(--color-text-tertiary)!important;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.row .due{grid-column:2;grid-row:1;justify-self:end;opacity:1!important;font-size:13px!important;color:var(--color-text-tertiary)}
+.row .tag{grid-column:2;grid-row:2;justify-self:end}
+.row:hover:not(.on){background:var(--color-surface-hover)!important}
+
+/* ⑥ 交互状态：悬停、选中、键盘焦点三态都可见 */
+:where(button,a,input,select,textarea,[tabindex]):focus-visible{outline:2px solid color-mix(in srgb,var(--color-primary) 70%,transparent)!important;outline-offset:2px}
+.row:focus-visible,.ddm button:focus-visible{outline-offset:-2px!important}
+tbody tr:hover td{background:var(--color-surface-hover)}
+
+/* ⑦ 工具条：筛选一组（搜索 + 下拉按钮，间距 8）· 计数推到右侧；下拉不用系统箭头 */
+.filters{height:56px;padding:0 var(--pad-panel)!important;align-items:center}
+.filters .sbox .inp{width:260px}
+.btn.dd{color:var(--color-text-secondary);gap:4px}
+.btn.dd b{font-weight:500;color:var(--color-text);margin-left:4px}
+.btn.dd .ico{width:14px;height:14px;color:var(--color-text-tertiary);margin-right:-4px}
+.fcount{font-size:13px}
+.ddm{position:absolute;z-index:80;min-width:184px;padding:4px;background:var(--color-surface);border:1px solid var(--color-panel-border);border-radius:10px;box-shadow:0 10px 28px rgba(17,17,20,.12),0 2px 6px rgba(17,17,20,.06)}
+.ddm button{display:flex;align-items:center;justify-content:space-between;width:100%;height:32px;padding:0 10px;border:0;border-radius:6px;background:none;font:inherit;font-size:14px;color:var(--color-text);text-align:left;cursor:pointer}
+.ddm button:hover,.ddm button:focus{background:var(--color-surface-hover);outline:none}
+.ddm .ico{width:14px;height:14px;color:var(--color-primary)}
+.sel{appearance:none;-webkit-appearance:none;padding-right:32px!important;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%238A8A94' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4.5 6.5L8 10l3.5-3.5'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center;background-size:14px}
+.seg{height:32px;align-items:center;box-sizing:border-box}
+.seg button{height:26px!important;font-size:13px!important;padding:0 10px!important}
+
+/* ⑧ 表格：编号用等宽数字、行尾操作悬停出现（Stripe）、表头 13/500 */
+th{font-size:13px!important;font-weight:500!important;color:var(--color-text-tertiary)!important}
+td.id{color:var(--color-text-secondary)}
+th.ra,td.ra{width:48px;text-align:right}
+.more{width:28px;height:28px;border:0;border-radius:6px;background:none;display:inline-flex;align-items:center;justify-content:center;color:var(--color-text-tertiary);opacity:0;cursor:pointer;vertical-align:middle}
+tbody tr:hover .more,.more:focus-visible{opacity:1}
+.more:hover{background:var(--color-surface);color:var(--color-text)}
+.vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.t-rank .rk{display:inline-block;width:24px;color:var(--color-text-tertiary)}
+
+/* ⑨ 指标面板：所有页同高；进度条贴在格子底边，不再把格子撑高 */
+.grid>.kpi{position:relative;padding:20px!important}
+.kpi .meter{position:absolute!important;left:0;right:0;bottom:0;height:3px!important;margin:0!important;border-radius:0!important;background:transparent!important}
+.kpi .meter i{border-radius:0!important;background:var(--color-text-tertiary)!important;opacity:.55}
+
+/* ⑩ 详情内对齐：井与明细表的文字左缘同为 16 */
+.dgrp th:first-child,.dgrp td:first-child{padding-left:16px!important}.dgrp th:last-child,.dgrp td:last-child{padding-right:16px!important}
+.dgrp .tot{padding:12px 16px 0!important}
+
+/* ⑪ 图表与条形：数据用灰，颜色只给状态 */
+.bars .track i{background:color-mix(in srgb,var(--color-text) 38%,transparent)!important}
+.note{border-top:1px solid var(--color-hairline);margin:20px calc(-1 * var(--pad-panel)) 0;padding:16px var(--pad-panel) 0}
+.note .grp-h{margin-bottom:4px}
+.note p{font-size:14px;line-height:22px}
+.lnk{display:inline-block;margin-top:8px;font-size:14px;font-weight:500;color:var(--color-primary-text)}
+.judge{margin-top:24px;display:flex;flex-direction:column;gap:10px}
+.judge .grp-h{margin-bottom:0}
+
+/* ⑫ 右栏多面板之间也是 20（R22 里这里是 16） */
+.stack{display:flex;flex-direction:column;gap:var(--gap-panel)}
+.track i.mute{background:var(--color-border-strong)!important}
+.dgrp .tot b{font-size:20px!important;line-height:28px}
