@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>R28 临摹 · 全部演示 · 后台设计语言 v30.0</title>
+<link rel="stylesheet" href="app.css"><script src="themes.js"></script><link rel="stylesheet" href="theme-switcher.css">
+<style>
+/* 文档版式（只用于规范页 / 全部演示页，演示本身只用 app.css） */
+body{background:var(--color-surface);font-size:14px;line-height:22px}
+.dtop{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:20px;height:48px;padding:0 32px;background:var(--color-surface);border-bottom:1px solid var(--color-line);font-size:13px;color:var(--color-text-secondary)}
+.dtop b{font-size:14px;font-weight:600;color:var(--color-text);margin-right:8px}
+.dtop a:hover{color:var(--color-text)}
+.dtop .r{margin-left:auto;display:flex;align-items:center;gap:16px}
+.doc{display:grid;grid-template-columns:200px minmax(0,1fr);gap:48px;max-width:1240px;margin:0 auto;padding:40px 32px 120px}
+.toc{position:sticky;top:88px;align-self:start;display:flex;flex-direction:column;gap:2px;font-size:13px}
+.toc a{height:28px;display:flex;align-items:center;padding:0 8px;border-radius:6px;color:var(--color-text-secondary)}
+.toc a:hover{background:var(--color-hover);color:var(--color-text)}
+.toc .g{font-size:12px;color:var(--color-text-tertiary);padding:12px 8px 4px}
+article{min-width:0}
+article h1{font-size:28px;line-height:36px;font-weight:600;letter-spacing:-.015em}
+article .sub{margin-top:8px;color:var(--color-text-secondary);max-width:760px}
+article h2{font-size:20px;line-height:28px;font-weight:600;margin-top:64px;padding-top:24px;border-top:1px solid var(--color-line);scroll-margin-top:64px}
+article h3{font-size:15px;font-weight:600;margin-top:32px}
+article p{max-width:760px;margin-top:10px}
+article ul.b,article ol.b{max-width:780px;margin:10px 0 0 20px;display:flex;flex-direction:column;gap:6px}
+article .k{color:var(--color-text-tertiary);font-size:12px}
+.mt{margin-top:16px}
+table.dt{width:100%;border-collapse:collapse;margin-top:16px;font-size:13px}
+table.dt th{text-align:left;font-size:12px;font-weight:500;color:var(--color-text-secondary);padding:8px 12px 8px 0;border-bottom:1px solid var(--color-line)}
+table.dt td{padding:10px 12px 10px 0;border-bottom:1px solid var(--color-line);vertical-align:top;line-height:20px}
+table.dt td:first-child{white-space:nowrap;font-weight:500}
+.find{display:grid;grid-template-columns:28px minmax(0,1fr);gap:4px 0;max-width:820px;margin-top:20px}
+.find>span{font:500 12px/22px var(--font-mono);color:var(--color-text-tertiary)}
+.find>div{padding-bottom:16px;margin-bottom:16px;border-bottom:1px solid var(--color-line)}
+.find b{font-weight:600}
+.find small{display:block;margin-top:4px;font-size:12px;line-height:18px;color:var(--color-text-tertiary)}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:16px}
+.ex{border:1px solid var(--color-line);border-radius:10px;overflow:hidden}
+.ex>header{display:flex;align-items:center;gap:8px;height:36px;padding:0 14px;border-bottom:1px solid var(--color-line);font-size:12px;font-weight:500}
+.ex.ok>header::before,.ex.no>header::before{content:"";width:8px;height:8px;border-radius:50%}
+.ex.ok>header::before{background:var(--color-primary)}
+.ex.no>header::before{background:var(--color-danger)}
+.ex>.stage{padding:16px;background:var(--color-frame);min-height:180px}
+.ex>.stage.w{background:var(--color-surface)}
+.ex>footer{padding:10px 14px;border-top:1px solid var(--color-line);font-size:12px;line-height:18px;color:var(--color-text-secondary)}
+.mini-panel{background:var(--color-surface);border:1px solid var(--color-line);border-radius:8px;overflow:hidden}
+.why{margin-top:12px;max-width:820px;color:var(--color-text-secondary)}
+.sw{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;margin-top:16px}
+.sw div{border:1px solid var(--color-line);border-radius:8px;overflow:hidden;font-size:12px}
+.sw i{display:block;height:44px;border-bottom:1px solid var(--color-line)}
+.sw span{display:block;padding:6px 10px;line-height:18px}.sw small{display:block;color:var(--color-text-tertiary);font-family:var(--font-mono);font-size:11px}
+.ts-row{display:flex;align-items:baseline;gap:20px;padding:10px 0;border-bottom:1px solid var(--color-line)}
+.ts-row .k{width:150px;flex:none}
+.dgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:24px;margin-top:20px}
+.dc{display:block;color:inherit}
+.dc img{display:block;width:100%;aspect-ratio:16/10;object-fit:cover;object-position:top left;border:1px solid var(--color-line);border-radius:8px}
+.dc div{display:flex;align-items:center;gap:8px;margin-top:10px}.dc b{font-size:14px;font-weight:600}
+.dc p{margin-top:2px;font-size:13px;line-height:20px;color:var(--color-text-secondary)}
+.hero{display:block;margin-top:24px;border:1px solid var(--color-line);border-radius:10px;width:100%}
+.cmp{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}
+.cmp figure{margin:0}.cmp img{width:100%;border:1px solid var(--color-line);border-radius:8px;display:block}
+.cmp figcaption{font-size:12px;color:var(--color-text-tertiary);margin-top:6px}
+code{font-family:var(--font-mono);font-size:12.5px;background:var(--color-fill);padding:1px 4px;border-radius:4px}
+</style></head><body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<symbol id="i-inbox" viewBox="0 0 16 16"><path d="M2 9.5l1.6-5.2A1 1 0 0 1 4.5 3.5h7a1 1 0 0 1 .9.8L14 9.5v3a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1z"/><path d="M2 9.5h3.2l.8 1.5h4l.8-1.5H14"/></symbol>
+<symbol id="i-order" viewBox="0 0 16 16"><rect x="3" y="2" width="10" height="12" rx="1.5"/><path d="M5.5 5.5h5M5.5 8h5M5.5 10.5h3"/></symbol>
+<symbol id="i-chart" viewBox="0 0 16 16"><path d="M2.5 13.5h11"/><path d="M4.5 11V8M8 11V4.5M11.5 11V6.5"/></symbol>
+<symbol id="i-pulse" viewBox="0 0 16 16"><path d="M1.5 8h3l1.5-4 3 8 1.5-4h4"/></symbol>
+<symbol id="i-users" viewBox="0 0 16 16"><circle cx="6" cy="5.5" r="2.5"/><path d="M1.5 13.5c.5-2.5 2.3-3.7 4.5-3.7s4 1.2 4.5 3.7"/><path d="M10.5 3.2a2.3 2.3 0 0 1 0 4.6M12 9.9c1.3.5 2.2 1.7 2.5 3.6"/></symbol>
+<symbol id="i-eye" viewBox="0 0 16 16"><path d="M1.5 8S4 3.5 8 3.5 14.5 8 14.5 8 12 12.5 8 12.5 1.5 8 1.5 8z"/><circle cx="8" cy="8" r="2"/></symbol>
+<symbol id="i-book" viewBox="0 0 16 16"><path d="M3 2.5h7.5a2 2 0 0 1 2 2v9H5a2 2 0 0 1-2-2z"/><path d="M3 11.5a2 2 0 0 1 2-2h7.5"/></symbol>
+<symbol id="i-grid" viewBox="0 0 16 16"><rect x="2.5" y="2.5" width="4.5" height="4.5" rx="1"/><rect x="9" y="2.5" width="4.5" height="4.5" rx="1"/><rect x="2.5" y="9" width="4.5" height="4.5" rx="1"/><rect x="9" y="9" width="4.5" height="4.5" rx="1"/></symbol>
+<symbol id="i-search" viewBox="0 0 16 16"><circle cx="7" cy="7" r="4.5"/><path d="M10.5 10.5L14 14"/></symbol>
+<symbol id="i-plus" viewBox="0 0 16 16"><path d="M8 3v10M3 8h10"/></symbol>
+<symbol id="i-down" viewBox="0 0 16 16"><path d="M8 2.5v8M4.5 7.5L8 11l3.5-3.5M3 13.5h10"/></symbol>
+<symbol id="i-filter" viewBox="0 0 16 16"><path d="M2.5 4h11M4.5 8h7M6.5 12h3"/></symbol>
+<symbol id="i-sort" viewBox="0 0 16 16"><path d="M2.5 4.5h8M2.5 8h6M2.5 11.5h4M12 4v8.5M10 10.5l2 2 2-2"/></symbol>
+<symbol id="i-chev-r" viewBox="0 0 16 16"><path d="M6.5 4.5L10 8l-3.5 3.5"/></symbol>
+<symbol id="i-chev-d" viewBox="0 0 16 16"><path d="M4.5 6.5L8 10l3.5-3.5"/></symbol>
+<symbol id="i-updown" viewBox="0 0 16 16"><path d="M5.5 6L8 3.5 10.5 6M5.5 10L8 12.5 10.5 10"/></symbol>
+<symbol id="i-check" viewBox="0 0 16 16"><path d="M3.5 8.5l3 3 6-7"/></symbol>
+<symbol id="i-more" viewBox="0 0 16 16"><circle cx="3.5" cy="8" r=".9" fill="currentColor"/><circle cx="8" cy="8" r=".9" fill="currentColor"/><circle cx="12.5" cy="8" r=".9" fill="currentColor"/></symbol>
+<symbol id="i-cal" viewBox="0 0 16 16"><rect x="2.5" y="3.5" width="11" height="10" rx="1.5"/><path d="M2.5 6.5h11M5.5 2v3M10.5 2v3"/></symbol>
+<symbol id="i-user" viewBox="0 0 16 16"><circle cx="8" cy="5.5" r="2.7"/><path d="M3 13.5c.6-2.6 2.6-4 5-4s4.4 1.4 5 4"/></symbol>
+<symbol id="i-store" viewBox="0 0 16 16"><path d="M2.5 6.5l1-3.5h9l1 3.5M2.5 6.5h11v7h-11z"/><path d="M6.5 13.5v-4h3v4"/></symbol>
+<symbol id="i-clock" viewBox="0 0 16 16"><circle cx="8" cy="8" r="5.5"/><path d="M8 5v3.2l2 1.3"/></symbol>
+<symbol id="i-yuan" viewBox="0 0 16 16"><path d="M4.5 3l3.5 5 3.5-5M8 8v5.5M5 8.5h6M5 11h6"/></symbol>
+<symbol id="i-tag" viewBox="0 0 16 16"><path d="M2.5 8.2V3.5a1 1 0 0 1 1-1h4.7l5.3 5.3-5.7 5.7z"/><circle cx="5.5" cy="5.5" r=".9"/></symbol>
+<symbol id="i-server" viewBox="0 0 16 16"><rect x="2.5" y="2.5" width="11" height="4.5" rx="1"/><rect x="2.5" y="9" width="11" height="4.5" rx="1"/><path d="M5 4.75h.01M5 11.25h.01"/></symbol>
+<symbol id="i-link" viewBox="0 0 16 16"><path d="M7 9a3 3 0 0 0 4.2 0l2-2a3 3 0 0 0-4.2-4.2l-.8.8"/><path d="M9 7a3 3 0 0 0-4.2 0l-2 2A3 3 0 0 0 7 13.2l.8-.8"/></symbol>
+<symbol id="i-desc" viewBox="0 0 16 16"><path d="M3 5h10M3 8h10M3 11h6"/></symbol>
+<symbol id="i-pri" viewBox="0 0 16 16"><rect x="2.5" y="9" width="2.5" height="4" rx=".6" fill="currentColor" stroke="none"/><rect x="6.75" y="6" width="2.5" height="7" rx=".6" fill="currentColor" stroke="none"/><rect x="11" y="3" width="2.5" height="10" rx=".6" fill="currentColor" stroke="none"/></symbol>
+<symbol id="i-pri1" viewBox="0 0 16 16"><rect x="2.5" y="9" width="2.5" height="4" rx=".6" fill="currentColor" stroke="none"/><rect x="6.75" y="6" width="2.5" height="7" rx=".6" fill="currentColor" stroke="none" opacity=".28"/><rect x="11" y="3" width="2.5" height="10" rx=".6" fill="currentColor" stroke="none" opacity=".28"/></symbol><symbol id="i-pri2" viewBox="0 0 16 16"><rect x="2.5" y="9" width="2.5" height="4" rx=".6" fill="currentColor" stroke="none"/><rect x="6.75" y="6" width="2.5" height="7" rx=".6" fill="currentColor" stroke="none"/><rect x="11" y="3" width="2.5" height="10" rx=".6" fill="currentColor" stroke="none" opacity=".28"/></symbol>
+<symbol id="i-urgent" viewBox="0 0 16 16"><rect x="2" y="2" width="12" height="12" rx="3" fill="currentColor" stroke="none"/><path d="M8 4.8v4" stroke="#fff" stroke-width="1.6"/><path d="M8 11.2h.01" stroke="#fff" stroke-width="1.8"/></symbol>
+<symbol id="i-copy" viewBox="0 0 16 16"><rect x="5.5" y="5.5" width="8" height="8" rx="1.5"/><path d="M10.5 5.5V3.5a1 1 0 0 0-1-1h-6a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2"/></symbol>
+<symbol id="i-phone" viewBox="0 0 16 16"><path d="M3.5 2.5h2.2l1.1 3-1.5 1a7.5 7.5 0 0 0 4.2 4.2l1-1.5 3 1.1v2.2a1 1 0 0 1-1 1A10.5 10.5 0 0 1 2.5 3.5a1 1 0 0 1 1-1z"/></symbol>
+<symbol id="i-x" viewBox="0 0 16 16"><path d="M4 4l8 8M12 4l-8 8"/></symbol>
+<symbol id="i-bell" viewBox="0 0 16 16"><path d="M4 11.5V7.5a4 4 0 0 1 8 0v4l1 1H3z"/><path d="M6.5 14h3"/></symbol>
+<symbol id="i-shield" viewBox="0 0 16 16"><path d="M8 2l5 2v4c0 3-2.2 5.2-5 6-2.8-.8-5-3-5-6V4z"/></symbol>
+<symbol id="i-msg" viewBox="0 0 16 16"><path d="M2.5 3.5h11v7.5h-6l-3 2.5V11h-2z"/></symbol>
+</defs></svg><nav class="dtop"><b>R28 临摹 · v30.0</b><a href="spec.html" data-keep-theme>规范</a><a href="demo.html" data-keep-theme>打开演示</a><a href="STYLE.md" data-keep-theme>STYLE.md</a><span class="r"><span data-theme-slot></span><a href="../../">全部轮次</a></span></nav><div style="max-width:1180px;margin:0 auto;padding:40px 32px 120px"><article><h1>六个演示，六个已上线的参照。</h1><p class="sub">R28「临摹」：先收集 43 张真实产品截图、逐像素复刻 Linear 客户页 / Stripe 发票 / Attio 人员表 / Sentry 问题流 / Plain 工单 / Vercel 可观测 6 张，再用量到的数字重写唯一一份 app.css。每个演示都对应一个具体的参考模式（见下）。每页右上角可换主题（含深色星蓝），按 <kbd>/</kbd> 或 <kbd>⌘K</kbd> 打开命令面板。</p><div class="dgrid"><a class="dc" href="demo.html" data-keep-theme><img src="thumbs/demo.png" alt="运营待办 截图" loading="lazy"><div><b>运营待办</b><span class="tag">参考：Linear「我的事项」分组列表 + Linear 客户页属性行</span></div><p>左侧按紧急程度分组（色带 + 状态图标 + 计数）的 40px 单行列表，带优先级和等宽编号；右侧详情：标题、属性行、真实清单表、动态；底部「今天已办」可折叠。J / E / Z 流转。</p></a><a class="dc" href="demo-orders.html" data-keep-theme><img src="thumbs/demo-orders.png" alt="订单售后 截图" loading="lazy"><div><b>订单售后</b><span class="tag">参考：Stripe 发票列表</span></div><p>金额在第一列、右对齐；状态 = 14px 图标 + 黑字；单号等宽；表格只有横线；每行「···」打开分组操作菜单；勾选后工具栏换成批量操作条；20 行 + 分页，点行打开详情抽屉。</p></a><a class="dc" href="demo-analytics.html" data-keep-theme><img src="thumbs/demo-analytics.png" alt="数据看板 截图" loading="lazy"><div><b>数据看板</b><span class="tag">参考：Compound 资产看板 + Vercel 可观测</span></div><p>统计条用竖线分 4 格（不用 4 张卡）；每小时 GMV（7 × 24 点、3 个刻度、从 0 起）与区域贡献并排；排行表用行内灰条表示占比；只有越线的退款率是红色。</p></a><a class="dc" href="demo-ops.html" data-keep-theme><img src="thumbs/demo-ops.png" alt="运维告警 截图" loading="lazy"><div><b>运维告警</b><span class="tag">参考：Sentry 问题流 + Sentry 告警详情</span></div><p>两行条目（标题 + 等宽服务名 + 趋势词）、24 根灰色迷你柱（不上色）、事件数与持续时间右对齐；「今天已恢复」退为灰色；详情里属性行、P99 曲线、分布和经过。</p></a><a class="dc" href="demo-crm.html" data-keep-theme><img src="thumbs/demo-crm.png" alt="客户管理 截图" loading="lazy"><div><b>客户管理</b><span class="tag">参考：Linear 客户页 + Attio / Intercom 属性栏</span></div><p>头像 + 名称 + 属性行；需求按状态分组（标签 + 计数 + 发丝线）；右侧 300px 属性栏放联系人、合同和下一步。</p></a><a class="dc" href="demo-content.html" data-keep-theme><img src="thumbs/demo-content.png" alt="内容审核 截图" loading="lazy"><div><b>内容审核</b><span class="tag">参考：Intercom 收件箱三栏 + Plain 工单详情</span></div><p>队列 / 内容 / 详情三栏：条目三层、选中项是内缩的圆角浅底；中间给结论式标题、内容卡、机器判断和带 1 / 2 / 3 快捷键的处理方式；右栏是作者、举报、关联、规则；10 条各有独立详情。</p></a></div></article></div><link rel="stylesheet" href="../../assets/feedback.css"><script src="../../assets/feedback-config.js" defer></script><script src="theme-switcher.js" defer></script><script src="fb-dock.js"></script><script src="../../assets/feedback.js" data-round="r28" defer></script>
+</body></html>
