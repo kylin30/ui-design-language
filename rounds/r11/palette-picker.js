@@ -23,9 +23,9 @@
     fb.classList.remove('uifb-collapsed');try{localStorage.setItem('uifb-open','1');}catch(e){}
     var ta=fb.querySelector('textarea'),rest=ta.value.replace(/\[(选定|当前)配色: [a-z]+\]\s*/g,'');
     ta.value=tagOf(id)+' '+p.name+'\n'+rest;ta.dispatchEvent(new Event('input',{bubbles:true}));
-    var h=fb.querySelector('.uifb-hint');if(h){h.className='uifb-hint';h.textContent='已填好「'+p.name+'」。再点一个分数，提交即可（备注里可以补一句理由）。';}
+    var h=fb.querySelector('.uifb-hint');if(h){h.className='uifb-hint';h.textContent='已填好「'+p.name+'」。再拖动滑块打分，提交即可（备注里可以补一句理由）。';}
     fb.classList.add('pp-flash');setTimeout(function(){fb.classList.remove('pp-flash');},1300);
-    var sc=fb.querySelector('.uifb-scores button');if(sc)sc.focus();if(box)box.classList.remove('open');}
+    var sc=fb.querySelector('.uifb-range');if(sc)sc.focus();if(box)box.classList.remove('open');}
   window.UIDLPicker={set:set,chooseDefault:chooseDefault,list:PS};
   // 每次提交都附上当前配色（若备注里没有选定标签），方便读取
   document.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('.uifb-submit');if(!b)return;
