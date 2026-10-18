@@ -1,18 +1,37 @@
 [
   {
+    "id": "r29",
+    "name": "面板",
+    "title": "Round 29 · 面板",
+    "version": "v31.0",
+    "date": "2026-10-19",
+    "status": "待评分",
+    "primary": "spec",
+    "spec": "rounds/r29/spec.html",
+    "demo": "rounds/r29/demo-analytics.html",
+    "demos": "rounds/r29/demos.html",
+    "screenshot": "rounds/r29/screenshot.png",
+    "tokens": "rounds/r29/app.css",
+    "summary": "R28 得 65 分（目前最高），批注「没有动效和面板组件，单纯的线条分割阅读还是很吃力。」（在 demo-analytics.html 提交）。R29 保留 R28 的低噪音内容（13px 正文、单行 40、状态只给图标、控件全平、鸢尾、Geist 数字、无衬线），只改两件事。先研究：22 张卡片式后台 / 设计系统页面（Vercel、Stripe、PostHog、Linear、Supabase、shadcn、Tremor、Catalyst；Ant Pro、Arco Pro 作反例，截图仅本地研究、不发布），用无头浏览器读出画布色、卡片圆角 / 边框 / 投影 / 间距，并读取 Linear、Vercel Geist、shadcn / Radix、Raycast、Ant、Arco、IBM Carbon、Fluent 2 的动效时长和曲线。面板：画布 #F2F2F6（比白卡片深 ΔL*≈4），内容全部进白卡片（1px #E6E6EC、圆角 10、几乎看不见的 1px 投影、卡间 16），卡头一行（标题 + 灰说明 + 右侧操作），一张卡讲一件事、卡里不套卡；看板指标格就是图表页签（Stripe 式选中描边），图表卡先给结论数字。动效：悬停 100ms、页签下划线 / 分段底块 160ms 滑动、分组展开收起 240ms、抽屉 280 / 240ms、只在真等待时出现的骨架、卡片错开 35ms 入场、折线画出 / 柱子长出 / 数字滚动（只播一次），切换数据时只让变化的区域淡入；系统开启「减少动态效果」时全部直接显示终态。6 个演示全部改为卡片分组，数据看板和内容审核复核最多；深化阶段做卡片页像素研究、每页 7 轮并排复核、动效逐帧检查、对 R28 的眯眼 / 噪音对比（首屏贯穿线条明显减少）。规范页新增面板规则和动效规则 M1–M6，各配正确 / 错误示例，动效示例可在页内重放。",
+    "score100": null,
+    "note": ""
+  },
+  {
     "id": "r28",
     "name": "临摹",
     "title": "Round 28 · 临摹",
     "version": "v30.0",
     "date": "2026-10-18",
-    "status": "待评分",
+    "status": "已评分",
     "primary": "spec",
     "spec": "rounds/r28/spec.html",
     "demo": "rounds/r28/demo.html",
     "demos": "rounds/r28/demos.html",
     "screenshot": "rounds/r28/screenshot.png",
     "tokens": "rounds/r28/app.css",
-    "summary": "R27 得 55 分（R26 58），批注「多参考下案例再做，不要急着交差。」（在 demo-content.html 提交），这是 R21 之后第二次说急。R28 先研究、后设计：收集 43 张已上线后台 / SaaS 产品的公开截图（Linear、Stripe、Vercel、Attio、Notion、GitHub、Sentry、PostHog、Plain、Intercom、飞书等，仅本地研究，不发布），逐张记下为什么干净、实测字号 / 灰阶 / 行高 / 线色 / 圆角（cases.md）；再把 Linear 客户页、Stripe 发票列表、Attio 人员表、Sentry 问题流、Plain 工单三栏、Vercel Observability 共 6 张逐像素复刻成 HTML 并与截图做差，直到误差收敛（每类演示至少一张）。结论：R20–R27 的问题不在颜色，而在页面骨架——灰画布上浮卡片（Ant Pro 式）、两三行的列表行、字号偏大、彩色状态文字、分组弱、属性铺成指标卡。R28 按测量重写唯一一份 app.css：浅灰外框里一整块白面板，区域之间只用 1px 线；13px 正文 / 12px 标签 / 14px 顶栏；列表行 40、表格行 36、单行为主；长列表用色带分组、记录页用小标签 + 线；状态颜色只给 14px 图标；记录页用属性行；看板用统计条。6 个演示各对应一个参考模式（Linear 我的事项、Stripe 发票、Compound / Vercel 看板、Sentry 问题流、Linear 客户页 + Attio、Intercom 收件箱 + Plain），逐页与参考并排复核：初版 4 轮，深化阶段每页再 3–5 轮（内容审核 5 轮、运营待办 4 轮），补上真实数据密度（每小时 GMV 7×24 点、20 行订单 + 详情抽屉、10 条审核各有独立详情、今天已办 / 已恢复分组），最后做模糊测试、对 R27 的噪音计数和深色检查。规范页以案例结论开头，规则 R1–R13 各配正确 / 错误示例（新增：完成即退场、图表从 0 起 3 个刻度、高频操作写出快捷键、选中谁详情就是谁）。"
+    "summary": "R27 得 55 分（R26 58），批注「多参考下案例再做，不要急着交差。」（在 demo-content.html 提交），这是 R21 之后第二次说急。R28 先研究、后设计：收集 43 张已上线后台 / SaaS 产品的公开截图（Linear、Stripe、Vercel、Attio、Notion、GitHub、Sentry、PostHog、Plain、Intercom、飞书等，仅本地研究，不发布），逐张记下为什么干净、实测字号 / 灰阶 / 行高 / 线色 / 圆角（cases.md）；再把 Linear 客户页、Stripe 发票列表、Attio 人员表、Sentry 问题流、Plain 工单三栏、Vercel Observability 共 6 张逐像素复刻成 HTML 并与截图做差，直到误差收敛（每类演示至少一张）。结论：R20–R27 的问题不在颜色，而在页面骨架——灰画布上浮卡片（Ant Pro 式）、两三行的列表行、字号偏大、彩色状态文字、分组弱、属性铺成指标卡。R28 按测量重写唯一一份 app.css：浅灰外框里一整块白面板，区域之间只用 1px 线；13px 正文 / 12px 标签 / 14px 顶栏；列表行 40、表格行 36、单行为主；长列表用色带分组、记录页用小标签 + 线；状态颜色只给 14px 图标；记录页用属性行；看板用统计条。6 个演示各对应一个参考模式（Linear 我的事项、Stripe 发票、Compound / Vercel 看板、Sentry 问题流、Linear 客户页 + Attio、Intercom 收件箱 + Plain），逐页与参考并排复核：初版 4 轮，深化阶段每页再 3–5 轮（内容审核 5 轮、运营待办 4 轮），补上真实数据密度（每小时 GMV 7×24 点、20 行订单 + 详情抽屉、10 条审核各有独立详情、今天已办 / 已恢复分组），最后做模糊测试、对 R27 的噪音计数和深色检查。规范页以案例结论开头，规则 R1–R13 各配正确 / 错误示例（新增：完成即退场、图表从 0 起 3 个刻度、高频操作写出快捷键、选中谁详情就是谁）。",
+    "score100": 65,
+    "note": "没有动效和面板组件，单纯的线条分割阅读还是很吃力。（在 demo-analytics.html 提交）"
   },
   {
     "id": "r27",
