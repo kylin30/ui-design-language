@@ -1,11 +1,28 @@
 [
   {
+    "id": "r31",
+    "name": "减线",
+    "title": "Round 31 · 减线",
+    "version": "v33.0",
+    "date": "2026-10-20",
+    "status": "待评分",
+    "primary": "spec",
+    "spec": "rounds/r31/spec.html",
+    "demo": "rounds/r31/demo.html",
+    "demos": "rounds/r31/demos.html",
+    "screenshot": "rounds/r31/screenshot.png",
+    "tokens": "rounds/r31/STYLE.md",
+    "summary": "沿 R30 方向，按 Refactoring UI 十条 + Linear/Stripe/Vercel/Attio/GitHub 实测：卡片描边改环+投影，分隔线减半（六页 34/70/49/35/27/39 → 17/38/11/20/12/20），灰阶 11 级、文字三级灰，全部主题 AA 对比度失败归零，间距收成 4 的倍数，属性行内联，主色阶替代 color-mix，补齐空状态与清除筛选。",
+    "score100": null,
+    "note": ""
+  },
+  {
     "id": "r30",
     "name": "收敛",
     "title": "Round 30 · 收敛",
     "version": "v32.0",
     "date": "2026-10-20",
-    "status": "待评分",
+    "status": "已评分",
     "primary": "spec",
     "spec": "rounds/r30/spec.html",
     "demo": "rounds/r30/demo.html",
@@ -13,7 +30,7 @@
     "screenshot": "rounds/r30/screenshot.png",
     "tokens": "rounds/r30/app.css",
     "summary": "R29 在运营待办（demo.html）得 60 分（R28 65），无批注。R30 先诚实诊断：把 r28 / r29 六页同状态并排截图并用脚本量化，结论是 R29 把一个对象拆成了几张卡（运营待办的一条任务被拆成 3 张卡，操作条挪到中间；客户 7 张、审核 8 张），每条灰缝是「描边 + 灰带 + 描边」，边反而更多；间距只有 16 一档，分不出组；列表组头从贯穿色带变成内缩小药丸；画布 #F2F2F6 露出 10–14% 屏幕，整页发灰；订单页指标格挤掉 4 行；每次打开都有骨架 + 卡片错开入场 + 滚数，约 1 秒后才静止。R29 的看板指标格页签、图表卡、抽屉、折叠、页签滑块、切换淡入是对的，保留。再补案例（Linear 当前版、Plain、Attio、Catalyst、shadcn sidebar-inset / dashboard-01、Tremor、GitHub 议题，截图仅本地研究）和 10-19 灵感记录：外壳是画布 + 嵌入面板，记录页是一块面 + 分区，只有同类并列的东西才是卡。R30 规则：一个对象 = 一块面（标题、属性、明细、动态是面内分区：小标题 + 内缩分隔线 + 间距，操作条贴底）；同类并列才用卡（看板、订单指标格）；间距三级 卡内 20 / 卡间 12 / 区块 32；组头恢复贯穿色带；画布提亮到 #F5F5F7（露出 7–8%）；订单紧凑指标格（首屏 17 行）；首屏不表演——本地数据页面不出骨架、不做入场，只有看板卡壳先行、内容区骨架。可见的面：运营待办 4→2、运维 5→2、客户 7→2、审核 8→3。每页 6 轮复核（含星蓝、1280、其余主题、减少动态效果、2 倍局部、交互状态），发现并修掉星蓝画布被覆盖的 bug。规范页以诊断开头，R1–R11 / M1–M7 各配正确 / 错误示例（多数错误示例就是 R29 的做法），并排对照只用本项目自己的渲染。",
-    "score100": null,
+    "score100": 65,
     "note": ""
   },
   {
