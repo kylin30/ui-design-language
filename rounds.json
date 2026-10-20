@@ -1,11 +1,28 @@
 [
   {
+    "id": "r32",
+    "name": "质感",
+    "title": "Round 32 · 质感",
+    "version": "v34.0",
+    "date": "2026-10-21",
+    "status": "待评分",
+    "primary": "spec",
+    "spec": "rounds/r32/spec.html",
+    "demo": "rounds/r32/demo-analytics.html",
+    "demos": "rounds/r32/demos.html",
+    "screenshot": "rounds/r32/screenshot.png",
+    "tokens": "rounds/r32/STYLE.md",
+    "summary": "R28/R30/R31 连续 65 分，不再做减法，补质感五处：24px 页头 + 副行（客户记录头进页头）；关键数字 32/28/24 显示级 + 涨跌小标签；图表平滑曲线、渐变面积、点状网格、峰值与端点、多值提示、迷你走势、堆叠条；主色只落在当前页 / 选中 / 主按钮 / 主数据，导航图标 16px；按下回弹、焦点双环、指标切换重画折线、行操作悬停出现。线条不增加，7 主题 AA 0 处不合格，订单首屏仍 17 行。",
+    "score100": null,
+    "note": ""
+  },
+  {
     "id": "r31",
     "name": "减线",
     "title": "Round 31 · 减线",
     "version": "v33.0",
     "date": "2026-10-20",
-    "status": "待评分",
+    "status": "已评分",
     "primary": "spec",
     "spec": "rounds/r31/spec.html",
     "demo": "rounds/r31/demo.html",
@@ -13,7 +30,7 @@
     "screenshot": "rounds/r31/screenshot.png",
     "tokens": "rounds/r31/STYLE.md",
     "summary": "沿 R30 方向，按 Refactoring UI 十条 + Linear/Stripe/Vercel/Attio/GitHub 实测：卡片描边改环+投影，分隔线减半（六页 34/70/49/35/27/39 → 17/38/11/20/12/20），灰阶 11 级、文字三级灰，全部主题 AA 对比度失败归零，间距收成 4 的倍数，属性行内联，主色阶替代 color-mix，补齐空状态与清除筛选。",
-    "score100": null,
+    "score100": 65,
     "note": ""
   },
   {
