@@ -1,0 +1,77 @@
+{
+  "neutral": {
+    "50": "#F9FAFC",
+    "100": "#F5F6FA",
+    "150": "#F1F2F7",
+    "200": "#E6EBF1",
+    "300": "#D6D9E5",
+    "400": "#A9AEBD",
+    "500": "#868A99",
+    "600": "#646A7D",
+    "700": "#535A6E",
+    "800": "#2C3248",
+    "900": "#131A36",
+    "950": "#0E1428"
+  },
+  "primary": {
+    "navy": "#131A36",
+    "text": "#0E1428"
+  },
+  "blue": {
+    "text": "#3243AB",
+    "bg": "#E6ECFF",
+    "chart": "#8298FB"
+  },
+  "red": {
+    "solid": "#E5494D",
+    "text": "#B63037",
+    "bg": "#FCEAEA"
+  },
+  "layers": {
+    "canvas": "#E6EBF1",
+    "panel": "#F5F6FA",
+    "inner": "#FFFFFF",
+    "dark": {
+      "canvas": "#0B1022",
+      "panel": "#131A36",
+      "inner": "#1A2242",
+      "text": "#EEF1F8",
+      "secondary": "#B4B9C9",
+      "tertiary": "#9AA0B4",
+      "primary": "#8298FB"
+    }
+  },
+  "status": {
+    "成功": {
+      "solid": "#2F8F5B",
+      "text": "#1E6B45",
+      "bg": "#E3F4EA",
+      "dark": "#6FD39C"
+    },
+    "警告": {
+      "solid": "#E0A530",
+      "text": "#815504",
+      "bg": "#FBF0D8",
+      "dark": "#F2C46B"
+    },
+    "危险": {
+      "solid": "#E5494D",
+      "text": "#B63037",
+      "bg": "#FCEAEA",
+      "dark": "#FF7A7A"
+    },
+    "信息": {
+      "solid": "#3243AB",
+      "text": "#3243AB",
+      "bg": "#E6ECFF",
+      "dark": "#9FB0FF"
+    },
+    "中性": {
+      "solid": "#646A7D",
+      "text": "#535A6E",
+      "bg": "#F1F2F7",
+      "dark": "#A9AEBD"
+    }
+  },
+  "source": "取样自 refs/r39-nizam（私有）"
+}
