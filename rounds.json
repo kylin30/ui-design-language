@@ -1,11 +1,28 @@
 [
   {
+    "id": "r34",
+    "name": "面板",
+    "title": "Round 34 · 面板",
+    "version": "v36.0",
+    "date": "2026-10-21",
+    "status": "待评分",
+    "primary": "spec",
+    "spec": "rounds/r34/spec.html",
+    "demo": "rounds/r34/demo-content.html",
+    "demos": "rounds/r34/demos.html",
+    "screenshot": "rounds/r34/screenshot.png",
+    "tokens": "rounds/r34/STYLE.md",
+    "summary": "R33「一面」去掉面内卡片后得 60（同 R28 批注：线条分割阅读吃力）。R34 从 R32 出发：每组一块真实面板；P1 面板统一 12 圆角、无描边、柔和三层投影；P2 面板标题 13px/600、标题行 52px、与内容同一左线；P3 指标格悬停升一级、选中主色环；P4 X 案例只取统一左线、克制用色、指标样式。保留 R32 页头、显示级数字、图表、手感。7 主题 AA 0 处不合格，订单首屏 17 行。",
+    "score100": null,
+    "note": ""
+  },
+  {
     "id": "r33",
     "name": "一面",
     "title": "Round 33 · 一面",
     "version": "v35.0",
     "date": "2026-10-21",
-    "status": "待评分",
+    "status": "已评分",
     "primary": "spec",
     "spec": "rounds/r33/spec.html",
     "demo": "rounds/r33/demo-analytics.html",
@@ -13,8 +30,8 @@
     "screenshot": "rounds/r33/screenshot.png",
     "tokens": "rounds/r33/STYLE.md",
     "summary": "重新出发：先在 X 上看约 30 位设计师的案例（Catalyst、Linear 新版、Practical UI、Geist 等），差距在构图。S1 一面：侧栏落在底色上，内容区是一块白色内嵌面（圆角 12、细环）；S2 面内去卡壳，区块靠标题 + 32px 留白；S3 分栏改一条细线；S4 单一左线（页标题、指标、表头、列表同线）；S5 指标去卡，只留顶线，选中 2px 主色。R32 质感五条保留；卡片环 40→24，7 主题 AA 0 处不合格，订单首屏 17 行。",
-    "score100": null,
-    "note": ""
+    "score100": 60,
+    "note": "（无批注，在 demo-content.html 提交）"
   },
   {
     "id": "r32",
