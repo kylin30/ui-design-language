@@ -571,5 +571,13 @@
     "score": null,
     "note": "待评分",
     "path": "rounds/r39/"
+  },
+  {
+    "id": "r40",
+    "name": "配色",
+    "version": "v42.0",
+    "score": null,
+    "note": "待评分",
+    "path": "rounds/r40/"
   }
 ]
