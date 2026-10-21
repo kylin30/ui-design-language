@@ -592,8 +592,16 @@
     "id": "r42",
     "name": "自有",
     "version": "v44.0",
+    "score": 60,
+    "note": "无批注",
+    "path": "rounds/r42/"
+  },
+  {
+    "id": "r43",
+    "name": "精修",
+    "version": "v45.0",
     "score": null,
     "note": "待评分",
-    "path": "rounds/r42/"
+    "path": "rounds/r43/"
   }
 ]
