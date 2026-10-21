@@ -563,5 +563,13 @@
     "score": null,
     "note": "待评分",
     "path": "rounds/r38/"
+  },
+  {
+    "id": "r39",
+    "name": "层次",
+    "version": "v41.0",
+    "score": null,
+    "note": "待评分",
+    "path": "rounds/r39/"
   }
 ]
