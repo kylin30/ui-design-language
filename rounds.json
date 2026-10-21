@@ -1,11 +1,28 @@
 [
   {
+    "id": "r35",
+    "name": "成品",
+    "title": "Round 35 · 成品",
+    "version": "v37.0",
+    "date": "2026-10-21",
+    "status": "待评分",
+    "primary": "spec",
+    "spec": "rounds/r35/spec.html",
+    "demo": "rounds/r35/demo-analytics.html",
+    "demos": "rounds/r35/demos.html",
+    "screenshot": "rounds/r35/screenshot.png",
+    "tokens": "rounds/r35/STYLE.md",
+    "summary": "方向锁定 R34（浅底上的面板、一个对象一块面、动效克制、扁平按钮），不换风格。对照 Mercury 账户页、Linear 仪表盘面板、Catalyst 首页逐项测量，补齐 14 项里的 11 项：F1 正文 14；F2 显示数字 500 + 比例数字、表格等宽；F3 面板标题 14/600、标题行统一 48；F4 指标标签 13、格内 20/24；F5 图标整套换 Lucide 16；F6 页头按钮 32/14；F7 非紧凑表格行 44；F8 头像按名字取 6 种浅色。线条、面板数与 R34 持平；7 主题 AA 0 处不合格；订单首屏 17 行。 深化：卡头图标格、托盘底栏（时间戳 + 操作收进灰底）、显示数字 400（截图对比选定）、默认画布加深到 #EDEDF1、当前页导航白色药丸、工作区两行；每小时 GMV 改为工作日 / 周末两种曲线 + 噪声 + 直播峰值。",
+    "score100": null,
+    "note": ""
+  },
+  {
     "id": "r34",
     "name": "面板",
     "title": "Round 34 · 面板",
     "version": "v36.0",
     "date": "2026-10-21",
-    "status": "待评分",
+    "status": "已评分",
     "primary": "spec",
     "spec": "rounds/r34/spec.html",
     "demo": "rounds/r34/demo-content.html",
@@ -13,8 +30,8 @@
     "screenshot": "rounds/r34/screenshot.png",
     "tokens": "rounds/r34/STYLE.md",
     "summary": "R33「一面」去掉面内卡片后得 60（同 R28 批注：线条分割阅读吃力）。R34 从 R32 出发：每组一块真实面板；P1 面板统一 12 圆角、无描边、柔和三层投影；P2 面板标题 13px/600、标题行 52px、与内容同一左线；P3 指标格悬停升一级、选中主色环；P4 X 案例只取统一左线、克制用色、指标样式。保留 R32 页头、显示级数字、图表、手感。7 主题 AA 0 处不合格，订单首屏 17 行。",
-    "score100": null,
-    "note": ""
+    "score100": 65,
+    "note": "几乎没什么突破，来回跳。"
   },
   {
     "id": "r33",
