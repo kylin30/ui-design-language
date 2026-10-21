@@ -547,5 +547,13 @@
     "score": null,
     "note": "待评分",
     "path": "rounds/r36/"
+  },
+  {
+    "id": "r37",
+    "name": "黑金",
+    "version": "v39.0",
+    "score": null,
+    "note": "待评分",
+    "path": "rounds/r37/"
   }
 ]
