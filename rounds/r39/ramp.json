@@ -1,0 +1,100 @@
+{
+  "neutral": {
+    "50": "#FEFCF8",
+    "100": "#F8F5EF",
+    "150": "#F2EEE6",
+    "200": "#E9E5DC",
+    "300": "#D8D3C8",
+    "400": "#B6B0A4",
+    "500": "#999385",
+    "600": "#6D675B",
+    "700": "#555045",
+    "800": "#39352D",
+    "900": "#27241E",
+    "950": "#1C1A14"
+  },
+  "gold": {
+    "gold-50": "#FBF5E2",
+    "gold-100": "#F6EBC8",
+    "gold-200": "#EED89A",
+    "gold-300": "#E3C262",
+    "gold-500 (填充/焦点环)": "#D9AE33",
+    "gold-chart": "#C99A1E",
+    "gold-hi (深色主色)": "#E6BE4F",
+    "gold-deep (浅色链接文字)": "#7E6110",
+    "gold-700": "#6E5410"
+  },
+  "red": {
+    "red (浅色)": "#B81D2B",
+    "red-700": "#A01A26",
+    "red (深色)": "#FF6B6B",
+    "red-text (深色)": "#FF7A7A"
+  },
+  "black": "#1C1A14",
+  "white": "#FEFCF8",
+  "status": {
+    "success": {
+      "solid": "#4D7A3A",
+      "on": "#FFFFFF",
+      "text": "#3F6630",
+      "bg": "#ECEFE5",
+      "bd": "#C0CEB6",
+      "d": "#9CC47F",
+      "dbg": "#373A2C"
+    },
+    "warning": {
+      "solid": "#E2771B",
+      "on": "#1C1A14",
+      "text": "#9A4A08",
+      "bg": "#FBEFE2",
+      "bd": "#F4CDAB",
+      "d": "#F2A055",
+      "dbg": "#433526"
+    },
+    "danger": {
+      "solid": "#B81D2B",
+      "on": "#FFFFFF",
+      "text": "#A01A26",
+      "bg": "#F7E6E4",
+      "bd": "#E6AEB0",
+      "d": "#FF7A7A",
+      "dbg": "#45302B"
+    },
+    "info": {
+      "solid": "#4F6D85",
+      "on": "#FFFFFF",
+      "text": "#405A70",
+      "bg": "#ECEEED",
+      "bd": "#C1CAD0",
+      "d": "#9DB8CF",
+      "dbg": "#383937"
+    },
+    "neutral": {
+      "solid": "#6D675B",
+      "on": "#FFFFFF",
+      "text": "#555045",
+      "bg": "#F0EDE8",
+      "bd": "#CBC8C1",
+      "d": "#B6B0A4",
+      "dbg": "#3B3831"
+    }
+  },
+  "layers": {
+    "canvas": "#E9E5DC",
+    "panel": "#F8F5EF",
+    "inner": "#FEFCF8",
+    "dark": {
+      "canvas": "#1C1A14",
+      "panel": "#27241E",
+      "inner": "#2D2A23",
+      "text-tertiary": "#A6A093"
+    },
+    "radius": {
+      "panel": 24,
+      "inner": 16,
+      "kpi": 20,
+      "alert": 14,
+      "pill": 999
+    }
+  }
+}
