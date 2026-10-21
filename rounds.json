@@ -539,5 +539,13 @@
     "demo": "rounds/r1/demo.html",
     "spec": "rounds/r1/spec.html",
     "tokens": "rounds/r1/reference-tokens.css"
+  },
+  {
+    "id": "r36",
+    "name": "金调",
+    "version": "v38.0",
+    "score": null,
+    "note": "待评分",
+    "path": "rounds/r36/"
   }
 ]
