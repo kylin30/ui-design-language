@@ -1,5 +1,22 @@
 [
   {
+    "id": "r33",
+    "name": "一面",
+    "title": "Round 33 · 一面",
+    "version": "v35.0",
+    "date": "2026-10-21",
+    "status": "待评分",
+    "primary": "spec",
+    "spec": "rounds/r33/spec.html",
+    "demo": "rounds/r33/demo-analytics.html",
+    "demos": "rounds/r33/demos.html",
+    "screenshot": "rounds/r33/screenshot.png",
+    "tokens": "rounds/r33/STYLE.md",
+    "summary": "重新出发：先在 X 上看约 30 位设计师的案例（Catalyst、Linear 新版、Practical UI、Geist 等），差距在构图。S1 一面：侧栏落在底色上，内容区是一块白色内嵌面（圆角 12、细环）；S2 面内去卡壳，区块靠标题 + 32px 留白；S3 分栏改一条细线；S4 单一左线（页标题、指标、表头、列表同线）；S5 指标去卡，只留顶线，选中 2px 主色。R32 质感五条保留；卡片环 40→24，7 主题 AA 0 处不合格，订单首屏 17 行。",
+    "score100": null,
+    "note": ""
+  },
+  {
     "id": "r32",
     "name": "质感",
     "title": "Round 32 · 质感",
