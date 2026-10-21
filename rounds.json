@@ -587,5 +587,13 @@
     "score": null,
     "note": "待评分",
     "path": "rounds/r41/"
+  },
+  {
+    "id": "r42",
+    "name": "自有",
+    "version": "v44.0",
+    "score": null,
+    "note": "待评分",
+    "path": "rounds/r42/"
   }
 ]
