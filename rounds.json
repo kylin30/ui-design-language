@@ -555,5 +555,13 @@
     "score": null,
     "note": "待评分",
     "path": "rounds/r37/"
+  },
+  {
+    "id": "r38",
+    "name": "状态",
+    "version": "v40.0",
+    "score": null,
+    "note": "待评分",
+    "path": "rounds/r38/"
   }
 ]
