@@ -348,3 +348,4 @@
 | r54 | 对齐 | v56.0 | 盲评 81.5 | 对齐网格主下注：主栏 --align-x 24；图标中线 Δ≤0.5；筛条 32；金额列 ≥9.5ch 右齐；删旧 1100；enter-y 6px / stagger 56ms / 选中条 160ms；继承 R53 断点 / R52 数字 / R51 空态 / CVD / 禁紫；lint 0 |
 | r55 | 选中 | v57.0 | 盲评 82.0 | 选中条挂真 DOM：`.nav a.on::before` sel-bar 160ms；KPI/main stagger 统一 56ms×n（清 40ms）；继承 R54 对齐网格 / 断点 / 数字 / 空态 / CVD / 禁紫；lint 0 |
 | r56 | 字阶 | v58.0 | 盲评 83.0 | KPI ≥1025 升 32/40·500；选中条 top/bottom 6（活高≈20）；ccy/frac 12/400 让位；集合加 32/40lh；继承 R55 选中条/stagger / R54 对齐 / 断点 / CVD / 禁紫；lint 0 |
+| r57 | 令牌 | v59.0 | 盲评 83.5 | 字号/行高 CSS 变量 --fs-12…40 / --lh-16…48；KPI/金额/标题走 var；≥1025 32/40、≤1024 28/36；KPI padding s2×s3；继承 R56 字阶与选中条；lint 0 |
