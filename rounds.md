@@ -341,3 +341,4 @@
 | r47 | 对比 | v49.0 | 盲评 71.5 | 暗色 c4–surface ΔE 主下注：暗 --c4 #5C6169（surface ΔE≈32.4，≥30）；浅 --c4 #545C6A（protan c3–c4≈22.4）；c3/c4 色相 200–230° 禁紫；CVD 可辨；继承填充状态/数字体系/宽轨 20/28·400·tabular/g-wide+sticky rail/动效；lint 0 |
 | r48 | 节奏 | v50.0 | 盲评 73.0 | 暗 c3–c4 缝主下注：暗 --c3 #6686B0（c3–c4≈24.9，c4–surface≈32.4≥30）；增量 tnum+4.5ch；柱升/分布条/spark 动效；继承填充状态/系列方向/宽轨 20/28·400·tabular/g-wide+sticky rail/reduced-motion；lint 0 |
 | r49 | 辨距 | v51.0 | 盲评 74.0 | 暗 c2–c3 deutan 主下注：暗 --c2 #64E0F2（c2–c3 deutan≈27.2，≥26.4）；保持 c3 #6686B0 / c4 #5C6169（c3–c4≈24.9、c4–surface≈32.4）；risk 实线/exc 虚线阶梯；继承填充状态/数字/宽轨/动效/禁紫；lint 0 |
+| r50 | 信号 | v52.0 | 盲评 75.0 | 状态标识可见步：五态 chip 均带图标、高 24；临期实线琥珀 / 异常虚线红 + 图标加重；图例 14×14 镜像边；行色条实/虚；空状态 routine/risk/exc；面板头 52；继承暗 c2–c3 deutan / 数字 / 宽轨 / 动效 / 禁紫；lint 0 |
