@@ -1,5 +1,18 @@
 [
   {
+    "id": "r84",
+    "title": "Round 84 · 列稳",
+    "version": "v86.0",
+    "date": "2026-10-24",
+    "status": "已发布",
+    "summary": "soft 金额跟列；hover 墨线下划；宽屏列加宽；索引 stt 去壳。新分尺盲评 84.0（> r83 82.0）。",
+    "screenshot": "rounds/r84/screenshot.png",
+    "demo": "rounds/r84/demo-ops.html",
+    "spec": "rounds/r84/spec.html",
+    "score": 84.0,
+    "note": "新分尺；过线发布"
+  },
+  {
     "id": "r83",
     "title": "Round 83 · 金列",
     "version": "v85.0",
@@ -9,7 +22,7 @@
     "screenshot": "rounds/r83/screenshot.png",
     "demo": "rounds/r83/demo-ops.html",
     "spec": "rounds/r83/spec.html",
-    "score": 82.0,
+    "score": 82,
     "note": "新分尺；过线发布"
   },
   {
@@ -48,7 +61,7 @@
     "screenshot": "rounds/r80/screenshot.png",
     "demo": "rounds/r80/demo-ops.html",
     "spec": "rounds/r80/spec.html",
-    "score": 79.0,
+    "score": 79,
     "note": "新分尺；过线发布"
   },
   {
@@ -113,7 +126,7 @@
     "screenshot": "rounds/r75/screenshot.png",
     "demo": "rounds/r75/demo-ops.html",
     "spec": "rounds/r75/spec.html",
-    "score": 74.0,
+    "score": 74,
     "note": "新分尺；过线发布"
   },
   {
@@ -126,7 +139,7 @@
     "screenshot": "rounds/r74/screenshot.png",
     "demo": "rounds/r74/demo-ops.html",
     "spec": "rounds/r74/spec.html",
-    "score": 73.0,
+    "score": 73,
     "note": "新分尺；过线发布"
   },
   {
@@ -146,7 +159,7 @@
     "id": "r66",
     "name": "宽疏",
     "version": "v68.0",
-    "score": 89.0,
+    "score": 89,
     "note": "盲评 89.0（> r65 88.5）",
     "path": "rounds/r66/"
   },
@@ -162,7 +175,7 @@
     "id": "r64",
     "name": "辨题",
     "version": "v66.0",
-    "score": 88.0,
+    "score": 88,
     "note": "盲评 88.0（> r63 87.5）",
     "path": "rounds/r64/"
   },
@@ -178,7 +191,7 @@
     "id": "r62",
     "name": "适屏",
     "version": "v64.0",
-    "score": 87.0,
+    "score": 87,
     "note": "盲评 87.0（> r61 86.0）",
     "path": "rounds/r62/"
   },
@@ -186,7 +199,7 @@
     "id": "r61",
     "name": "疏密",
     "version": "v63.0",
-    "score": 86.0,
+    "score": 86,
     "note": "盲评 86.0（> r60 85.0）",
     "path": "rounds/r61/"
   },
@@ -194,7 +207,7 @@
     "id": "r60",
     "name": "跟态",
     "version": "v62.0",
-    "score": 85.0,
+    "score": 85,
     "note": "盲评 85.0（> r59 84.5）",
     "path": "rounds/r60/"
   },
@@ -210,7 +223,7 @@
     "id": "r58",
     "name": "态重",
     "version": "v60.0",
-    "score": 84.0,
+    "score": 84,
     "note": "盲评 84.0（> r57 83.5）",
     "path": "rounds/r58/"
   },
@@ -226,7 +239,7 @@
     "id": "r56",
     "name": "字阶",
     "version": "v58.0",
-    "score": 83.0,
+    "score": 83,
     "note": "盲评 83.0（> r55 82.0）",
     "path": "rounds/r56/"
   },
@@ -234,7 +247,7 @@
     "id": "r55",
     "name": "选中",
     "version": "v57.0",
-    "score": 82.0,
+    "score": 82,
     "note": "盲评 82.0（> r54 81.5）",
     "path": "rounds/r55/"
   },
@@ -250,7 +263,7 @@
     "id": "r53",
     "name": "适应",
     "version": "v55.0",
-    "score": 79.0,
+    "score": 79,
     "note": "盲评 79.0（> r52 77.5）",
     "path": "rounds/r53/"
   },
@@ -266,7 +279,7 @@
     "id": "r51",
     "name": "分型",
     "version": "v53.0",
-    "score": 76.0,
+    "score": 76,
     "note": "盲评 76.0（> r50 75.0）",
     "path": "rounds/r51/"
   },
@@ -274,7 +287,7 @@
     "id": "r50",
     "name": "信号",
     "version": "v52.0",
-    "score": 75.0,
+    "score": 75,
     "note": "盲评 75.0（> r49 74.0）",
     "path": "rounds/r50/"
   },
@@ -282,7 +295,7 @@
     "id": "r49",
     "name": "辨距",
     "version": "v51.0",
-    "score": 74.0,
+    "score": 74,
     "note": "盲评 74.0（> r48 73.0）",
     "path": "rounds/r49/"
   },
@@ -290,7 +303,7 @@
     "id": "r48",
     "name": "节奏",
     "version": "v50.0",
-    "score": 73.0,
+    "score": 73,
     "note": "盲评 73.0（> r47 71.5）",
     "path": "rounds/r48/"
   },
@@ -306,7 +319,7 @@
     "id": "r46",
     "name": "色系",
     "version": "v48.0",
-    "score": 70.0,
+    "score": 70,
     "note": "盲评 70.0（> r45 69.0；系列明度拉开色盲可辨 + 宽轨数字）",
     "path": "rounds/r46/"
   },
@@ -314,7 +327,7 @@
     "id": "r45",
     "name": "数字",
     "version": "v47.0",
-    "score": 69.0,
+    "score": 69,
     "note": "盲评 69.0（v1 68 → v2 69.0）",
     "path": "rounds/r45/"
   },
