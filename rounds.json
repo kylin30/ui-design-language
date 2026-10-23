@@ -1,5 +1,18 @@
 [
   {
+    "id": "r76",
+    "title": "Round 76 · 一焦",
+    "version": "v78.0",
+    "date": "2026-10-24",
+    "status": "已发布",
+    "summary": "选中后索引旁注化；订单 digest 主位表默认折；短报去图留趋势。新分尺盲评 75.5（> r75 74.0）。",
+    "screenshot": "rounds/r76/screenshot.png",
+    "demo": "rounds/r76/demo-ops.html",
+    "spec": "rounds/r76/spec.html",
+    "score": 75.5,
+    "note": "新分尺；过线发布"
+  },
+  {
     "id": "r75",
     "title": "Round 75 · 短续",
     "version": "v77.0",
