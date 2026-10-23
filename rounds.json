@@ -1,5 +1,18 @@
 [
   {
+    "id": "r82",
+    "title": "Round 82 · 悬明",
+    "version": "v84.0",
+    "date": "2026-10-24",
+    "status": "已发布",
+    "summary": "回链 hover 特异性+动效；soft 标题 13；digest 金额色阶。新分尺盲评 80.5（> r81 79.5）。",
+    "screenshot": "rounds/r82/screenshot.png",
+    "demo": "rounds/r82/demo-ops.html",
+    "spec": "rounds/r82/spec.html",
+    "score": 80.5,
+    "note": "新分尺；过线发布"
+  },
+  {
     "id": "r81",
     "title": "Round 81 · 热收",
     "version": "v83.0",
