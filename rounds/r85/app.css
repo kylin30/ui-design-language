@@ -1,0 +1,3230 @@
+/* Round 85「位收」v87.0 — 墨线加可见度 · 状态位收 · 筛选墨线+索引尺幅；继承 R71–84；token 见 STYLE.md */
+@font-face{font-family:"Geist Mono";src:url("fonts/geist-mono-latin-400-normal.woff2") format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:"Geist Mono";src:url("fonts/geist-mono-latin-500-normal.woff2") format("woff2");font-weight:500 600;font-display:swap}
+@font-face{font-family:"Geist Fig";src:url("fonts/geist-sans-latin-400-normal.woff2") format("woff2");font-weight:400;font-display:swap;unicode-range:U+0020,U+0024-0025,U+0028-0029,U+002B-002F,U+0030-003A,U+00A5,U+00B1,U+2212,U+FFE5}
+@font-face{font-family:"Geist Fig";src:url("fonts/geist-sans-latin-500-normal.woff2") format("woff2");font-weight:500;font-display:swap;unicode-range:U+0020,U+0024-0025,U+0028-0029,U+002B-002F,U+0030-003A,U+00A5,U+00B1,U+2212,U+FFE5}
+@font-face{font-family:"Geist Fig";src:url("fonts/geist-sans-latin-600-normal.woff2") format("woff2");font-weight:600;font-display:swap;unicode-range:U+0020,U+0024-0025,U+0028-0029,U+002B-002F,U+0030-003A,U+00A5,U+00B1,U+2212,U+FFE5}
+:root{
+  --fs-12:12px;--fs-13:13px;--fs-14:14px;--fs-15:15px;--fs-16:16px;--fs-20:20px;--fs-22:22px;--fs-28:28px;--fs-32:32px;--fs-40:40px;
+  --lh-16:16px;--lh-20:20px;--lh-22:22px;--lh-24:24px;--lh-28:28px;--lh-36:36px;--lh-40:40px;--lh-48:48px;
+
+ --s1:4px;--s2:8px;--s3:12px;--s4:16px;--s5:20px;--s6:24px;--s7:28px;--s8:32px;--s10:40px;--s12:48px;
+ --r1:4px;--r2:8px;--r4:16px;--rp:999px;
+ --font:"Geist Fig","PingFang SC","HarmonyOS Sans SC","Microsoft YaHei",system-ui,sans-serif;
+ --ease:cubic-bezier(.2,.6,.2,1);--d1:120ms;--d2:200ms;
+ --canvas:#E9ECF1;--surface:#FFFFFF;--sunken:#F5F7FA;--hover:#EDF0F4;--line:#E1E5EB;--border:#C9CFD8;
+ --tx1:#121826;--tx2:#465063;--tx3:#596274;--on:#FFFFFF;
+ --brand:#18203A;--brand-h:#2A3456;--brand-bg:#E6E9F2;--accent:#1F5FD1;--accent-bg:#E8EFFB;--danger:#C2312F;--danger-h:#A62724;
+ --ok:#18794E;--ok-bg:#E5F2EC;--ok-s:#23955F;
+ --warn:#8A5000;--warn-bg:#FAF1E2;--warn-s:#D98A0B;
+ --bad:#B02A28;--bad-bg:#FAE8E8;--bad-s:#D9403C;
+ --info:#2E5BD8;--info-bg:#E6EBFA;--info-s:#2E5BD8;
+ --neu:#465063;--neu-bg:#F1F2F4;--neu-s:#8A93A3;
+ --c1:#2E5BD8;--c2:#28CCD8;--c3:#5276A4;--c4:#545C6A;
+ --toast:#18203A;--toast-tx:#FFFFFF;
+ --e1:0 0 0 1px rgba(18,24,38,.08);
+ --e2:0 0 0 1px rgba(18,24,38,.08),0 8px 24px rgba(18,24,38,.16);
+ --focus:0 0 0 2px var(--surface),0 0 0 4px var(--brand);
+ color-scheme:light}
+[data-theme="dark"]{
+ --canvas:#0A0D13;--surface:#141922;--sunken:#191F2A;--hover:#1F2633;--line:#283041;--border:#39435A;
+ --tx1:#E8EBF2;--tx2:#A9B2C3;--tx3:#8B95A8;--on:#121826;
+ --brand:#E4E8F2;--brand-h:#FFFFFF;--brand-bg:#222A3F;--accent:#6B93F0;--accent-bg:#1A2744;--danger:#F2817D;--danger-h:#F5A09C;
+ --ok:#5CC994;--ok-bg:#132A1F;--ok-s:#5CC994;
+ --warn:#F0B455;--warn-bg:#2E2412;--warn-s:#F0B455;
+ --bad:#F2817D;--bad-bg:#351B1B;--bad-s:#F2817D;
+ --info:#7C9DF5;--info-bg:#1A2645;--info-s:#7C9DF5;
+ --neu:#A9B2C3;--neu-bg:#262B35;--neu-s:#6F7887;
+ --c1:#7C9DF5;--c2:#64E0F2;--c3:#6686B0;--c4:#5C6169;
+ --toast:#283041;--toast-tx:#E8EBF2;
+ --e1:0 0 0 1px rgba(255,255,255,.10);
+ --e2:0 0 0 1px rgba(255,255,255,.08),0 8px 24px rgba(0,0,0,.55);
+ color-scheme:dark}
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0}
+body{font:400 13px/20px var(--font);font-variant-numeric:tabular-nums;color:var(--tx1);background:var(--canvas);-webkit-font-smoothing:antialiased}
+h1,h2,h3,p{margin:0}
+a{color:var(--accent);text-decoration:none}
+button,input,select{font:inherit;color:inherit}
+.ic{width:16px;height:16px;flex:none;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.ic.sm{width:12px;height:12px}
+.ic.lg{width:20px;height:20px}
+.t-xs{font-size:12px;line-height:16px}.t-sm{font-size:13px;line-height:20px}.t-lg{font-size:16px;line-height:24px}
+.tx2{color:var(--tx2)}.tx3{color:var(--tx3)}.w5{font-weight:500}.w6{font-weight:600}
+.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+.r{text-align:right}
+.row{display:flex;align-items:center;gap:var(--s2)}
+.grow{flex:1;min-width:0}
+.ell{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+/* 布局 */
+.app{display:grid;grid-template-columns:240px minmax(0,1fr);min-height:100vh}
+.side{position:sticky;top:0;height:100vh;display:flex;flex-direction:column;gap:var(--s6);padding:var(--s5) var(--s4)}
+.brand{display:flex;align-items:center;gap:var(--s3);height:32px;padding:0 var(--s2);font-weight:600}
+.logo{width:24px;height:24px;border-radius:var(--r2);background:var(--brand);color:var(--on);display:grid;place-items:center}
+.logo .ic{width:16px;height:16px}
+.nav{display:flex;flex-direction:column;gap:var(--s1)}
+.nav-h{padding:0 var(--s2);margin-bottom:var(--s1);font-size:12px;line-height:16px;color:var(--tx3);font-weight:500}
+.nav a{display:flex;align-items:center;gap:var(--s3);height:32px;padding:0 var(--s2);border-radius:var(--r2);color:var(--tx2);font-weight:500;transition:background var(--d1) var(--ease),color var(--d1) var(--ease)}
+.nav a:hover{background:var(--hover);color:var(--tx1)}
+.nav a.on{background:var(--surface);color:var(--tx1);box-shadow:var(--e1)}
+.nav a.on .ic{color:var(--brand)}
+.nav .cnt{margin-left:auto;font-size:12px;line-height:16px;color:var(--tx3)}
+.side-foot{margin-top:auto;display:flex;align-items:center;gap:var(--s3);padding:0 var(--s2)}
+.main{min-width:0;padding:var(--s6) var(--s8) var(--s10)}
+.top{display:flex;align-items:center;gap:var(--s3);height:36px;margin-bottom:var(--s6)}
+.crumb{display:flex;align-items:center;gap:var(--s2);color:var(--tx3);font-size:13px;line-height:20px}
+.crumb b{color:var(--tx1);font-weight:500}
+.ph{display:flex;align-items:flex-end;gap:var(--s4);margin-bottom:var(--s6)}
+.ph h1{font-size:40px;line-height:48px;letter-spacing:-.01em;font-weight:600;text-wrap:balance}
+.ph p{margin-top:var(--s1);color:var(--tx2)}
+.ph .acts{margin-left:auto;display:flex;gap:var(--s2)}
+.stack{display:flex;flex-direction:column;gap:var(--s4)}
+.grid{display:grid;gap:var(--s4)}
+.g2{grid-template-columns:repeat(2,minmax(0,1fr))}.g3{grid-template-columns:repeat(3,minmax(0,1fr))}.g4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.g-main{grid-template-columns:minmax(0,1fr) 360px;align-items:start}
+.g-list{grid-template-columns:400px minmax(0,1fr);align-items:start}
+
+/* 面板 */
+.panel{background:var(--surface);border-radius:var(--r4);box-shadow:var(--e1);overflow:clip;min-width:0}
+.ph-h{display:flex;align-items:center;gap:var(--s2);height:48px;padding:0 var(--s4);border-bottom:1px solid var(--line)}
+.ph-h>.ic{color:var(--tx3)}
+.ph-h h2{font-size:14px;line-height:20px;font-weight:600}
+.ph-h .sub{color:var(--tx3);font-size:13px;line-height:20px}
+.ph-h .act{margin-left:auto}
+.pb{padding:var(--s4)}
+.pb.flush{padding:0}
+.tray{display:flex;align-items:center;gap:var(--s2);height:48px;padding:0 var(--s4);background:var(--sunken);border-top:1px solid var(--line);color:var(--tx2);font-size:13px;line-height:20px}
+.tray .act{margin-left:auto;display:flex;gap:var(--s2)}
+
+/* 按钮 */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:var(--s2);height:32px;padding:0 var(--s3);border-radius:var(--r2);border:1px solid transparent;background:transparent;font-size:14px;line-height:20px;font-weight:500;white-space:nowrap;cursor:pointer;transition:background var(--d1) var(--ease),border-color var(--d1) var(--ease),color var(--d1) var(--ease)}
+.btn:focus-visible,.inp:focus-visible,.sel:focus-visible,.seg button:focus-visible,.tabs a:focus-visible{outline:none;box-shadow:var(--focus)}
+.btn.s28{height:28px;font-size:13px;gap:var(--s1)}
+.btn.s36{height:36px;padding:0 var(--s4)}
+.btn.pri{background:var(--brand);color:var(--on)}
+.btn.pri:hover{background:var(--brand-h)}
+.btn.sec{background:var(--surface);border-color:var(--border);color:var(--tx1)}
+.btn.sec:hover{background:var(--hover)}
+.btn.gho{color:var(--tx2)}
+.btn.gho:hover{background:var(--hover);color:var(--tx1)}
+.btn.dan{background:var(--danger);color:var(--on)}
+.btn.dan:hover{background:var(--danger-h)}
+.btn.icon{padding:0;width:32px}.btn.icon.s28{width:28px}.btn.icon.s36{width:36px}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+
+/* 输入 */
+.inp,.sel{display:inline-flex;align-items:center;gap:var(--s2);height:32px;padding:0 var(--s3);border-radius:var(--r2);border:1px solid var(--border);background:var(--surface);color:var(--tx1);font-size:14px;line-height:20px;min-width:0}
+.inp .ic,.sel .ic{color:var(--tx3)}
+.inp input{border:0;outline:0;background:transparent;padding:0;margin:0;min-width:0;flex:1;font-size:14px;line-height:20px;color:var(--tx1)}
+.inp input::placeholder{color:var(--tx3)}
+.inp:focus-within{border-color:var(--brand);box-shadow:var(--focus)}
+.inp.err{border-color:var(--bad)}
+.sel{cursor:pointer;justify-content:space-between}
+.field{display:flex;flex-direction:column;gap:var(--s1)}
+.field label{font-size:13px;line-height:20px;font-weight:500;color:var(--tx2)}
+.field .help{font-size:12px;line-height:16px;color:var(--tx3);display:flex;align-items:center;gap:var(--s1)}
+.field .help.bad{color:var(--bad)}
+.kbd{display:inline-flex;align-items:center;height:20px;padding:0 var(--s1);border-radius:var(--r1);background:var(--hover);color:var(--tx2);font-size:12px;line-height:16px}
+
+/* 徽标 */
+.bdg{display:inline-flex;align-items:center;gap:var(--s1);height:28px;padding:0 var(--s3);border-radius:var(--rp);font-size:12px;line-height:16px;font-weight:500;white-space:nowrap;background:var(--neu-bg);color:var(--neu)}
+.bdg.ok{background:var(--ok-bg);color:var(--ok)}.bdg.warn{background:var(--warn-bg);color:var(--warn)}.bdg.bad{background:var(--bad-bg);color:var(--bad)}.bdg.info{background:var(--info-bg);color:var(--info)}
+.dot{width:8px;height:8px;border-radius:50%;flex:none;background:var(--c1)}
+.av{width:28px;height:28px;border-radius:50%;flex:none;display:grid;place-items:center;background:var(--brand-bg);color:var(--brand);font-size:12px;line-height:16px;font-weight:600}
+.av.lg{width:40px;height:40px;font-size:14px;line-height:20px}
+
+/* 表格 */
+.tbl{width:100%;border-collapse:collapse}
+.tbl th{height:36px;padding:0 var(--s3);background:var(--sunken);border-bottom:1px solid var(--line);font-size:12px;line-height:16px;font-weight:500;color:var(--tx2);text-align:left;white-space:nowrap}
+.tbl td{height:44px;padding:0 var(--s3);border-bottom:1px solid var(--line);white-space:nowrap}
+.tbl tr>:first-child{padding-left:var(--s4)}.tbl tr>:last-child{padding-right:var(--s4)}
+.tbl tbody tr:last-child td{border-bottom:0}
+.tbl tbody tr{transition:background var(--d1) var(--ease)}
+.tbl tbody tr:hover{background:var(--sunken)}
+.tbl .r{text-align:right}
+.tbl td.ell{max-width:0;width:40%}
+.cellx{display:flex;align-items:center;gap:var(--s2);min-width:0}
+
+/* 列表 */
+.list{display:flex;flex-direction:column;padding:var(--s1)}
+.li{display:flex;align-items:flex-start;gap:var(--s3);padding:var(--s3);border-radius:var(--r2);cursor:pointer;transition:background var(--d1) var(--ease)}
+.li:hover{background:var(--sunken)}
+.nav a.on{background:var(--brand-bg)}
+.li .t{font-weight:500}
+.li .m{margin-top:var(--s1);display:flex;align-items:center;gap:var(--s1);color:var(--tx3);font-size:12px;line-height:16px}
+.kv{display:grid;grid-template-columns:96px minmax(0,1fr);row-gap:var(--s3);column-gap:var(--s4)}
+.kv dt{color:var(--tx3)}.kv dd{margin:0;min-width:0}
+dl{margin:0}
+
+/* 指标 */
+.kpi{padding:var(--s4)}
+.kpi .l{display:flex;align-items:center;gap:var(--s2);color:var(--tx2);font-size:13px;line-height:20px}
+.kpi .v{margin-top:var(--s2);font-size:var(--fs-28);line-height:var(--lh-36);font-weight:500}
+.kpi .d{margin-top:var(--s1);display:flex;align-items:center;gap:var(--s2);font-size:12px;line-height:16px;color:var(--tx3)}
+.up{color:var(--ok)}.dn{color:var(--bad)}
+
+/* 标签页 / 分段 */
+.tabs{display:flex;gap:var(--s6);height:40px;border-bottom:1px solid var(--line);padding:0 var(--s4)}
+.tabs a{display:flex;align-items:center;gap:var(--s2);color:var(--tx2);font-weight:500;border-bottom:2px solid transparent;margin-bottom:-1px}
+.tabs a.on{color:var(--tx1);border-bottom-color:var(--brand)}
+.tabs a .bdg{background:var(--hover);color:var(--tx2)}
+.seg{display:inline-flex;gap:var(--s1);height:32px;padding:var(--s1);border-radius:var(--r2);background:var(--hover)}
+.seg button{height:24px;padding:0 var(--s3);border:0;border-radius:var(--r1);background:transparent;color:var(--tx2);font-size:13px;line-height:20px;font-weight:500;cursor:pointer}
+.seg button.on{background:var(--surface);color:var(--tx1);box-shadow:var(--e1)}
+.bar{display:flex;align-items:center;gap:var(--s2);padding:var(--s3) var(--s4);border-bottom:1px solid var(--line)}
+
+/* 警示 / toast / 空状态 */
+.alert{display:flex;align-items:flex-start;gap:var(--s3);padding:var(--s3) var(--s4);border-radius:var(--r2);background:var(--neu-bg);color:var(--tx1)}
+.alert>.ic{height:20px}
+.alert .at{font-weight:600}
+.alert p{color:var(--tx2);text-wrap:pretty}
+.alert .act{margin-left:auto;align-self:center}
+.alert.ok{background:var(--ok-bg)}.alert.ok>.ic{color:var(--ok)}
+.alert.warn{background:var(--warn-bg)}.alert.warn>.ic{color:var(--warn)}
+.alert.bad{background:var(--bad-bg)}.alert.bad>.ic{color:var(--bad)}
+.alert.info{background:var(--info-bg)}.alert.info>.ic{color:var(--info)}
+.toast{position:fixed;left:50%;bottom:var(--s8);display:flex;align-items:center;gap:var(--s3);padding:var(--s3) var(--s4);border-radius:var(--r2);background:var(--toast);color:var(--toast-tx);box-shadow:var(--e2);opacity:0;transform:translate(-50%,4px);pointer-events:none;transition:opacity var(--d2) var(--ease),transform var(--d2) var(--ease);z-index:50}
+.toast.show{opacity:1;transform:translate(-50%,0);pointer-events:auto}
+.toast.static{position:static;opacity:1;transform:none;display:inline-flex}
+.toast .ok{color:var(--ok-s)}.toast .warn{color:var(--warn-s)}.toast .bad{color:var(--bad-s)}.toast .info{color:var(--c2)}
+.toast .btn{color:var(--toast-tx)}
+.empty{display:flex;flex-direction:column;align-items:center;text-align:center;gap:var(--s2);padding:var(--s10) var(--s6)}
+.empty .eic{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;background:var(--hover);color:var(--tx2);margin-bottom:var(--s2)}
+.empty h3{font-size:16px;line-height:24px;font-weight:600}
+.empty p{color:var(--tx2);font-size:13px;line-height:20px;margin-bottom:var(--s2)}
+
+/* 步骤条 */
+.steps{display:flex;flex-direction:column}
+.step{display:grid;grid-template-columns:20px minmax(0,1fr);column-gap:var(--s3);position:relative;padding-bottom:var(--s4)}
+.step:last-child{padding-bottom:0}
+.step::before{content:"";position:absolute;left:9px;top:24px;bottom:var(--s1);width:2px;border-radius:var(--r1);background:var(--line)}
+.step:last-child::before{display:none}
+.step.done::before{background:var(--brand)}
+.sn{width:20px;height:20px;border-radius:50%;display:grid;place-items:center;border:2px solid var(--border);background:var(--surface);color:var(--on)}
+.step.done .sn{background:var(--brand);border-color:var(--brand)}
+.step.cur .sn{border-color:var(--brand)}
+.step .st{font-weight:500}
+.step .sd{color:var(--tx3);font-size:12px;line-height:16px;margin-top:var(--s1)}
+
+/* 图表 */
+.chart{display:block;width:100%}
+.chart .grid-l{stroke:var(--line);stroke-width:1}
+.chart .axis{fill:var(--tx3);font-size:12px}
+.chart .s1{stroke:var(--c1)}.chart .s2{stroke:var(--c2)}.chart .s3{stroke:var(--c3)}.chart .s4{stroke:var(--c4)}
+.chart .f1{fill:var(--c1)}.chart .f2{fill:var(--c2)}.chart .f3{fill:var(--c3)}.chart .f4{fill:var(--c4)}
+.chart path.ln{fill:none;stroke-width:2;stroke-linejoin:round;stroke-linecap:round}
+.chart path.ln.dash{stroke-dasharray:4 4}
+.legend{display:flex;gap:var(--s4);color:var(--tx2);font-size:12px;line-height:16px}
+.legend span{display:flex;align-items:center;gap:var(--s2)}
+.lg1{background:var(--c1)}.lg2{background:var(--c2)}.lg3{background:var(--c3)}.lg4{background:var(--c4)}
+.meter{height:8px;border-radius:var(--rp);background:var(--hover);overflow:hidden;display:flex}
+.meter i{display:block;height:100%}
+
+/* 抽屉 */
+.scrim{position:fixed;inset:0;background:rgba(14,17,22,.32);opacity:0;pointer-events:none;transition:opacity var(--d2) var(--ease);z-index:40}
+.drawer{position:fixed;top:var(--s2);right:var(--s2);bottom:var(--s2);width:440px;background:var(--surface);border-radius:var(--r4);box-shadow:var(--e2);transform:translateX(calc(100% + 8px));transition:transform var(--d2) var(--ease);z-index:41;display:flex;flex-direction:column}
+.open .scrim{opacity:1;pointer-events:auto}.open .drawer{transform:none}
+.drawer .pb{flex:1;overflow:auto}
+
+/* 主题切换 */
+.tt{margin-left:auto}
+
+/* 1280 */
+@media (max-width:1360px){
+ .main{padding:var(--s6) var(--s6) var(--s10)}
+ .g-main{grid-template-columns:minmax(0,1fr) 320px}
+ .g-list{grid-template-columns:360px minmax(0,1fr)}
+ .hide-sm{display:none}
+}
+body.fb-open .main{padding-right:var(--s8)}
+.search{width:240px}
+.w-sel{width:132px}
+.chart-wrap{padding:var(--s4)}
+.st-ok{color:var(--ok);height:20px;display:flex;align-items:center}.st-warn{color:var(--warn);height:20px;display:flex;align-items:center}.st-bad{color:var(--bad);height:20px;display:flex;align-items:center}.st-info{color:var(--info);height:20px;display:flex;align-items:center}
+.tile{background:var(--sunken);border-radius:var(--r2);box-shadow:inset 0 0 0 1px var(--line)}
+.tile.kpi{padding:var(--s3)}
+.tile.kpi .v{margin-top:var(--s1);font-size:var(--fs-20);line-height:var(--lh-28)}
+.hl{background:var(--bad-bg);color:var(--bad);border-radius:var(--r1)}
+.li p{margin-top:var(--s1)}
+.kv{align-items:center}
+.toast:has(.btn){padding-right:var(--s2)}
+.tray .act.first{margin-left:0}
+.tray .act.first+span{margin-left:auto}
+[data-theme="dark"] .seg button.on{background:var(--border)}
+.swatch{width:20px;height:20px;border-radius:var(--r1);box-shadow:inset 0 0 0 1px var(--line);flex:none}
+.fig{margin:0;display:flex;flex-direction:column;gap:var(--s2)}
+.fig img{display:block;width:100%;border-radius:var(--r2);box-shadow:inset 0 0 0 1px var(--line);background:var(--sunken)}
+.fig figcaption{display:flex;align-items:center;gap:var(--s2);font-size:13px;line-height:20px;color:var(--tx2)}
+.sec-h{font-size:20px;line-height:28px;font-weight:600;margin-top:var(--s4)}
+
+/* R43 精修：页头关键数字、选中指示、克制动效 */
+.hk{display:flex;gap:var(--s8);margin-left:var(--s8);padding-left:var(--s8);border-left:1px solid var(--border);align-self:center}
+.hk div{display:flex;flex-direction:column}
+.hk span{font-size:12px;line-height:16px;color:var(--tx3);font-weight:500}
+.hk b{font-size:var(--fs-28);line-height:var(--lh-36);font-weight:500}
+.hk b.bad{color:var(--bad)}
+.li{position:relative}
+.nav a.on{background:var(--brand-bg)}
+.nav a.on::before{content:"";position:absolute;left:var(--s1);top:var(--s3);bottom:var(--s3);width:2px;border-radius:var(--r1);background:var(--brand)}
+.grp{display:flex;align-items:center;gap:var(--s2);height:32px;padding:0 var(--s3);margin-top:var(--s1);font-size:var(--fs-13);line-height:var(--lh-20);font-weight:600;color:var(--tx2)}
+.grp .cnt{color:var(--tx3);font-weight:500}
+.spark{width:64px;height:20px;flex:none}
+.spark path{fill:none;stroke-width:1.5;stroke-linejoin:round}
+.li .side-v{display:flex;flex-direction:column;align-items:flex-end;gap:var(--s1);font-size:12px;line-height:16px;color:var(--tx3)}
+.split{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--s6)}
+.mrow{display:grid;grid-template-columns:48px minmax(0,1fr) 40px;align-items:center;gap:var(--s3);font-size:13px;line-height:20px}
+.mrow+.mrow{margin-top:var(--s2)}
+.sub-h{font-size:12px;line-height:16px;font-weight:600;color:var(--tx2);margin-bottom:var(--s3)}
+.meta{display:flex;flex-wrap:wrap;gap:var(--s4);color:var(--tx2);font-size:13px;line-height:20px}
+.meta span{display:flex;align-items:center;gap:var(--s2)}
+.meta .ic{color:var(--tx3)}
+@keyframes rise{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:no-preference){
+ .main>.stack>*,.main>.grid>*,.main>.grid>.stack>*{animation:rise var(--d2) var(--ease) both}
+ .main>*>:nth-child(2){animation-delay:var(--stagger)}.main>*>:nth-child(3){animation-delay:calc(var(--stagger)*2)}
+ .chart{animation:rise var(--d2) var(--ease) both}
+}
+.sp-bad{stroke:var(--bad)}.sp-warn{stroke:var(--warn-s)}.sp-info{stroke:var(--info)}.sp-ok{stroke:var(--ok-s)}
+.meter .lg1{background:var(--c1)}.meter .lg2{background:var(--c2)}
+
+/* ===== R44 状态：常规状态靠填充样式，只有异常用色 ===== */
+.mono{font-family:"Geist Mono",var(--font);font-variant-numeric:tabular-nums}
+.stt{display:inline-flex;align-items:center;gap:var(--s1);height:20px;padding:0 var(--s2);border-radius:var(--r1);border:1px solid transparent;font-size:12px;line-height:16px;font-weight:500;white-space:nowrap}
+.stt.done{background:var(--hover);color:var(--tx2)}
+.stt.act{background:var(--accent-bg);color:var(--accent)}
+.stt.todo{background:var(--surface);border-color:var(--border);color:var(--tx1)}
+.stt.exc{background:var(--bad-bg);border:1px dashed var(--bad);color:var(--bad)}
+.step.done .sn{background:var(--hover);border-color:var(--border);color:var(--tx2)}
+.step.done::before{background:var(--border)}
+.step.cur .sn{background:var(--brand);border-color:var(--brand)}
+.step.cur .sn::after{content:"";width:8px;height:8px;border-radius:50%;background:var(--on)}
+.step.exc .sn{background:var(--bad-bg);border:2px dashed var(--bad);color:var(--bad)}
+.step.exc .st{color:var(--bad)}
+.concl{display:flex;align-items:center;gap:var(--s2);padding-top:var(--s3);border-top:1px solid var(--line);font-size:13px;line-height:20px;color:var(--tx2)}
+.concl .ic{color:var(--tx3)}
+.concl b{color:var(--tx1);font-weight:600}
+.legend-st{display:flex;gap:var(--s4);font-size:12px;line-height:16px;color:var(--tx2)}
+.legend-st span{display:flex;align-items:center;gap:var(--s2)}
+.legend-st i{width:12px;height:12px;border-radius:var(--r1);border:1px solid var(--border)}
+.legend-st .done{background:var(--hover)}.legend-st .act{background:var(--accent-bg);border-color:var(--accent)}.legend-st .todo{background:var(--surface)}.legend-st .exc{background:var(--bad-bg);border:1px dashed var(--bad)}
+/* 细节（REVIEW D 编号） */
+.ph{align-items:center}.ph .hk,.ph .acts{align-self:center}
+.hk{padding-bottom:0}
+.tbl td.ty{color:var(--tx2)}
+.tbl td.act,.tbl th.act{width:40px;padding-left:var(--s2)}
+.tbl th.r,.tbl td.r,.tbl th.fit,.tbl td.fit{width:1%}
+.ph0{color:var(--tx3)}
+.sp-warn,.sp-info,.sp-ok,.sp-neu{stroke:var(--tx3)}
+.grp .st-info{color:var(--tx3)}
+.tray .legend-st{color:var(--tx3)}
+.kpi .l .spark{margin-left:auto}
+body.fb-docked .uifb.uifb-collapsed{right:auto;left:var(--s4);bottom:calc(var(--s12) + var(--s12))}
+.tbl th.fit,.tbl td.fit{padding-right:var(--s6)}
+
+/* ===== R44 v3 ===== */
+.unit{font-family:var(--font);font-size:.6em;color:var(--tx2);margin-left:2px;font-weight:500}
+.g-list>*,.g-main>*{align-self:start}
+.tbl th.wide{width:28%}.tbl th.mid{width:14%}
+@media (min-width:1520px){.g-main{grid-template-columns:minmax(0,1fr) 400px}.g-list{grid-template-columns:440px minmax(0,1fr)}}
+/* 动效系统：d1 120ms 悬停/按下；d2 200ms 进入、抽屉、切换；1200ms 只给骨架屏循环 */
+.btn,.seg button,.li,.nav a,.tabs a,.sel,.inp{transition:background var(--d1) var(--ease),color var(--d1) var(--ease),border-color var(--d1) var(--ease),transform var(--d1) var(--ease),box-shadow var(--d1) var(--ease)}
+.btn:active:not(:disabled),.seg button:active,.sel:active{transform:translateY(1px)}
+.li:active{transform:scale(.995)}
+.btn:active,.seg button:active,.sel:active,.li:active{transition-duration:60ms}
+.tabs a{transition:color var(--d1) var(--ease),border-color var(--d2) var(--ease)}
+.swap{animation:rise var(--d2) var(--ease) both}
+.drawer .pb>*{transition:opacity var(--d2) var(--ease),transform var(--d2) var(--ease)}
+body:not(.open) .drawer .pb>*{opacity:0;transform:translateX(8px)}
+.open .drawer .pb>*{transition-delay:80ms}
+@keyframes shimmer{from{background-position:100% 0}to{background-position:0 0}}
+.skel{display:block;height:12px;border-radius:var(--r1);background:linear-gradient(90deg,var(--hover) 0%,var(--line) 50%,var(--hover) 100%);background-size:200% 100%;animation:shimmer 1200ms linear infinite}
+.skel.w40{width:40%}.skel.w60{width:60%}.skel.w80{width:80%}.skel.h20{height:20px}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:1ms!important;animation-iteration-count:1!important;transition-duration:1ms!important;transition-delay:0s!important;animation-delay:0s!important}}
+
+/* ===== R44 v4 ===== */
+.kpi{cursor:default}
+@keyframes rise2{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+[data-detail].swap,.main>.grid>[data-detail].swap{animation:rise2 var(--d2) var(--ease) both;animation-delay:0s}
+/* 骨架：内容与骨架交叉淡化，无空白帧 */
+.tbl.sk td{position:relative}
+.tbl.sk td>*{transition:opacity var(--d2) var(--ease)}
+.tbl.sk td::after{content:"";position:absolute;left:var(--s3);right:var(--s3);top:16px;height:12px;border-radius:var(--r1);background:linear-gradient(90deg,var(--sk1) 0%,var(--sk2) 50%,var(--sk1) 100%);background-size:200% 100%;opacity:0;pointer-events:none;transition:opacity var(--d2) var(--ease)}
+.tbl.sk td.act::after,.tbl.sk td:empty::after{display:none}
+.tbl.sk .loading td>*{opacity:0}
+.tbl.sk .loading td::after{opacity:1;animation:shimmer 1200ms linear infinite}
+:root{--sk1:#C9CFD8;--sk2:#E1E5EB}
+[data-theme="dark"]{--sk1:#39435A;--sk2:#465170}
+.skel{background:linear-gradient(90deg,var(--sk1) 0%,var(--sk2) 50%,var(--sk1) 100%);background-size:200% 100%}
+/* 占位符画成 1px 线，避免字形在不同行亚像素渲染深浅不一 */
+.ph0{display:inline-block;width:12px;height:1px;background:var(--tx3);vertical-align:middle;font-size:0;line-height:0;overflow:hidden}
+/* 宽屏加列 */
+.show-wide{display:none}
+@media (min-width:1520px){.show-wide{display:table-cell}.kpi.show-wide{display:block}.g4.g5w{grid-template-columns:repeat(5,minmax(0,1fr))}}
+/* 等高两栏 */
+.g-eq,.g-eq>*{align-self:stretch;align-items:stretch}
+.g-eq>.stack>:last-child{flex:1}
+
+/* ===== v47 层级与状态色 ===== */
+.stt.risk{background:var(--warn-bg);color:var(--warn)}
+.legend-st i.risk{background:var(--warn-bg);border-color:var(--warn-s)}
+.tbl tr.r-exc>td:first-child{background-image:repeating-linear-gradient(to bottom,var(--bad) 0 4px,transparent 4px 7px);background-size:3px 100%;background-repeat:no-repeat}
+.tbl tr.r-risk>td:first-child{box-shadow:inset 3px 0 0 var(--warn-s)}
+.tbl td.ty,.tbl td.mid,.tbl td.show-wide,.tbl td.sec{color:var(--tx2)}
+.tbl tr.r-exc td.due .num,.tbl tr.r-risk td.due .num{color:var(--tx1);font-weight:600}
+.kpi.k-bad .v{color:var(--bad)}
+.chart text{text-rendering:geometricPrecision}
+.g-eq>.stack>:last-child{display:flex;flex-direction:column}
+.g-eq>.stack>:last-child>.pb{flex:1;display:flex;flex-direction:column;justify-content:center}
+
+/* ===== 继承：c4–surface / 色盲缝 · 数字·动效抛光 ===== */
+
+/* --- 数字排版 --- */
+/* 显示级 ≥24px 用 400，避免 500 在 Fig 上发糊；tabular 已全局开启 */
+.kpi .v,.hk b,.ph .hk b{font-weight:400;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.tile.kpi .v{font-weight:400;letter-spacing:-.015em}
+/* 单位与数字共基线：inline，不破坏行盒 */
+.unit{font-family:var(--font);font-size:.6em;line-height:1;color:var(--tx2);margin-left:2px;font-weight:400;vertical-align:baseline;letter-spacing:0}
+.kpi .v .unit,.hk b .unit,.tile.kpi .v .unit{vertical-align:.08em}
+/* 小数点对齐：固定整数位宽（ch），同量级金额列 */
+.num.dec{display:inline-block;min-width:7.5ch;text-align:right;font-variant-numeric:tabular-nums}
+.num.dec.w6{min-width:9.5ch}.num.dec.w9{min-width:9.5ch}.num.dec.w10{min-width:10.5ch}
+/* 表格数值列：右对齐 + 等宽数字；中文列永不进 mono（lint） */
+.tbl td.r .num,.tbl th.r{font-variant-numeric:tabular-nums}
+.tbl td.r{font-variant-numeric:tabular-nums}
+/* 轴刻度：统一 400，半像素网格由 JS snap；中文轴标签跟 body 字体 */
+.chart text.axis{font-weight:400;font-size:12px;fill:var(--tx3);font-family:var(--font)}
+
+/* --- 响应式：意图化宽屏 + 防溢出 --- */
+:root{--gutter:16px;--rail:0px}
+@media (min-width:1520px){
+  :root{--gutter:20px;--rail:320px}
+  .main{max-width:1680px;margin-inline:auto;width:100%}
+  /* 宽屏：主区 + 右侧摘要轨，而不是「多塞一列」 */
+  .g-wide{display:grid;grid-template-columns:minmax(0,1fr) var(--rail);gap:var(--gutter);align-items:start}
+  .g-wide>.rail{position:sticky;top:var(--s4);display:flex;flex-direction:column;gap:var(--gutter)}
+  /* 宽轨主数字：真实命中 .kv dd.num / .rail .kpi .v / .rail-metric；次级 .mrow>.num 仍 13 */
+  .g-wide>.rail .kv dd.num,
+  .g-wide>.rail .kpi .v,
+  .g-wide>.rail .rail-metric{
+    font-size:var(--fs-20);line-height:var(--lh-28);font-weight:400;letter-spacing:-.015em;font-variant-numeric:tabular-nums
+  }
+  .g-wide>.rail .kv dd.num .unit,
+  .g-wide>.rail .kpi .v .unit,
+  .g-wide>.rail .rail-metric .unit{font-size:.6em;font-weight:400;color:var(--tx2)}
+  .g-wide>.rail .mrow>.num{font-size:13px;line-height:20px;font-weight:400;font-variant-numeric:tabular-nums;color:var(--tx1)}
+  .g-main{grid-template-columns:minmax(0,1fr) 420px;gap:var(--gutter)}
+  .g-list{grid-template-columns:460px minmax(0,1fr);gap:var(--gutter)}
+  .show-wide{display:table-cell}
+  .kpi.show-wide{display:block}
+  .g4.g5w{grid-template-columns:repeat(5,minmax(0,1fr));gap:var(--gutter)}
+  .stack{gap:var(--gutter)}
+  .grid{gap:var(--gutter)}
+}
+@media (max-width:1519px){
+  .g-wide{display:block}
+  .g-wide>.rail{display:none}
+}
+/* 1280 / 1024：chip 不裁、栏不挤爆 */
+@media (max-width:1280px){
+  .main{padding:var(--s6) var(--s5)}
+  .bar{flex-wrap:wrap;height:auto;min-height:48px;padding-top:var(--s2);padding-bottom:var(--s2);gap:var(--s2)}
+  .bar .inp.search{flex:1 1 180px;min-width:140px}
+  .bar .sel.w-sel{flex:0 1 auto}
+  .stt,.bdg{max-width:100%}
+  .tbl{font-size:13px}
+  .ph h1{font-size:28px;line-height:36px}
+  .hk{margin-left:var(--s4);padding-left:var(--s4)}
+}
+/* R54：删除旧 1100 切断（改由下方 1024 唯一负责侧栏隐藏，避免双断点回归） */
+/* 窄屏 / 拇指约 520：层级仍可读 */
+@media (max-width:720px){
+  .main{padding:var(--s4) var(--s3)}
+  .ph{flex-wrap:wrap;gap:var(--s3);height:auto}
+  .ph h1{font-size:28px;line-height:36px}
+  .ph .acts{width:100%;justify-content:flex-start;flex-wrap:wrap}
+  .hk{margin:0;padding:0;border:0;width:100%;gap:var(--s4)}
+  .g2,.g3,.g4,.g4.g5w{grid-template-columns:1fr}
+  .top{flex-wrap:wrap;height:auto;gap:var(--s2)}
+  .tbl th,.tbl td{padding:0 var(--s2)}
+  .bar .seg{order:3;width:100%}
+}
+
+/* --- 动效：可感知但克制 --- */
+:root{--d-enter:180ms;--d-pulse:400ms;--d-draw:720ms}
+@keyframes enter-up{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@keyframes row-pulse{0%{background:var(--info-bg)}70%{background:var(--info-bg)}100%{background:transparent}}
+@keyframes sk-out{from{opacity:1}to{opacity:0}}
+@keyframes sk-in{from{opacity:0}to{opacity:1}}
+@media (prefers-reduced-motion:no-preference){
+  .main>.stack>*,.main>.grid>*,.main>.grid>.stack>*,.g-wide>.rail>*{
+    animation:enter-up var(--d-enter) var(--ease) both;
+  }
+  .main>.stack>*:nth-child(1),.main>.grid>*:nth-child(1){animation-delay:0s}
+  .main>.stack>*:nth-child(2),.main>.grid>*:nth-child(2){animation-delay:var(--stagger)}
+  .main>.stack>*:nth-child(3),.main>.grid>*:nth-child(3){animation-delay:calc(var(--stagger)*2)}
+  .main>.stack>*:nth-child(4),.main>.grid>*:nth-child(4){animation-delay:calc(var(--stagger)*3)}
+  .main>.stack>*:nth-child(5),.main>.grid>*:nth-child(5),.main>.stack>*:nth-child(n+5),.main>.grid>*:nth-child(n+5){animation-delay:calc(var(--stagger)*4)}
+  .g-wide>.rail>*:nth-child(1){animation-delay:calc(var(--stagger)*2)}
+  .g-wide>.rail>*:nth-child(2){animation-delay:calc(var(--stagger)*3)}
+  .g-wide>.rail>*:nth-child(3){animation-delay:calc(var(--stagger)*4)}
+  tr.hl-pulse{animation:row-pulse var(--d-pulse) var(--ease) both}
+  /* 图表首次入视口描线；未入视口时路径透明长度为 0 由 JS 控制 */
+  .chart path.ln.draw-once{stroke-dasharray:1;stroke-dashoffset:1;animation:none}
+  .chart.is-in path.ln.draw-once{animation:chart-draw var(--d-draw) var(--ease) both}
+  .chart.is-in rect.f1,.chart.is-in rect.f2,.chart.is-in rect.f3,.chart.is-in rect.f4{
+    animation:enter-up var(--d-enter) var(--ease) both;
+  }
+}
+@keyframes chart-draw{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
+/* 骨架交叉淡化 + stale 由 JS seq 守卫；CSS 只负责可见过渡 */
+.tbl.sk .loading td>*{opacity:0}
+.tbl.sk:not(.loading) td>*{animation:sk-in var(--d2) var(--ease) both}
+.tbl.sk .loading td::after{opacity:1}
+/* 覆盖旧 rise 4px：统一用 enter-up 8px / 180ms */
+@media (prefers-reduced-motion:no-preference){
+  .main>.stack>*,.main>.grid>*,.main>.grid>.stack>*{animation-name:enter-up;animation-duration:var(--d-enter)}
+  .chart{animation:enter-up var(--d-enter) var(--ease) both}
+  .swap,[data-detail].swap,.main>.grid>[data-detail].swap{animation:enter-up var(--d-enter) var(--ease) both;animation-delay:0s}
+}
+@media (prefers-reduced-motion:reduce){
+  .chart path.ln.draw-once,.chart.is-in path.ln.draw-once{stroke-dasharray:none!important;stroke-dashoffset:0!important;animation:none!important}
+  tr.hl-pulse{animation:none!important;background:var(--info-bg)}
+}
+
+/* dist bar used in wide rail */
+.dist{height:6px;border-radius:var(--rp);background:var(--sunken);overflow:hidden}
+.dist>i{display:block;height:100%;border-radius:var(--rp)}
+
+/* r52 first-col: tx1 · 400（demo/orders 统一；Mono ID 不加重） */
+.tbl td:first-child .num{color:var(--tx1);font-weight:400}
+.tbl td:first-child .mono{color:var(--tx1);font-weight:400}
+
+/* ===== 继承：深 c4 提亮对 surface；浅 c4 微压对 c3 protan ===== */
+/* light c4 #545C6A L*~39 · dark c4 #5C6169 L*~41 · H≈217° · c4–surface dark ≥32 · c3–c4 D/P≥18 */
+/* 堆叠柱段：surface 描边 1px，底段与面板分离、段间可读 */
+.chart rect.f1,.chart rect.f2,.chart rect.f3,.chart rect.f4{stroke:var(--surface);stroke-width:1}
+/* 柱段入场微错开（保留 enter-up，不改时长） */
+@media (prefers-reduced-motion:no-preference){
+  .chart.is-in rect.f1{animation-delay:0s}
+  .chart.is-in rect.f2{animation-delay:var(--stagger)}
+  .chart.is-in rect.f3{animation-delay:calc(var(--stagger)*2)}
+  .chart.is-in rect.f4{animation-delay:calc(var(--stagger)*3)}
+}
+/* 数字：KPI / 宽轨 明确 tnum；单位基线已稳 */
+.kpi .v,.hk b,.g-wide>.rail .kv dd.num,.g-wide>.rail .rail-metric{
+  font-feature-settings:"tnum" 1,"lnum" 1
+}
+/* 1280：宽屏列隐藏时栏内搜索不挤爆（继承 + 加固 min） */
+@media (max-width:1280px){
+  .bar .inp.search{min-width:160px}
+}
+
+/* ===== 继承：暗 c3–c4 缝 + 数字/动效 ===== */
+/* dark c3 #6686B0（H≈214°）抬明度·饱和，c4 保持 #5C6169 → c3–c4 ≈24.9，c4–surface 仍 ≥32 */
+/* 数字：增量/环比 tabular 对齐；轴刻度 tnum；delta 固定 ch 宽 */
+.up,.dn,.num.up,.num.dn,.kpi .d .up,.kpi .d .dn,.tbl td.r .num.up,.tbl td.r .num.dn{
+  font-variant-numeric:tabular-nums;
+  font-feature-settings:"tnum" 1,"lnum" 1;
+  letter-spacing:0;
+  font-weight:500;
+}
+.kpi .d .up,.kpi .d .dn{
+  display:inline-block;
+  min-width:4.5ch;
+  text-align:left;
+}
+.chart text.axis{
+  font-variant-numeric:tabular-nums;
+  font-feature-settings:"tnum" 1,"lnum" 1;
+}
+.bdg.num,.tabs a .bdg{
+  font-variant-numeric:tabular-nums;
+  font-feature-settings:"tnum" 1;
+}
+/* 页头关键数字与 KPI 同一套 tnum / 字距 */
+.hk b{
+  font-feature-settings:"tnum" 1,"lnum" 1;
+  letter-spacing:-.02em;
+}
+
+/* 动效：柱自底升起；轨内分布条自左展开；KPI 卡微错开；入场略收敛 */
+@keyframes bar-rise{from{transform:scaleY(0);opacity:.5}to{transform:scaleY(1);opacity:1}}
+@keyframes dist-fill{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes spark-draw{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
+@media (prefers-reduced-motion:no-preference){
+  .chart.is-in rect.f1,.chart.is-in rect.f2,.chart.is-in rect.f3,.chart.is-in rect.f4{
+    transform-box:fill-box;
+    transform-origin:center bottom;
+    animation:bar-rise 200ms var(--ease) both;
+  }
+  .chart.is-in rect.f1{animation-delay:0s}
+  .chart.is-in rect.f2{animation-delay:var(--stagger)}
+  .chart.is-in rect.f3{animation-delay:calc(var(--stagger)*2)}
+  .chart.is-in rect.f4{animation-delay:calc(var(--stagger)*3)}
+  .g-wide>.rail .dist>i,.rail .dist>i{
+    transform-origin:left center;
+    animation:dist-fill 200ms var(--ease) both;
+  }
+  .g-wide>.rail .mrow:nth-child(1) .dist>i{animation-delay:calc(var(--stagger)*1)}
+  .g-wide>.rail .mrow:nth-child(2) .dist>i{animation-delay:calc(var(--stagger)*2)}
+  .g-wide>.rail .mrow:nth-child(3) .dist>i{animation-delay:calc(var(--stagger)*3)}
+  .g-wide>.rail .mrow:nth-child(4) .dist>i{animation-delay:calc(var(--stagger)*4)}
+  .grid.g4>.kpi:nth-child(1),.grid.g5w>.kpi:nth-child(1){animation-delay:0s}
+  .grid.g4>.kpi:nth-child(2),.grid.g5w>.kpi:nth-child(2){animation-delay:var(--stagger)}
+  .grid.g4>.kpi:nth-child(3),.grid.g5w>.kpi:nth-child(3){animation-delay:calc(var(--stagger)*2)}
+  .grid.g4>.kpi:nth-child(4),.grid.g5w>.kpi:nth-child(4){animation-delay:calc(var(--stagger)*3)}
+  .grid.g4>.kpi:nth-child(5),.grid.g5w>.kpi:nth-child(5){animation-delay:calc(var(--stagger)*4)}
+  /* 入场略收敛：6px / 200ms，仍走 token 时长档 */
+  :root{--d-enter:200ms}
+  @keyframes enter-up{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  /* spark 描线一次 */
+  .kpi .spark path{
+    stroke-dasharray:1;
+    stroke-dashoffset:1;
+    animation:spark-draw 640ms var(--ease) 120ms both;
+  }
+}
+@media (prefers-reduced-motion:reduce){
+  .chart.is-in rect.f1,.chart.is-in rect.f2,.chart.is-in rect.f3,.chart.is-in rect.f4{animation:none!important;opacity:1;transform:none}
+  .dist>i{animation:none!important;transform:none}
+  .kpi .spark path{stroke-dasharray:none!important;stroke-dashoffset:0!important;animation:none!important}
+}
+
+/* ===== 继承 R51 分型：空态分型 + 笔重 + 层级（本轮保留） ===== */
+/* 填充五态 / CVD / 行色条；chip 2px + stroke 3；空态 routine/risk/exc；ph-h 56 + 图标井 */
+
+/* Chip 笔重：临期/异常 2px 边（实琥珀 / 虚红）；图标 stroke 3 */
+.stt{height:28px;padding:0 var(--s3);gap:var(--s2);font-size:12px;line-height:16px;font-weight:500;border-radius:var(--r1)}
+.stt .ic{width:14px;height:14px;stroke-width:2}
+.stt.done .ic,.stt.act .ic,.stt.todo .ic{opacity:.92}
+.stt.risk{border:2px solid var(--warn-s);background:var(--warn-bg);color:var(--warn)}
+.stt.risk .ic{stroke-width:3}
+.stt.exc{border:2px dashed var(--bad);background:var(--bad-bg);color:var(--bad)}
+.stt.exc .ic{stroke-width:3}
+.tbl td .stt{vertical-align:middle}
+
+/* 行色条：形状语言同 chip（实/虚）；宽度保持 3px（lint inset） */
+.tbl tr.r-exc>td:first-child{
+  background-image:repeating-linear-gradient(to bottom,var(--bad) 0 5px,transparent 5px 8px);
+  background-size:3px 100%;background-repeat:no-repeat
+}
+.tbl tr.r-risk>td:first-child{box-shadow:inset 3px 0 0 var(--warn-s)}
+
+/* 图例：14×14，边宽镜像 chip（临期/异常 2px） */
+.legend-st{gap:var(--s3);align-items:center}
+.legend-st i{width:14px;height:14px;border-radius:4px;border:1px solid var(--border);box-sizing:border-box}
+.legend-st .done{background:var(--hover);border-color:transparent}
+.legend-st .act{background:var(--accent-bg);border-color:var(--accent)}
+.legend-st .todo{background:var(--surface);border-color:var(--border)}
+.legend-st .risk{background:var(--warn-bg);border:2px solid var(--warn-s)}
+.legend-st .exc{background:var(--bad-bg);border:2px dashed var(--bad)}
+
+/* 空状态刻度：井框边 = chip 边语言，缩略图可辨 */
+.empty{gap:var(--s3);padding:var(--s10) var(--s6)}
+.empty .eic{
+  width:48px;height:48px;border-radius:8px;margin-bottom:var(--s1);
+  border:1px solid var(--border);box-sizing:border-box
+}
+.empty.routine .eic{background:var(--hover);color:var(--tx2);border-color:var(--border)}
+.empty.risk .eic{background:var(--warn-bg);color:var(--warn);border:2px solid var(--warn-s)}
+.empty.exc .eic{background:var(--bad-bg);color:var(--bad);border:2px dashed var(--bad)}
+.empty h3{font-size:16px;line-height:24px;font-weight:600}
+.empty p{color:var(--tx2);font-size:13px;line-height:20px}
+
+/* 层级（缩略图）：面板头图标井 + 页标题字距；面板仍浮于画布 */
+.ph-h{height:56px}
+.ph-h>.ic{
+  width:20px;height:20px;color:var(--tx1);
+  padding:4px;box-sizing:content-box;
+  background:var(--hover);border-radius:8px;
+  display:inline-grid;place-items:center;flex-shrink:0
+}
+.ph-h h2{letter-spacing:-.01em;color:var(--tx1)}
+.ph h1{letter-spacing:-.025em}
+
+/* ===== R52 刻度：数字阶梯 + 面板内密度（缩略图可读；折入 design-learnings R52 输入） ===== */
+/* 输入要点：tabular 同字号分层、KPI 三层字号、单位降权、kv 8、卡内更紧；不采紫 */
+/* 字重阶梯：展示 400 · 表金额 500 · 小数/货币符/单位 400；不把中文改成 mono */
+.kpi .v,.hk b,.ph .hk b{font-weight:400;letter-spacing:-.02em;font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1,"lnum" 1}
+.tile.kpi .v{font-weight:400;letter-spacing:-.015em}
+.num.dec,.tbl td.r .num.dec,.tray .num.dec{
+  font-weight:500;letter-spacing:-.01em;
+  font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1,"lnum" 1;
+}
+/* 货币符 + 小数层级：同字号，色阶降到 tx2，字重 400 */
+.ccy{font-weight:400;color:var(--tx2);letter-spacing:0;margin-right:0}
+.frac{font-weight:400;color:var(--tx2);letter-spacing:0}
+.kpi .v .ccy,.hk b .ccy,.kpi .v .frac,.hk b .frac{color:var(--tx2)}
+/* 单位基线：展示级用 13/16/500，正文级 12/16/400；左距入 SP */
+.unit{font-family:var(--font);font-size:12px;line-height:16px;font-weight:400;color:var(--tx2);margin-left:var(--s1);vertical-align:baseline;letter-spacing:0}
+.kpi .v .unit,.hk b .unit,.tile.kpi .v .unit{
+  font-size:13px;line-height:16px;font-weight:500;color:var(--tx2);
+  vertical-align:.12em;margin-left:var(--s1);letter-spacing:0
+}
+.g-wide>.rail .kv dd.num .unit,
+.g-wide>.rail .kpi .v .unit,
+.g-wide>.rail .rail-metric .unit{font-size:12px;line-height:16px;font-weight:400;color:var(--tx2);vertical-align:.08em}
+/* 金额列节奏：小数金额锁 9.5ch，右对齐；次级计数保持默认 */
+.tbl td.r .num.dec{min-width:9.5ch;text-align:right}
+.num.dec{display:inline-block;min-width:7.5ch;text-align:right}
+.num.dec.w6{min-width:9.5ch}.num.dec.w9{min-width:9.5ch}.num.dec.w10{min-width:10.5ch}
+/* 百分比小数同样降权（KPI / 表） */
+.kpi .v .frac,.hk b .frac,.num .frac{font-weight:400}
+
+/* 面板内密度：页级 .stack/.grid 仍 s4（面板浮于画布）；收内部气口 */
+.panel.kpi,.kpi{padding:var(--s2) var(--s3)}
+.kpi .l{font-size:12px;line-height:16px}
+.kpi .v{margin-top:var(--s1)}
+.panel > .pb:not(.flush){padding:var(--s3) var(--s4)}
+.pb.stack{gap:var(--s3)}
+.kv{row-gap:var(--s2);column-gap:var(--s3)}
+.mrow+.mrow{margin-top:var(--s1)}
+.concl{padding-top:var(--s2)}
+.empty{padding:var(--s8) var(--s5);gap:var(--s3)}
+.bar{gap:var(--s2)}
+.legend{gap:var(--s3)}
+.tile.kpi{padding:var(--s3)}
+
+/* R52 输入落地（token 内）：页标题克制让位 KPI；展示数 500；涨跌胶囊；kv 标签 12 */
+.ph h1{font-size:20px;line-height:28px;font-weight:500;letter-spacing:-.015em}
+.kpi .v,.hk b,.ph .hk b{font-weight:500;letter-spacing:-.02em}
+.tile.kpi .v{font-weight:500}
+/* 涨跌贴金额下方：12 tabular，浅底胶囊（非紫） */
+.kpi .d .up,.kpi .d .dn{
+  display:inline-flex;align-items:center;height:20px;padding:0 var(--s2);
+  border-radius:var(--r1);font-size:12px;line-height:16px;font-weight:500;
+  min-width:4.5ch;text-align:left;box-sizing:border-box
+}
+.kpi .d .up{background:var(--ok-bg);color:var(--ok)}
+.kpi .d .dn{background:var(--bad-bg);color:var(--bad)}
+/* 详情标签/值：12 灰 / 14 正文；组内 row 8 已设 */
+.kv dt{font-size:12px;line-height:16px;font-weight:500;color:var(--tx3)}
+.kv dd{font-size:14px;line-height:20px}
+/* 表行保持 44（列表 44–52 带内）；金额与正文同字号靠 tabular+字重 */
+.tbl td{height:44px}
+.tbl td.r .num.dec{font-size:14px;line-height:20px}
+
+/* ===== R53 适应：意图化断点 + 协调动效阶梯（可见步） ===== */
+/* R53：侧栏切断点改为 1024（覆盖旧 1100）；1025–1280 保持侧栏 + 4 列 KPI */
+@media (min-width:1025px) and (max-width:1360px){
+  .side{display:flex}
+  .app{grid-template-columns:240px minmax(0,1fr)}
+  .g4,.g4.g5w{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .g2{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .g3{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+
+/* 断点：≥1520 宽轨 · 1280 筛条折行/表横滑 · 1024 KPI 两列/藏侧栏 · ~520 单列；标题保持 20 */
+/* 动效：--d-hover 120 / --d-press 60 / --d-enter 200 / --d-panel 240 / --d-draw 480；位移 ≤4px；reduced-motion 全降 */
+
+:root{
+  --d-hover:120ms;
+  --d-press:60ms;
+  --d-enter:200ms;
+  --d-panel:240ms;
+  --d-draw:480ms;
+  --d-pulse:360ms;
+  --ease-out:cubic-bezier(.2,.6,.2,1);
+}
+
+/* 统一旧 token 别名，避免散落硬编码时长 */
+:root{--d1:var(--d-hover);--d2:var(--d-enter);--d-enter:200ms;--d-draw:480ms;--d-pulse:360ms}
+
+/* 入场：4px / 200ms（STYLE ≤4px）；覆盖先前 6–8px */
+@keyframes enter-up{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+@keyframes rise{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+@keyframes rise2{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+
+/* 抽屉编排：遮罩与面板同 --d-panel；内容延迟 40ms */
+.scrim{transition:opacity var(--d-panel) var(--ease)}
+.drawer{transition:transform var(--d-panel) var(--ease)}
+.drawer .pb>*{transition:opacity var(--d-enter) var(--ease),transform var(--d-enter) var(--ease)}
+.open .drawer .pb>*{transition-delay:40ms}
+body:not(.open) .drawer .pb>*{opacity:0;transform:translateX(4px);transition-delay:0s}
+
+/* Tab 墨线：scaleX 展开（评审可感，非噪音） */
+.tabs a{position:relative;border-bottom-color:transparent}
+.tabs a::after{
+  content:"";position:absolute;left:0;right:0;bottom:-1px;height:2px;
+  background:var(--brand);border-radius:1px 1px 0 0;
+  transform:scaleX(0);transform-origin:center bottom;
+  transition:transform var(--d-enter) var(--ease);
+  pointer-events:none
+}
+.tabs a.on{border-bottom-color:transparent;color:var(--tx1)}
+.tabs a.on::after{transform:scaleX(1)}
+@media (prefers-reduced-motion:reduce){
+  .tabs a::after{transition:none}
+  .tabs a.on::after{transform:none;opacity:1}
+}
+
+/* 按钮按下档：明确 --d-press */
+.btn:active,.seg button:active{transition-duration:var(--d-press)}
+
+/* 表横滑容器：窄宽策略；首列粘性防丢行标识 */
+.tbl-scroll{
+  overflow-x:auto;-webkit-overflow-scrolling:touch;
+  overscroll-behavior-x:contain;
+  scrollbar-width:thin;
+}
+.tbl-scroll>.tbl{min-width:640px}
+.tbl-scroll>.tbl thead th:first-child,
+.tbl-scroll>.tbl tbody td:first-child{
+  position:sticky;left:0;z-index:2;
+  background-color:var(--sunken)
+}
+.tbl-scroll>.tbl tbody td:first-child{background-color:var(--surface)}
+.tbl-scroll>.tbl tbody tr:hover td:first-child{background-color:var(--sunken)}
+/* 保留异常虚线色条（只用 background-color，不冲掉 background-image） */
+.tbl-scroll>.tbl tbody tr.r-exc>td:first-child{
+  background-color:var(--surface);
+  background-image:repeating-linear-gradient(to bottom,var(--bad) 0 4px,transparent 4px 7px);
+  background-size:3px 100%;background-repeat:no-repeat
+}
+.tbl-scroll>.tbl tbody tr.r-exc:hover>td:first-child{background-color:var(--sunken)}
+/* 右缘淡出提示可横滑（仅窄屏） */
+@media (max-width:1280px){
+  .tbl-scroll{
+    mask-image:linear-gradient(to right,#000 0%,#000 calc(100% - 28px),transparent 100%);
+    -webkit-mask-image:linear-gradient(to right,#000 0%,#000 calc(100% - 28px),transparent 100%)
+  }
+  .tbl-scroll:focus-within,
+  .tbl-scroll:hover{
+    mask-image:none;-webkit-mask-image:none
+  }
+}
+
+/* KPI 不裁切：网格子项可缩；胶囊不溢出 */
+.grid.g4>.kpi,.grid.g5w>.kpi,.panel.kpi,.kpi{min-width:0}
+.kpi .d{flex-wrap:wrap;row-gap:var(--s1)}
+.kpi .l,.kpi .v{min-width:0}
+
+/* —— 断点阶梯（意图化） —— */
+/* ≥1520：宽轨已在前块；此处只补 gutter 与 KPI 不裁 */
+@media (min-width:1520px){
+  .g4.g5w>.kpi{min-width:0}
+  .bar{flex-wrap:nowrap;height:48px;padding-top:0;padding-bottom:0}
+}
+
+/* 1280：筛条折行干净；表横滑；标题保持 20（修 R52 回退到 28） */
+@media (max-width:1280px){
+  .main{padding:var(--s6) var(--s5) var(--s10)}
+  .ph h1{font-size:20px;line-height:28px;font-weight:500;letter-spacing:-.015em}
+  .hk b{font-size:var(--fs-20);line-height:var(--lh-28)}
+  .bar{
+    flex-wrap:wrap;align-items:center;height:auto;min-height:48px;
+    padding-top:var(--s2);padding-bottom:var(--s2);gap:var(--s2)
+  }
+  .bar .inp.search{flex:1 1 160px;min-width:140px;max-width:100%}
+  .bar .sel.w-sel{flex:0 1 auto}
+  .bar .grow{flex:1 1 80px;min-width:0}
+  .bar .btn{flex:0 0 auto}
+  .stt,.bdg{max-width:100%;overflow:visible}
+  .g4{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .g4.g5w{grid-template-columns:repeat(4,minmax(0,1fr))}
+}
+
+/* 1024：藏侧栏；KPI 两列；筛条第二行推操作；抽屉贴边 */
+@media (max-width:1024px){
+  .side{display:none}
+  .app{grid-template-columns:1fr}
+  .g2,.g3,.g4,.g4.g5w{grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--s3)}
+  .g-main,.g-list{grid-template-columns:1fr}
+  .show-wide{display:none}
+  .kpi.show-wide{display:none}
+  .drawer{width:min(440px,calc(100vw - 16px));top:var(--s2);right:var(--s2);bottom:var(--s2)}
+  .ph h1{font-size:20px;line-height:28px;font-weight:500}
+  .hk{margin-left:var(--s3);padding-left:var(--s3);gap:var(--s4)}
+  .hk b{font-size:var(--fs-20);line-height:var(--lh-28)}
+  .bar .grow{flex:1 0 100%;height:0;margin:0;padding:0;overflow:hidden;order:5}
+  .bar .btn{order:6;margin-left:auto}
+  .bar .seg{order:4;flex:1 1 auto}
+  .tbl-scroll>.tbl{min-width:560px}
+  .tile.kpi .v,.kpi .v{font-size:var(--fs-20);line-height:var(--lh-28)}
+}
+
+/* ~520：单列；页头折行；层级仍靠 20 标题 + KPI */
+@media (max-width:720px){
+  .main{padding:var(--s4) var(--s3) var(--s8)}
+  .ph{flex-wrap:wrap;gap:var(--s3);height:auto}
+  .ph h1{font-size:20px;line-height:28px;font-weight:500}
+  .ph .acts{width:100%;justify-content:flex-start;flex-wrap:wrap}
+  .hk{margin:0;padding:0;border:0;width:100%;gap:var(--s4)}
+  .g2,.g3,.g4,.g4.g5w{grid-template-columns:1fr}
+  .top{flex-wrap:wrap;height:auto;gap:var(--s2)}
+  .tbl th,.tbl td{padding:0 var(--s2)}
+  .bar .seg{order:3;width:100%}
+  .tbl-scroll>.tbl{min-width:480px}
+  .kpi .v,.hk b{font-size:var(--fs-20);line-height:var(--lh-28)}
+}
+
+/* 动效阶梯：入场 / 柱升 / 分布 / spark 全部走 token；描线 480 */
+@media (prefers-reduced-motion:no-preference){
+  .main>.stack>*,.main>.grid>*,.main>.grid>.stack>*,.g-wide>.rail>*{
+    animation-name:enter-up;
+    animation-duration:var(--d-enter);
+    animation-timing-function:var(--ease);
+    animation-fill-mode:both
+  }
+  .chart{animation:enter-up var(--d-enter) var(--ease) both}
+  .swap,[data-detail].swap,.main>.grid>[data-detail].swap{
+    animation:enter-up var(--d-enter) var(--ease) both;animation-delay:0s
+  }
+  .chart.is-in path.ln.draw-once{animation:chart-draw var(--d-draw) var(--ease) both}
+  .chart.is-in rect.f1,.chart.is-in rect.f2,.chart.is-in rect.f3,.chart.is-in rect.f4{
+    animation:bar-rise var(--d-enter) var(--ease) both
+  }
+  .g-wide>.rail .dist>i,.rail .dist>i{
+    animation:dist-fill var(--d-enter) var(--ease) both
+  }
+  .kpi .spark path{
+    animation:spark-draw var(--d-draw) var(--ease) 80ms both
+  }
+  tr.hl-pulse{animation:row-pulse var(--d-pulse) var(--ease) both}
+}
+@media (prefers-reduced-motion:reduce){
+  .scrim,.drawer,.drawer .pb>*{transition-duration:1ms!important;transition-delay:0s!important}
+  .tabs a::after{transition:none}
+}
+
+/* ===== R54 对齐：光学对齐网格 + 层级节奏 + 动效可读 ===== */
+:root{
+  --align-x:24px;          /* 主栏左缘基准 */
+  --enter-y:6px;           /* 入场位移（原 4） */
+  --stagger:56ms;          /* 入场错峰（原 40） */
+  --d-sel:160ms;           /* 选中指示条 */
+}
+
+/* —— 1. 对齐网格 —— */
+/* 主栏水平边距统一到 24（宽屏原 s8=32 收一档，与面板内 s4 形成清晰内外差） */
+/* ≥1025：主栏左右 24；≤1024 / ≤720 仍走各自断点内边距 */
+@media (min-width:1025px){
+  .main{padding-left:var(--align-x);padding-right:var(--align-x)}
+}
+/* 面板头 / 筛条 / tabs / tray 内边距左缘与表首列同为 16，保持面板内一竖线 */
+.ph-h,.bar,.tabs,.tray{padding-left:var(--s4);padding-right:var(--s4)}
+.tabs{padding-left:var(--s4);padding-right:var(--s4)}
+.tbl tr>:first-child{padding-left:var(--s4)}
+.tbl tr>:last-child{padding-right:var(--s4)}
+
+/* 图标+文字：固定线盒 + align-self，垂直中心差 ≤0.5px */
+.ic{display:block;flex:none;align-self:center;vertical-align:middle}
+.btn .ic,.stt .ic,.bdg .ic,.nav a .ic,.crumb .ic,.alert > .ic,.ph-h > .ic,.cellx > .ic,.meta span .ic,.legend span i,.legend-st span i,.concl .ic{
+  align-self:center;margin-top:0;margin-bottom:0;transform:none
+}
+/* 状态/徽标线盒锁 16，避免图标把行高顶歪 */
+.stt,.bdg{line-height:16px}
+.stt .ic.sm,.bdg .ic.sm{width:14px;height:14px}
+
+/* 筛条控件统一 32（显式，防 s36 混入） */
+.bar > .btn:not(.s28):not(.s36),.bar > .inp,.bar > .sel,.bar .seg{height:32px}
+.bar .seg button{height:24px}
+
+/* 金额 / ID / 状态列右缘齐 */
+.tbl td.r,.tbl th.r{text-align:right}
+.tbl td.r .num.dec{display:inline-block;min-width:9.5ch;text-align:right;font-variant-numeric:tabular-nums}
+.tbl td .mono,.tbl td .id{font-variant-numeric:tabular-nums;letter-spacing:0}
+.tbl td .stt{min-width:108px;justify-content:flex-start;box-sizing:border-box}
+
+/* KPI：主数字与涨跌列同右缘柱（标签行左，数值块右对齐于卡内） */
+.kpi .v{font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1}
+.kpi .d{justify-content:flex-start}
+.kpi .d .up,.kpi .d .dn{font-variant-numeric:tabular-nums;min-width:4.5ch;justify-content:center}
+
+/* —— 2. 层级节奏（字重/字号阶，无描边造层） —— */
+.ph h1{font-size:20px;line-height:28px;font-weight:500;letter-spacing:-.015em}
+.ph-h h2{font-size:14px;line-height:20px;font-weight:500;color:var(--tx1)}
+.ph-h .sub,.ph > div > p,.ph p{font-size:13px;line-height:20px;font-weight:400;color:var(--tx2)}
+.sec-h{font-size:20px;line-height:28px;font-weight:500;letter-spacing:-.01em;color:var(--tx1)}
+.kpi .l{font-size:13px;line-height:20px;font-weight:400;color:var(--tx2)}
+.kpi .v{font-size:var(--fs-28);line-height:var(--lh-36);font-weight:500}
+body{font-weight:400}
+.tbl th{font-size:12px;line-height:16px;font-weight:500;color:var(--tx3)}
+.tbl td{font-size:13px;line-height:20px;font-weight:400}
+.tbl td .t,.li .t{font-size:13px;line-height:20px;font-weight:500;color:var(--tx1)}
+.li .m,.tbl .tx2,.tx2{font-weight:400}
+
+/* —— 3. 动效可读：6px / 56ms 错峰；选中条 scaleY；图表子节点 --i —— */
+@keyframes enter-up{from{opacity:0;transform:translateY(var(--enter-y,6px))}to{opacity:1;transform:none}}
+@keyframes rise{from{opacity:0;transform:translateY(var(--enter-y,6px))}to{opacity:1;transform:none}}
+@keyframes rise2{from{opacity:0;transform:translateY(var(--enter-y,6px))}to{opacity:1;transform:none}}
+@keyframes sel-bar{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+
+.li{position:relative}
+.nav a.on::before{
+  content:"";position:absolute;left:var(--s1);top:var(--s3);bottom:var(--s3);width:2px;
+  border-radius:var(--r1);background:var(--brand);
+  transform-origin:center top;transform:scaleY(1);
+  transition:transform var(--d-sel) var(--ease)
+}
+@media (prefers-reduced-motion:no-preference){
+  .nav a.on::before{animation:sel-bar var(--d-sel) var(--ease) both}
+  .main>.stack>*:nth-child(1),.main>.grid>*:nth-child(1){animation-delay:0s}
+  .main>.stack>*:nth-child(2),.main>.grid>*:nth-child(2){animation-delay:var(--stagger)}
+  .main>.stack>*:nth-child(3),.main>.grid>*:nth-child(3){animation-delay:calc(var(--stagger) * 2)}
+  .main>.stack>*:nth-child(4),.main>.grid>*:nth-child(4){animation-delay:calc(var(--stagger) * 3)}
+  .main>.stack>*:nth-child(5),.main>.grid>*:nth-child(5),
+  .main>.stack>*:nth-child(n+5),.main>.grid>*:nth-child(n+5){animation-delay:calc(var(--stagger) * 4)}
+  .g-wide>.rail>*:nth-child(1){animation-delay:calc(var(--stagger) * 1)}
+  .g-wide>.rail>*:nth-child(2){animation-delay:calc(var(--stagger) * 2)}
+  .g-wide>.rail>*:nth-child(3){animation-delay:calc(var(--stagger) * 3)}
+  .chart.is-in rect.f1{animation-delay:0s}
+  .chart.is-in rect.f2{animation-delay:var(--stagger)}
+  .chart.is-in rect.f3{animation-delay:calc(var(--stagger) * 2)}
+  .chart.is-in rect.f4{animation-delay:calc(var(--stagger) * 3)}
+  .chart.is-in [style*="--i"]{animation-delay:calc(var(--stagger) * var(--i,0))}
+}
+.open .drawer .pb>*{transition-delay:var(--stagger)}
+body:not(.open) .drawer .pb>*{opacity:0;transform:translateX(var(--enter-y,6px));transition-delay:0s}
+
+@media (prefers-reduced-motion:reduce){
+  .nav a.on::before{animation:none;transition:none}
+  .open .drawer .pb>*{transition-delay:0s!important}
+}
+
+/* ===== R55 选中：选中条挂真 DOM + stagger 统一 (.nav a.on::before) ===== */
+:root{
+  --stagger:56ms;
+  --enter-y:6px;
+  --d-sel:160ms;
+}
+.grid.g4>.kpi:nth-child(1),.grid.g5w>.kpi:nth-child(1){animation-delay:0s}
+.grid.g4>.kpi:nth-child(2),.grid.g5w>.kpi:nth-child(2){animation-delay:var(--stagger)}
+.grid.g4>.kpi:nth-child(3),.grid.g5w>.kpi:nth-child(3){animation-delay:calc(var(--stagger)*2)}
+.grid.g4>.kpi:nth-child(4),.grid.g5w>.kpi:nth-child(4){animation-delay:calc(var(--stagger)*3)}
+.grid.g4>.kpi:nth-child(5),.grid.g5w>.kpi:nth-child(5){animation-delay:calc(var(--stagger)*4)}
+.main>*:nth-child(1){animation-delay:0s}
+.main>*:nth-child(2){animation-delay:var(--stagger)}
+.main>*:nth-child(3){animation-delay:calc(var(--stagger)*2)}
+.main>*:nth-child(4){animation-delay:calc(var(--stagger)*3)}
+.main>*:nth-child(5){animation-delay:calc(var(--stagger)*4)}
+.main>*:nth-child(n+6){animation-delay:calc(var(--stagger)*5)}
+.nav a{position:relative}
+.nav a.on::before{
+  content:"";position:absolute;left:var(--s1);top:var(--s3);bottom:var(--s3);width:2px;
+  border-radius:var(--r1);background:var(--brand);transform-origin:center top;
+}
+@media (prefers-reduced-motion:no-preference){
+  .nav a.on::before{animation:sel-bar var(--d-sel) var(--ease) both}
+}
+@media (prefers-reduced-motion:reduce){
+  .nav a.on::before{animation:none;transition:none}
+}
+
+
+/* ===== R56 字阶：数字层级跃迁 + 选中条可读高度 ===== */
+/* 选中条加长：项高 32 内 top/bottom 6 → 条高约 20 */
+.nav a.on::before{
+  top:6px;
+  bottom:6px;
+  width:2px;
+}
+/* R56 字阶（R57 改为 token） */
+@media (min-width:1025px){
+  .kpi .v,
+  .kpi .num.v,
+  .g-wide .kpi .v{
+    font-size:var(--fs-32);
+    line-height:var(--lh-40);
+    font-weight:500;
+    font-variant-numeric:tabular-nums;
+  }
+  .kpi .unit,
+  .kpi .v + .unit{
+    font-size:var(--fs-13);
+    line-height:var(--lh-16);
+    font-weight:500;
+    color:var(--tx2);
+  }
+}
+@media (max-width:1024px){
+  .kpi .v,
+  .kpi .num.v{
+    font-size:var(--fs-28);
+    line-height:var(--lh-36);
+    font-weight:500;
+  }
+}
+td.r .num.dec .ccy,
+td.r .num.dec .frac,
+.num.dec .ccy,
+.num.dec .frac{
+  font-size:var(--fs-12);
+  line-height:var(--lh-16);
+  font-weight:400;
+  color:var(--tx2);
+}
+td.r .num.dec,
+.num.dec{
+  font-size:var(--fs-14);
+  line-height:var(--lh-20);
+  font-weight:500;
+  font-variant-numeric:tabular-nums;
+}
+
+/* ===== R57 令牌：字号行高 CSS 变量 + 间距节奏 ===== */
+.ph h1{font-size:var(--fs-20);line-height:var(--lh-28);font-weight:500}
+.ph-h h2{font-size:var(--fs-14);line-height:var(--lh-20);font-weight:500}
+.tbl th{font-size:var(--fs-12);line-height:var(--lh-16);font-weight:500}
+.tbl td{font-size:var(--fs-13);line-height:var(--lh-20);font-weight:400}
+.kpi{padding:var(--s2) var(--s3)} /* 8×12 */
+.nav a.on::before{top:6px;bottom:6px}
+
+/* —— R58 态重：状态信号加重 + empty 井框 + 间距 —— */
+.stt{height:28px;padding:0 var(--s3);gap:var(--s2)}
+.stt .ic{width:14px;height:14px}
+.bdg{height:28px;padding:0 var(--s3)}
+.stt .ic.sm,.bdg .ic.sm,.bdg .ic{width:14px;height:14px}
+.legend-st i{width:14px;height:14px}
+.empty.risk,.empty.exc{
+  padding:var(--s8) var(--s6);
+  gap:var(--s3);
+}
+.empty.risk .eic,.empty.exc .eic{
+  width:56px;height:56px;border-radius:8px;
+}
+.empty.risk .eic svg,.empty.exc .eic svg,
+.empty.risk .eic .ic,.empty.exc .eic .ic{
+  width:28px;height:28px;
+}
+.empty.risk .eic{border-width:2px}
+.empty.exc .eic{border-width:2px;border-style:dashed}
+.list .li{gap:var(--s3)}
+.bar .stt,.bar .bdg{align-self:center}
+.tbl .stt,.cellx .stt{vertical-align:middle}
+
+/* —— R59 落态：间距令牌接线 + rail 清硬字号 —— */
+.stt{padding:0 var(--s3);gap:var(--s2)}
+.bdg{padding:0 var(--s3)}
+.g-wide>.rail .kpi .v,
+.g-wide>.rail .rail-metric,
+.g-wide>.rail .kv dd.num{
+  font-size:var(--fs-20);line-height:var(--lh-28);
+}
+.li .m{display:flex;flex-wrap:wrap;align-items:center;gap:var(--s2)}
+.li .m .stt{flex-shrink:0}
+.ph-h > .stt{margin-left:var(--s2)}
+
+/* —— R60 跟态：列表 gap 令牌 + 层级加清 —— */
+.list .li{gap:var(--s3)}
+.ph-h h2{
+  font-weight:600;
+  letter-spacing:-.02em;
+}
+.sub-h{
+  margin-top:var(--s4);
+  font-weight:500;
+  color:var(--tx1);
+}
+.ph-h .sub{color:var(--tx3)}
+
+/* —— R61 疏密：面板内间距节奏 + 次级标题阶梯 —— */
+.stack{gap:var(--s4)}
+.pb > .stack{gap:var(--s5)}
+.grid{gap:var(--s4)}
+.g-list{gap:var(--s5)}
+.kpi.row, .row.kpi, .g3, .g2{gap:var(--s4)}
+.panel .pb:not(.flush){padding:var(--s5)}
+.panel .pb.flush{padding:0}
+.sub-h{
+  margin-top:var(--s4);
+  margin-bottom:var(--s3);
+  font-weight:600;
+  color:var(--tx2);
+  letter-spacing:-.01em;
+}
+.ph-h h2{font-weight:600;color:var(--tx1)}
+.meta{gap:var(--s4) var(--s5)}
+
+/* —— R66 宽疏：全宽 g-list gap20 + 疏距/辨题/折下继承 —— */
+.g-list{gap:var(--s5)}
+.pb > .stack{gap:var(--s5)}
+.stack{gap:var(--s5)}
+.grid.g3,.g3{gap:var(--s5)}
+.sub-h{
+  font-size:var(--fs-14);
+  line-height:var(--lh-24);
+  font-weight:600;
+  color:var(--tx2);
+  margin-top:var(--s5);
+  margin-bottom:var(--s3);
+  letter-spacing:-.01em;
+}
+.ph-h h2{
+  font-size:var(--fs-16);
+  line-height:var(--lh-24);
+  font-weight:600;
+  color:var(--tx1);
+  letter-spacing:-.01em;
+}
+@media (max-width:1280px){
+  .g-list:not(.g-eq){
+    grid-template-columns:1fr;
+    gap:var(--s5);
+  }
+  .g-list:not(.g-eq) > .panel,
+  .g-list:not(.g-eq) > [data-detail]{
+    min-width:0;
+  }
+  .g-list:not(.g-eq) > .panel:not([data-detail]) > .list{
+    max-height:280px;
+    overflow-y:auto;
+  }
+  .g-list:not(.g-eq) > .panel:not([data-detail]) > .list > .grp.is-stick{
+    position:sticky;
+    top:0;
+    z-index:1;
+    background:var(--surface);
+  }
+  .bar{
+    flex-wrap:wrap;
+    height:auto;
+    min-height:48px;
+    row-gap:var(--s2);
+  }
+  .meta{
+    flex-wrap:wrap;
+    row-gap:var(--s2);
+  }
+}
+@media (max-width:1024px){
+  .g3{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .g-list{grid-template-columns:1fr}
+  [data-detail] .ph-h{
+    flex-wrap:wrap;
+    height:auto;
+    min-height:48px;
+    row-gap:var(--s2);
+  }
+}
+
+/* —— R67 列齐：列表状态/时长定宽列，副文与时间右缘对齐 —— */
+.list .li .stt{min-width:84px;justify-content:flex-start;box-sizing:border-box}
+.li .side-v{min-width:64px;align-items:flex-end}
+.li .side-v .num{min-width:5.5ch;text-align:right;font-variant-numeric:tabular-nums}
+@media (min-width:1520px){
+  .g-list{gap:var(--s5)}
+}
+
+/* —— R68 表齐：表内状态列定宽与列表令牌对齐 —— */
+.tbl td .stt,.tbl .stt,.cellx .stt{min-width:108px;justify-content:flex-start;box-sizing:border-box}
+
+
+/* ===== 继承 R69 编辑感：字阶 / 留白 / 表面（R70 在下方追加章节壳） ===== */
+/* 原则：页题 22/600 · 区题 15/600 · 正文 13 · 辅文 12/tx3；
+   页边 32 · 区块 gap 28；钴蓝只作主按钮/选中；少硬边，留白分层 */
+
+/* —— 字阶 —— */
+.ph h1{
+  font-size:var(--fs-22);
+  line-height:var(--lh-28);
+  font-weight:600;
+  letter-spacing:-.02em;
+  text-wrap:balance;
+}
+.ph > div > p,
+.ph p,
+.ph .dek{
+  margin-top:var(--s2);
+  font-size:var(--fs-12);
+  line-height:var(--lh-16);
+  font-weight:400;
+  color:var(--tx3);
+  max-width:56ch;
+}
+.ph-h h2,
+.sub-h{
+  font-size:var(--fs-15);
+  line-height:var(--lh-22);
+  font-weight:600;
+  letter-spacing:-.01em;
+  color:var(--tx1);
+}
+.sub-h{
+  color:var(--tx2);
+  margin-top:var(--s7);
+  margin-bottom:var(--s3);
+}
+.ph-h .sub,
+.tx3,
+.nav-h,
+.li .m,
+.step .sd,
+.kpi .d,
+.tbl th,
+.legend,
+.legend-st,
+.crumb{
+  color:var(--tx3);
+}
+.t-sm{font-size:var(--fs-13);line-height:var(--lh-20)}
+.t-xs{font-size:var(--fs-12);line-height:var(--lh-16)}
+
+/* —— 正文 / 表格 —— */
+body{font-size:var(--fs-13);line-height:var(--lh-20)}
+.tbl td{font-size:var(--fs-13);line-height:var(--lh-20);font-weight:400}
+.tbl th{font-size:var(--fs-12);line-height:var(--lh-16);font-weight:500;color:var(--tx3)}
+.btn{font-size:var(--fs-13);line-height:var(--lh-20)}
+.btn.s36{font-size:var(--fs-13)}
+.inp,.sel,.inp input{font-size:var(--fs-13);line-height:var(--lh-20)}
+.field label{font-size:var(--fs-12);line-height:var(--lh-16);color:var(--tx3);font-weight:500}
+
+/* —— 留白节奏 —— */
+.main{padding:var(--s8);padding-bottom:var(--s12)}
+.ph{margin-bottom:var(--s7);align-items:flex-end;gap:var(--s4)}
+.top{margin-bottom:var(--s5);height:32px}
+.stack{gap:var(--s7)}
+.pb > .stack{gap:var(--s7)}
+.grid{gap:var(--s5)}
+.g-list{gap:var(--s7)}
+.g3,.grid.g3,.g2{gap:var(--s5)}
+.panel .pb:not(.flush){padding:var(--s6)}
+.list{padding:var(--s2) var(--s2) var(--s3)}
+.li{padding:var(--s4) var(--s3);gap:var(--s3);border-radius:var(--r2)}
+.li + .li{/* 行距靠 padding，不再挤 */}
+.li .t{font-size:var(--fs-13);line-height:var(--lh-20);font-weight:500;color:var(--tx1)}
+.li .m{margin-top:var(--s2);font-size:var(--fs-12);line-height:var(--lh-16);color:var(--tx3);gap:var(--s2)}
+.grp{height:28px;margin-top:var(--s3);font-size:var(--fs-12);line-height:var(--lh-16);font-weight:600;color:var(--tx3)}
+.meta{gap:var(--s4) var(--s6);font-size:var(--fs-12);line-height:var(--lh-16);color:var(--tx3)}
+
+/* —— 表面：少硬边，hairline + 留白 —— */
+.panel{
+  background:var(--surface);
+  border-radius:var(--r2);
+  box-shadow:var(--e1);
+  overflow:clip;
+}
+.ph-h{
+  height:auto;
+  min-height:48px;
+  padding:var(--s4) var(--s6);
+  border-bottom:1px solid var(--line);
+  gap:var(--s3);
+}
+.ph-h > .ic{color:var(--tx3)}
+.tray{
+  height:auto;
+  min-height:44px;
+  padding:var(--s3) var(--s6);
+  background:transparent;
+  border-top:1px solid var(--line);
+  color:var(--tx3);
+  font-size:var(--fs-12);
+  line-height:var(--lh-16);
+}
+.bar{
+  padding:var(--s3) var(--s6);
+  border-bottom:1px solid var(--line);
+  background:transparent;
+}
+.tile{
+  background:var(--sunken);
+  border-radius:var(--r2);
+  box-shadow:none;
+  border:0;
+}
+.tabs{padding:0 var(--s6);border-bottom:1px solid var(--line)}
+.tbl th{background:transparent;border-bottom:1px solid var(--line)}
+.tbl td{border-bottom:1px solid var(--line);height:48px}
+.tbl tbody tr:hover{background:var(--sunken)}
+
+/* —— 钴蓝只作主按钮 / 选中 —— */
+.btn.pri{
+  background:var(--accent);
+  color:var(--on);
+  border-color:transparent;
+  box-shadow:none;
+}
+.btn.pri:hover{background:var(--accent);filter:brightness(1.06)}
+.btn.sec,.btn.gho,.btn.dan{box-shadow:none}
+.nav a.on{
+  background:var(--accent-bg);
+  color:var(--tx1);
+  box-shadow:none;
+}
+.nav a.on::before{
+  background:var(--accent);
+  top:6px;bottom:6px;width:2px;
+}
+.nav a.on .ic{color:var(--accent)}
+.tabs a.on{color:var(--tx1);border-bottom-color:var(--accent)}
+.seg button.on{box-shadow:none;background:var(--surface);color:var(--tx1)}
+.li.on{background:var(--accent-bg)}
+.li.on .t{color:var(--tx1);font-weight:600}
+
+/* —— 侧栏更细、顶栏更简 —— */
+.app{grid-template-columns:200px minmax(0,1fr)}
+.side{padding:var(--s5) var(--s3);gap:var(--s5)}
+.brand{font-size:var(--fs-13);font-weight:600;letter-spacing:-.01em}
+.logo{background:var(--brand);color:var(--on);border-radius:var(--r2)}
+.nav a{height:32px;font-size:var(--fs-13);font-weight:500;border-radius:var(--r2)}
+.nav-h{font-size:var(--fs-12);color:var(--tx3);font-weight:500;margin-bottom:var(--s2)}
+
+/* —— KPI：数字仍醒目，但不压过页题 —— */
+.kpi{padding:var(--s4)}
+.kpi .l{font-size:var(--fs-12);line-height:var(--lh-16);color:var(--tx3);font-weight:500}
+.kpi .v{
+  margin-top:var(--s2);
+  font-size:var(--fs-28);
+  line-height:var(--lh-36);
+  font-weight:500;
+  font-variant-numeric:tabular-nums;
+  letter-spacing:-.02em;
+}
+.tile.kpi .v{font-size:var(--fs-20);line-height:var(--lh-28);font-weight:500}
+.hk b{font-size:var(--fs-22);line-height:var(--lh-28);font-weight:500}
+.hk span{font-size:var(--fs-12);color:var(--tx3)}
+
+@media (min-width:1025px){
+  .kpi .v,.kpi .num.v,.g-wide .kpi .v{
+    font-size:var(--fs-28);
+    line-height:var(--lh-36);
+    font-weight:500;
+  }
+}
+@media (max-width:1024px){
+  .kpi .v,.kpi .num.v{
+    font-size:var(--fs-22);
+    line-height:var(--lh-28);
+    font-weight:500;
+  }
+}
+
+/* —— 宽屏 / 折下：编辑感下仍保留 r63 单列折列表 —— */
+@media (min-width:1520px){
+  .grid{gap:var(--s5)}
+  .g-list,.g-main,.stack{gap:var(--s7)}
+}
+/* R70：≥1280（含 1280）页边 32；仅 <1280 缩到 24 */
+@media (min-width:1280px){
+  :root{--align-x:32px}
+  .main{padding:var(--s8);padding-bottom:var(--s12)}
+  .main{padding-left:var(--s8);padding-right:var(--s8)}
+}
+@media (min-width:1440px){
+  /* 水平仍 32；仅底边略增，避免 1440 测 pad 与 1280 口径分裂 */
+  .main{padding:var(--s8);padding-bottom:var(--s12)}
+}
+@media (max-width:1279px){
+  .main{padding:var(--s6) var(--s6) var(--s10)}
+  .ph h1{font-size:var(--fs-22);line-height:var(--lh-28);font-weight:600}
+  .g-list:not(.g-eq){gap:var(--s7)}
+}
+@media (max-width:1024px){
+  .app{grid-template-columns:1fr}
+  .side{display:none}
+  .main{padding:var(--s5) var(--s4) var(--s10)}
+  .ph h1{font-size:var(--fs-22);line-height:var(--lh-28)}
+}
+@media (max-width:720px){
+  .main{padding:var(--s4)}
+  .ph h1{font-size:var(--fs-20);line-height:var(--lh-28);font-weight:600}
+}
+
+/* 状态色不抢标题：chip 保持小字阶，色只在自身 */
+.stt,.bdg{font-size:var(--fs-12);line-height:var(--lh-16);font-weight:500}
+.concl{font-size:var(--fs-13);color:var(--tx2)}
+.concl b{color:var(--tx1);font-weight:600}
+
+/* focus 环用钴点缀，不用墨蓝实底抢戏 */
+:root{--focus:0 0 0 2px var(--surface),0 0 0 4px var(--accent)}
+[data-theme="dark"]{--focus:0 0 0 2px var(--surface),0 0 0 4px var(--accent)}
+
+
+/* ===== R70 章节：壳与信息架构（真编辑感，非 gap 微调） ===== */
+/* 1) 章节式主区：大标题+dek+章节块，靠留白/发丝线，不靠等权卡墙
+   2) 弱化模板壳：侧栏 168、品牌更静、顶栏更薄；KPI 离开页眉进章节
+   3) ≥1280 页边 32（含 1280）；辅文统一 12/400/tx3
+   4) 钴只作 .btn.pri + 选中；.stt.act → info，不用 accent-bg */
+
+/* —— 辅文贯彻：区题副文 / 页眉 sub —— */
+.ph-h .sub,
+.ph .dek,
+.concl,
+.crumb{
+  font-size:var(--fs-12);
+  line-height:var(--lh-16);
+  font-weight:400;
+  color:var(--tx3);
+}
+.ph-h .sub{font-size:var(--fs-12);line-height:var(--lh-16);color:var(--tx3)}
+
+/* —— 钴纪律：进行中状态用 info，不用 accent —— */
+.stt.act{background:var(--info-bg);color:var(--info)}
+.legend-st .act{background:var(--info-bg);border-color:var(--info)}
+
+/* —— 弱化侧栏壳 —— */
+.app{grid-template-columns:176px minmax(0,1fr)}
+.side{
+  padding:var(--s4) var(--s3);
+  gap:var(--s4);
+  border-right:1px solid var(--line);
+  background:transparent;
+}
+.brand{
+  font-size:var(--fs-12);
+  line-height:var(--lh-16);
+  font-weight:600;
+  letter-spacing:-.01em;
+  color:var(--tx2);
+  gap:var(--s2);
+  padding:var(--s1) 0 var(--s2);
+}
+.logo{
+  width:22px;height:22px;
+  background:var(--brand);
+  color:var(--on);
+  border-radius:var(--r1);
+  opacity:.92;
+}
+.nav a{
+  height:30px;
+  font-size:var(--fs-12);
+  line-height:var(--lh-16);
+  font-weight:500;
+  color:var(--tx2);
+  border-radius:var(--r1);
+  padding:0 var(--s2);
+}
+.nav a .ic{opacity:.72}
+.nav a.on{background:var(--accent-bg);color:var(--tx1)}
+.nav a.on .ic{opacity:1;color:var(--accent)}
+.nav-h{font-size:var(--fs-12);color:var(--tx3);font-weight:500;letter-spacing:.02em;text-transform:none;margin:var(--s3) 0 var(--s1)}
+.nav .cnt{font-size:var(--fs-12);color:var(--tx3)}
+
+/* —— 顶栏极简 —— */
+.top{
+  height:28px;
+  margin-bottom:var(--s6);
+  padding:0;
+  border-bottom:0;
+  background:transparent;
+  color:var(--tx3);
+  font-size:var(--fs-12);
+  line-height:var(--lh-16);
+}
+.crumb{font-size:var(--fs-12);line-height:var(--lh-16);color:var(--tx3)}
+
+/* —— 页眉：只留题 + dek + 操作；KPI 已迁出 —— */
+.ph{
+  margin-bottom:var(--s4);
+  padding-bottom:var(--s4);
+  border-bottom:1px solid var(--line);
+  align-items:flex-end;
+  gap:var(--s4);
+}
+.ph .acts{flex-shrink:0}
+
+/* —— 章节块 —— */
+.ch{
+  margin:0 0 var(--s7);
+}
+.ch + .ch{
+  padding-top:var(--s7);
+  border-top:1px solid var(--line);
+}
+.ch-metrics{
+  margin:0 0 var(--s5);
+  padding:0 0 var(--s4);
+  border-bottom:1px solid var(--line);
+}
+.ch-metrics .hk{
+  display:flex;
+  flex-wrap:wrap;
+  gap:var(--s8) var(--s10);
+  padding:0;
+  background:transparent;
+  border:0;
+  box-shadow:none;
+}
+.ch-metrics .hk > div{
+  display:flex;
+  flex-direction:column;
+  gap:var(--s1);
+  min-width:72px;
+}
+.ch-metrics .hk span{
+  font-size:var(--fs-12);
+  line-height:var(--lh-16);
+  font-weight:400;
+  color:var(--tx3);
+}
+.ch-metrics .hk b{
+  font-size:var(--fs-22);
+  line-height:var(--lh-28);
+  font-weight:500;
+  font-variant-numeric:tabular-nums;
+  letter-spacing:-.02em;
+  color:var(--tx1);
+}
+.ch-h{
+  display:flex;
+  align-items:baseline;
+  justify-content:space-between;
+  gap:var(--s4);
+  margin:0 0 var(--s4);
+}
+.ch-h h2{
+  font-size:var(--fs-15);
+  line-height:var(--lh-22);
+  font-weight:600;
+  letter-spacing:-.01em;
+  color:var(--tx1);
+  margin:0;
+}
+.ch-h .dek{
+  font-size:var(--fs-12);
+  line-height:var(--lh-16);
+  font-weight:400;
+  color:var(--tx3);
+}
+
+/* —— 软化面板壳：发丝线 > 浮卡 —— */
+.panel{
+  background:var(--surface);
+  border-radius:var(--r2);
+  box-shadow:none;
+  border:1px solid var(--line);
+  overflow:clip;
+}
+.panel.flat,
+.ch .panel{
+  border-color:var(--line);
+}
+.tile{
+  background:transparent;
+  border:1px solid var(--line);
+  box-shadow:none;
+}
+.ph-h{
+  background:transparent;
+  border-bottom:1px solid var(--line);
+}
+.bar,.tray{background:transparent}
+
+/* —— 主栈：章节节奏 —— */
+.main > .stack{gap:var(--s7)}
+.main > .grid{gap:var(--s7)}
+.g-list{gap:var(--s7)}
+
+/* —— 列表更像阅读章节 —— */
+.list{padding:var(--s1) 0 var(--s2)}
+.li{border-radius:var(--r1);padding:var(--s4) var(--s3)}
+.li + .li{border-top:1px solid var(--line);border-radius:0}
+.li.on{background:var(--accent-bg);box-shadow:none}
+
+@media (max-width:1024px){
+  .app{grid-template-columns:1fr}
+  .side{display:none;border-right:0}
+}
+
+/* R70 终裁：恰好 1280 页边必须 32（覆盖早期 max-width:1280 的 pad 缩水） */
+@media (min-width:1280px) and (max-width:1439px){
+  .main{
+    padding-top:var(--s8);
+    padding-left:var(--s8);
+    padding-right:var(--s8);
+    padding-bottom:var(--s12);
+  }
+}
+
+/* ===== R71 拆壳（继承）：极简轨 + 真章节 + 少 panel 墙（非 pad/gap 微调） ===== */
+/* 1) 侧栏 → 72px 图标+二字轨；顶栏只 crumb+图标
+   2) .chapter = 题15/600 + lede12/tx3 + 正文；开章叙事+行内数字
+   3) .panel.open 去墙；列表章内物件、详情阅读窗
+   4) 继承 R70 页边32@1280 / 辅文tx3 / stt.act→info / 钴纪律 */
+
+/* —— 极简轨 —— */
+.app{grid-template-columns:72px minmax(0,1fr)}
+.side.rail{
+  width:72px;
+  padding:var(--s4) var(--s1);
+  gap:var(--s4);
+  border-right:1px solid var(--line);
+  background:transparent;
+  align-items:center;
+}
+.side.rail .brand{
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  gap:0;
+  padding:var(--s1) 0 var(--s2);
+  font-size:0;
+  line-height:0;
+  color:transparent;
+}
+.side.rail .brand > span:not(.logo){display:none}
+.side.rail .logo{
+  width:24px;height:24px;
+  border-radius:var(--r1);
+  opacity:.9;
+}
+.side.rail .nav{width:100%;display:flex;flex-direction:column;gap:var(--s1);align-items:stretch}
+.side.rail .nav-h{display:none}
+.side.rail .nav a{
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  gap:var(--s1);
+  height:auto;
+  min-height:48px;
+  padding:var(--s2) var(--s1);
+  font-size:var(--fs-12);
+  line-height:var(--lh-16);
+  font-weight:500;
+  color:var(--tx2);
+  text-align:center;
+  border-radius:var(--r1);
+}
+.side.rail .nav a .ic{width:20px;height:20px;opacity:.78}
+.side.rail .nav a.on{background:var(--accent-bg);color:var(--tx1)}
+.side.rail .nav a.on .ic{opacity:1;color:var(--accent)}
+.side.rail .nav a.on::before{
+  left:0;top:12px;bottom:12px;width:2px;
+  background:var(--accent);
+}
+.side.rail .nav .cnt{display:none}
+.side.rail .side-foot,
+.side.rail .rail-foot{
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  gap:0;
+  padding:var(--s2) 0 0;
+  width:100%;
+}
+.side.rail .rail-foot .grow{display:none}
+.side.rail .rail-foot .av{width:28px;height:28px;font-size:var(--fs-12)}
+
+/* —— 顶栏去臃 —— */
+.top{
+  height:28px;
+  margin-bottom:var(--s6);
+  padding:0;
+  border-bottom:0;
+  background:transparent;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:var(--s4);
+}
+.top .top-acts{gap:var(--s2)}
+.top .inp.search{display:none}
+
+/* —— 真章节 —— */
+.chapter{
+  margin:0 0 var(--s7);
+  padding:0;
+}
+.chapter + .chapter{
+  padding-top:var(--s7);
+  border-top:1px solid var(--line);
+  margin-top:0;
+}
+.ch-title{
+  margin:0;
+  font-size:var(--fs-15);
+  line-height:var(--lh-22);
+  font-weight:600;
+  letter-spacing:-.01em;
+  color:var(--tx1);
+}
+.ch-lede{
+  margin:var(--s2) 0 var(--s5);
+  max-width:60ch;
+  font-size:var(--fs-12);
+  line-height:var(--lh-16);
+  font-weight:400;
+  color:var(--tx3);
+}
+.ch-open .ch-lede{margin-bottom:var(--s4)}
+.ch-sum{display:flex;flex-direction:column;gap:var(--s4)}
+.ch-narr{
+  margin:0;
+  max-width:68ch;
+  font-size:var(--fs-13);
+  line-height:var(--lh-20);
+  font-weight:400;
+  color:var(--tx2);
+}
+.ch-narr b.num{
+  font-weight:500;
+  font-variant-numeric:tabular-nums;
+  color:var(--tx1);
+}
+.ch-narr b.num.bad{color:var(--bad);font-weight:600}
+.ch-figs{
+  display:flex;
+  flex-wrap:wrap;
+  gap:var(--s6) var(--s8);
+  padding:var(--s4) 0 0;
+  border-top:1px solid var(--line);
+}
+.ch-fig{
+  display:flex;
+  flex-direction:column;
+  gap:var(--s1);
+  min-width:64px;
+}
+.ch-fig > span{
+  font-size:var(--fs-12);
+  line-height:var(--lh-16);
+  font-weight:400;
+  color:var(--tx3);
+}
+.ch-fig > b.num{
+  font-size:var(--fs-22);
+  line-height:var(--lh-28);
+  font-weight:500;
+  font-variant-numeric:tabular-nums;
+  letter-spacing:-.02em;
+  color:var(--tx1);
+}
+.ch-fig > b.num.bad{color:var(--bad);font-weight:600}
+.ch-fig .unit,
+.ch-fig-u,
+.ch-fig > i.ch-fig-u{
+  font-size:var(--fs-12);
+  line-height:var(--lh-16);
+  font-weight:400;
+  font-style:normal;
+  color:var(--tx3);
+  margin-top:0;
+}
+.ch-body{min-width:0}
+.ch-body.note-row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:var(--s4);
+  flex-wrap:wrap;
+  padding:var(--s1) 0;
+}
+.ch-note .ch-body{color:var(--tx2);font-size:var(--fs-13);line-height:var(--lh-20)}
+
+/* 开章后页眉更轻：题与章之间只留短发丝 */
+.ph{
+  margin-bottom:var(--s5);
+  padding-bottom:var(--s4);
+  border-bottom:1px solid var(--line);
+}
+
+/* —— 少 panel 墙 —— */
+.panel.open,
+.chapter .panel{
+  background:transparent;
+  border:0;
+  border-radius:0;
+  box-shadow:none;
+  overflow:visible;
+}
+.panel.open > .ph-h,
+.chapter .panel > .ph-h{
+  background:transparent;
+  border-bottom:1px solid var(--line);
+  padding-left:0;
+  padding-right:0;
+}
+.panel.open > .bar,
+.panel.open > .tabs,
+.panel.open > .tray,
+.chapter .panel > .bar,
+.chapter .panel > .tabs,
+.chapter .panel > .tray{
+  background:transparent;
+  padding-left:0;
+  padding-right:0;
+}
+.panel.open > .pb,
+.chapter .panel > .pb{
+  padding-left:0;
+  padding-right:0;
+}
+.panel.open > .tbl-scroll,
+.chapter .panel > .tbl-scroll{
+  border-top:1px solid var(--line);
+}
+
+/* 列表：章内开放列表，无盒 */
+.ch-list .list,
+.panel.open.ch-list .list{
+  padding:var(--s1) 0;
+}
+.ch-list .li,
+.panel.open.ch-list .li{
+  border-radius:var(--r1);
+  padding:var(--s4) var(--s2);
+}
+.ch-list .li + .li{border-top:1px solid var(--line);border-radius:0}
+
+/* 详情：阅读窗（宽屏左侧发丝，非等权卡） */
+.panel.open.read,
+[data-detail].panel.open{
+  background:transparent;
+  border:0;
+  box-shadow:none;
+}
+@media (min-width:1440px){
+  .ch-flow.g-list{
+    grid-template-columns:minmax(280px,340px) minmax(0,1fr);
+    gap:var(--s7);
+    align-items:start;
+  }
+  [data-detail].panel.open{
+    border-left:1px solid var(--line);
+    padding-left:var(--s6);
+  }
+  .ch-list .list{max-height:none}
+}
+
+/* 章内流：继承 g-list 折列 */
+.ch-flow.g-list{gap:var(--s7)}
+
+/* 旧 ch-metrics 若残留则静默（本轮以 chapter 为准） */
+.ch-metrics{display:none}
+
+/* 响应：轨在 ≤1024 仍隐藏 */
+@media (max-width:1024px){
+  .app{grid-template-columns:1fr}
+  .side.rail{display:none;border-right:0}
+}
+
+/* R72：1280 页边 32 保持（不回退） */
+@media (min-width:1280px) and (max-width:1439px){
+  .main{
+    padding-top:var(--s8);
+    padding-left:var(--s8);
+    padding-right:var(--s8);
+    padding-bottom:var(--s12);
+  }
+}
+
+/* ===== R72 章体（继承）：去 tile KPI / 弱发丝 / 滤栏托盘减框 ===== */
+/* 继承 R71：轨72 · 3章 · open 去墙 · pad32@1280 · 字阶 · 钴纪律 */
+
+/* 章间：留白/字阶分隔，去掉全宽发丝 */
+.chapter + .chapter{
+  border-top:0;
+  padding-top:var(--s8);
+  margin-top:var(--s2);
+}
+.chapter{
+  margin:0 0 var(--s8);
+}
+
+/* 开章 / 详情 figs：去底线，靠节奏分组 */
+.ch-figs{
+  border-top:0;
+  padding-top:var(--s3);
+  gap:var(--s5) var(--s7);
+}
+.ch-open .ch-figs{
+  padding-top:var(--s4);
+}
+.read-figs,
+.panel.open.read .ch-figs,
+[data-detail] .ch-figs{
+  margin:var(--s3) 0 var(--s4);
+  padding:0;
+  border:0;
+}
+.read-figs .ch-fig > b.num,
+[data-detail] .ch-figs .ch-fig > b.num{
+  font-size:var(--fs-22);
+  line-height:var(--lh-28);
+}
+
+/* 页眉底线减弱：只留短节奏，不全宽抢戏 */
+.ph{
+  border-bottom:0;
+  padding-bottom:var(--s3);
+  margin-bottom:var(--s6);
+}
+
+/* 开敞面板：头/表顶发丝只在行内需要时保留；滤栏与托盘去壳 */
+.panel.open > .ph-h.soft-h,
+.chapter .panel > .ph-h.soft-h{
+  border-bottom:0;
+  padding-bottom:var(--s2);
+  height:auto;
+  min-height:40px;
+}
+.panel.open > .bar.filt,
+.chapter .panel > .bar.filt,
+.bar.filt{
+  background:transparent;
+  border-bottom:0;
+  padding:var(--s2) 0 var(--s3);
+  height:auto;
+  min-height:0;
+  gap:var(--s2);
+}
+.bar.filt .sel{
+  background:transparent;
+  box-shadow:inset 0 0 0 1px var(--line);
+}
+.bar.filt .inp.search{
+  background:transparent;
+  box-shadow:inset 0 0 0 1px var(--line);
+}
+.panel.open > .tabs.soft-tabs,
+.tabs.soft-tabs{
+  border-bottom:0;
+  padding:0 0 var(--s2);
+  height:auto;
+  min-height:36px;
+  gap:var(--s5);
+}
+.panel.open > .tray.soft,
+.chapter .panel > .tray.soft,
+.tray.soft{
+  background:transparent;
+  border-top:0;
+  padding:var(--s3) 0 0;
+  height:auto;
+  min-height:40px;
+  flex-shrink:0;
+  color:var(--tx3);
+  font-size:var(--fs-12);
+  line-height:var(--lh-16);
+}
+.tray.soft .btn.gho,
+.tray.soft .btn.sec{
+  color:var(--tx2);
+}
+
+/* 详情阅读窗：meta 更像导语行 */
+.panel.open.read .meta,
+[data-detail] .meta{
+  gap:var(--s4);
+  color:var(--tx3);
+  font-size:var(--fs-12);
+  line-height:var(--lh-16);
+  margin-bottom:var(--s2);
+}
+.panel.open.read .meta .num,
+[data-detail] .meta .num,
+.panel.open.read .meta b,
+[data-detail] .meta b{
+  color:var(--tx1);
+  font-weight:500;
+}
+
+/* 列表行发丝保留（扫读需要）；组头与行间距略松 */
+.ch-list .li{
+  padding:var(--s3) var(--s2);
+}
+.ch-list .li + .li{border-top:1px solid var(--line)}
+
+/* 表：行发丝保留；表顶线改轻——用透明顶距代替粗分隔 */
+.panel.open > .tbl-scroll,
+.chapter .panel > .tbl-scroll{
+  border-top:0;
+  margin-top:var(--s2);
+}
+.panel.open .tbl th{
+  background:transparent;
+}
+
+/* 禁止详情再出现 KPI 卡墙（防御：组件页仍可展示 .tile.kpi） */
+.panel.open.read .tile.kpi,
+[data-detail] .tile.kpi,
+.panel.open.read .grid.g3 > .tile.kpi{
+  display:none !important;
+}
+
+/* 宽屏详情左侧发丝保留作阅读边界（非卡墙） */
+@media (min-width:1440px){
+  [data-detail].panel.open{
+    border-left:1px solid var(--line);
+    padding-left:var(--s6);
+  }
+}
+
+
+/* ===== R73 阅读：列表/表章阅读化（在 R72 章体之上） ===== */
+
+/* 文本滤栏：无实体 sel，行内字控 */
+.bar.filt.text{
+  display:flex;
+  align-items:center;
+  gap:var(--s3);
+  padding:0 0 var(--s2);
+  min-height:32px;
+  background:transparent;
+  border:0;
+  border-bottom:0;
+}
+.bar.filt.text .txt{
+  appearance:none;
+  background:transparent;
+  border:0;
+  padding:0;
+  margin:0;
+  font:inherit;
+  font-size:var(--fs-12);
+  line-height:var(--lh-16);
+  color:var(--tx3);
+  cursor:pointer;
+  height:auto;
+  min-height:0;
+  box-shadow:none;
+}
+.bar.filt.text .txt:hover{color:var(--tx1)}
+.bar.filt.text .txt.on{
+  color:var(--accent);
+  font-weight:500;
+}
+.bar.filt.text .txt.mute{color:var(--tx3)}
+.bar.filt.text .filt-sep{
+  color:var(--tx3);
+  font-size:var(--fs-12);
+  opacity:.55;
+  user-select:none;
+}
+.bar.filt.text .txt-search{
+  display:inline-flex;
+  align-items:center;
+  gap:var(--s2);
+  min-width:0;
+  flex:0 1 220px;
+}
+.bar.filt.text .txt-search input{
+  width:100%;
+  border:0;
+  background:transparent;
+  padding:0;
+  margin:0;
+  font:inherit;
+  font-size:var(--fs-12);
+  line-height:var(--lh-16);
+  color:var(--tx1);
+  outline:none;
+  box-shadow:none;
+  height:auto;
+  min-height:0;
+}
+.bar.filt.text .txt-search input::placeholder{color:var(--tx3)}
+
+/* 专栏组头：小标题而非图标条 */
+.grp.ed{
+  display:flex;
+  align-items:baseline;
+  gap:var(--s2);
+  padding:var(--s4) var(--s2) var(--s2);
+  margin:0;
+  font-size:var(--fs-12);
+  line-height:var(--lh-16);
+  font-weight:600;
+  letter-spacing:.02em;
+  color:var(--tx3);
+  text-transform:none;
+  background:transparent;
+  border:0;
+}
+.grp.ed .cnt{
+  margin-left:auto;
+  font-weight:500;
+  color:var(--tx3);
+  font-variant-numeric:tabular-nums;
+}
+.grp.ed + .li{border-top:0}
+.list .grp.ed:first-child{padding-top:var(--s2)}
+
+/* 列表行：安静时间侧栏；保留一枚状态 chip */
+.ch-list .side-v.quiet,
+.list .side-v.quiet{
+  display:flex;
+  align-items:center;
+  justify-content:flex-end;
+  min-width:4.5rem;
+  color:var(--tx3);
+  font-size:var(--fs-12);
+  line-height:var(--lh-16);
+}
+.ch-list .side-v.quiet .num,
+.list .side-v.quiet .num{
+  color:var(--tx3);
+  font-weight:400;
+}
+.ch-list .li .m .stt{
+  /* 单枚安静 chip：略收内边距语气 */
+  font-size:var(--fs-12);
+}
+
+/* 章头节奏：tabs + 文本工具共置，在 panel 外 */
+.ch-head{
+  display:flex;
+  flex-direction:column;
+  gap:var(--s3);
+  margin:0 0 var(--s4);
+  padding:0;
+  background:transparent;
+  border:0;
+}
+.ch-head .tabs.soft-tabs.ch-tabs,
+.tabs.ch-tabs{
+  border-bottom:0;
+  padding:0;
+  height:auto;
+  min-height:0;
+  gap:var(--s5);
+}
+.ch-head .tabs.ch-tabs a{
+  position:relative;
+  padding:0 0 var(--s2);
+  color:var(--tx3);
+  font-size:var(--fs-13);
+  line-height:var(--lh-20);
+  font-weight:500;
+  border:0;
+  background:transparent;
+  box-shadow:none;
+}
+.ch-head .tabs.ch-tabs a.on{
+  color:var(--tx1);
+  border-bottom:2px solid var(--accent);
+  box-shadow:none;
+}
+.ch-head .tabs.ch-tabs a .bdg{
+  color:var(--tx3);
+  font-weight:500;
+  font-size:var(--fs-12);
+}
+.ch-head .bar.filt.text.ch-tools{
+  padding:0;
+}
+
+/* 表作章内物件：轻 thead、阅读行距 */
+.panel.open.ch-table,
+.ch-table.panel.open{
+  background:transparent;
+  border:0;
+  box-shadow:none;
+  padding:0;
+}
+.ch-table .tbl th{
+  background:transparent;
+  color:var(--tx3);
+  font-size:var(--fs-12);
+  line-height:var(--lh-16);
+  font-weight:500;
+  padding-top:var(--s2);
+  padding-bottom:var(--s2);
+  border-bottom:1px solid var(--line);
+}
+.ch-table .tbl td{
+  padding-top:var(--s3);
+  padding-bottom:var(--s3);
+  vertical-align:middle;
+}
+.ch-table .tbl tbody tr + tr td{
+  border-top:1px solid var(--line);
+}
+.ch-table > .tbl-scroll{
+  border-top:0;
+  margin-top:0;
+}
+
+/* 待办提醒：开章语法，非色块 alert */
+.chapter.ch-note .ch-sum{
+  display:flex;
+  flex-direction:column;
+  gap:var(--s4);
+}
+.chapter.ch-note .ch-narr{
+  margin:0;
+  font-size:var(--fs-13);
+  line-height:var(--lh-20);
+  color:var(--tx2);
+  max-width:48rem;
+}
+.chapter.ch-note .note-figs,
+.chapter.ch-note .ch-figs.note-figs{
+  border-top:0;
+  padding-top:0;
+}
+.chapter.ch-note .ch-fig.act-fig{
+  justify-content:flex-start;
+}
+.chapter.ch-note .ch-fig.act-fig .txt{
+  appearance:none;
+  background:transparent;
+  border:0;
+  padding:0;
+  margin:0;
+  font:inherit;
+  font-size:var(--fs-15);
+  line-height:var(--lh-24);
+  font-weight:600;
+  color:var(--accent);
+  cursor:pointer;
+  height:auto;
+  box-shadow:none;
+}
+.chapter.ch-note .ch-fig.act-fig .txt:hover{opacity:.85}
+
+
+/* 防御：列表内不再显示 spark */
+.ch-list .spark,
+.list .li .spark{
+  display:none !important;
+}
+
+
+/* ===== R74 钻取（继承）：单列续读 · 摘要表 · 安静异常 ===== */
+
+/* 章内钻取：永远上下续开，不再左右双栏镜像 */
+.ch-flow.drill{
+  display:flex;
+  flex-direction:column;
+  gap:var(--s7);
+  align-items:stretch;
+}
+.ch-flow.drill .ch-list.ch-index,
+.ch-flow.drill .ch-index{
+  background:transparent;
+  border:0;
+  box-shadow:none;
+  padding:0;
+  max-width:52rem;
+}
+.ch-flow.drill .index-h{
+  padding-left:0;
+  padding-right:0;
+}
+.ch-flow.drill .index-h > .ic{display:none}
+.ch-flow.drill .ch-index .list{
+  max-height:280px;
+  overflow-y:auto;
+}
+.ch-flow.drill .ch-index .bar.filt.text{
+  max-width:52rem;
+}
+
+/* 续读窗：章内推开，非等权第二卡片 */
+.ch-flow.drill .drill-pane,
+.panel.open.read.drill-pane{
+  background:transparent;
+  border:0;
+  box-shadow:none;
+  padding:0;
+  max-width:52rem;
+}
+.drill-kicker{
+  margin:0 0 var(--s3);
+  padding:0;
+  font-size:var(--fs-12);
+  line-height:var(--lh-16);
+  font-weight:600;
+  letter-spacing:.04em;
+  color:var(--tx3);
+}
+.ch-flow.drill .drill-pane .ph-h.soft-h{
+  padding-left:0;
+  padding-right:0;
+}
+.ch-flow.drill .drill-pane > .pb{
+  padding-left:0;
+  padding-right:0;
+}
+@media (min-width:1440px){
+  .ch-flow.drill{
+    display:flex;
+    flex-direction:column;
+    gap:var(--s8);
+  }
+  .ch-flow.drill .drill-pane,
+  .ch-flow.drill [data-detail].panel.open{
+    border-left:0;
+    padding-left:0;
+  }
+  /* list keep 280 scroll */
+}
+
+/* 异常：去虚线徽章盒，保留字色+图标与定宽对齐 */
+.stt.exc,
+.stt.exc.quiet{
+  border:0;
+  background:transparent;
+  color:var(--bad);
+  font-weight:600;
+}
+.stt.exc .ic,
+.stt.exc.quiet .ic{
+  stroke-width:2;
+}
+.legend-st .exc{
+  border:0;
+  background:var(--bad);
+  border-radius:999px;
+  width:8px;
+  height:8px;
+}
+
+/* 订单摘要表：少列默认态 + 常规状态去壳 */
+.panel.open.ch-table.sum,
+.ch-table.sum.panel.open{
+  background:transparent;
+  border:0;
+  box-shadow:none;
+}
+.ch-table.sum .tbl th{
+  font-size:var(--fs-12);
+  font-weight:500;
+  color:var(--tx3);
+  border-bottom:1px solid var(--line);
+  background:transparent;
+}
+.ch-table.sum .tbl td.mid{
+  color:var(--tx1);
+  font-weight:500;
+}
+.ch-table.sum .tbl td.wide{
+  color:var(--tx2);
+  font-size:var(--fs-12);
+  line-height:var(--lh-16);
+}
+.ch-table.sum .tbl td .stt.done,
+.ch-table.sum .tbl td .stt.act,
+.ch-table.sum .tbl td .stt.todo{
+  background:transparent;
+  border-color:transparent;
+}
+.ch-table.sum .tbl td .stt.done{color:var(--tx3)}
+.ch-table.sum .tbl td .stt.act{color:var(--info)}
+.ch-table.sum .tbl td .stt.todo{color:var(--tx1)}
+
+/* R74：索引列表粘组（无 .g-list 壳后补选择器） */
+.ch-index .list > .grp.is-stick,
+.ch-list.ch-index .list > .grp.is-stick{
+  position:sticky;
+  top:0;
+  z-index:2;
+  background:var(--canvas);
+}
+
+/* ===== R75 短续：索引编辑化 · 表再轻 · 续读缩短 ===== */
+
+/* 1. 索引行：编辑列表，非中台可选块 */
+.ch-index .li,
+.ch-list.ch-index .li{
+  padding:var(--s4) var(--s3);
+  border-radius:0;
+  background:transparent;
+  gap:var(--s3);
+}
+.ch-index .li + .li,
+.ch-list.ch-index .li + .li{
+  border-top:1px solid var(--line);
+}
+.ch-index .li:hover,
+.ch-list.ch-index .li:hover{
+  background:transparent;
+}
+.ch-index .li.on,
+.ch-list.ch-index .li.on{
+  background:transparent;
+  box-shadow:none;
+  border-left:2px solid var(--accent);
+  padding-left:var(--s3);
+}
+.ch-index .li:not(.on),
+.ch-list.ch-index .li:not(.on){
+  border-left:2px solid transparent;
+  padding-left:var(--s3);
+}
+.ch-index .li.on .t,
+.ch-list.ch-index .li.on .t{
+  color:var(--tx1);
+  font-weight:600;
+}
+.ch-index .li .brief,
+.ch-list.ch-index .li .brief{
+  margin-top:var(--s1);
+  font-size:var(--fs-12);
+  line-height:var(--lh-16);
+  color:var(--tx2);
+  max-width:36rem;
+}
+.ch-index .li .m.ed-m,
+.ch-list.ch-index .li .m.ed-m{
+  margin-top:var(--s2);
+  gap:var(--s3);
+  align-items:center;
+}
+.ch-index .li .meta-s,
+.ch-list.ch-index .li .meta-s{
+  color:var(--tx3);
+  font-size:var(--fs-12);
+  line-height:var(--lh-16);
+}
+.ch-index .side-v.quiet,
+.ch-list.ch-index .side-v.quiet{
+  min-width:3rem;
+  align-self:flex-start;
+  padding-top:var(--s1);
+}
+
+/* 2. 续读短报：结论先行，节奏收紧 */
+.drill-pane .pb > .stack{
+  display:flex;
+  flex-direction:column;
+  gap:var(--s7);
+}
+.drill-ess{
+  display:flex;
+  flex-direction:column;
+  gap:var(--s3);
+}
+.drill-ess > .concl{
+  margin:0;
+  padding:0;
+  font-size:var(--fs-13);
+  line-height:var(--lh-20);
+  color:var(--tx1);
+  max-width:40rem;
+}
+.drill-ess > .concl b{
+  margin-right:var(--s2);
+  font-weight:600;
+}
+.drill-ess .read-figs{
+  padding-top:0;
+  gap:var(--s4) var(--s6);
+}
+.drill-ess .meta.compact,
+.drill-pane .meta.compact{
+  gap:var(--s4);
+  margin:0;
+  color:var(--tx3);
+  font-size:var(--fs-12);
+  line-height:var(--lh-16);
+}
+.drill-viz{
+  display:flex;
+  flex-direction:column;
+  gap:var(--s3);
+  max-width:40rem;
+}
+.drill-viz .chart,
+.drill-pane svg.chart{
+  height:120px;
+  max-height:120px;
+}
+.drill-more{
+  display:flex;
+  flex-direction:column;
+  gap:var(--s3);
+  max-width:36rem;
+  padding-top:var(--s2);
+}
+.drill-more > .drill-cap{
+  margin:0 0 var(--s2);
+  font-size:var(--fs-12);
+  line-height:var(--lh-16);
+  font-weight:600;
+  color:var(--tx3);
+  letter-spacing:.02em;
+}
+.drill-more .steps.short .step{
+  padding-top:var(--s2);
+  padding-bottom:var(--s2);
+}
+.drill-pane .tray.soft{
+  margin-top:var(--s4);
+}
+.drill-kicker{
+  letter-spacing:.06em;
+}
+
+/* 3. 订单：售后叙事 + 表再轻 */
+.as-digest{
+  display:flex;
+  flex-direction:column;
+  gap:0;
+  margin:0 0 var(--s4);
+  max-width:52rem;
+}
+.ord-ed{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:var(--s5);
+  padding:var(--s4) 0;
+  border-top:1px solid var(--line);
+}
+.as-digest .ord-ed:first-child{border-top:0;padding-top:var(--s2)}
+.ord-ed-main{min-width:0;flex:1}
+.ord-ed-t{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:baseline;
+  gap:var(--s2);
+  font-size:var(--fs-13);
+  line-height:var(--lh-20);
+  color:var(--tx1);
+  font-weight:500;
+}
+.ord-ed-t .sep{color:var(--tx3);font-weight:400}
+.ord-ed-b{
+  margin-top:var(--s1);
+  font-size:var(--fs-12);
+  line-height:var(--lh-16);
+  color:var(--tx2);
+}
+.ord-ed-r{
+  display:flex;
+  flex-direction:column;
+  align-items:flex-end;
+  gap:var(--s2);
+  flex:0 0 auto;
+}
+.ord-ed-r .stt{
+  background:transparent;
+  border:0;
+}
+.ord-ed.urg .ord-ed-b{color:var(--tx1)}
+.as-digest-cap{
+  margin:0 0 var(--s3);
+  font-size:var(--fs-12);
+  line-height:var(--lh-16);
+  color:var(--tx3);
+}
+
+/* 摘要表：常规 stt 去 1px 边余噪；行更阅读 */
+.ch-table.sum .tbl td .stt,
+.ch-table.sum .tbl td .stt.done,
+.ch-table.sum .tbl td .stt.act,
+.ch-table.sum .tbl td .stt.todo,
+.ch-table.sum .tbl td .stt.exc,
+.ch-table.sum .tbl td .stt.exc.quiet{
+  border:0;
+  background:transparent;
+}
+.ch-table.sum .tbl th,
+.ch-table.sum .tbl td{
+  padding-top:var(--s3);
+  padding-bottom:var(--s3);
+}
+
+/* ===== R76 一焦：索引收旁注 · digest 主位 · 短报 ess+趋势 ===== */
+
+/* 1. 有选中时：索引收成旁注，主焦给短报 */
+.ch-flow.drill:has(.li.on){
+  gap:var(--s7);
+}
+.ch-flow.drill:has(.li.on) .ch-index .list,
+.ch-flow.drill:has(.li.on) .ch-list.ch-index .list{
+  max-height:112px;
+}
+.ch-flow.drill:has(.li.on) .ch-index .bar.filt.text,
+.ch-flow.drill:has(.li.on) .ch-list.ch-index .bar.filt.text{
+  opacity:.55;
+}
+.ch-flow.drill:has(.li.on) .ch-index .tray.soft,
+.ch-flow.drill:has(.li.on) .ch-list.ch-index .tray.soft{
+  display:none;
+}
+.ch-flow.drill:has(.li.on) .index-h > h2{
+  font-size:var(--fs-13);
+  font-weight:600;
+  color:var(--tx2);
+}
+.ch-flow.drill:has(.li.on) .index-h > .sub{
+  color:var(--tx3);
+}
+.ch-flow.drill:has(.li.on) .ch-index .li:not(.on),
+.ch-flow.drill:has(.li.on) .ch-list.ch-index .li:not(.on){
+  opacity:.48;
+}
+.ch-flow.drill:has(.li.on) .ch-index .li:not(.on) .brief,
+.ch-flow.drill:has(.li.on) .ch-list.ch-index .li:not(.on) .brief,
+.ch-flow.drill:has(.li.on) .ch-index .li:not(.on) .m.ed-m,
+.ch-flow.drill:has(.li.on) .ch-list.ch-index .li:not(.on) .m.ed-m{
+  display:none;
+}
+.ch-flow.drill:has(.li.on) .ch-index .li:not(.on),
+.ch-flow.drill:has(.li.on) .ch-list.ch-index .li:not(.on){
+  padding-top:var(--s2);
+  padding-bottom:var(--s2);
+}
+.ch-flow.drill:has(.li.on) .ch-index .li.on,
+.ch-flow.drill:has(.li.on) .ch-list.ch-index .li.on{
+  opacity:1;
+}
+.ch-flow.drill:has(.li.on) .ch-index .grp.ed,
+.ch-flow.drill:has(.li.on) .ch-list.ch-index .grp.ed{
+  font-size:var(--fs-12);
+  color:var(--tx3);
+  padding-top:var(--s2);
+  padding-bottom:var(--s1);
+}
+
+/* 2. 短报：ess + 一行趋势；步骤默认折叠 */
+.drill-trend{
+  margin:0;
+  padding:0;
+  font-size:var(--fs-12);
+  line-height:var(--lh-16);
+  color:var(--tx2);
+  max-width:40rem;
+}
+.drill-trend b{
+  font-weight:600;
+  color:var(--tx1);
+  margin-right:var(--s2);
+}
+.drill-pane .pb > .stack{
+  gap:var(--s5);
+}
+.drill-viz{display:none !important}
+details.drill-more{
+  display:block;
+  max-width:36rem;
+  padding-top:0;
+  border:0;
+  background:transparent;
+}
+details.drill-more > summary.drill-cap{
+  list-style:none;
+  cursor:pointer;
+  margin:0;
+  padding:var(--s2) 0;
+  font-size:var(--fs-12);
+  line-height:var(--lh-16);
+  font-weight:600;
+  color:var(--tx3);
+  letter-spacing:.02em;
+  user-select:none;
+}
+details.drill-more > summary.drill-cap::-webkit-details-marker{display:none}
+details.drill-more > summary.drill-cap::before{
+  content:'▸ ';
+  color:var(--tx3);
+  font-weight:400;
+}
+details.drill-more[open] > summary.drill-cap::before{content:'▾ '}
+details.drill-more .steps.short{
+  margin-top:var(--s2);
+}
+details.drill-more:not([open]) .steps{display:none}
+
+/* 3. 订单：digest 主位；表默认折叠为次级 */
+.as-digest{
+  margin:0 0 var(--s5);
+}
+.as-digest-cap{
+  margin:var(--s3) 0 0;
+}
+details.tbl-sec{
+  margin:var(--s4) 0 0;
+  max-width:52rem;
+  border:0;
+  background:transparent;
+}
+details.tbl-sec > summary.tbl-sec-sum{
+  list-style:none;
+  cursor:pointer;
+  display:flex;
+  align-items:baseline;
+  gap:var(--s3);
+  padding:var(--s3) 0;
+  font-size:var(--fs-12);
+  line-height:var(--lh-16);
+  font-weight:600;
+  color:var(--tx3);
+  letter-spacing:.02em;
+  user-select:none;
+  border-top:1px solid var(--line);
+}
+details.tbl-sec > summary.tbl-sec-sum::-webkit-details-marker{display:none}
+details.tbl-sec > summary.tbl-sec-sum::before{
+  content:'▸ ';
+  color:var(--tx3);
+  font-weight:400;
+}
+details.tbl-sec[open] > summary.tbl-sec-sum::before{content:'▾ '}
+details.tbl-sec > summary.tbl-sec-sum .num{
+  font-weight:500;
+  color:var(--tx2);
+}
+details.tbl-sec .ch-table.sum,
+details.tbl-sec .panel.open.ch-table.sum{
+  margin-top:var(--s3);
+  opacity:.92;
+}
+details.tbl-sec:not([open]) .ch-table.sum{display:none}
+
+/* ===== R78 回链（继承）：返回索引 · digest 主从骨架 · 趋势去标签 ===== */
+/* 继承 R77 旁清：单条旁注清场 / digest 编辑句 / 趋势入 ess */
+
+/* 1. 有选中：索引只留当前一条旁注 + 回链入口 */
+.ch-flow.drill:has(.li.on) .ch-index .bar.filt.text,
+.ch-flow.drill:has(.li.on) .ch-list.ch-index .bar.filt.text{
+  display:none;
+}
+.ch-flow.drill:has(.li.on) .ch-index .grp.ed,
+.ch-flow.drill:has(.li.on) .ch-list.ch-index .grp.ed{
+  display:none;
+}
+.ch-flow.drill:has(.li.on) .ch-index .li:not(.on),
+.ch-flow.drill:has(.li.on) .ch-list.ch-index .li:not(.on){
+  display:none;
+  opacity:1; /* override r76 fade — hidden instead */
+}
+.ch-flow.drill:has(.li.on) .ch-index .list,
+.ch-flow.drill:has(.li.on) .ch-list.ch-index .list{
+  max-height:44px;
+}
+.ch-flow.drill:has(.li.on) .ch-index .li.on,
+.ch-flow.drill:has(.li.on) .ch-list.ch-index .li.on{
+  opacity:1;
+  padding-top:var(--s2);
+  padding-bottom:var(--s2);
+}
+.ch-flow.drill:has(.li.on) .ch-index .li.on .brief,
+.ch-flow.drill:has(.li.on) .ch-list.ch-index .li.on .brief,
+.ch-flow.drill:has(.li.on) .ch-index .li.on .m.ed-m,
+.ch-flow.drill:has(.li.on) .ch-list.ch-index .li.on .m.ed-m{
+  display:none;
+}
+.ch-flow.drill:has(.li.on) .index-h > h2{
+  flex:0 0 100%;
+  font-size:var(--fs-13);
+  font-weight:600;
+  color:var(--tx2);
+  letter-spacing:.02em;
+}
+.ch-flow.drill:has(.li.on) .index-h > .sub{display:none}
+.ch-flow.drill:has(.li.on) .index-back{display:inline-flex}
+.index-back{
+  display:none;
+  align-items:center;
+  gap:var(--s1);
+  margin-left:auto;
+  font-size:var(--fs-12);
+  line-height:var(--lh-16);
+  color:var(--tx2);
+  font-weight:600;
+  cursor:pointer;
+  background:transparent;
+  border:0;
+  padding:0;
+  letter-spacing:.01em;
+}
+.index-back .ic{
+  width:14px;
+  height:14px;
+  color:var(--accent);
+  flex:0 0 auto;
+}
+.index-back:hover{color:var(--tx1)}
+.index-back:hover .ic{color:var(--accent)}
+.ch-flow.drill:has(.li.on) .index-h{
+  display:flex;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:var(--s2) var(--s3);
+  row-gap:var(--s3);
+}
+/* R79：回链独占下一行（继承） */
+/* R80 节让：回链降噪 12/500 tx3（继承） */
+/* R81 热收（继承）：回链热区收至内容宽 */
+.ch-flow.drill:has(.li.on) .index-back{
+  flex:0 0 auto;
+  width:max-content;
+  max-width:100%;
+  align-self:flex-start;
+  justify-content:flex-start;
+  margin-left:0;
+  font-size:var(--fs-12);
+  line-height:var(--lh-16);
+  font-weight:500;
+  color:var(--tx3);
+  padding:var(--s1) 0 0;
+  transition:color var(--d-hover);
+}
+/* R82 悬明（继承）：drill 态 :hover → tx1 */
+/* R83 金列（继承）：回链悬停可见骨架 */
+/* R84 列稳（继承）：回链悬停墨线下划（非链蓝钴）+ 图标微移 */
+/* R85 位收：墨线加可见度 — 88% · 1.5px · offset 3px（motion） */
+.ch-flow.drill:has(.li.on) .index-back{
+  transition:color var(--d-hover), text-decoration-color var(--d-hover), transform var(--d-hover);
+  text-decoration:underline;
+  text-decoration-color:transparent;
+  text-underline-offset:3px;
+  text-decoration-thickness:1.5px;
+  text-decoration-skip-ink:auto;
+}
+.ch-flow.drill:has(.li.on) .index-back:hover,
+.ch-flow.drill:has(.li.on) .index-back:focus-visible{
+  color:var(--tx1);
+  /* 墨线：抬到 88% · 仍非 accent，避免链蓝 */
+  text-decoration-color:color-mix(in srgb, var(--tx2) 88%, transparent);
+  outline:none;
+}
+.ch-flow.drill:has(.li.on) .index-back:hover .ic,
+.ch-flow.drill:has(.li.on) .index-back:focus-visible .ic{
+  color:var(--accent);
+  transform:translateX(-2px);
+}
+.ch-flow.drill:has(.li.on) .index-back .ic{
+  transition:color var(--d-hover), transform var(--d-hover);
+}
+@media (prefers-reduced-motion:reduce){
+  .ch-flow.drill:has(.li.on) .index-back,
+  .ch-flow.drill:has(.li.on) .index-back .ic{transition:none}
+  .ch-flow.drill:has(.li.on) .index-back:hover .ic,
+  .ch-flow.drill:has(.li.on) .index-back:focus-visible .ic{transform:none}
+}
+
+/* 2. digest：编辑体主从层级（首条总领 · 后条从读） */
+.as-digest{
+  display:flex;
+  flex-direction:column;
+  gap:var(--s5);
+  margin:0 0 var(--s5);
+  max-width:40rem;
+}
+.as-digest .ord-ed{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) 10.5ch;
+  column-gap:var(--s5);
+  align-items:start;
+  padding:0;
+  border-top:0;
+  border-bottom:0;
+}
+.as-digest .ord-ed + .ord-ed{
+  padding-top:0;
+}
+.as-digest .ord-ed-main{min-width:0;display:block}
+.ord-ed-main{min-width:0;display:block}
+.ord-ed-r{display:none} /* legacy; amounts live in .ord-ed-amt */
+.ord-ed-t{
+  display:block;
+  font-size:var(--fs-13);
+  line-height:var(--lh-20);
+  color:var(--tx1);
+  font-weight:600;
+}
+.ord-ed-t .sep{color:var(--tx3);font-weight:400;margin:0 var(--s1)}
+.ord-ed-b{
+  margin:var(--s1) 0 0;
+  font-size:var(--fs-13);
+  line-height:var(--lh-20);
+  color:var(--tx2);
+  font-weight:400;
+}
+.ord-ed-b .num.dec{color:var(--tx1);font-weight:500}
+.ord-ed.urg .ord-ed-b{color:var(--tx1)}
+/* 首条总领：字号上抬一档，条款更密实 */
+.as-digest .ord-ed.lead,
+.as-digest > .ord-ed:first-of-type{
+  padding-bottom:var(--s2);
+  border-bottom:1px solid var(--line);
+  margin-bottom:var(--s1);
+}
+.as-digest .ord-ed.lead .ord-ed-t,
+.as-digest > .ord-ed:first-of-type .ord-ed-t{
+  font-size:var(--fs-15);
+  line-height:var(--lh-22);
+  font-weight:600;
+  color:var(--tx1);
+}
+.as-digest .ord-ed.lead .ord-ed-b,
+.as-digest > .ord-ed:first-of-type .ord-ed-b{
+  font-size:var(--fs-13);
+  line-height:var(--lh-20);
+  color:var(--tx1);
+  font-weight:400;
+}
+/* 从读条 mid：降一档，不再与总领齐平（显式 .mid 或非 lead/soft） */
+.as-digest .ord-ed.mid .ord-ed-t,
+.as-digest .ord-ed:not(.lead):not(.soft):not(:first-of-type) .ord-ed-t{
+  font-size:var(--fs-13);
+  line-height:var(--lh-20);
+  font-weight:600;
+  color:var(--tx1);
+}
+.as-digest .ord-ed.mid .ord-ed-b,
+.as-digest .ord-ed:not(.lead):not(.soft):not(:first-of-type) .ord-ed-b{
+  font-size:var(--fs-12);
+  line-height:var(--lh-16);
+  color:var(--tx2);
+  font-weight:400;
+}
+/* R79 句差：soft 相对 mid 降档（继承） */
+/* R80 节让：soft 块内字重再差（继承骨架） */
+/* R81 热收（继承）+ R82：soft 标题抬至 13 字号台阶；正文仍 12/tx3 */
+.as-digest .ord-ed.soft .ord-ed-t{
+  font-size:var(--fs-13);
+  line-height:var(--lh-20);
+  font-weight:500;
+  color:var(--tx2);
+}
+.as-digest .ord-ed.soft .ord-ed-b{
+  font-size:var(--fs-12);
+  line-height:var(--lh-16);
+  font-weight:400;
+  color:var(--tx3);
+}
+.as-digest-cap{
+  margin:0;
+  font-size:var(--fs-12);
+  line-height:var(--lh-16);
+  color:var(--tx3);
+}
+.as-digest-lede{
+  margin:0 0 var(--s2);
+  font-size:var(--fs-12);
+  line-height:var(--lh-16);
+  color:var(--tx3);
+}
+
+/* 3. 趋势作结论从句：去掉「趋势」并立标签，只留「结论」一档 */
+.drill-ess > .drill-trend,
+.drill-trend.in-ess{
+  margin:var(--s2) 0 0;
+  padding:0;
+  font-size:var(--fs-13);
+  line-height:var(--lh-20);
+  color:var(--tx2);          /* subordinate to concl (tx1) */
+  font-weight:400;
+  max-width:40rem;
+}
+/* R79 句差：字形「—」作从句衔接（覆盖 .ph0 条形伪装） */
+.drill-ess > .drill-trend .trend-join,
+.drill-trend.in-ess .trend-join,
+.ph0.trend-join{
+  display:inline;
+  width:auto;
+  height:auto;
+  margin-right:var(--s2);
+  padding:0;
+  vertical-align:baseline;
+  background:transparent;
+  background-color:transparent;
+  font-size:var(--fs-13);
+  line-height:var(--lh-20);
+  font-weight:400;
+  color:var(--tx3);
+  overflow:visible;
+  letter-spacing:0;
+}
+/* no second kicker: legacy b inside trend stays muted if present */
+.drill-ess > .drill-trend b,
+.drill-trend.in-ess b{
+  font-weight:400;
+  color:var(--tx2);
+  margin-right:var(--s2);
+}
+.drill-pane .pb > .stack > .drill-trend:not(.in-ess){
+  font-size:var(--fs-13);
+  line-height:var(--lh-20);
+  color:var(--tx2);
+  font-weight:400;
+}
+
+/* ===== R79 句差（继承）：soft 真降档 · 字形「—」 · 回链独占行 ===== */
+/* ===== R81 热收（继承）：soft/mid 真色阶 · 回链热区收至内容宽 ===== */
+/* ===== R82 悬明（继承）：soft 字号台阶 · hover 特异 ===== */
+/* ===== R83 金列（继承）：digest 金额真列 · 共右缘 ===== */
+/* ===== R84 列稳（继承）+ R85 位收：墨线加可见度 · 状态位收 · 筛选墨线+索引尺幅 ===== */
+.as-digest .ord-ed-amt{
+  display:flex;
+  flex-direction:column;
+  align-items:flex-end;
+  justify-content:flex-start;
+  gap:0;
+  grid-column:2;
+  justify-self:stretch;
+  min-width:0;
+  padding-top:0;
+  text-align:right;
+}
+.as-digest .ord-ed-amt-k{
+  font-size:var(--fs-12);
+  line-height:var(--lh-16);
+  font-weight:400;
+  color:var(--tx3);
+  letter-spacing:.02em;
+}
+.as-digest .ord-ed.lead .ord-ed-amt,
+.as-digest > .ord-ed:first-of-type .ord-ed-amt{
+  padding-top:var(--s1); /* lead title 15 → body optical */
+}
+.as-digest .ord-ed-amt .num.dec,
+.as-digest .num.dec{
+  display:block;
+  width:100%;
+  min-width:0;
+  text-align:right;
+  font-variant-numeric:tabular-nums;
+  font-feature-settings:"tnum" 1,"lnum" 1;
+  font-weight:500;
+  color:var(--tx1);
+  letter-spacing:0;
+  font-size:var(--fs-13);
+  line-height:var(--lh-20);
+}
+/* soft 金额与 mid/lead 同列同号：只用色阶降档，禁缩到 12 掉队 */
+.as-digest .ord-ed.soft .ord-ed-amt .num.dec{
+  font-size:var(--fs-13);
+  line-height:var(--lh-20);
+  font-weight:500;
+  color:var(--tx2);
+}
+.as-digest .ord-ed.soft .ord-ed-amt .num.dec .ccy,
+.as-digest .ord-ed.soft .ord-ed-amt .num.dec .frac{
+  color:var(--tx3);
+  font-weight:400;
+}
+.as-digest .ord-ed-amt .num.dec .ccy,
+.as-digest .num.dec .ccy{
+  color:var(--tx3);
+  font-weight:400;
+  margin-right:0;
+}
+.as-digest .ord-ed-amt .num.dec .frac,
+.as-digest .num.dec .frac{
+  color:var(--tx3);
+  font-weight:400;
+}
+/* ≤1280：金额列略收，仍共右缘 */
+@media (max-width:1280px){
+  .as-digest .ord-ed{
+    grid-template-columns:minmax(0,1fr) 9.5ch;
+    column-gap:var(--s4);
+  }
+}
+/* ≥1600：金额列略放，soft/mid/lead 仍共右缘（responsiveness） */
+@media (min-width:1600px){
+  .as-digest .ord-ed{
+    grid-template-columns:minmax(0,1fr) 11.5ch;
+    column-gap:var(--s5);
+  }
+}
+
+/* R84 索引状态散文（继承）：chip 去壳 */
+/* R85 位收（status）：收回芯片占地 — height/min-width/pad 塌缩，与 brief 齐基线 */
+.ch-index .li .m.ed-m,
+.ch-list.ch-index .li .m.ed-m{
+  margin-top:var(--s1);
+  gap:var(--s2);
+  align-items:baseline;
+}
+.ch-index .list .li .ed-m .stt,
+.ch-list.ch-index .list .li .ed-m .stt,
+.ch-index .ed-m .stt,
+.ch-list.ch-index .ed-m .stt{
+  background:transparent;
+  border:0;
+  border-radius:0;
+  box-shadow:none;
+  font-weight:500;
+  letter-spacing:.01em;
+  height:auto;
+  min-height:0;
+  min-width:0;
+  max-width:none;
+  padding:0;
+  gap:var(--s1);
+  line-height:var(--lh-16);
+  font-size:var(--fs-12);
+  justify-content:flex-start;
+  box-sizing:content-box;
+}
+.ch-index .ed-m .stt .ic,
+.ch-list.ch-index .ed-m .stt .ic,
+.ch-index .ed-m .stt .ic.sm,
+.ch-list.ch-index .ed-m .stt .ic.sm{
+  width:12px;
+  height:12px;
+  flex:0 0 auto;
+}
+.ch-index .ed-m .stt.act,
+.ch-list.ch-index .ed-m .stt.act{
+  color:var(--info);
+  background:transparent;
+}
+.ch-index .ed-m .stt.done,
+.ch-list.ch-index .ed-m .stt.done{
+  color:var(--tx3);
+  background:transparent;
+}
+.ch-index .ed-m .stt.exc,
+.ch-list.ch-index .ed-m .stt.exc,
+.ch-index .ed-m .stt.risk,
+.ch-list.ch-index .ed-m .stt.risk{
+  background:transparent;
+  border:0;
+}
+
+/* R85 位收：筛选条复用墨线手势（motion，非 .on 以免链蓝） */
+.bar.filt.text .txt{
+  text-decoration:underline;
+  text-decoration-color:transparent;
+  text-underline-offset:3px;
+  text-decoration-thickness:1.5px;
+  text-decoration-skip-ink:auto;
+  transition:color var(--d-hover), text-decoration-color var(--d-hover);
+}
+.bar.filt.text .txt:hover,
+.bar.filt.text .txt:focus-visible{
+  color:var(--tx1);
+  text-decoration-color:color-mix(in srgb, var(--tx2) 88%, transparent);
+  outline:none;
+}
+.bar.filt.text .txt.on,
+.bar.filt.text .txt.on:hover,
+.bar.filt.text .txt.on:focus-visible{
+  color:var(--accent);
+  text-decoration-color:transparent;
+}
+.bar.filt.text .txt.mute:hover,
+.bar.filt.text .txt.mute:focus-visible{
+  color:var(--tx2);
+  text-decoration-color:color-mix(in srgb, var(--tx2) 72%, transparent);
+}
+@media (prefers-reduced-motion:reduce){
+  .bar.filt.text .txt{transition:none}
+}
+
+/* R85 位收：1280↔1600 索引尺幅分阶（responsiveness，不碰金额列阶） */
+/* ≤1280：收窄阅读尺幅；≥1600：放宽。钻取折叠高度随断点分阶（盖过 44px 基线） */
+@media (max-width:1280px){
+  .ch-flow.drill .ch-list.ch-index,
+  .ch-flow.drill .ch-index,
+  .ch-flow.drill .drill-pane,
+  .panel.open.read.drill-pane,
+  .ch-flow.drill .ch-index .bar.filt.text{
+    max-width:40rem;
+  }
+  .ch-flow.drill .ch-index .list{
+    max-height:240px;
+  }
+  .ch-flow.drill:has(.li.on) .ch-index .list,
+  .ch-flow.drill:has(.li.on) .ch-list.ch-index .list{
+    max-height:40px;
+  }
+}
+@media (min-width:1600px){
+  .ch-flow.drill .ch-list.ch-index,
+  .ch-flow.drill .ch-index,
+  .ch-flow.drill .drill-pane,
+  .panel.open.read.drill-pane,
+  .ch-flow.drill .ch-index .bar.filt.text{
+    max-width:56rem;
+  }
+  .ch-flow.drill .ch-index .list{
+    max-height:360px;
+  }
+  .ch-flow.drill:has(.li.on) .ch-index .list,
+  .ch-flow.drill:has(.li.on) .ch-list.ch-index .list{
+    max-height:56px;
+  }
+}
