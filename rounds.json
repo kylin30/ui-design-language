@@ -1,5 +1,18 @@
 [
   {
+    "id": "r75",
+    "title": "Round 75 · 短续",
+    "version": "v77.0",
+    "date": "2026-10-24",
+    "status": "已发布",
+    "summary": "索引墨线选中+短 meta；订单摘要行；续读短报。新分尺盲评 74.0（> r74 73.0）。",
+    "screenshot": "rounds/r75/screenshot.png",
+    "demo": "rounds/r75/demo-ops.html",
+    "spec": "rounds/r75/spec.html",
+    "score": 74.0,
+    "note": "新分尺；过线发布"
+  },
+  {
     "id": "r74",
     "title": "Round 74 · 钻取",
     "version": "v76.0",
