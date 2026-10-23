@@ -353,3 +353,4 @@
 | r59 | 落态 | v61.0 | 盲评 84.5 | demo-ops 7 行挂 .stt + 详情头；pad/gap 接 --s3/--s2；rail 清硬字号；继承 R58 态重；lint 0 |
 | r60 | 跟态 | v62.0 | 盲评 85.0 | 详情头 .stt 随选同步；list.li gap --s3；ph-h h2 字重 600；继承 R59；lint 0 |
 | r61 | 疏密 | v63.0 | 盲评 86.0 | stack/grid gap 16；pb padding 20；sub-h 600/tx2 阶梯；继承 R60；lint 0 |
+| r62 | 适屏 | v64.0 | 盲评 87.0 | ≤1280 .g-list:not(.g-eq) 单列；g-eq 仍双列；sub-h 13/20；responsiveness→10；继承 R61；lint 0 |
