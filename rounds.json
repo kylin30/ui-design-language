@@ -1,5 +1,18 @@
 [
   {
+    "id": "r79",
+    "title": "Round 79 · 句差",
+    "version": "v81.0",
+    "date": "2026-10-24",
+    "status": "已发布",
+    "summary": "soft 真降档；趋势字形「—」；返回索引独占行。新分尺盲评 78.5（> r78 77.5）。",
+    "screenshot": "rounds/r79/screenshot.png",
+    "demo": "rounds/r79/demo-ops.html",
+    "spec": "rounds/r79/spec.html",
+    "score": 78.5,
+    "note": "新分尺；过线发布"
+  },
+  {
     "id": "r78",
     "title": "Round 78 · 回链",
     "version": "v80.0",
