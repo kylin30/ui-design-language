@@ -1,5 +1,18 @@
 [
   {
+    "id": "r78",
+    "title": "Round 78 · 回链",
+    "version": "v80.0",
+    "date": "2026-10-24",
+    "status": "已发布",
+    "summary": "返回索引钴色强化；digest lead/mid/soft 分阶；趋势并入结论从句。新分尺盲评 77.5（> r77 76.5）。",
+    "screenshot": "rounds/r78/screenshot.png",
+    "demo": "rounds/r78/demo-ops.html",
+    "spec": "rounds/r78/spec.html",
+    "score": 77.5,
+    "note": "新分尺；过线发布"
+  },
+  {
     "id": "r77",
     "title": "Round 77 · 旁清",
     "version": "v79.0",
