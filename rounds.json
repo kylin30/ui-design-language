@@ -1,5 +1,18 @@
 [
   {
+    "id": "r80",
+    "title": "Round 80 · 节让",
+    "version": "v82.0",
+    "date": "2026-10-24",
+    "status": "已发布",
+    "summary": "节标压过回链；soft 内分阶；mid/soft 正文 tx2/tx3。新分尺盲评 79.0（> r79 78.5）。",
+    "screenshot": "rounds/r80/screenshot.png",
+    "demo": "rounds/r80/demo-ops.html",
+    "spec": "rounds/r80/spec.html",
+    "score": 79.0,
+    "note": "新分尺；过线发布"
+  },
+  {
     "id": "r79",
     "title": "Round 79 · 句差",
     "version": "v81.0",
