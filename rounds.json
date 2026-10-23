@@ -1,5 +1,18 @@
 [
   {
+    "id": "r83",
+    "title": "Round 83 · 金列",
+    "version": "v85.0",
+    "date": "2026-10-24",
+    "status": "已发布",
+    "summary": "digest 金额真网格列共右缘；hover 钴下划+微移；窄屏 9.5ch。新分尺盲评 82.0（> r82 80.5）。",
+    "screenshot": "rounds/r83/screenshot.png",
+    "demo": "rounds/r83/demo-ops.html",
+    "spec": "rounds/r83/spec.html",
+    "score": 82.0,
+    "note": "新分尺；过线发布"
+  },
+  {
     "id": "r82",
     "title": "Round 82 · 悬明",
     "version": "v84.0",
