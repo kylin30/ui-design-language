@@ -357,3 +357,4 @@
 | r63 | 折下 | v65.0 | 盲评 87.5 | ≤1280 .list 限高280内滚 + 选中滚入详情；sub-h 14/24·tx1；hierarchy→12.5；继承 R62；lint 0 |
 | r64 | 辨题 | v66.0 | 盲评 88.0 | h2 16/24·tx1；sub-h 14/24·tx2；scroll start；.grp sticky；hierarchy→13；继承 R63；lint 0 |
 | r65 | 疏距 | v67.0 | 盲评 88.5 | stack/g3/g-list@1280 gap 20；单 .is-stick；.grp 13/20；spacing→11.5；继承 R64；lint 0 |
+| r66 | 宽疏 | v68.0 | 盲评 89.0 | 全宽 g-list gap20；粘顶 list 相对坐标交接；继承疏距/辨题/折下 |
