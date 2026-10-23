@@ -1,5 +1,18 @@
 [
   {
+    "id": "r73",
+    "title": "Round 73 · 阅读",
+    "version": "v75.0",
+    "date": "2026-10-24",
+    "status": "已发布",
+    "summary": "编辑感阅读流：文字筛控、专栏分组、去 sparkline；订单 tabs 进章头；提醒叙事化。新分尺盲评 71.5（越过 ~70）。",
+    "screenshot": "rounds/r73/screenshot.png",
+    "demo": "rounds/r73/demo-ops.html",
+    "spec": "rounds/r73/spec.html",
+    "score": 71.5,
+    "note": "新分尺；气质重置后首个越过 ~70"
+  },
+  {
     "id": "r1",
     "title": "Round 1 · 青石·朱印",
     "version": "v3.0",
@@ -779,13 +792,5 @@
     "score": 88.5,
     "note": "盲评 88.5（> r64 88.0）",
     "path": "rounds/r65/"
-  },
-  {
-    "id": "r66",
-    "name": "宽疏",
-    "version": "v68.0",
-    "score": 89.0,
-    "note": "盲评 89.0（> r65 88.5）",
-    "path": "rounds/r66/"
   }
 ]

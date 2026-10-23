@@ -1,3 +1,4 @@
+| r73 | Round 73 · 阅读 | v75.0 | **71.5** | 新分尺越过 ~70：列表/订单阅读化 |
 # 设计轮次记录
 
 > 评分自 2026-10-17 起改为百分制（0–100，拖动滑块）。R11–R20 是旧制 1–10 分，这里按 ×10 换算并标注「旧制」。
@@ -7,6 +8,21 @@
 
 
 
+
+
+## Round 73 · 阅读（v75.0 · 2026-10-24）
+- **改了什么**：列表改文字筛控 + `.grp.ed` 专栏小标题、去 sparkline；订单 soft-tabs/搜并进 `.ch-head`；提醒改 `.ch-note` 叙事+figs。继承 R71–72 拆壳/章体。
+- **为什么**：R72 盲评 69.5 贴 ~70；列表/大表仍中台。
+- **自测**：lint TOTAL 0；m73 FAILS 0。
+- **评分**：盲评 **71.5**（新分尺；越过 ~70）。
+- **预览**：rounds/r73/demo-ops.html、demo-orders.html；截图 screenshot.png
+
+## Round 72 · 章体（v74.0 · 2026-10-24）
+- **改了什么**：在 R71 拆壳之上改章*体*——详情去掉三枚 `.tile.kpi`，改为开章同语法的 `.ch-figs.read-figs`；章间全宽发丝去掉，靠留白/字阶；`.bar.filt` / `.tray.soft` / soft-tabs 去壳减框。继承轨 72、3 章、open 去墙、pad32@1280、字阶 22/15/13/12、钴纪律。
+- **为什么**：R71 盲评 68.0（新尺），壳拆有进步但章体仍运营台；下一刀必须动详情 KPI 卡墙与发丝/滤栏壳。
+- **自测**：lint TOTAL 0；m72 FAILS 0。
+- **评分**：盲评中（新分尺；~70 已慷慨）。
+- **预览**：rounds/r72/demo-ops.html、demo-orders.html；截图 screenshot.png
 
 ## Round 35 · 成品（v37.0 · 2026-10-21）
 - **改了什么**：方向锁定 R34，不换风格，换方法：拿三块真实产品界面（Mercury 账户页、Linear 仪表盘面板、Catalyst 首页）与对应演示等宽并排，逐项测量（refs/r35-fidelity，私有），14 项差距补 11 项。
@@ -357,4 +373,3 @@
 | r63 | 折下 | v65.0 | 盲评 87.5 | ≤1280 .list 限高280内滚 + 选中滚入详情；sub-h 14/24·tx1；hierarchy→12.5；继承 R62；lint 0 |
 | r64 | 辨题 | v66.0 | 盲评 88.0 | h2 16/24·tx1；sub-h 14/24·tx2；scroll start；.grp sticky；hierarchy→13；继承 R63；lint 0 |
 | r65 | 疏距 | v67.0 | 盲评 88.5 | stack/g3/g-list@1280 gap 20；单 .is-stick；.grp 13/20；spacing→11.5；继承 R64；lint 0 |
-| r66 | 宽疏 | v68.0 | 盲评 89.0 | 全宽 g-list gap20；粘顶 list 相对坐标交接；继承疏距/辨题/折下 |
