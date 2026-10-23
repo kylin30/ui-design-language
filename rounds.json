@@ -1,5 +1,18 @@
 [
   {
+    "id": "r74",
+    "title": "Round 74 · 钻取",
+    "version": "v76.0",
+    "date": "2026-10-24",
+    "status": "已发布",
+    "summary": "单列钻取续读、订单摘要表减列、异常态去虚线盒。新分尺盲评 73.0（> r73 71.5）。",
+    "screenshot": "rounds/r74/screenshot.png",
+    "demo": "rounds/r74/demo-ops.html",
+    "spec": "rounds/r74/spec.html",
+    "score": 73.0,
+    "note": "新分尺；过线发布"
+  },
+  {
     "id": "r73",
     "title": "Round 73 · 阅读",
     "version": "v75.0",
