@@ -1,5 +1,18 @@
 [
   {
+    "id": "r81",
+    "title": "Round 81 · 热收",
+    "version": "v83.0",
+    "date": "2026-10-24",
+    "status": "已发布",
+    "summary": "soft 真色阶；mid 标题抬深；回链热区收窄。新分尺盲评 79.5（> r80 79.0）。",
+    "screenshot": "rounds/r81/screenshot.png",
+    "demo": "rounds/r81/demo-ops.html",
+    "spec": "rounds/r81/spec.html",
+    "score": 79.5,
+    "note": "新分尺；过线发布"
+  },
+  {
     "id": "r80",
     "title": "Round 80 · 节让",
     "version": "v82.0",
