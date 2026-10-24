@@ -1,5 +1,19 @@
 [
   {
+    "id": "r89",
+    "title": "Round 89 · 应尺",
+    "version": "v91.0",
+    "date": "2026-10-24",
+    "status": "已发布",
+    "summary": "折叠/索引/筛条/金额列五档断点应尺；只抬 responsiveness。新分尺盲评 90.0（> r88 89.5）。",
+    "screenshot": "rounds/r89/screenshot.png",
+    "demo": "rounds/r89/demo-ops.html",
+    "spec": "rounds/r89/spec.html",
+    "note": "新分尺；过线发布（八维触顶）",
+    "score": 90.0,
+    "score100": 90.0
+  },
+  {
     "id": "r88",
     "title": "Round 88 · 余位",
     "version": "v90.0",
