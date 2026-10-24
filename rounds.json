@@ -1,5 +1,19 @@
 [
   {
+    "id": "r86",
+    "title": "Round 86 · 显旁",
+    "version": "v88.0",
+    "date": "2026-10-24",
+    "status": "已发布",
+    "summary": "钻取选中仍显塌缩旁注；筛选选中改墨线编辑态；折叠 64/72/80。新分尺盲评 87.0（> r85 85.5）。",
+    "screenshot": "rounds/r86/screenshot.png",
+    "demo": "rounds/r86/demo-ops.html",
+    "spec": "rounds/r86/spec.html",
+    "note": "新分尺；过线发布",
+    "score": 87.0,
+    "score100": 87.0
+  },
+  {
     "id": "r85",
     "title": "Round 85 · 位收",
     "version": "v87.0",
