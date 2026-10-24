@@ -1,0 +1,317 @@
+[
+  {
+    "id": "stripe",
+    "name": "Stripe",
+    "tag": "支付",
+    "domain": "stripe.com",
+    "file": "logos/stripe.png"
+  },
+  {
+    "id": "paypal",
+    "name": "PayPal",
+    "tag": "支付",
+    "domain": "paypal.com",
+    "file": "logos/paypal.png"
+  },
+  {
+    "id": "block",
+    "name": "Block",
+    "tag": "支付",
+    "domain": "block.xyz",
+    "file": "logos/block.png"
+  },
+  {
+    "id": "square",
+    "name": "Square",
+    "tag": "支付",
+    "domain": "squareup.com",
+    "file": "logos/square.png"
+  },
+  {
+    "id": "shopify",
+    "name": "Shopify",
+    "tag": "工具",
+    "domain": "shopify.com",
+    "file": "logos/shopify.png"
+  },
+  {
+    "id": "revolut",
+    "name": "Revolut",
+    "tag": "支付",
+    "domain": "revolut.com",
+    "file": "logos/revolut.png"
+  },
+  {
+    "id": "coinbase",
+    "name": "Coinbase",
+    "tag": "支付",
+    "domain": "coinbase.com",
+    "file": "logos/coinbase.png"
+  },
+  {
+    "id": "binance",
+    "name": "Binance",
+    "tag": "支付",
+    "domain": "binance.com",
+    "file": "logos/binance.png"
+  },
+  {
+    "id": "cashapp",
+    "name": "Cash App",
+    "tag": "支付",
+    "domain": "cash.app",
+    "file": "logos/cashapp.png"
+  },
+  {
+    "id": "wise",
+    "name": "Wise",
+    "tag": "支付",
+    "domain": "wise.com",
+    "file": "logos/wise.png"
+  },
+  {
+    "id": "klarna",
+    "name": "Klarna",
+    "tag": "支付",
+    "domain": "klarna.com",
+    "file": "logos/klarna.png"
+  },
+  {
+    "id": "discord",
+    "name": "Discord",
+    "tag": "社交",
+    "domain": "discord.com",
+    "file": "logos/discord.png"
+  },
+  {
+    "id": "twitch",
+    "name": "Twitch",
+    "tag": "游戏",
+    "domain": "twitch.tv",
+    "file": "logos/twitch.png"
+  },
+  {
+    "id": "steam",
+    "name": "Steam",
+    "tag": "游戏",
+    "domain": "store.steampowered.com",
+    "file": "logos/steam.png"
+  },
+  {
+    "id": "epic",
+    "name": "Epic Games",
+    "tag": "游戏",
+    "domain": "epicgames.com",
+    "file": "logos/epic.png"
+  },
+  {
+    "id": "riot",
+    "name": "Riot Games",
+    "tag": "游戏",
+    "domain": "riotgames.com",
+    "file": "logos/riot.png"
+  },
+  {
+    "id": "roblox",
+    "name": "Roblox",
+    "tag": "游戏",
+    "domain": "roblox.com",
+    "file": "logos/roblox.png"
+  },
+  {
+    "id": "supercell",
+    "name": "Supercell",
+    "tag": "游戏",
+    "domain": "supercell.com",
+    "file": "logos/supercell.png"
+  },
+  {
+    "id": "unity",
+    "name": "Unity",
+    "tag": "游戏",
+    "domain": "unity.com",
+    "file": "logos/unity.png"
+  },
+  {
+    "id": "hoyoverse",
+    "name": "HoYoverse",
+    "tag": "游戏",
+    "domain": "hoyoverse.com",
+    "file": "logos/hoyoverse.png"
+  },
+  {
+    "id": "netease",
+    "name": "网易",
+    "tag": "游戏",
+    "domain": "163.com",
+    "file": "logos/netease.png"
+  },
+  {
+    "id": "spotify",
+    "name": "Spotify",
+    "tag": "社交",
+    "domain": "spotify.com",
+    "file": "logos/spotify.png"
+  },
+  {
+    "id": "notion",
+    "name": "Notion",
+    "tag": "工具",
+    "domain": "notion.so",
+    "file": "logos/notion.png"
+  },
+  {
+    "id": "linear",
+    "name": "Linear",
+    "tag": "工具",
+    "domain": "linear.app",
+    "file": "logos/linear.png"
+  },
+  {
+    "id": "figma",
+    "name": "Figma",
+    "tag": "工具",
+    "domain": "figma.com",
+    "file": "logos/figma.png"
+  },
+  {
+    "id": "slack",
+    "name": "Slack",
+    "tag": "工具",
+    "domain": "slack.com",
+    "file": "logos/slack.png"
+  },
+  {
+    "id": "dropbox",
+    "name": "Dropbox",
+    "tag": "工具",
+    "domain": "dropbox.com",
+    "file": "logos/dropbox.png"
+  },
+  {
+    "id": "adobe",
+    "name": "Adobe",
+    "tag": "工具",
+    "domain": "adobe.com",
+    "file": "logos/adobe.png"
+  },
+  {
+    "id": "airbnb",
+    "name": "Airbnb",
+    "tag": "工具",
+    "domain": "airbnb.com",
+    "file": "logos/airbnb.png"
+  },
+  {
+    "id": "uber",
+    "name": "Uber",
+    "tag": "工具",
+    "domain": "uber.com",
+    "file": "logos/uber.png"
+  },
+  {
+    "id": "netflix",
+    "name": "Netflix",
+    "tag": "社交",
+    "domain": "netflix.com",
+    "file": "logos/netflix.png"
+  },
+  {
+    "id": "apple",
+    "name": "Apple",
+    "tag": "工具",
+    "domain": "apple.com",
+    "file": "logos/apple.png"
+  },
+  {
+    "id": "google",
+    "name": "Google",
+    "tag": "工具",
+    "domain": "google.com",
+    "file": "logos/google.png"
+  },
+  {
+    "id": "microsoft",
+    "name": "Microsoft",
+    "tag": "工具",
+    "domain": "microsoft.com",
+    "file": "logos/microsoft.png"
+  },
+  {
+    "id": "amazon",
+    "name": "Amazon",
+    "tag": "工具",
+    "domain": "amazon.com",
+    "file": "logos/amazon.png"
+  },
+  {
+    "id": "meta",
+    "name": "Meta",
+    "tag": "社交",
+    "domain": "meta.com",
+    "file": "logos/meta.png"
+  },
+  {
+    "id": "tiktok",
+    "name": "TikTok",
+    "tag": "社交",
+    "domain": "tiktok.com",
+    "file": "logos/tiktok.png"
+  },
+  {
+    "id": "linkedin",
+    "name": "LinkedIn",
+    "tag": "社交",
+    "domain": "linkedin.com",
+    "file": "logos/linkedin.png"
+  },
+  {
+    "id": "x",
+    "name": "X",
+    "tag": "社交",
+    "domain": "x.com",
+    "file": "logos/x.png"
+  },
+  {
+    "id": "tencent",
+    "name": "腾讯",
+    "tag": "社交",
+    "domain": "tencent.com",
+    "file": "logos/tencent.png"
+  },
+  {
+    "id": "alibaba",
+    "name": "阿里巴巴",
+    "tag": "工具",
+    "domain": "alibaba.com",
+    "file": "logos/alibaba.png"
+  },
+  {
+    "id": "meituan",
+    "name": "美团",
+    "tag": "工具",
+    "domain": "meituan.com",
+    "file": "logos/meituan.png"
+  },
+  {
+    "id": "bilibili",
+    "name": "哔哩哔哩",
+    "tag": "社交",
+    "domain": "bilibili.com",
+    "file": "logos/bilibili.png"
+  },
+  {
+    "id": "pinduoduo",
+    "name": "拼多多",
+    "tag": "工具",
+    "domain": "pinduoduo.com",
+    "file": "logos/pinduoduo.png"
+  },
+  {
+    "id": "temu",
+    "name": "Temu",
+    "tag": "工具",
+    "domain": "temu.com",
+    "file": "logos/temu.png"
+  }
+]

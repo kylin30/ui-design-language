@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>CPS 品牌 LOGO 偏好调研</title>
+<style>
+  :root {
+    --brand: #4F46E5;
+    --brand-soft: #EEF2FF;
+    --brand-ring: rgba(79, 70, 229, 0.45);
+    --bg: #F8FAFC;
+    --card: #FFFFFF;
+    --text: #0F172A;
+    --muted: #64748B;
+    --border: #E2E8F0;
+    --ok: #059669;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text);
+    font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", "PingFang SC", "Noto Sans SC", sans-serif; }
+  .wrap { max-width: 1100px; margin: 0 auto; padding: 28px 20px 120px; }
+  header { margin-bottom: 22px; }
+  header h1 { font-size: 1.45rem; font-weight: 700; letter-spacing: -0.02em; margin: 0 0 8px; }
+  header p { margin: 0; color: var(--muted); font-size: 0.925rem; line-height: 1.55; max-width: 52rem; }
+  .disclaimer {
+    margin-top: 14px; padding: 10px 14px; border-radius: 10px;
+    background: #FFFBEB; border: 1px solid #FDE68A; color: #92400E;
+    font-size: 0.82rem; line-height: 1.5;
+  }
+  .filters { display: flex; flex-wrap: wrap; gap: 8px; margin: 20px 0 16px; }
+  .chip {
+    border: 1px solid var(--border); background: var(--card); color: var(--muted);
+    border-radius: 999px; padding: 6px 14px; font-size: 0.85rem; cursor: pointer;
+    transition: 0.15s ease;
+  }
+  .chip:hover { border-color: #C7D2FE; color: var(--brand); }
+  .chip.active { background: var(--brand); border-color: var(--brand); color: #fff; font-weight: 600; }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(148px, 1fr));
+    gap: 12px;
+  }
+  .card {
+    position: relative; background: var(--card); border: 1.5px solid var(--border);
+    border-radius: 14px; padding: 18px 12px 14px; cursor: pointer;
+    display: flex; flex-direction: column; align-items: center; gap: 10px;
+    transition: border-color .15s, box-shadow .15s, transform .12s;
+    user-select: none;
+  }
+  .card:hover { border-color: #C7D2FE; transform: translateY(-1px); }
+  .card.selected {
+    border-color: var(--brand);
+    box-shadow: 0 0 0 3px var(--brand-ring), 0 8px 20px rgba(79,70,229,.08);
+    background: linear-gradient(180deg, var(--brand-soft), #fff 55%);
+  }
+  .logo-wrap {
+    width: 64px; height: 64px; border-radius: 14px; background: #F1F5F9;
+    display: grid; place-items: center; overflow: hidden;
+  }
+  .logo-wrap img { width: 40px; height: 40px; object-fit: contain; display: block; }
+  .name { font-size: 0.88rem; font-weight: 600; text-align: center; line-height: 1.25; }
+  .tag {
+    font-size: 0.7rem; color: var(--muted); background: #F1F5F9;
+    padding: 2px 8px; border-radius: 999px;
+  }
+  .check {
+    position: absolute; top: 8px; right: 8px; width: 22px; height: 22px;
+    border-radius: 999px; border: 1.5px solid var(--border); background: #fff;
+    display: grid; place-items: center; font-size: 12px; color: transparent;
+  }
+  .card.selected .check {
+    background: var(--brand); border-color: var(--brand); color: #fff;
+  }
+  .sticky {
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 40;
+    background: rgba(255,255,255,.92); backdrop-filter: blur(10px);
+    border-top: 1px solid var(--border);
+    box-shadow: 0 -8px 24px rgba(15,23,42,.06);
+  }
+  .sticky-inner {
+    max-width: 1100px; margin: 0 auto; padding: 12px 20px;
+    display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+  }
+  .count { font-size: 0.95rem; font-weight: 600; flex: 1; min-width: 140px; }
+  .count span { color: var(--brand); }
+  .btn {
+    border: none; border-radius: 10px; padding: 10px 16px; font-size: 0.9rem;
+    font-weight: 600; cursor: pointer; transition: .15s;
+  }
+  .btn-ghost { background: #F1F5F9; color: var(--text); }
+  .btn-ghost:hover { background: #E2E8F0; }
+  .btn-primary { background: var(--brand); color: #fff; }
+  .btn-primary:hover { filter: brightness(1.05); }
+  .btn-primary:disabled { opacity: .45; cursor: not-allowed; filter: none; }
+  .result {
+    display: none; margin-top: 28px; padding: 20px; border-radius: 16px;
+    background: var(--card); border: 1px solid var(--border);
+  }
+  .result.show { display: block; }
+  .result h2 { margin: 0 0 8px; font-size: 1.1rem; }
+  .result .hint { color: var(--muted); font-size: 0.85rem; margin-bottom: 14px; }
+  .picked {
+    display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px;
+  }
+  .pill {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: var(--brand-soft); color: #3730A3; border-radius: 999px;
+    padding: 5px 10px; font-size: 0.82rem; font-weight: 600;
+  }
+  .pill img { width: 16px; height: 16px; object-fit: contain; }
+  .actions { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; }
+  textarea {
+    width: 100%; min-height: 88px; border: 1px solid var(--border); border-radius: 10px;
+    padding: 12px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.82rem; resize: vertical; background: #F8FAFC; color: var(--text);
+  }
+  .toast {
+    position: fixed; top: 18px; left: 50%; transform: translateX(-50%) translateY(-120%);
+    background: #0F172A; color: #fff; padding: 10px 16px; border-radius: 999px;
+    font-size: 0.85rem; font-weight: 600; z-index: 60; transition: .25s; opacity: 0;
+  }
+  .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+  footer {
+    margin-top: 36px; padding-top: 18px; border-top: 1px solid var(--border);
+    color: var(--muted); font-size: 0.82rem; line-height: 1.6;
+  }
+  footer strong { color: var(--text); }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <h1>CPS 品牌 LOGO 偏好调研</h1>
+      <p>点选你喜欢的大厂 / 产品标志（可多选）。我们会按你的选择，提炼 CPS 品牌标志的方向再精修。A–L 自绘候选已作废，本页只用真实品牌作偏好参考。</p>
+      <div class="disclaimer">仅供内部品牌偏好调研，不外发、不商用；标志版权归原公司所有。</div>
+    </header>
+
+    <div class="filters" id="filters"></div>
+    <div class="grid" id="grid"></div>
+
+    <div class="result" id="result">
+      <h2>已提交的选择</h2>
+      <p class="hint">请把下方文本复制发给<strong>马维斯</strong>（或设计师）。也可下载 JSON，或把当前带 #ids= 的链接发给他们。</p>
+      <div class="picked" id="picked"></div>
+      <div class="actions">
+        <button class="btn btn-primary" id="copyBtn" type="button">复制给马维斯</button>
+        <button class="btn btn-ghost" id="downloadBtn" type="button">下载 JSON</button>
+      </div>
+      <textarea id="copyText" readonly></textarea>
+    </div>
+
+    <footer>
+      <strong>如何回传结果：</strong>点「提交选择」→ 点「复制给马维斯」→ 把文本发给马维斯（或设计师）。设计师收到后据此做 CPS 精修方向。<br />
+      本页选择会保存在本机浏览器（localStorage），并写入地址栏 hash，刷新不丢。
+    </footer>
+  </div>
+
+  <div class="sticky">
+    <div class="sticky-inner">
+      <div class="count">已选 <span id="count">0</span> 个品牌</div>
+      <button class="btn btn-ghost" id="clearBtn" type="button">清空</button>
+      <button class="btn btn-primary" id="submitBtn" type="button" disabled>提交选择</button>
+    </div>
+  </div>
+  <div class="toast" id="toast"></div>
+
+<script>
+const STORAGE_KEY = 'cps-brand-prefs-v1';
+const TAGS = ['全部', '支付', '游戏', '社交', '工具'];
+let brands = [];
+let selected = new Set();
+let activeTag = '全部';
+
+async function loadBrands() {
+  const res = await fetch('brands.json', { cache: 'no-store' });
+  brands = await res.json();
+  restore();
+  renderFilters();
+  renderGrid();
+  updateBar();
+}
+
+function restore() {
+  // hash wins over localStorage
+  const m = location.hash.match(/ids=([^&]+)/);
+  if (m) {
+    m[1].split(',').map(s => s.trim()).filter(Boolean).forEach(id => selected.add(id));
+    return;
+  }
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return;
+    const data = JSON.parse(raw);
+    (data.ids || []).forEach(id => selected.add(id));
+  } catch (_) {}
+}
+
+function renderFilters() {
+  const el = document.getElementById('filters');
+  el.innerHTML = '';
+  TAGS.forEach(tag => {
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'chip' + (tag === activeTag ? ' active' : '');
+    b.textContent = tag;
+    b.onclick = () => { activeTag = tag; renderFilters(); renderGrid(); };
+    el.appendChild(b);
+  });
+}
+
+function renderGrid() {
+  const el = document.getElementById('grid');
+  el.innerHTML = '';
+  const list = brands.filter(b => activeTag === '全部' || b.tag === activeTag);
+  list.forEach(b => {
+    const card = document.createElement('button');
+    card.type = 'button';
+    card.className = 'card' + (selected.has(b.id) ? ' selected' : '');
+    card.setAttribute('aria-pressed', selected.has(b.id) ? 'true' : 'false');
+    card.innerHTML = `
+      <div class="check">✓</div>
+      <div class="logo-wrap"><img src="${b.file}" alt="${b.name}" loading="lazy" /></div>
+      <div class="name">${b.name}</div>
+      <div class="tag">${b.tag}</div>
+    `;
+    card.onclick = () => toggle(b.id);
+    el.appendChild(card);
+  });
+}
+
+function toggle(id) {
+  if (selected.has(id)) selected.delete(id);
+  else selected.add(id);
+  persistSoft();
+  renderGrid();
+  updateBar();
+}
+
+function persistSoft() {
+  const ids = [...selected];
+  const payload = {
+    ids,
+    names: brands.filter(b => selected.has(b.id)).map(b => b.name),
+    updatedAt: new Date().toISOString()
+  };
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
+  location.hash = ids.length ? 'ids=' + ids.join(',') : '';
+}
+
+function updateBar() {
+  document.getElementById('count').textContent = String(selected.size);
+  document.getElementById('submitBtn').disabled = selected.size === 0;
+}
+
+function toast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 1800);
+}
+
+function buildCopyBlock() {
+  const picked = brands.filter(b => selected.has(b.id));
+  const names = picked.map(b => b.name).join(', ');
+  const ids = picked.map(b => b.id).join(', ');
+  return `CPS品牌偏好：${names}\nids: ${ids}`;
+}
+
+function showResult() {
+  const picked = brands.filter(b => selected.has(b.id));
+  const box = document.getElementById('picked');
+  box.innerHTML = '';
+  picked.forEach(b => {
+    const p = document.createElement('span');
+    p.className = 'pill';
+    p.innerHTML = `<img src="${b.file}" alt="" />${b.name}`;
+    box.appendChild(p);
+  });
+  document.getElementById('copyText').value = buildCopyBlock();
+  document.getElementById('result').classList.add('show');
+  document.getElementById('result').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+document.getElementById('clearBtn').onclick = () => {
+  selected.clear();
+  persistSoft();
+  renderGrid();
+  updateBar();
+  document.getElementById('result').classList.remove('show');
+};
+
+document.getElementById('submitBtn').onclick = () => {
+  persistSoft();
+  showResult();
+  toast('已保存选择');
+};
+
+document.getElementById('copyBtn').onclick = async () => {
+  const text = buildCopyBlock();
+  document.getElementById('copyText').value = text;
+  try {
+    await navigator.clipboard.writeText(text);
+    toast('已复制，请发给马维斯');
+  } catch (_) {
+    document.getElementById('copyText').select();
+    document.execCommand('copy');
+    toast('已复制');
+  }
+};
+
+document.getElementById('downloadBtn').onclick = () => {
+  const picked = brands.filter(b => selected.has(b.id));
+  const data = {
+    key: STORAGE_KEY,
+    ids: picked.map(b => b.id),
+    names: picked.map(b => b.name),
+    tags: picked.map(b => ({ id: b.id, name: b.name, tag: b.tag })),
+    updatedAt: new Date().toISOString()
+  };
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'cps-brand-picks.json';
+  a.click();
+  URL.revokeObjectURL(a.href);
+};
+
+loadBrands().catch(err => {
+  document.getElementById('grid').innerHTML =
+    '<p style="color:#b91c1c">加载 brands.json 失败：' + err.message + '</p>';
+});
+</script>
+</body>
+</html>
