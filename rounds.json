@@ -1,5 +1,19 @@
 [
   {
+    "id": "r88",
+    "title": "Round 88 · 余位",
+    "version": "v90.0",
+    "date": "2026-10-24",
+    "status": "已发布",
+    "summary": "缩略筛条对齐 idle 32 余位；soft 金额锁 tx3 与 mid tx1 拉开色距。新分尺盲评 89.5（> r87 88.5）。",
+    "screenshot": "rounds/r88/screenshot.png",
+    "demo": "rounds/r88/demo-ops.html",
+    "spec": "rounds/r88/spec.html",
+    "note": "新分尺；过线发布",
+    "score": 89.5,
+    "score100": 89.5
+  },
+  {
     "id": "r87",
     "title": "Round 87 · 筛显",
     "version": "v89.0",
@@ -24,8 +38,8 @@
     "demo": "rounds/r86/demo-ops.html",
     "spec": "rounds/r86/spec.html",
     "note": "新分尺；过线发布",
-    "score": 87.0,
-    "score100": 87.0
+    "score": 87,
+    "score100": 87
   },
   {
     "id": "r85",
