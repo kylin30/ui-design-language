@@ -1,5 +1,19 @@
 [
   {
+    "id": "r87",
+    "title": "Round 87 · 筛显",
+    "version": "v89.0",
+    "date": "2026-10-24",
+    "status": "已发布",
+    "summary": "钻取仍显缩略筛条（墨线.on 与旁注同屏）；soft 金额色锁 tx2；缩略藏 mute/search 保焦。新分尺盲评 88.5（> r86 87.0）。",
+    "screenshot": "rounds/r87/screenshot.png",
+    "demo": "rounds/r87/demo-ops.html",
+    "spec": "rounds/r87/spec.html",
+    "note": "新分尺；过线发布",
+    "score": 88.5,
+    "score100": 88.5
+  },
+  {
     "id": "r86",
     "title": "Round 86 · 显旁",
     "version": "v88.0",
