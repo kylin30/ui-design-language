@@ -1,5 +1,19 @@
 [
   {
+    "id": "r91",
+    "title": "Round 91 · 因列",
+    "version": "v93.0",
+    "date": "2026-10-25",
+    "status": "已发布",
+    "summary": "预测页有符号驱动因素列表收束到 Forecast（312）。气质迭代；盲评参考 90.0（门槛 OFF）。",
+    "screenshot": "rounds/r91/screenshot.png",
+    "demo": "rounds/r91/demo-analytics.html",
+    "spec": "rounds/r91/spec.html",
+    "note": "气质迭代；参考分 90.0；过线门槛已关",
+    "score": 90.0,
+    "score100": 90.0
+  },
+  {
     "id": "r90",
     "title": "Round 90 · 澄请",
     "version": "v92.0",
@@ -9,7 +23,7 @@
     "screenshot": "rounds/r90/screenshot.png",
     "demo": "rounds/r90/demo-ops.html",
     "spec": "rounds/r90/spec.html",
-    "note": "气质迭代；参考分 90.0；过线门槛已关",
+    "note": "气质刀；盲评参考 90.0；门槛 OFF 已发布",
     "score": 90.0,
     "score100": 90.0
   },
