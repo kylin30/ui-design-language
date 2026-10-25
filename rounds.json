@@ -1,5 +1,19 @@
 [
   {
+    "id": "r101",
+    "title": "Round 101 · 预差",
+    "version": "v103.0",
+    "date": "2026-10-25",
+    "status": "已发布",
+    "summary": "预差：Forecast/Prepped/Used 差分表 + 学到→明日备货。气质迭代；盲评参考 90.0（门槛 OFF）。",
+    "screenshot": "rounds/r101/screenshot.png",
+    "demo": "rounds/r101/demo-ops.html",
+    "spec": "rounds/r101/spec.html",
+    "note": "气质迭代；参考分 90.0；过线门槛已关",
+    "score": 90.0,
+    "score100": 90.0
+  },
+  {
     "id": "r100",
     "title": "Round 100 · 桥瀑",
     "version": "v102.0",
