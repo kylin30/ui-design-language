@@ -1,5 +1,18 @@
 [
   {
+    "id": "r96",
+    "title": "Round 96 · 产缺",
+    "version": "v98.0",
+    "date": "2026-10-25",
+    "status": "已发布",
+    "summary": "需关注 Expected/Actual 产缺条 + 短缺底席双 CTA。气质迭代；盲评参考 90.0（门槛 OFF）。",
+    "screenshot": "rounds/r96/screenshot.png",
+    "demo": "rounds/r96/demo-ops.html",
+    "spec": "rounds/r96/spec.html",
+    "note": "八维触顶后续写；盲评信息参考，不过线不 fail",
+    "score": 90.0
+  },
+  {
     "id": "r95",
     "title": "Round 95 · 再催",
     "version": "v97.0",
@@ -9,8 +22,9 @@
     "screenshot": "rounds/r95/screenshot.png",
     "demo": "rounds/r95/demo-ops.html",
     "spec": "rounds/r95/spec.html",
-    "note": "八维触顶后续写；盲评信息参考，不过线不 fail",
-    "score": 90.0
+    "note": "气质迭代；参考分 90.0；过线门槛已关",
+    "score": 90.0,
+    "score100": 90.0
   },
   {
     "id": "r94",
