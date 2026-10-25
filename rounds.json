@@ -1,5 +1,19 @@
 [
   {
+    "id": "r93",
+    "title": "Round 93 · 分桶",
+    "version": "v95.0",
+    "date": "2026-10-25",
+    "status": "已发布",
+    "summary": "需关注队列分桶（全部/Nudge/Escalate）+ 完成% + Blocked by + Urgent。气质迭代；盲评参考 90.0（门槛 OFF）。",
+    "screenshot": "rounds/r93/screenshot.png",
+    "demo": "rounds/r93/demo-ops.html",
+    "spec": "rounds/r93/spec.html",
+    "note": "气质迭代；参考分 90.0；过线门槛已关",
+    "score": 90.0,
+    "score100": 90.0
+  },
+  {
     "id": "r92",
     "title": "Round 92 · 覆格",
     "version": "v94.0",
