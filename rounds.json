@@ -1,5 +1,19 @@
 [
   {
+    "id": "r90",
+    "title": "Round 90 · 澄请",
+    "version": "v92.0",
+    "date": "2026-10-25",
+    "status": "已发布",
+    "summary": "变更放行「请求澄清」弹层：问题芯片 + AI 草稿徽章 + 答完前暂停审批 + 600s 撤销横幅。气质迭代；盲评参考 90.0（门槛 OFF）。",
+    "screenshot": "rounds/r90/screenshot.png",
+    "demo": "rounds/r90/demo-ops.html",
+    "spec": "rounds/r90/spec.html",
+    "note": "气质迭代；参考分 90.0；过线门槛已关",
+    "score": 90.0,
+    "score100": 90.0
+  },
+  {
     "id": "r89",
     "title": "Round 89 · 应尺",
     "version": "v91.0",
