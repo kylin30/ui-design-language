@@ -1,5 +1,18 @@
 [
   {
+    "id": "r95",
+    "title": "Round 95 · 再催",
+    "version": "v97.0",
+    "date": "2026-10-25",
+    "status": "已发布",
+    "summary": "需关注 AI 催办底席：再次催办 + Based on 证据链。气质迭代；盲评参考 90.0（门槛 OFF）。",
+    "screenshot": "rounds/r95/screenshot.png",
+    "demo": "rounds/r95/demo-ops.html",
+    "spec": "rounds/r95/spec.html",
+    "note": "八维触顶后续写；盲评信息参考，不过线不 fail",
+    "score": 90.0
+  },
+  {
     "id": "r94",
     "title": "Round 94 · 双条",
     "version": "v96.0",
