@@ -1,5 +1,19 @@
 [
   {
+    "id": "r92",
+    "title": "Round 92 · 覆格",
+    "version": "v94.0",
+    "date": "2026-10-25",
+    "status": "已发布",
+    "summary": "排班重建成功横幅 + 45s 限时撤销 + Before/After 半小时覆格热力。气质迭代；盲评参考 90.0（门槛 OFF）。",
+    "screenshot": "rounds/r92/screenshot.png",
+    "demo": "rounds/r92/demo-ops.html",
+    "spec": "rounds/r92/spec.html",
+    "note": "气质迭代；参考分 90.0；过线门槛已关",
+    "score": 90.0,
+    "score100": 90.0
+  },
+  {
     "id": "r91",
     "title": "Round 91 · 因列",
     "version": "v93.0",
@@ -9,7 +23,7 @@
     "screenshot": "rounds/r91/screenshot.png",
     "demo": "rounds/r91/demo-analytics.html",
     "spec": "rounds/r91/spec.html",
-    "note": "气质迭代；参考分 90.0；过线门槛已关",
+    "note": "气质刀；盲评参考 90.0；门槛 OFF 已发布",
     "score": 90.0,
     "score100": 90.0
   },
