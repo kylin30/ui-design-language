@@ -1,5 +1,19 @@
 [
   {
+    "id": "r98",
+    "title": "Round 98 · 双标",
+    "version": "v100.0",
+    "date": "2026-10-25",
+    "status": "已发布",
+    "summary": "需关注损耗分析 kg+¥ 同级双主指标 + 侧栏异常红徽标。气质迭代；盲评参考 90.0（门槛 OFF）。",
+    "screenshot": "rounds/r98/screenshot.png",
+    "demo": "rounds/r98/demo-ops.html",
+    "spec": "rounds/r98/spec.html",
+    "note": "八维触顶后续写；盲评信息参考，不过线不 fail",
+    "score": 90.0,
+    "score100": 90.0
+  },
+  {
     "id": "r97",
     "title": "Round 97 · 三计",
     "version": "v99.0",
@@ -9,7 +23,7 @@
     "screenshot": "rounds/r97/screenshot.png",
     "demo": "rounds/r97/demo-ops.html",
     "spec": "rounds/r97/spec.html",
-    "note": "八维触顶后续写；盲评信息参考，不过线不 fail",
+    "note": "气质迭代；参考分 90.0；过线门槛已关",
     "score": 90.0,
     "score100": 90.0
   },
@@ -164,8 +178,8 @@
     "demo": "rounds/r86/demo-ops.html",
     "spec": "rounds/r86/spec.html",
     "note": "新分尺；过线发布",
-    "score": 87,
-    "score100": 87
+    "score": 87.0,
+    "score100": 87.0
   },
   {
     "id": "r85",
@@ -202,7 +216,7 @@
     "screenshot": "rounds/r83/screenshot.png",
     "demo": "rounds/r83/demo-ops.html",
     "spec": "rounds/r83/spec.html",
-    "score": 82,
+    "score": 82.0,
     "note": "新分尺；过线发布"
   },
   {
@@ -241,7 +255,7 @@
     "screenshot": "rounds/r80/screenshot.png",
     "demo": "rounds/r80/demo-ops.html",
     "spec": "rounds/r80/spec.html",
-    "score": 79,
+    "score": 79.0,
     "note": "新分尺；过线发布"
   },
   {
@@ -306,7 +320,7 @@
     "screenshot": "rounds/r75/screenshot.png",
     "demo": "rounds/r75/demo-ops.html",
     "spec": "rounds/r75/spec.html",
-    "score": 74,
+    "score": 74.0,
     "note": "新分尺；过线发布"
   },
   {
@@ -319,7 +333,7 @@
     "screenshot": "rounds/r74/screenshot.png",
     "demo": "rounds/r74/demo-ops.html",
     "spec": "rounds/r74/spec.html",
-    "score": 73,
+    "score": 73.0,
     "note": "新分尺；过线发布"
   },
   {
@@ -339,7 +353,7 @@
     "id": "r66",
     "name": "宽疏",
     "version": "v68.0",
-    "score": 89,
+    "score": 89.0,
     "note": "盲评 89.0（> r65 88.5）",
     "path": "rounds/r66/"
   },
@@ -355,7 +369,7 @@
     "id": "r64",
     "name": "辨题",
     "version": "v66.0",
-    "score": 88,
+    "score": 88.0,
     "note": "盲评 88.0（> r63 87.5）",
     "path": "rounds/r64/"
   },
@@ -371,7 +385,7 @@
     "id": "r62",
     "name": "适屏",
     "version": "v64.0",
-    "score": 87,
+    "score": 87.0,
     "note": "盲评 87.0（> r61 86.0）",
     "path": "rounds/r62/"
   },
@@ -379,7 +393,7 @@
     "id": "r61",
     "name": "疏密",
     "version": "v63.0",
-    "score": 86,
+    "score": 86.0,
     "note": "盲评 86.0（> r60 85.0）",
     "path": "rounds/r61/"
   },
@@ -387,7 +401,7 @@
     "id": "r60",
     "name": "跟态",
     "version": "v62.0",
-    "score": 85,
+    "score": 85.0,
     "note": "盲评 85.0（> r59 84.5）",
     "path": "rounds/r60/"
   },
@@ -403,7 +417,7 @@
     "id": "r58",
     "name": "态重",
     "version": "v60.0",
-    "score": 84,
+    "score": 84.0,
     "note": "盲评 84.0（> r57 83.5）",
     "path": "rounds/r58/"
   },
@@ -419,7 +433,7 @@
     "id": "r56",
     "name": "字阶",
     "version": "v58.0",
-    "score": 83,
+    "score": 83.0,
     "note": "盲评 83.0（> r55 82.0）",
     "path": "rounds/r56/"
   },
@@ -427,7 +441,7 @@
     "id": "r55",
     "name": "选中",
     "version": "v57.0",
-    "score": 82,
+    "score": 82.0,
     "note": "盲评 82.0（> r54 81.5）",
     "path": "rounds/r55/"
   },
@@ -443,7 +457,7 @@
     "id": "r53",
     "name": "适应",
     "version": "v55.0",
-    "score": 79,
+    "score": 79.0,
     "note": "盲评 79.0（> r52 77.5）",
     "path": "rounds/r53/"
   },
@@ -459,7 +473,7 @@
     "id": "r51",
     "name": "分型",
     "version": "v53.0",
-    "score": 76,
+    "score": 76.0,
     "note": "盲评 76.0（> r50 75.0）",
     "path": "rounds/r51/"
   },
@@ -467,7 +481,7 @@
     "id": "r50",
     "name": "信号",
     "version": "v52.0",
-    "score": 75,
+    "score": 75.0,
     "note": "盲评 75.0（> r49 74.0）",
     "path": "rounds/r50/"
   },
@@ -475,7 +489,7 @@
     "id": "r49",
     "name": "辨距",
     "version": "v51.0",
-    "score": 74,
+    "score": 74.0,
     "note": "盲评 74.0（> r48 73.0）",
     "path": "rounds/r49/"
   },
@@ -483,7 +497,7 @@
     "id": "r48",
     "name": "节奏",
     "version": "v50.0",
-    "score": 73,
+    "score": 73.0,
     "note": "盲评 73.0（> r47 71.5）",
     "path": "rounds/r48/"
   },
@@ -499,7 +513,7 @@
     "id": "r46",
     "name": "色系",
     "version": "v48.0",
-    "score": 70,
+    "score": 70.0,
     "note": "盲评 70.0（> r45 69.0；系列明度拉开色盲可辨 + 宽轨数字）",
     "path": "rounds/r46/"
   },
@@ -507,7 +521,7 @@
     "id": "r45",
     "name": "数字",
     "version": "v47.0",
-    "score": 69,
+    "score": 69.0,
     "note": "盲评 69.0（v1 68 → v2 69.0）",
     "path": "rounds/r45/"
   },
@@ -531,7 +545,7 @@
     "id": "r42",
     "name": "自有",
     "version": "v44.0",
-    "score": 60,
+    "score": 60.0,
     "note": "无批注",
     "path": "rounds/r42/"
   },
@@ -614,7 +628,7 @@
     "screenshot": "rounds/r34/screenshot.png",
     "tokens": "rounds/r34/STYLE.md",
     "summary": "R33「一面」去掉面内卡片后得 60（同 R28 批注：线条分割阅读吃力）。R34 从 R32 出发：每组一块真实面板；P1 面板统一 12 圆角、无描边、柔和三层投影；P2 面板标题 13px/600、标题行 52px、与内容同一左线；P3 指标格悬停升一级、选中主色环；P4 X 案例只取统一左线、克制用色、指标样式。保留 R32 页头、显示级数字、图表、手感。7 主题 AA 0 处不合格，订单首屏 17 行。",
-    "score100": 65,
+    "score100": 65.0,
     "note": "几乎没什么突破，来回跳。"
   },
   {
@@ -631,7 +645,7 @@
     "screenshot": "rounds/r33/screenshot.png",
     "tokens": "rounds/r33/STYLE.md",
     "summary": "重新出发：先在 X 上看约 30 位设计师的案例（Catalyst、Linear 新版、Practical UI、Geist 等），差距在构图。S1 一面：侧栏落在底色上，内容区是一块白色内嵌面（圆角 12、细环）；S2 面内去卡壳，区块靠标题 + 32px 留白；S3 分栏改一条细线；S4 单一左线（页标题、指标、表头、列表同线）；S5 指标去卡，只留顶线，选中 2px 主色。R32 质感五条保留；卡片环 40→24，7 主题 AA 0 处不合格，订单首屏 17 行。",
-    "score100": 60,
+    "score100": 60.0,
     "note": "（无批注，在 demo-content.html 提交）"
   },
   {
@@ -665,7 +679,7 @@
     "screenshot": "rounds/r31/screenshot.png",
     "tokens": "rounds/r31/STYLE.md",
     "summary": "沿 R30 方向，按 Refactoring UI 十条 + Linear/Stripe/Vercel/Attio/GitHub 实测：卡片描边改环+投影，分隔线减半（六页 34/70/49/35/27/39 → 17/38/11/20/12/20），灰阶 11 级、文字三级灰，全部主题 AA 对比度失败归零，间距收成 4 的倍数，属性行内联，主色阶替代 color-mix，补齐空状态与清除筛选。",
-    "score100": 65,
+    "score100": 65.0,
     "note": ""
   },
   {
@@ -682,7 +696,7 @@
     "screenshot": "rounds/r30/screenshot.png",
     "tokens": "rounds/r30/app.css",
     "summary": "R29 在运营待办（demo.html）得 60 分（R28 65），无批注。R30 先诚实诊断：把 r28 / r29 六页同状态并排截图并用脚本量化，结论是 R29 把一个对象拆成了几张卡（运营待办的一条任务被拆成 3 张卡，操作条挪到中间；客户 7 张、审核 8 张），每条灰缝是「描边 + 灰带 + 描边」，边反而更多；间距只有 16 一档，分不出组；列表组头从贯穿色带变成内缩小药丸；画布 #F2F2F6 露出 10–14% 屏幕，整页发灰；订单页指标格挤掉 4 行；每次打开都有骨架 + 卡片错开入场 + 滚数，约 1 秒后才静止。R29 的看板指标格页签、图表卡、抽屉、折叠、页签滑块、切换淡入是对的，保留。再补案例（Linear 当前版、Plain、Attio、Catalyst、shadcn sidebar-inset / dashboard-01、Tremor、GitHub 议题，截图仅本地研究）和 10-19 灵感记录：外壳是画布 + 嵌入面板，记录页是一块面 + 分区，只有同类并列的东西才是卡。R30 规则：一个对象 = 一块面（标题、属性、明细、动态是面内分区：小标题 + 内缩分隔线 + 间距，操作条贴底）；同类并列才用卡（看板、订单指标格）；间距三级 卡内 20 / 卡间 12 / 区块 32；组头恢复贯穿色带；画布提亮到 #F5F5F7（露出 7–8%）；订单紧凑指标格（首屏 17 行）；首屏不表演——本地数据页面不出骨架、不做入场，只有看板卡壳先行、内容区骨架。可见的面：运营待办 4→2、运维 5→2、客户 7→2、审核 8→3。每页 6 轮复核（含星蓝、1280、其余主题、减少动态效果、2 倍局部、交互状态），发现并修掉星蓝画布被覆盖的 bug。规范页以诊断开头，R1–R11 / M1–M7 各配正确 / 错误示例（多数错误示例就是 R29 的做法），并排对照只用本项目自己的渲染。",
-    "score100": 65,
+    "score100": 65.0,
     "note": ""
   },
   {
@@ -699,7 +713,7 @@
     "screenshot": "rounds/r29/screenshot.png",
     "tokens": "rounds/r29/app.css",
     "summary": "R28 得 65 分（目前最高），批注「没有动效和面板组件，单纯的线条分割阅读还是很吃力。」（在 demo-analytics.html 提交）。R29 保留 R28 的低噪音内容（13px 正文、单行 40、状态只给图标、控件全平、鸢尾、Geist 数字、无衬线），只改两件事。先研究：22 张卡片式后台 / 设计系统页面（Vercel、Stripe、PostHog、Linear、Supabase、shadcn、Tremor、Catalyst；Ant Pro、Arco Pro 作反例，截图仅本地研究、不发布），用无头浏览器读出画布色、卡片圆角 / 边框 / 投影 / 间距，并读取 Linear、Vercel Geist、shadcn / Radix、Raycast、Ant、Arco、IBM Carbon、Fluent 2 的动效时长和曲线。面板：画布 #F2F2F6（比白卡片深 ΔL*≈4），内容全部进白卡片（1px #E6E6EC、圆角 10、几乎看不见的 1px 投影、卡间 16），卡头一行（标题 + 灰说明 + 右侧操作），一张卡讲一件事、卡里不套卡；看板指标格就是图表页签（Stripe 式选中描边），图表卡先给结论数字。动效：悬停 100ms、页签下划线 / 分段底块 160ms 滑动、分组展开收起 240ms、抽屉 280 / 240ms、只在真等待时出现的骨架、卡片错开 35ms 入场、折线画出 / 柱子长出 / 数字滚动（只播一次），切换数据时只让变化的区域淡入；系统开启「减少动态效果」时全部直接显示终态。6 个演示全部改为卡片分组，数据看板和内容审核复核最多；深化阶段做卡片页像素研究、每页 7 轮并排复核、动效逐帧检查、对 R28 的眯眼 / 噪音对比（首屏贯穿线条明显减少）。规范页新增面板规则和动效规则 M1–M6，各配正确 / 错误示例，动效示例可在页内重放。",
-    "score100": 60,
+    "score100": 60.0,
     "note": "（无批注，在 demo.html 提交）"
   },
   {
@@ -716,7 +730,7 @@
     "screenshot": "rounds/r28/screenshot.png",
     "tokens": "rounds/r28/app.css",
     "summary": "R27 得 55 分（R26 58），批注「多参考下案例再做，不要急着交差。」（在 demo-content.html 提交），这是 R21 之后第二次说急。R28 先研究、后设计：收集 43 张已上线后台 / SaaS 产品的公开截图（Linear、Stripe、Vercel、Attio、Notion、GitHub、Sentry、PostHog、Plain、Intercom、飞书等，仅本地研究，不发布），逐张记下为什么干净、实测字号 / 灰阶 / 行高 / 线色 / 圆角（cases.md）；再把 Linear 客户页、Stripe 发票列表、Attio 人员表、Sentry 问题流、Plain 工单三栏、Vercel Observability 共 6 张逐像素复刻成 HTML 并与截图做差，直到误差收敛（每类演示至少一张）。结论：R20–R27 的问题不在颜色，而在页面骨架——灰画布上浮卡片（Ant Pro 式）、两三行的列表行、字号偏大、彩色状态文字、分组弱、属性铺成指标卡。R28 按测量重写唯一一份 app.css：浅灰外框里一整块白面板，区域之间只用 1px 线；13px 正文 / 12px 标签 / 14px 顶栏；列表行 40、表格行 36、单行为主；长列表用色带分组、记录页用小标签 + 线；状态颜色只给 14px 图标；记录页用属性行；看板用统计条。6 个演示各对应一个参考模式（Linear 我的事项、Stripe 发票、Compound / Vercel 看板、Sentry 问题流、Linear 客户页 + Attio、Intercom 收件箱 + Plain），逐页与参考并排复核：初版 4 轮，深化阶段每页再 3–5 轮（内容审核 5 轮、运营待办 4 轮），补上真实数据密度（每小时 GMV 7×24 点、20 行订单 + 详情抽屉、10 条审核各有独立详情、今天已办 / 已恢复分组），最后做模糊测试、对 R27 的噪音计数和深色检查。规范页以案例结论开头，规则 R1–R13 各配正确 / 错误示例（新增：完成即退场、图表从 0 起 3 个刻度、高频操作写出快捷键、选中谁详情就是谁）。",
-    "score100": 65,
+    "score100": 65.0,
     "note": "没有动效和面板组件，单纯的线条分割阅读还是很吃力。（在 demo-analytics.html 提交）"
   },
   {
@@ -733,7 +747,7 @@
     "screenshot": "rounds/r27/screenshot.png",
     "tokens": "rounds/r27/app.css",
     "summary": "R26 得 58 分（和 R25 一样），批注「总是有不干净的感觉」（在 demo-crm.html 提交）。R27 先数噪音：在 6 个演示首屏（1440×900）上用脚本数线条、线色、面板里的底色块、文字灰阶、字号字重、图标、装饰、左边缘和截断，并对照 Stripe、Vercel、Linear 截图（clean.md）。结论：R22–R26 叠了 7 个样式文件，同一属性被覆盖 3–6 次，留下每屏 10–11 个字号、450 / 700 假字重、面板里 0–9 个浅灰块、3–5 种线色、几乎和正文一样黑的次要灰、重复数字的迷你线和进度条。R27 把 7 个文件合成唯一一份 app.css（一套令牌）：两种面、一种线色、三级文字灰（L* 8 / 37 / 49）、一个强调色；字号 13 / 14 / 16 / 24 / 28、字重 400 / 500 / 600；间距 24 / 32；面板里不再套色块，列表靠留白分行；删掉 KPI 迷你线、分段条、进度条和装饰头像；红色每个指标块只出现一次。首屏可见线条 42–60 → 28–43，字号 10–11 → 6，面板内色块 0–9 → 0，带色面积 5.4–17.4% → 1.4–3.6%。规范新增「素净」一章：每屏噪音预算、八条对 / 错（C1–C8）、逐页前后计数和 R26 / R27 并排图。",
-    "score100": 55,
+    "score100": 55.0,
     "note": "多参考下案例再做，不要急着交差。（在 demo-content.html 提交）"
   },
   {
@@ -750,7 +764,7 @@
     "screenshot": "rounds/r26/screenshot.png",
     "tokens": "rounds/r26/reference-tokens.css",
     "summary": "R25 得 58 分，批注「按钮不要 3d 的感觉，继续改进」。R26 沿用 R25 的结构、分组和材质令牌，最后加一层 flat.css，把所有控件做成全平。按钮：主按钮是纯鸢尾，悬停和按下各深一阶；次按钮是 1px 透明边；轻按钮只有文字，悬停出现浅色底。分段控件、输入、复选框、头像、品牌标、侧栏当前项都去掉了渐变、内高光、投影、斜面环和按下位移，焦点改为 2px 外框。逐个元素复查后：面板只留透明环和 1px 极淡影；深色主题去掉顶边高光；Toast 去掉内高光；状态点去掉光圈；真正的投影只给菜单、⌘K、提示和 Toast。打磨：GMV 图和右侧面板同高，主序列终点加实心点；表头去掉灰底；复选框改成平的 16px 方块；悬停底统一。规范「质感」章改为「控件全平，深度只给浮层」，新增 M3「控件全平」对 / 错（平 vs 3D），并新增 R25 → R26 比对图。",
-    "score100": 58,
+    "score100": 58.0,
     "note": "总是有不干净的感觉（在 demo-crm.html 提交）"
   },
   {
@@ -767,7 +781,7 @@
     "screenshot": "rounds/r25/screenshot.png",
     "tokens": "rounds/r25/reference-tokens.css",
     "summary": "R24 得 55 分，批注「少一点高级感、质感、设计感」。R25 不动结构（指标面板、分组列表、画布上的面板），只加一层统一的材质 material.css。先调研 Linear 2024 改版、Vercel Geist、Stripe、Attio、Raycast、Mercury、Ramp、Retool、Arc、Height 和 X 上的设计师帖，并从参照截图量出画布、面板、描边、高光的具体色值（craft.md）。材质层的内容：画布 #F5F5F8；面板改用文字色 8% 的发丝环加两层极软的带色投影（e0–e3 四档，ink 24,20,46）；面板内分隔线用 5.5% 的透明线；圆角阶梯 6 / 7 / 9 / 12 / 14；大数字 −0.03em、等宽，单位降一级；主按钮做 12% 以内的渐变、内高光和深一阶的环；焦点用双环；图标统一 1.5 描边；侧栏做成工作区切换器，当前项是浮起的白片；面包屑改用 chevron；分段控件做成凹槽加滑块；指标里加鸢尾趋势线，图表渐变用缓动停点；浮层用 e3；统一 150ms 动效。midnight 改为近黑画布、亮一阶的面板和顶边高光。规范新增「质感」章（令牌表，死平 / 精致 / 过度三档，M1–M8 对 / 错）和「比对」章（三轮迭代，与 Linear / Stripe / Vercel / Attio 并排）。",
-    "score100": 58,
+    "score100": 58.0,
     "note": "按钮不要 3d 的感觉，继续改进。（在 demo.html 提交）"
   },
   {
@@ -784,7 +798,7 @@
     "screenshot": "rounds/r24/screenshot.png",
     "tokens": "rounds/r24/reference-tokens.css",
     "summary": "R23 从 58 掉到 40，先做回归分析（regression.md）：R22 / R23 六个演示 1440×900 并排、眯眼对比、首屏测量，推断主因是去掉了工作台页的指标面板（打分页大字 8 → 1）、结论先行的副标题和有意义的颜色强调，页面失去锚点、变成均匀的字墙。R24 以 R22 为基线重建，只带回 R23 的正确性修正（订单数据一致、按钮式下拉、运维“阈值”统一、同行面板头对齐、内容审核列表与详情同底等）；新增两处保守改进：列表按紧急程度分段（已超时 / 今天到期 / 之后；严重 / 警告 / 其他），指标分段条与列表同序同色并随操作同步。规范新增「回归」「本轮」两章，4 条对 / 错。",
-    "score100": 55,
+    "score100": 55.0,
     "note": "少一点高级感、质感、设计感。（在 demo.html 提交）"
   },
   {
@@ -801,7 +815,7 @@
     "screenshot": "rounds/r23/screenshot.png",
     "tokens": "rounds/r23/reference-tokens.css",
     "summary": "保留 R22 的成组系统，把六个演示当成已上线的产品，和 Linear、Stripe、Vercel、Attio、GitHub、飞书管理后台、Polaris 的真实截图并排逐页审计（audit.md，含标注图、并排图与眯眼对比），找出 28 处“费劲 / 像演示 / 没磨好”。改动：每屏最多一个主按钮，红色只给超时状态；字号收成 7 档；面板头统一 52；工作台页去掉重复的 KPI，统计并入页头一行，列表 + 详情同顶同底、各自滚动；原生下拉换成按钮式下拉，“1 / 9”配上下按钮（J / K）；表格 ID 等宽、行尾 ⋯；数据前后一致并随操作更新；图表改中性灰。规范新增「审计」「组合」两章：页头、面板头、页签头、对象头、工具条、字段组、列表行、分栏 8 个组合，每个都有对 / 错现场渲染。三轮自查含眯眼测试。",
-    "score100": 40
+    "score100": 40.0
   },
   {
     "id": "r22",
@@ -817,7 +831,7 @@
     "screenshot": "rounds/r22/screenshot.png",
     "tokens": "rounds/r22/reference-tokens.css",
     "summary": "针对 R21「需要人脑去归类哪些是一组」专攻视觉成组：先研究 NN/g、Atlassian、Carbon、Primer、Ant Design、Polaris、Material 3 与 Ant Design Pro、GitHub、Stripe、Linear 等真实界面，写成可度量的分组规则（grouping.md，含 R21 逐处标注诊断与模糊 10px 眯眼对比）。改动：浅灰画布 + 白色面板，一个对象一个面板（标题、内容、操作同框）；关系间距令牌 4/8/16/24/20/32，组内 ≤ 组间一半；列表与详情各一块面板、页签进面板头；详情面板贴合视口、操作条钉底不再出首屏；字段组用浅底井、明细表带组标题和合计；KPI 合成一块面板。规范新增「分组」章：六条对 / 错并排规则、间距刻度、组件展示。",
-    "score100": 58
+    "score100": 58.0
   },
   {
     "id": "r21",
@@ -833,7 +847,7 @@
     "screenshot": "rounds/r21/screenshot.png",
     "tokens": "rounds/r21/reference-tokens.css",
     "summary": "针对 R20「看起来有点吃力」降低阅读负担：正文 15/24、接近黑色，次要文字加深；页标题 26、区块标题 17、KPI 30，每屏只有一个焦点；列表行 46 以上，每行只留标题、说明、状态，次要信息悬停才出现，订单表减列；KPI 改用极浅底色带分组，去掉满屏细线；同屏只有一个主色按钮和一处红色。新增第 17 条规则「每屏一个焦点，要读的越少越好」。诊断见 reading.md。",
-    "score100": 55,
+    "score100": 55.0,
     "note": "依然很吃力，当前的演示页内容需要人脑去归类页面元素哪些是一组。你不要急着交差，多搜搜案例打磨一下，这个没有工期不需要着急。（在 demo.html 提交）"
   },
   {
@@ -850,7 +864,7 @@
     "screenshot": "rounds/r20/screenshot.png",
     "tokens": "rounds/r20/reference-tokens.css",
     "summary": "仍是方向 A「精简」，但改了方法：把 R19 截图和 Linear、Vercel、Stripe、Attio 的真实界面并排，逐像素找差距（gap.md）。改动：中文正文 14/22、标题 500；5 档带紫调的文字灰收成 3 档中性灰；选中行补 12px 内距并加圆角；状态点只剩红、鸢尾、灰；图标统一 1.5 描边；详情加动态时间线；顶栏 48、页边 32、表格行 40、控件 30；假数据校正。规范、六个演示与主题同步更新。",
-    "score": 5,
+    "score": 5.0,
     "note": "看起来有点吃力（在 demo.html 提交）"
   },
   {
@@ -867,7 +881,7 @@
     "screenshot": "rounds/r19/screenshot.png",
     "tokens": "rounds/r19/reference-tokens.css",
     "summary": "把 R18 选定的方向 A「精简」写成完整语言：白纸 + 发丝线代替卡片，正文 13、表格行 36、控件 28、圆角 6，界面近乎黑白灰，鸢尾只给操作和选中，状态是圆点 + 文字；⌘K 命令面板、G + 字母跳页、按钮键帽；图表只用灰和鸢尾。16 条规则、角色、取值、四个组件库映射、组件展示；六个演示重做；鸢尾默认 + 6 主题（midnight 深色）。",
-    "score": 5,
+    "score": 5.0,
     "note": "无备注（在 demo.html 提交）"
   },
   {
@@ -885,7 +899,7 @@
     "screenshot": "rounds/r18/screenshot.png",
     "tokens": "rounds/r18/reference-tokens.css",
     "summary": "连续 5 分后改为选方向：四个明显不同的方向——A 精简（Linear 式）、B 卡片（柔和 SaaS）、C 深色工作台、D 信息密集（AntD Pro / Stripe 式），都用鸢尾 + Geist 数字 + 无衬线，套在同样的订单售后、数据看板、内容审核三个页面上。directions.html 可切换、可操作、可比较，「选这个方向」写入反馈；选中的方向下一轮写成完整规范。",
-    "score": 5,
+    "score": 5.0,
     "note": "[选定方向: a] 精简"
   },
   {
@@ -902,7 +916,7 @@
     "primary": "spec",
     "demos": "rounds/r17/demos.html",
     "name": "清朗",
-    "score": 5,
+    "score": 5.0,
     "note": "无备注（在 demo-content.html 提交）"
   },
   {
@@ -920,7 +934,7 @@
     "demos": "rounds/r16/demos.html",
     "name": "刻度",
     "figures": "rounds/r16/figures.html",
-    "score": 5,
+    "score": 5.0,
     "note": "[选定数字字体: geist]"
   },
   {
@@ -937,7 +951,7 @@
     "primary": "spec",
     "demos": "rounds/r15/demos.html",
     "name": "素笺",
-    "score": 5,
+    "score": 5.0,
     "note": "数字字体不好"
   },
   {
@@ -954,7 +968,7 @@
     "primary": "spec",
     "demos": "rounds/r14/demos.html",
     "name": "展卷",
-    "score": 5,
+    "score": 5.0,
     "note": "宋体似乎不符合这个风格"
   },
   {
@@ -970,7 +984,7 @@
     "tokens": "rounds/r13/reference-tokens.css",
     "primary": "spec",
     "demos": "rounds/r13/demos.html",
-    "score": 6,
+    "score": 6.0,
     "note": "暂时没有什么突破"
   },
   {
@@ -985,7 +999,7 @@
     "spec": "rounds/r12/spec.html",
     "tokens": "rounds/r12/reference-tokens.css",
     "primary": "spec",
-    "score": 6
+    "score": 6.0
   },
   {
     "id": "r11",
@@ -1000,7 +1014,7 @@
     "palettes": "rounds/r11/palettes.html",
     "tokens": "rounds/r11/reference-tokens.css",
     "primary": "palettes",
-    "score": 6
+    "score": 6.0
   },
   {
     "id": "r10",

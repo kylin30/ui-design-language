@@ -1,0 +1,1094 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>运维告警 · 后台设计语言 v100.0 · Round 98 双标</title>
+<link rel="stylesheet" href="app.css"><script src="app.js"></script>
+</head><body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><!-- 图标：Lucide (https://lucide.dev)，ISC License --><defs><symbol id="i-inbox" viewBox="0 0 24 24"><polyline points="22 12 16 12 14 15 10 15 8 12 2 12" /> <path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z" /></symbol><symbol id="i-order" viewBox="0 0 24 24"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z" /> <path d="M14 2v4a2 2 0 0 0 2 2h4" /> <path d="M10 9H8" /> <path d="M16 13H8" /> <path d="M16 17H8" /></symbol><symbol id="i-chart" viewBox="0 0 24 24"><path d="M3 3v16a2 2 0 0 0 2 2h16" /> <path d="M18 17V9" /> <path d="M13 17V5" /> <path d="M8 17v-3" /></symbol><symbol id="i-pulse" viewBox="0 0 24 24"><path d="M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2" /></symbol><symbol id="i-users" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /> <circle cx="9" cy="7" r="4" /> <path d="M22 21v-2a4 4 0 0 0-3-3.87" /> <path d="M16 3.13a4 4 0 0 1 0 7.75" /></symbol><symbol id="i-eye" viewBox="0 0 24 24"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0" /> <circle cx="12" cy="12" r="3" /></symbol><symbol id="i-book" viewBox="0 0 24 24"><path d="M12 7v14" /> <path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z" /></symbol><symbol id="i-grid" viewBox="0 0 24 24"><rect width="7" height="7" x="3" y="3" rx="1" /> <rect width="7" height="7" x="14" y="3" rx="1" /> <rect width="7" height="7" x="14" y="14" rx="1" /> <rect width="7" height="7" x="3" y="14" rx="1" /></symbol><symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8" /> <path d="m21 21-4.3-4.3" /></symbol><symbol id="i-plus" viewBox="0 0 24 24"><path d="M5 12h14" /> <path d="M12 5v14" /></symbol><symbol id="i-down" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /> <polyline points="7 10 12 15 17 10" /> <line x1="12" x2="12" y1="15" y2="3" /></symbol><symbol id="i-filter" viewBox="0 0 24 24"><path d="M3 6h18" /> <path d="M7 12h10" /> <path d="M10 18h4" /></symbol><symbol id="i-sort" viewBox="0 0 24 24"><path d="m3 16 4 4 4-4" /> <path d="M7 20V4" /> <path d="M11 4h10" /> <path d="M11 8h7" /> <path d="M11 12h4" /></symbol><symbol id="i-chev-r" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6" /></symbol><symbol id="i-chev-d" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6" /></symbol><symbol id="i-updown" viewBox="0 0 24 24"><path d="m7 15 5 5 5-5" /> <path d="m7 9 5-5 5 5" /></symbol><symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5" /></symbol><symbol id="i-more" viewBox="0 0 24 24"><circle cx="12" cy="12" r="1" /> <circle cx="19" cy="12" r="1" /> <circle cx="5" cy="12" r="1" /></symbol><symbol id="i-cal" viewBox="0 0 24 24"><path d="M8 2v4" /> <path d="M16 2v4" /> <rect width="18" height="18" x="3" y="4" rx="2" /> <path d="M3 10h18" /></symbol><symbol id="i-user" viewBox="0 0 24 24"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" /> <circle cx="12" cy="7" r="4" /></symbol><symbol id="i-store" viewBox="0 0 24 24"><path d="m2 7 4.41-4.41A2 2 0 0 1 7.83 2h8.34a2 2 0 0 1 1.42.59L22 7" /> <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8" /> <path d="M15 22v-4a2 2 0 0 0-2-2h-2a2 2 0 0 0-2 2v4" /> <path d="M2 7h20" /> <path d="M22 7v3a2 2 0 0 1-2 2a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 16 12a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 12 12a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 8 12a2.7 2.7 0 0 1-1.59-.63.7.7 0 0 0-.82 0A2.7 2.7 0 0 1 4 12a2 2 0 0 1-2-2V7" /></symbol><symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" /> <polyline points="12 6 12 12 16 14" /></symbol><symbol id="i-yuan" viewBox="0 0 24 24"><path d="M12 9.5V21m0-11.5L6 3m6 6.5L18 3" /> <path d="M6 15h12" /> <path d="M6 11h12" /></symbol><symbol id="i-tag" viewBox="0 0 24 24"><path d="M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8.704 8.704a2.426 2.426 0 0 0 3.42 0l6.58-6.58a2.426 2.426 0 0 0 0-3.42z" /> <circle cx="7.5" cy="7.5" r=".5" fill="currentColor" /></symbol><symbol id="i-server" viewBox="0 0 24 24"><rect width="20" height="8" x="2" y="2" rx="2" ry="2" /> <rect width="20" height="8" x="2" y="14" rx="2" ry="2" /> <line x1="6" x2="6.01" y1="6" y2="6" /> <line x1="6" x2="6.01" y1="18" y2="18" /></symbol><symbol id="i-link" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" /> <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" /></symbol><symbol id="i-desc" viewBox="0 0 24 24"><path d="M17 6.1H3" /> <path d="M21 12.1H3" /> <path d="M15.1 18H3" /></symbol><symbol id="i-pri" viewBox="0 0 16 16"><rect x="2.5" y="9" width="2.5" height="4" rx=".6" fill="currentColor" stroke="none"/><rect x="6.75" y="6" width="2.5" height="7" rx=".6" fill="currentColor" stroke="none"/><rect x="11" y="3" width="2.5" height="10" rx=".6" fill="currentColor" stroke="none"/></symbol><symbol id="i-pri1" viewBox="0 0 16 16"><rect x="2.5" y="9" width="2.5" height="4" rx=".6" fill="currentColor" stroke="none"/><rect x="6.75" y="6" width="2.5" height="7" rx=".6" fill="currentColor" stroke="none" opacity=".28"/><rect x="11" y="3" width="2.5" height="10" rx=".6" fill="currentColor" stroke="none" opacity=".28"/></symbol><symbol id="i-pri2" viewBox="0 0 16 16"><rect x="2.5" y="9" width="2.5" height="4" rx=".6" fill="currentColor" stroke="none"/><rect x="6.75" y="6" width="2.5" height="7" rx=".6" fill="currentColor" stroke="none"/><rect x="11" y="3" width="2.5" height="10" rx=".6" fill="currentColor" stroke="none" opacity=".28"/></symbol><symbol id="i-urgent" viewBox="0 0 16 16"><rect x="2" y="2" width="12" height="12" rx="3" fill="currentColor" stroke="none"/><path d="M8 4.8v4" stroke="#fff" stroke-width="1.6"/><path d="M8 11.2h.01" stroke="#fff" stroke-width="1.8"/></symbol><symbol id="i-copy" viewBox="0 0 24 24"><rect width="14" height="14" x="8" y="8" rx="2" ry="2" /> <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" /></symbol><symbol id="i-phone" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" /></symbol><symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18" /> <path d="m6 6 12 12" /></symbol><symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9" /> <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0" /></symbol><symbol id="i-shield" viewBox="0 0 24 24"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z" /></symbol><symbol id="i-msg" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" /></symbol><symbol id="i-up" viewBox="0 0 24 24"><path d="m5 12 7-7 7 7" /> <path d="M12 19V5" /></symbol><symbol id="i-dn" viewBox="0 0 24 24"><path d="M12 5v14" /> <path d="m19 12-7 7-7-7" /></symbol><symbol id="i-back" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6" /></symbol><symbol id="i-map" viewBox="0 0 24 24"><path d="M14.106 5.553a2 2 0 0 0 1.788 0l3.659-1.83A1 1 0 0 1 21 4.619v12.764a1 1 0 0 1-.553.894l-4.553 2.277a2 2 0 0 1-1.788 0l-4.212-2.106a2 2 0 0 0-1.788 0l-3.659 1.83A1 1 0 0 1 3 19.381V6.618a1 1 0 0 1 .553-.894l4.553-2.277a2 2 0 0 1 1.788 0z" /> <path d="M15 5.764v15" /> <path d="M9 3.236v15" /></symbol><symbol id="i-trophy" viewBox="0 0 24 24"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6" /> <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18" /> <path d="M4 22h16" /> <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22" /> <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22" /> <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z" /></symbol><symbol id="i-hist" viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" /> <path d="M3 3v5h5" /> <path d="M12 7v5l4 2" /></symbol><symbol id="i-lchk" viewBox="0 0 24 24"><path d="m3 17 2 2 4-4" /> <path d="m3 7 2 2 4-4" /> <path d="M13 6h8" /> <path d="M13 12h8" /> <path d="M13 18h8" /></symbol><symbol id="i-scan" viewBox="0 0 24 24"><path d="M3 7V5a2 2 0 0 1 2-2h2" /> <path d="M17 3h2a2 2 0 0 1 2 2v2" /> <path d="M21 17v2a2 2 0 0 1-2 2h-2" /> <path d="M7 21H5a2 2 0 0 1-2-2v-2" /> <circle cx="12" cy="12" r="1" /> <path d="M18.944 12.33a1 1 0 0 0 0-.66 7.5 7.5 0 0 0-13.888 0 1 1 0 0 0 0 .66 7.5 7.5 0 0 0 13.888 0" /></symbol><symbol id="i-gauge" viewBox="0 0 24 24"><path d="m12 14 4-4" /> <path d="M3.34 19a10 10 0 1 1 17.32 0" /></symbol><symbol id="i-pie" viewBox="0 0 24 24"><path d="M21 12c.552 0 1.005-.449.95-.998a10 10 0 0 0-8.953-8.951c-.55-.055-.998.398-.998.95v8a1 1 0 0 0 1 1z" /> <path d="M21.21 15.89A10 10 0 1 1 8 2.83" /></symbol><symbol id="i-note" viewBox="0 0 24 24"><path d="M13.4 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7.4" /> <path d="M2 6h4" /> <path d="M2 10h4" /> <path d="M2 14h4" /> <path d="M2 18h4" /> <path d="M21.378 5.626a1 1 0 1 0-3.004-3.004l-5.01 5.012a2 2 0 0 0-.506.854l-.837 2.87a.5.5 0 0 0 .62.62l2.87-.837a2 2 0 0 0 .854-.506z" /></symbol><symbol id="i-ok" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></symbol><symbol id="i-warn" viewBox="0 0 24 24"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></symbol><symbol id="i-bad" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/></symbol><symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></symbol><symbol id="i-neu" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/></symbol><symbol id="i-moon" viewBox="0 0 24 24"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></symbol><symbol id="i-layers" viewBox="0 0 24 24"><path d="m12 2 10 5-10 5L2 7Z"/><path d="m2 17 10 5 10-5"/><path d="m2 12 10 5 10-5"/></symbol><symbol id="i-refresh" viewBox="0 0 24 24"><path d="M21 12a9 9 0 1 1-3-6.7L21 8"/><path d="M21 3v5h-5"/></symbol><symbol id="i-spark" viewBox="0 0 24 24"><path d="M12 3v3"/><path d="M12 18v3"/><path d="M3 12h3"/><path d="M18 12h3"/><path d="m5.6 5.6 2.1 2.1"/><path d="m16.3 16.3 2.1 2.1"/><path d="m5.6 18.4 2.1-2.1"/><path d="m16.3 7.7 2.1-2.1"/><circle cx="12" cy="12" r="2.5"/></symbol><symbol id="i-send" viewBox="0 0 24 24"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></symbol><symbol id="i-pause" viewBox="0 0 24 24"><rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/></symbol><symbol id="i-plane" viewBox="0 0 24 24"><path d="M22 2 11 13"/><path d="M22 2 15 22 11 13 2 9Z"/></symbol></defs></svg>
+<div class="app">
+<aside class="side rail"><div class="brand"><span class="logo"><svg class="ic "><use href="#i-layers"/></svg></span><span>澄岸运营台</span></div>
+<nav class="nav"><div class="nav-h">工作台</div><a title="运营待办" href="demo.html" class=""><svg class="ic "><use href="#i-inbox"/></svg><span title="运营待办">待办</span><span class="cnt num">38</span></a><a title="订单售后" href="demo-orders.html" class=""><svg class="ic "><use href="#i-order"/></svg><span title="订单售后">订单</span><span class="cnt num">12</span></a><a title="数据看板" href="demo-analytics.html" class=""><svg class="ic "><use href="#i-chart"/></svg><span title="数据看板">数据</span></a><a title="运维告警" href="demo-ops.html" class="on"><svg class="ic "><use href="#i-pulse"/></svg><span title="运维告警">告警</span><span class="cnt num exc" data-anomaly="1">5</span></a><a title="客户管理" href="demo-crm.html" class=""><svg class="ic "><use href="#i-users"/></svg><span title="客户管理">客户</span></a><a title="内容审核" href="demo-content.html" class=""><svg class="ic "><use href="#i-eye"/></svg><span title="内容审核">审核</span><span class="cnt num">24</span></a></nav>
+<nav class="nav"><div class="nav-h">设计系统</div><a title="组件" href="components.html" class=""><svg class="ic "><use href="#i-layers"/></svg><span title="组件">组件</span></a><a title="设计规范" href="spec.html" class=""><svg class="ic "><use href="#i-book"/></svg><span title="设计规范">规范</span></a><a title="全部演示" href="demos.html" class=""><svg class="ic "><use href="#i-grid"/></svg><span title="全部演示">演示</span></a></nav>
+<div class="side-foot rail-foot"><span class="av ">林</span><div class="grow"><div class="w5 ell">林晓舟</div><div class="t-xs tx3 ell">主管 · 华东</div></div></div></aside>
+<main class="main">
+<div class="top"><div class="crumb"><span>工作台</span><svg class="ic sm"><use href="#i-chev-r"/></svg><b>运维告警</b></div><div class="tt row top-acts"><button class="btn gho icon " type="button" aria-label="通知" title="通知" ><svg class="ic "><use href="#i-bell"/></svg></button><button class="btn gho icon " type="button" aria-label="切换深色" title="切换深色" onclick="r98theme()"><svg class="ic "><use href="#i-moon"/></svg></button></div></div>
+<header class="ph"><div><h1>运维告警</h1><p class="dek">生产环境 · 变更 <span class="mono">CHG-2291</span> 待放行 · 值班 刘子航（至 20:00）</p></div><div class="acts"><button class="btn sec s36" type="button" ><svg class="ic "><use href="#i-cal"/></svg>值班表</button><button class="btn pri s36" type="button" ><svg class="ic "><use href="#i-plus"/></svg>新建规则</button></div></header>
+<div class="undo-banner" id="undoBanner" hidden data-undo-sec="600" role="status">
+  <svg class="ic ok"><use href="#i-ok"/></svg>
+  <div class="grow">
+    <div class="ub-title">澄清请求已发出 <span class="stt done quiet"><svg class="ic sm"><use href="#i-check"/></svg>已暂停审批</span></div>
+    <p class="ub-sub">发给周婉清 · 支付网关负责人 · <b class="num" data-undo-until>撤销截止 15:14</b></p>
+  </div>
+  <button class="btn gho s28" type="button" data-undo-btn>撤销</button>
+</div>
+<section class="chapter ch-open" aria-label="今日态势">
+<h2 class="ch-title">今日态势</h2>
+<p class="ch-lede">生产环境仍有两起严重告警未恢复；值班刘子航至 20:00，扩容与回滚在并行观察。</p>
+<div class="ch-sum">
+<p class="ch-narr">14:40 发布 <span class="mono">CHG-2291</span> 后，支付网关 P99 与订单库复制延迟先后触顶。当前进行中 <b class="num">5</b> 条，其中严重 <b class="num bad">2</b>；另有 2 条警告贴着阈值波动。</p>
+<div class="ch-figs" role="group" aria-label="关键数字">
+<div class="ch-fig"><span>进行中</span><b class="num">5</b></div>
+<div class="ch-fig"><span>严重</span><b class="num bad">2</b></div>
+<div class="ch-fig"><span>已恢复</span><b class="num">2</b></div>
+<div class="ch-fig"><span>影响面</span><b class="num">6<span class="frac">.2</span>%</b><i class="ch-fig-u">支付请求</i></div>
+</div>
+</div>
+</section>
+<section class="chapter"><h2 class="ch-title">进行中告警</h2><p class="ch-lede">三计、产缺、再催、双条、分桶与覆格已继承。本轮气质刀在下方「损耗分析」：单位 + 金额双主指标并列；侧栏异常仅红徽标。</p><div class="ch-body ch-flow drill"><section class="panel open ch-list ch-index"><div class="ph-h soft-h index-h"><h2>告警索引</h2><span class="sub num">7 条 · 近 24 小时</span><button class="txt index-back" type="button" onclick="(function(){document.querySelectorAll('.ch-index .li.on,.ch-list.ch-index .li.on').forEach(function(x){x.classList.remove('on');x.removeAttribute('aria-current')})})()"><svg class="ic sm" aria-hidden="true"><use href="#i-back"/></svg>返回索引</button></div><div class="bar filt text"><button class="txt on" type="button" aria-pressed="true">生产环境</button><button class="txt" type="button" aria-pressed="false">全部区域</button><span class="filt-sep" aria-hidden="true">·</span><button class="txt" type="button" aria-pressed="false">近 24 小时</button><div class="grow"></div><button class="txt mute" type="button">更多筛选</button></div><div class="list"><div class="grp ed">严重<span class="cnt num">2</span></div><div class="li on" data-sel="a1" aria-current="true"><div class="grow"><div class="t">支付网关 P99 延迟 2.8s</div><div class="brief">扩容后仍 2.6s+ · 未恢复</div><div class="m ed-m"><span class="stt exc quiet"><svg class="ic sm"><use href="#i-bad"/></svg>异常</span><span class="meta-s">pay-gateway</span></div></div><div class="side-v quiet"><span class="num">18 分</span></div></div><div class="li" data-sel="a2"><div class="grow"><div class="t">订单库主从延迟 46s</div><div class="brief">只读切换评估中</div><div class="m ed-m"><span class="stt exc quiet"><svg class="ic sm"><use href="#i-bad"/></svg>异常</span><span class="meta-s">mysql-order-03</span></div></div><div class="side-v quiet"><span class="num">23 分</span></div></div><div class="grp ed">警告<span class="cnt num">2</span></div><div class="li" data-sel="a3"><div class="grow"><div class="t">CDN 回源带宽 82%</div><div class="brief">回源高峰 · 观察阈值</div><div class="m ed-m"><span class="stt risk"><svg class="ic sm"><use href="#i-clock"/></svg>临期</span><span class="meta-s">cdn-static</span></div></div><div class="side-v quiet"><span class="num">39 分</span></div></div><div class="li" data-sel="a4"><div class="grow"><div class="t">搜索服务错误率 1.6%</div><div class="brief">建议回滚 v2.13.4</div><div class="m ed-m"><span class="stt risk"><svg class="ic sm"><use href="#i-clock"/></svg>临期</span><span class="meta-s">search-api</span></div></div><div class="side-v quiet"><span class="num">1 时</span></div></div><div class="grp ed">其他<span class="cnt num">3</span></div><div class="li" data-sel="a5"><div class="grow"><div class="t">库存同步排队 1,240 条</div><div class="brief">低于阈值 · 继续观察</div><div class="m ed-m"><span class="stt act"><svg class="ic sm"><use href="#i-refresh"/></svg>进行中</span><span class="meta-s">job-stock-sync</span></div></div><div class="side-v quiet"><span class="num">观察</span></div></div><div class="li" data-sel="a6"><div class="grow"><div class="t">消息队列积压已恢复</div><div class="brief">消费者扩容后回落</div><div class="m ed-m"><span class="stt done"><svg class="ic sm"><use href="#i-check"/></svg>已结束</span><span class="meta-s">mq-order-events</span></div></div><div class="side-v quiet"><span class="num">已复</span></div></div><div class="li" data-sel="a7"><div class="grow"><div class="t">短信通道切换完成</div><div class="brief">切至通道 B · 已恢复</div><div class="m ed-m"><span class="stt done"><svg class="ic sm"><use href="#i-check"/></svg>已结束</span><span class="meta-s">sms-provider-b</span></div></div><div class="side-v quiet"><span class="num">已复</span></div></div><div class="tray soft"><span>静默规则 3 条生效中</span><div class="act"><button class="btn gho s28" type="button" >管理规则</button></div></div></section><section data-detail class="panel open read drill-pane"><p class="drill-kicker" aria-hidden="true">续读 · 双标</p><div class="ph-h soft-h"><svg class="ic "><use href="#i-server"/></svg><h2>支付网关 P99 延迟 2.8s</h2><span class="sub"><span class="mono">ALT-80412</span></span><span class="stt exc quiet"><svg class="ic sm"><use href="#i-bad"/></svg>异常</span><div class="act"><button class="btn pri s28" type="button" onclick="toast('ok','已认领，值班人改为你')"><svg class="ic "><use href="#i-user"/></svg>认领</button></div></div><div class="pb"><div class="stack"><div class="drill-ess"><p class="concl"><svg class="ic "><use href="#i-info"/></svg><b>结论</b>14:48 起超阈值已 6 分钟，扩容后仍在 2.6s 以上，未恢复。</p><p class="drill-trend in-ess"><span class="ph0 trend-join" aria-hidden="true">—</span> 近 15 分：1.1→2.8s · 阈值 2s · 扩容后未回落</p><div class="ch-figs read-figs" role="group" aria-label="关键数字"><div class="ch-fig"><span>P99 延迟</span><b class="num bad">2.8s</b><i class="ch-fig-u">+1.7s · 阈值 2.0s</i></div><div class="ch-fig"><span>错误率</span><b class="num">0.42%</b><i class="ch-fig-u">+0.30% · 阈值 1.0%</i></div><div class="ch-fig"><span>QPS</span><b class="num">3,184</b><i class="ch-fig-u">+9.8% · 基线 2,900</i></div></div><div class="meta compact"><span><svg class="ic "><use href="#i-clock"/></svg><b class="w5 num">14:52</b> 起</span><span><svg class="ic "><use href="#i-users"/></svg>影响约 6.2%</span><span><svg class="ic "><use href="#i-user"/></svg>值班 刘子航</span></div></div><details class="drill-more"><summary class="drill-cap">处理经过</summary><div class="steps short"><div class="step done"><span class="sn"><svg class="ic sm"><use href="#i-check"/></svg></span><div><div class="st">告警触发</div><div class="sd num">14:52 · Prometheus</div></div></div><div class="step done"><span class="sn"><svg class="ic sm"><use href="#i-check"/></svg></span><div><div class="st">值班通知</div><div class="sd num">14:52 · 飞书</div></div></div><div class="step exc"><span class="sn"><svg class="ic sm"><use href="#i-x"/></svg></span><div><div class="st">升级二线失败</div><div class="sd num">14:58 · 未配置</div></div></div><div class="step cur"><span class="sn"></span><div><div class="st">扩容观察中</div><div class="sd num">15:04 · 刘子航</div></div></div></div></details></div><div class="tray soft"><span class="num">关联变更 <span class="mono">CHG-2291</span> · 14:40</span><div class="act"><button class="btn sec s28" type="button" onclick="toast('warn','已静默 30 分钟，期间不再通知')">静默 30 分钟</button><button class="btn dan s28" type="button" onclick="toast('bad','升级失败：未配置二线值班人')">升级</button></div></div></div></section><template data-alert="a1" data-t="支付网关 P99 延迟 2.8s" data-id="ALT-80412" data-ser="1.1,1.2,1.1,1.3,1.2,1.4,1.3,1.5,1.9,2.4,2.7,2.9,2.8,2.6,2.8" data-thr="2" data-max="4"><div class="drill-ess"><p class="concl"><svg class="ic "><use href="#i-info"/></svg><b>结论</b>14:48 起超阈值已 6 分钟，扩容后仍在 2.6s 以上，未恢复。</p><p class="drill-trend in-ess"><span class="ph0 trend-join" aria-hidden="true">—</span> 近 15 分：1.1→2.8s · 阈值 2s · 扩容后未回落</p><div class="ch-figs read-figs" role="group" aria-label="关键数字"><div class="ch-fig"><span>P99 延迟</span><b class="num bad">2.8s</b><i class="ch-fig-u">+1.7s · 阈值 2.0s</i></div><div class="ch-fig"><span>错误率</span><b class="num">0.42%</b><i class="ch-fig-u">+0.30% · 阈值 1.0%</i></div><div class="ch-fig"><span>QPS</span><b class="num">3,184</b><i class="ch-fig-u">+9.8% · 基线 2,900</i></div></div><div class="meta compact"><span><svg class="ic "><use href="#i-clock"/></svg><b class="w5 num">14:52</b> 起</span><span><svg class="ic "><use href="#i-users"/></svg>影响约 6.2%</span><span><svg class="ic "><use href="#i-user"/></svg>值班 刘子航</span></div></div><details class="drill-more"><summary class="drill-cap">处理经过</summary><div class="steps short"><div class="step done"><span class="sn"><svg class="ic sm"><use href="#i-check"/></svg></span><div><div class="st">告警触发</div><div class="sd num">14:52 · Prometheus</div></div></div><div class="step done"><span class="sn"><svg class="ic sm"><use href="#i-check"/></svg></span><div><div class="st">值班通知</div><div class="sd num">14:52 · 飞书</div></div></div><div class="step exc"><span class="sn"><svg class="ic sm"><use href="#i-x"/></svg></span><div><div class="st">升级二线失败</div><div class="sd num">14:58 · 未配置</div></div></div><div class="step cur"><span class="sn"></span><div><div class="st">扩容观察中</div><div class="sd num">15:04 · 刘子航</div></div></div></div></details></template><template data-alert="a2" data-t="订单库主从延迟 46s" data-id="ALT-80409" data-ser="2,2,3,3,5,7,9,12,18,24,30,35,41,44,46" data-thr="10" data-max="60"><div class="drill-ess"><p class="concl"><svg class="ic "><use href="#i-info"/></svg><b>结论</b>主从延迟 46s，写入仍指向主库；评估只读切换。</p><p class="drill-trend in-ess"><span class="ph0 trend-join" aria-hidden="true">—</span> 近 15 分：8→46s · 阈值 10s · 只读切换评估中</p><div class="ch-figs read-figs" role="group" aria-label="关键数字"><div class="ch-fig"><span>主从延迟</span><b class="num bad">46s</b><i class="ch-fig-u">+38s · 阈值 10s</i></div><div class="ch-fig"><span>写入 QPS</span><b class="num">420</b><i class="ch-fig-u">−4% · 基线 438</i></div><div class="ch-fig"><span>复制积压</span><b class="num">12,400</b><i class="ch-fig-u">+9,800 · 近 20 分</i></div></div><div class="meta compact"><span><svg class="ic "><use href="#i-clock"/></svg><b class="w5 num">14:42</b> 起</span><span><svg class="ic "><use href="#i-users"/></svg>读多写少业务</span><span><svg class="ic "><use href="#i-user"/></svg>值班 刘子航</span></div></div><details class="drill-more"><summary class="drill-cap">处理经过</summary><div class="steps short"><div class="step done"><span class="sn"><svg class="ic sm"><use href="#i-check"/></svg></span><div><div class="st">告警触发</div><div class="sd num">14:42</div></div></div><div class="step done"><span class="sn"><svg class="ic sm"><use href="#i-check"/></svg></span><div><div class="st">值班通知</div><div class="sd num">14:43</div></div></div><div class="step cur"><span class="sn"></span><div><div class="st">评估只读切换</div><div class="sd num">刘子航</div></div></div></div></details></template><template data-alert="a3" data-t="CDN 回源带宽 82%" data-id="ALT-80398" data-ser="60,62,64,66,70,71,72,75,78,79,80,81,83,82,82" data-thr="80" data-max="100"><div class="drill-ess"><p class="concl"><svg class="ic "><use href="#i-info"/></svg><b>结论</b>回源带宽越过 80%，现 82%；高峰将过，暂不扩容。</p><p class="drill-trend in-ess"><span class="ph0 trend-join" aria-hidden="true">—</span> 近 15 分：60→82% · 阈值 85% · 高峰将过</p><div class="ch-figs read-figs" role="group" aria-label="关键数字"><div class="ch-fig"><span>回源带宽</span><b class="num bad">82%</b><i class="ch-fig-u">+22% · 阈值 85%</i></div><div class="ch-fig"><span>缓存命中</span><b class="num">91.2%</b><i class="ch-fig-u">−2.1% · 基线 93.3%</i></div><div class="ch-fig"><span>源站 5xx</span><b class="num">0.08%</b><i class="ch-fig-u">+0.02% · 阈值 0.5%</i></div></div><div class="meta compact"><span><svg class="ic "><use href="#i-clock"/></svg><b class="w5 num">14:26</b> 起</span><span><svg class="ic "><use href="#i-users"/></svg>静态资源</span><span><svg class="ic "><use href="#i-user"/></svg>值班 刘子航</span></div></div><details class="drill-more"><summary class="drill-cap">处理经过</summary><div class="steps short"><div class="step done"><span class="sn"><svg class="ic sm"><use href="#i-check"/></svg></span><div><div class="st">告警触发</div><div class="sd num">14:26</div></div></div><div class="step done"><span class="sn"><svg class="ic sm"><use href="#i-check"/></svg></span><div><div class="st">值班通知</div><div class="sd num">14:27</div></div></div><div class="step cur"><span class="sn"></span><div><div class="st">观察高峰</div><div class="sd num">刘子航</div></div></div></div></details></template><template data-alert="a4" data-t="搜索服务错误率 1.6%" data-id="ALT-80391" data-ser="0.4,0.4,0.5,0.6,0.9,1.0,1.2,1.3,1.4,1.5,1.7,1.6,1.5,1.6,1.6" data-thr="1" data-max="2"><div class="drill-ess"><p class="concl"><svg class="ic "><use href="#i-info"/></svg><b>结论</b>v2.14.1 发布后错误率升高，建议回滚到 v2.13.4。</p><p class="drill-trend in-ess"><span class="ph0 trend-join" aria-hidden="true">—</span> 近 15 分：0.4→1.6% · 阈值 1% · 建议回滚</p><div class="ch-figs read-figs" role="group" aria-label="关键数字"><div class="ch-fig"><span>错误率</span><b class="num bad">1.6%</b><i class="ch-fig-u">+1.2% · 阈值 1.0%</i></div><div class="ch-fig"><span>P95 延迟</span><b class="num">480ms</b><i class="ch-fig-u">+90ms · 基线 390ms</i></div><div class="ch-fig"><span>QPS</span><b class="num">5,630</b><i class="ch-fig-u">+2.1% · 基线 5,510</i></div></div><div class="meta compact"><span><svg class="ic "><use href="#i-clock"/></svg><b class="w5 num">14:10</b> 起</span><span><svg class="ic "><use href="#i-users"/></svg>约 1.6% 失败</span><span><svg class="ic "><use href="#i-user"/></svg>值班 刘子航</span></div></div><details class="drill-more"><summary class="drill-cap">处理经过</summary><div class="steps short"><div class="step done"><span class="sn"><svg class="ic sm"><use href="#i-check"/></svg></span><div><div class="st">告警触发</div><div class="sd num">14:10</div></div></div><div class="step done"><span class="sn"><svg class="ic sm"><use href="#i-check"/></svg></span><div><div class="st">值班通知</div><div class="sd num">14:11</div></div></div><div class="step cur"><span class="sn"></span><div><div class="st">准备回滚</div><div class="sd num">刘子航</div></div></div></div></details></template><template data-alert="a5" data-t="库存同步排队 1,240 条" data-id="ALT-80377" data-ser="300,360,420,500,610,700,800,880,950,1020,1100,1150,1200,1220,1240" data-thr="2000" data-max="2500"><div class="drill-ess"><p class="concl"><svg class="ic "><use href="#i-info"/></svg><b>结论</b>仍低于 2,000 条阈值，增速放缓，继续观察。</p><p class="drill-trend in-ess"><span class="ph0 trend-join" aria-hidden="true">—</span> 近 15 分：300→1,240 · 阈值 2,000 · 增速放缓</p><div class="ch-figs read-figs" role="group" aria-label="关键数字"><div class="ch-fig"><span>排队</span><b class="num">1,240</b><i class="ch-fig-u">+940 · 近 1 小时</i></div><div class="ch-fig"><span>处理速率</span><b class="num">86/分</b><i class="ch-fig-u">−12/分 · 基线 98/分</i></div><div class="ch-fig"><span>最早积压</span><b class="num">14 分钟</b><i class="ch-fig-u">+9 分钟 · 阈值 30 分钟</i></div></div><div class="meta compact"><span><svg class="ic "><use href="#i-clock"/></svg><b class="w5 num">13:58</b> 起</span><span><svg class="ic "><use href="#i-users"/></svg>库存展示延迟</span><span><svg class="ic "><use href="#i-user"/></svg>值班 刘子航</span></div></div><details class="drill-more"><summary class="drill-cap">处理经过</summary><div class="steps short"><div class="step done"><span class="sn"><svg class="ic sm"><use href="#i-check"/></svg></span><div><div class="st">告警触发</div><div class="sd num">13:58</div></div></div><div class="step done"><span class="sn"><svg class="ic sm"><use href="#i-check"/></svg></span><div><div class="st">值班通知</div><div class="sd num">13:59</div></div></div><div class="step cur"><span class="sn"></span><div><div class="st">继续观察</div><div class="sd num">阈值以下</div></div></div></div></details></template><template data-alert="a6" data-t="消息队列积压已恢复" data-id="ALT-80352" data-ser="900,1050,1200,1000,800,600,400,300,200,120,80,40,20,15,10" data-thr="500" data-max="1500"><div class="drill-ess"><p class="concl"><svg class="ic "><use href="#i-info"/></svg><b>结论</b>扩容消费者后 14:20 回落到阈值以下，已恢复。</p><p class="drill-trend in-ess"><span class="ph0 trend-join" aria-hidden="true">—</span> 近 15 分：峰值 1,200→10 · 已回落阈值下</p><div class="ch-figs read-figs" role="group" aria-label="关键数字"><div class="ch-fig"><span>积压</span><b class="num">10</b><i class="ch-fig-u">−1,190 · 峰值 1,200</i></div><div class="ch-fig"><span>消费速率</span><b class="num">2,400/分</b><i class="ch-fig-u">+1,100/分 · 基线 1,300/分</i></div><div class="ch-fig"><span>恢复用时</span><b class="num">34 分钟</b><i class="ch-fig-u">— · 目标 30 分钟</i></div></div><div class="meta compact"><span><svg class="ic "><use href="#i-clock"/></svg><b class="w5 num">13:20</b> 起</span><span><svg class="ic "><use href="#i-users"/></svg>订单事件曾延迟</span><span><svg class="ic "><use href="#i-user"/></svg>值班 刘子航</span></div></div><details class="drill-more"><summary class="drill-cap">处理经过</summary><div class="steps short"><div class="step done"><span class="sn"><svg class="ic sm"><use href="#i-check"/></svg></span><div><div class="st">告警触发</div><div class="sd num">13:20</div></div></div><div class="step done"><span class="sn"><svg class="ic sm"><use href="#i-check"/></svg></span><div><div class="st">扩容消费者</div><div class="sd num">13:40</div></div></div><div class="step cur"><span class="sn"></span><div><div class="st">复盘待开</div><div class="sd num">已恢复</div></div></div></div></details></template><template data-alert="a7" data-t="短信通道切换完成" data-id="ALT-80340" data-ser="5,6,8,10,12,9,7,4,3,2,1,1,0.5,0.2,0.1" data-thr="5" data-max="15"><div class="drill-ess"><p class="concl"><svg class="ic "><use href="#i-info"/></svg><b>结论</b>切换到通道 B 后失败率回落到 0.1%，已恢复。</p><p class="drill-trend in-ess"><span class="ph0 trend-join" aria-hidden="true">—</span> 近 15 分：峰值 12%→0.1% · 通道 B 已稳</p><div class="ch-figs read-figs" role="group" aria-label="关键数字"><div class="ch-fig"><span>失败率</span><b class="num">0.1%</b><i class="ch-fig-u">−11.9% · 峰值 12%</i></div><div class="ch-fig"><span>发送量</span><b class="num">8,420</b><i class="ch-fig-u">+3.4% · 近 1 小时</i></div><div class="ch-fig"><span>切换用时</span><b class="num">6 分钟</b><i class="ch-fig-u">— · 目标 10 分钟</i></div></div><div class="meta compact"><span><svg class="ic "><use href="#i-clock"/></svg><b class="w5 num">12:46</b> 起</span><span><svg class="ic "><use href="#i-users"/></svg>验证码短暂失败</span><span><svg class="ic "><use href="#i-user"/></svg>值班 刘子航</span></div></div><details class="drill-more"><summary class="drill-cap">处理经过</summary><div class="steps short"><div class="step done"><span class="sn"><svg class="ic sm"><use href="#i-check"/></svg></span><div><div class="st">告警触发</div><div class="sd num">12:46</div></div></div><div class="step done"><span class="sn"><svg class="ic sm"><use href="#i-check"/></svg></span><div><div class="st">切换通道 B</div><div class="sd num">12:50</div></div></div><div class="step cur"><span class="sn"></span><div><div class="st">复盘待开</div><div class="sd num">已恢复</div></div></div></div></details></template>
+</div>
+</section>
+<section class="chapter ch-open" aria-label="变更放行" data-chg>
+<h2 class="ch-title">变更放行</h2>
+<p class="ch-lede">支付网关扩容变更仍在审核；证据未齐时可「请求澄清」（r90 继承）。分桶队列仍在；本轮主刀见双进度条。</p>
+<div class="ch-body">
+<section class="panel open chg-panel">
+  <div class="ph-h soft-h">
+    <svg class="ic"><use href="#i-shield"/></svg>
+    <h2>安全复核 · 支付网关扩容</h2>
+    <span class="sub"><span class="mono">CHG-2291</span></span>
+    <span class="stt risk"><svg class="ic sm"><use href="#i-clock"/></svg>审核中</span>
+    <div class="act chg-acts">
+      <button class="btn dan s28" type="button" onclick="toast('bad','已驳回变更，回滚窗口保持开启')">驳回</button>
+      <button class="btn sec s28" type="button" onclick="toast('ok','已放行 CHG-2291')">批准</button>
+      <button class="btn pri s28" type="button" data-open-clarify><svg class="ic"><use href="#i-msg"/></svg>请求澄清</button>
+    </div>
+  </div>
+  <div class="pb">
+    <div class="chg-meta">
+      <span><svg class="ic sm"><use href="#i-user"/></svg>负责人 周婉清</span>
+      <span><svg class="ic sm"><use href="#i-users"/></svg>抄送 刘子航 · 值班</span>
+      <span class="stt todo quiet"><svg class="ic sm"><use href="#i-clock"/></svg>开放控制 · 留存周期</span>
+    </div>
+    <p class="tx2 chg-blurb">发布后 P99 仍高于 2s。放行前需确认：扩容后的回退步骤、以及支持日志的留存与销毁时限。</p>
+  </div>
+</section>
+</div>
+</section>
+
+
+<section class="chapter ch-open" aria-label="需关注" id="attention" data-na data-na-bucket="all">
+<h2 class="ch-title">需关注</h2>
+<p class="ch-lede">催办不再是瞬时 toast：点「催办 / 催办法务」打开 AI 底席，草稿旁挂 Based on 证据链，主钮「再次催办」。</p>
+<div class="ch-body">
+  <div class="na-seg" role="tablist" aria-label="Saved views">
+    <button class="na-seg-btn on" type="button" role="tab" aria-selected="true" data-na-seg="all">全部 <b class="num" data-na-cnt="all">6</b></button>
+    <button class="na-seg-btn" type="button" role="tab" aria-selected="false" data-na-seg="nudge">催办 Nudge <b class="num" data-na-cnt="nudge">4</b></button>
+    <button class="na-seg-btn" type="button" role="tab" aria-selected="false" data-na-seg="escalate">升级 Escalate <b class="num" data-na-cnt="escalate">2</b></button>
+  </div>
+
+  <article class="na-urgent" data-na-urgent data-req="100" data-doc="60" data-gap="40">
+    <div class="na-urgent-mark" aria-hidden="true"><span class="na-av">灯</span></div>
+    <div class="na-urgent-main">
+      <div class="na-urgent-top">
+        <b class="num na-pct" data-na-pct>74</b><span class="na-pct-u">%</span>
+        <span class="na-block" data-na-blocked>Blocked by Legal</span>
+        <span class="na-gap-chip" data-gap-chip>缺口 <b class="num bad" data-gap-val>40</b><span class="tx3">pp</span></span>
+      </div>
+      <div class="na-dual na-dual-lg" data-dual data-req="100" data-doc="60" data-gap="40" aria-label="Required vs Document">
+        <div class="na-dual-track" data-dual-track="req">
+          <div class="na-dual-labs"><span class="na-dual-lab">Required</span><span class="na-dual-val"><b class="num" data-dual-req>100</b><span class="tx3">%</span></span></div>
+          <i class="na-dual-bar req" style="--p:100%"></i>
+        </div>
+        <div class="na-dual-track" data-dual-track="doc">
+          <div class="na-dual-labs"><span class="na-dual-lab">Document</span><span class="na-dual-val"><b class="num" data-dual-doc>60</b><span class="tx3">%</span></span></div>
+          <i class="na-dual-bar doc gap" style="--p:60%"></i>
+        </div>
+      </div>
+      <div class="na-urgent-meta"><span class="w5">灯笼鱼</span><span class="tx3"> · </span><span class="tx3 mono">VND-1042</span><span class="tx2"> · 6 of 10 done · target Oct 15</span></div>
+      <p class="na-urgent-issue tx2"><span class="bdg warn"><svg class="ic sm"><use href="#i-warn"/></svg></span>DPA 需法务批准 · 逾期 <b class="num bad">1</b> 天 · 催办对象 周婉清</p>
+    </div>
+    <div class="na-urgent-act">
+      <button class="btn pri s28" type="button" data-na-urgent-act="nudge" data-open-nudge data-nudge-who="周婉清" data-nudge-role="法务顾问 · DPA 到期 10 月 8 日" data-nudge-ent="灯笼鱼" data-nudge-id="VND-1042"><svg class="ic"><use href="#i-plane"/></svg>催办法务</button>
+    </div>
+  </article>
+
+  <section class="panel open na-panel">
+    <div class="ph-h soft-h">
+      <svg class="ic"><use href="#i-lchk"/></svg>
+      <h2>入驻队列</h2>
+      <span class="sub"><span class="num" data-na-visible>6</span> 家待处理</span>
+      <span class="stt risk quiet"><svg class="ic sm"><use href="#i-clock"/></svg>Needs attention</span>
+    </div>
+    <div class="na-table" role="table" aria-label="入驻合规催办表">
+      <div class="na-thead" role="row">
+        <span role="columnheader">实体</span>
+        <span role="columnheader">完成</span>
+        <span role="columnheader">Required · Document</span>
+        <span role="columnheader">阻塞</span>
+        <span role="columnheader">开放项</span>
+        <span role="columnheader">动作</span>
+      </div>
+      <div class="na-row" role="row" data-na-row data-bucket="nudge" data-pct="74" data-blocked="Legal" data-req="100" data-doc="60" data-gap="40">
+        <div class="na-ent" role="cell"><span class="na-av sm">灯</span><div><div class="w5">灯笼鱼</div><div class="tx3 mono">VND-1042</div></div></div>
+        <div class="na-pct-cell" role="cell"><b class="num" data-row-pct>74</b><span class="tx3">%</span><i class="na-mini" style="--p:74%"></i></div>
+        <div class="na-dual" role="cell" data-dual data-req="100" data-doc="60" data-gap="40">
+          <div class="na-dual-track" data-dual-track="req">
+            <div class="na-dual-labs"><span class="na-dual-lab">Required</span><span class="na-dual-val"><b class="num" data-dual-req>100</b><span class="tx3">%</span></span></div>
+            <i class="na-dual-bar req" style="--p:100%"></i>
+          </div>
+          <div class="na-dual-track" data-dual-track="doc">
+            <div class="na-dual-labs"><span class="na-dual-lab">Document</span><span class="na-dual-val"><b class="num" data-dual-doc>60</b><span class="tx3">%</span></span></div>
+            <i class="na-dual-bar doc gap" style="--p:60%"></i>
+          </div>
+        </div>
+        <div role="cell"><span class="na-block sm" data-row-blocked>Blocked by Legal</span></div>
+        <div class="tx2 na-open" role="cell" title="DPA 逾期 1 天 · 需法务周婉清批准">DPA 逾期 1 天</div>
+        <div class="na-act" role="cell"><button class="btn sec s28" type="button" data-na-act data-open-nudge data-nudge-who="周婉清" data-nudge-role="法务顾问 · DPA 到期 10 月 8 日" data-nudge-ent="灯笼鱼" data-nudge-id="VND-1042"><svg class="ic"><use href="#i-plane"/></svg>催办</button></div>
+      </div>
+      <div class="na-row" role="row" data-na-row data-bucket="nudge" data-pct="62" data-blocked="Security" data-req="100" data-doc="70" data-gap="30">
+        <div class="na-ent" role="cell"><span class="na-av sm">澄</span><div><div class="w5">澄湾物流</div><div class="tx3 mono">VND-0988</div></div></div>
+        <div class="na-pct-cell" role="cell"><b class="num" data-row-pct>62</b><span class="tx3">%</span><i class="na-mini" style="--p:62%"></i></div>
+        <div class="na-dual" role="cell" data-dual data-req="100" data-doc="70" data-gap="30">
+          <div class="na-dual-track" data-dual-track="req">
+            <div class="na-dual-labs"><span class="na-dual-lab">Required</span><span class="na-dual-val"><b class="num" data-dual-req>100</b><span class="tx3">%</span></span></div>
+            <i class="na-dual-bar req" style="--p:100%"></i>
+          </div>
+          <div class="na-dual-track" data-dual-track="doc">
+            <div class="na-dual-labs"><span class="na-dual-lab">Document</span><span class="na-dual-val"><b class="num" data-dual-doc>70</b><span class="tx3">%</span></span></div>
+            <i class="na-dual-bar doc gap" style="--p:70%"></i>
+          </div>
+        </div>
+        <div role="cell"><span class="na-block sm" data-row-blocked>Blocked by Security</span></div>
+        <div class="tx2 na-open" role="cell" title="渗透报告待补 · 安全组">渗透报告待补</div>
+        <div class="na-act" role="cell"><button class="btn sec s28" type="button" data-na-act data-open-nudge data-nudge-who="安全组" data-nudge-role="安全评审 · 渗透报告待补" data-nudge-ent="澄湾物流" data-nudge-id="VND-0988"><svg class="ic"><use href="#i-plane"/></svg>催办</button></div>
+      </div>
+      <div class="na-row" role="row" data-na-row data-bucket="nudge" data-pct="81" data-blocked="Finance" data-req="100" data-doc="85" data-gap="15">
+        <div class="na-ent" role="cell"><span class="na-av sm">北</span><div><div class="w5">北岸包装</div><div class="tx3 mono">VND-1104</div></div></div>
+        <div class="na-pct-cell" role="cell"><b class="num" data-row-pct>81</b><span class="tx3">%</span><i class="na-mini" style="--p:81%"></i></div>
+        <div class="na-dual" role="cell" data-dual data-req="100" data-doc="85" data-gap="15">
+          <div class="na-dual-track" data-dual-track="req">
+            <div class="na-dual-labs"><span class="na-dual-lab">Required</span><span class="na-dual-val"><b class="num" data-dual-req>100</b><span class="tx3">%</span></span></div>
+            <i class="na-dual-bar req" style="--p:100%"></i>
+          </div>
+          <div class="na-dual-track" data-dual-track="doc">
+            <div class="na-dual-labs"><span class="na-dual-lab">Document</span><span class="na-dual-val"><b class="num" data-dual-doc>85</b><span class="tx3">%</span></span></div>
+            <i class="na-dual-bar doc gap" style="--p:85%"></i>
+          </div>
+        </div>
+        <div role="cell"><span class="na-block sm" data-row-blocked>Blocked by Finance</span></div>
+        <div class="tx2 na-open" role="cell" title="开票信息未齐 · 财务">开票信息未齐</div>
+        <div class="na-act" role="cell"><button class="btn sec s28" type="button" data-na-act data-open-nudge data-nudge-who="财务" data-nudge-role="财务复核 · 开票信息未齐" data-nudge-ent="北岸包装" data-nudge-id="VND-1104"><svg class="ic"><use href="#i-plane"/></svg>催办</button></div>
+      </div>
+      <div class="na-row" role="row" data-na-row data-bucket="nudge" data-pct="55" data-blocked="Compliance" data-req="100" data-doc="45" data-gap="55">
+        <div class="na-ent" role="cell"><span class="na-av sm">青</span><div><div class="w5">青禾食材</div><div class="tx3 mono">VND-0871</div></div></div>
+        <div class="na-pct-cell" role="cell"><b class="num" data-row-pct>55</b><span class="tx3">%</span><i class="na-mini" style="--p:55%"></i></div>
+        <div class="na-dual" role="cell" data-dual data-req="100" data-doc="45" data-gap="55">
+          <div class="na-dual-track" data-dual-track="req">
+            <div class="na-dual-labs"><span class="na-dual-lab">Required</span><span class="na-dual-val"><b class="num" data-dual-req>100</b><span class="tx3">%</span></span></div>
+            <i class="na-dual-bar req" style="--p:100%"></i>
+          </div>
+          <div class="na-dual-track" data-dual-track="doc">
+            <div class="na-dual-labs"><span class="na-dual-lab">Document</span><span class="na-dual-val"><b class="num" data-dual-doc>45</b><span class="tx3">%</span></span></div>
+            <i class="na-dual-bar doc gap" style="--p:45%"></i>
+          </div>
+        </div>
+        <div role="cell"><span class="na-block sm" data-row-blocked>Blocked by Compliance</span></div>
+        <div class="tx2 na-open" role="cell" title="资质证照过期 · 合规">资质证照过期</div>
+        <div class="na-act" role="cell"><button class="btn sec s28" type="button" data-na-act data-open-nudge data-nudge-who="合规" data-nudge-role="合规评审 · 资质证照过期" data-nudge-ent="青禾食材" data-nudge-id="VND-0871"><svg class="ic"><use href="#i-plane"/></svg>催办</button></div>
+      </div>
+      <div class="na-row" role="row" data-na-row data-bucket="escalate" data-pct="40" data-blocked="Vendor" data-req="100" data-doc="30" data-gap="70">
+        <div class="na-ent" role="cell"><span class="na-av sm">瀚</span><div><div class="w5">瀚海云仓</div><div class="tx3 mono">VND-0762</div></div></div>
+        <div class="na-pct-cell" role="cell"><b class="num" data-row-pct>40</b><span class="tx3">%</span><i class="na-mini" style="--p:40%"></i></div>
+        <div class="na-dual" role="cell" data-dual data-req="100" data-doc="30" data-gap="70">
+          <div class="na-dual-track" data-dual-track="req">
+            <div class="na-dual-labs"><span class="na-dual-lab">Required</span><span class="na-dual-val"><b class="num" data-dual-req>100</b><span class="tx3">%</span></span></div>
+            <i class="na-dual-bar req" style="--p:100%"></i>
+          </div>
+          <div class="na-dual-track" data-dual-track="doc">
+            <div class="na-dual-labs"><span class="na-dual-lab">Document</span><span class="na-dual-val"><b class="num" data-dual-doc>30</b><span class="tx3">%</span></span></div>
+            <i class="na-dual-bar doc gap" style="--p:30%"></i>
+          </div>
+        </div>
+        <div role="cell"><span class="na-block sm" data-row-blocked>Blocked by Vendor</span></div>
+        <div class="tx2 na-open" role="cell" title="外部保函未回 · 供应商">外部保函未回</div>
+        <div class="na-act" role="cell"><button class="btn dan s28" type="button" data-na-act onclick="toast('warn','已升级至供应商负责人')"><svg class="ic"><use href="#i-up"/></svg>升级</button></div>
+      </div>
+      <div class="na-row" role="row" data-na-row data-bucket="escalate" data-pct="33" data-blocked="Vendor" data-req="100" data-doc="50" data-gap="50">
+        <div class="na-ent" role="cell"><span class="na-av sm">织</span><div><div class="w5">织野面料</div><div class="tx3 mono">VND-0699</div></div></div>
+        <div class="na-pct-cell" role="cell"><b class="num" data-row-pct>33</b><span class="tx3">%</span><i class="na-mini" style="--p:33%"></i></div>
+        <div class="na-dual" role="cell" data-dual data-req="100" data-doc="50" data-gap="50">
+          <div class="na-dual-track" data-dual-track="req">
+            <div class="na-dual-labs"><span class="na-dual-lab">Required</span><span class="na-dual-val"><b class="num" data-dual-req>100</b><span class="tx3">%</span></span></div>
+            <i class="na-dual-bar req" style="--p:100%"></i>
+          </div>
+          <div class="na-dual-track" data-dual-track="doc">
+            <div class="na-dual-labs"><span class="na-dual-lab">Document</span><span class="na-dual-val"><b class="num" data-dual-doc>50</b><span class="tx3">%</span></span></div>
+            <i class="na-dual-bar doc gap" style="--p:50%"></i>
+          </div>
+        </div>
+        <div role="cell"><span class="na-block sm" data-row-blocked>Blocked by Vendor</span></div>
+        <div class="tx2 na-open" role="cell" title="保额不足 $1M · 供应商">保额不足 $1M</div>
+        <div class="na-act" role="cell"><button class="btn dan s28" type="button" data-na-act onclick="toast('warn','已升级至供应商负责人')"><svg class="ic"><use href="#i-up"/></svg>升级</button></div>
+      </div>
+    </div>
+  </section>
+</div>
+</section>
+
+<section class="chapter ch-open" aria-label="排班覆盖" id="schedule" data-sch data-sch-state="idle">
+<h2 class="ch-title">排班覆盖</h2>
+<p class="ch-lede">华东仓今日半小时格仍有缺口；重建后可在短时窗口内撤销，窗口内并排对照 Before / After。</p>
+<div class="rebuild-banner" id="rebuildBanner" hidden data-undo-sec="45" role="status">
+  <svg class="ic ok"><use href="#i-ok"/></svg>
+  <div class="grow">
+    <div class="ub-title">当日班次已重建 <span class="stt done quiet"><svg class="ic sm"><use href="#i-check"/></svg><span class="num" data-rb-cov>48</span> / 48 已覆盖</span></div>
+    <p class="ub-sub">3 处缺口已补齐 · 林晓舟 · <b class="num" data-rb-until>撤销余 00:45</b></p>
+  </div>
+  <button class="btn gho s28" type="button" data-rebuild-undo>撤销</button>
+  <button class="btn sec s28" type="button" data-rebuild-dismiss>完成</button>
+</div>
+<div class="ch-body">
+<section class="panel open sch-panel">
+  <div class="ph-h soft-h">
+    <svg class="ic"><use href="#i-cal"/></svg>
+    <h2>半小时覆盖 · 华东仓</h2>
+    <span class="sub">今日 · 08:00–20:00</span>
+    <span class="stt risk" data-sch-chip><svg class="ic sm"><use href="#i-clock"/></svg>缺 <b class="num">3</b> 格</span>
+    <div class="act">
+      <button class="btn pri s28" type="button" data-rebuild-sch><svg class="ic"><use href="#i-refresh"/></svg>重建排班</button>
+    </div>
+  </div>
+  <div class="pb">
+    <div class="hm-head"><span class="mono hm-kicker">COVERAGE BY HALF HOUR · BEFORE AND AFTER</span>
+      <div class="hm-legend" aria-label="图例">
+        <span><i class="hm-dot cov"></i>已覆盖</span>
+        <span><i class="hm-dot done"></i>已过</span>
+        <span><i class="hm-dot need"></i>待补</span>
+        <span><i class="hm-dot risk"></i>风险</span>
+      </div>
+    </div>
+    <div class="hm-ba" data-hm-ba>
+      <div class="hm-col" data-hm="before">
+        <div class="hm-lab"><span class="w5">Before</span><span class="tx3"> · <span class="w5 num" data-hm-cov-b>45</span> / 48 已覆盖</span></div>
+        <div class="hm-grid" data-hm-grid="before" role="img" aria-label="重建前半小时覆盖"></div>
+      </div>
+      <div class="hm-col" data-hm="after">
+        <div class="hm-lab"><span class="w5">After</span><span class="tx3"> · <span class="w5 num" data-hm-cov-a>48</span> / 48 已覆盖</span></div>
+        <div class="hm-grid" data-hm-grid="after" role="img" aria-label="重建后半小时覆盖"></div>
+      </div>
+    </div>
+    <p class="hm-note tx3">每格 30 分钟 · 两行分别为拣货 / 复核。撤销窗口内可对照差分；超时或点「完成」即固定 After。</p>
+  </div>
+</section>
+</div>
+</section>
+
+
+
+<section class="chapter ch-open" aria-label="损耗分析" id="waste" data-waste>
+<h2 class="ch-title">损耗分析</h2>
+<p class="ch-lede">单位与金额双主指标并列呈现——kg 与 ¥ 同级英雄数字，而非某一 KPI 下的次级说明；侧栏异常徽标仅在例外时标红。</p>
+<div class="ch-body">
+  <section class="panel open waste-panel" data-waste-panel>
+    <div class="ph-h soft-h">
+      <svg class="ic"><use href="#i-layers"/></svg>
+      <h2>损耗</h2><span class="sub">近 7 日</span>
+      <div class="act">
+        <button class="btn sec s28" type="button" data-waste-range aria-label="日期范围"><svg class="ic"><use href="#i-cal"/></svg>10 月 18 – 24</button>
+        <div class="seg waste-view" role="tablist" aria-label="损耗视图" data-waste-seg>
+          <button class="on" type="button" role="tab" aria-selected="true" data-waste-view="analysis">分析</button>
+          <button type="button" role="tab" aria-selected="false" data-waste-view="trends">趋势</button>
+          <button type="button" role="tab" aria-selected="false" data-waste-view="log">日志</button>
+        </div>
+      </div>
+    </div>
+    <div class="pb">
+      <div class="waste-dual" data-waste-dual role="group" aria-label="双主指标">
+        <div class="waste-hero" data-waste-unit data-waste-hero="unit">
+          <span class="waste-k"><svg class="ic sm"><use href="#i-layers"/></svg>损耗量</span>
+          <b class="num waste-num" data-waste-kg>84<span class="unit"> kg</span></b>
+          <span class="waste-delta bad"><svg class="ic sm"><use href="#i-up"/></svg>+9 kg · 较上周</span>
+        </div>
+        <div class="waste-hero" data-waste-money data-waste-hero="money">
+          <span class="waste-k"><svg class="ic sm"><use href="#i-yuan"/></svg>损耗金额</span>
+          <b class="num waste-num" data-waste-cny>¥12,840</b>
+          <span class="waste-delta">横跨 <b class="num">84</b> kg · 每格 1 kg</span>
+        </div>
+      </div>
+
+      <div class="waste-insight" data-waste-insight>
+        <div class="waste-insight-h">
+          <span class="w5"><svg class="ic sm accent"><use href="#i-spark"/></svg>系统注意到</span>
+          <span class="bdg accent-soft">损耗异常</span>
+        </div>
+        <p class="tx2 waste-insight-p">鸡胸肉损耗本周上升 <b class="num">22%</b>，主因低需求工作日过量备货。</p>
+        <div class="waste-insight-dual" data-waste-insight-dual>
+          <div class="waste-mini" data-waste-mini="kg"><b class="num">19 kg</b><span class="tx3">鸡肉损耗</span></div>
+          <div class="waste-mini" data-waste-mini="when"><b>周一 · 周二</b><span class="tx3">占该损耗 71%</span></div>
+          <div class="waste-mini" data-waste-mini="cny"><b class="num">¥2,940</b><span class="tx3">本周成本</span></div>
+        </div>
+        <div class="waste-insight-act">
+          <button class="btn sec s28" type="button" data-waste-detail>查看详情</button>
+          <button class="btn pri s28" type="button" data-waste-apply><svg class="ic"><use href="#i-spark"/></svg>写入周二计划</button>
+        </div>
+      </div>
+      <p class="waste-note tx3">双主指标同级并列 · 无衬线标题 · 侧栏仅异常红徽标。深链 <span class="mono">?waste=1</span>。</p>
+    </div>
+  </section>
+</div>
+</section>
+
+<section class="chapter ch-open" aria-label="任务日历" id="cal" data-cal>
+<h2 class="ch-title">任务日历</h2>
+<p class="ch-lede">运维任务落在月历格：项目色左边条区分归属；页头三计汇总今日到期、逾期与即将到期。</p>
+<div class="ch-body">
+  <section class="panel open cal-panel" data-cal-panel>
+    <div class="ph-h soft-h">
+      <svg class="ic"><use href="#i-cal"/></svg>
+      <h2>我的任务</h2><span class="sub mono">2026-10</span>
+      <div class="act">
+                <div class="seg cal-view" role="tablist" aria-label="视图">
+          <button type="button" role="tab" aria-selected="false" data-cal-view="list">列表</button>
+          <button class="on" type="button" role="tab" aria-selected="true" data-cal-view="cal">日历</button>
+        </div>
+      </div>
+    </div>
+    <div class="pb">
+      <div class="cal-summary" data-cal-summary aria-label="三计摘要">
+        <span class="cal-chip due" data-cal-chip="due"><b class="num" data-cal-due>2</b> 到期</span>
+        <span class="cal-dot" aria-hidden="true">·</span>
+        <span class="cal-chip overdue" data-cal-chip="overdue"><b class="num" data-cal-overdue>1</b> 逾期</span>
+        <span class="cal-dot" aria-hidden="true">·</span>
+        <span class="cal-chip upcoming" data-cal-chip="upcoming"><b class="num" data-cal-upcoming>5</b> 即将</span>
+      </div>
+
+      <div class="cal-toolbar">
+        <div class="cal-nav">
+          <button class="btn gho icon s28" type="button" data-cal-prev aria-label="上一月"><svg class="ic"><use href="#i-back"/></svg></button>
+          <b class="cal-month" data-cal-month>2026 年 10 月</b>
+          <button class="btn gho icon s28" type="button" data-cal-next aria-label="下一月"><svg class="ic"><use href="#i-chev-r"/></svg></button>
+        </div>
+        <div class="cal-legend" data-cal-legend aria-label="项目图例">
+          <span class="cal-leg" data-proj="ops"><i class="cal-swatch" style="--proj:var(--accent)"></i>告警处置</span>
+          <span class="cal-leg" data-proj="sched"><i class="cal-swatch" style="--proj:var(--c2)"></i>排班</span>
+          <span class="cal-leg" data-proj="prep"><i class="cal-swatch" style="--proj:var(--c3)"></i>备货</span>
+          <span class="cal-leg" data-proj="chg"><i class="cal-swatch" style="--proj:var(--c4)"></i>变更放行</span>
+        </div>
+      </div>
+
+      <div class="cal-grid" data-cal-grid role="grid" aria-label="十月任务日历">
+        <div class="cal-dow" role="row">
+          <span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span><span>日</span>
+        </div>
+        <div class="cal-weeks" data-cal-weeks>
+          <!-- week 0: Sep 28 – Oct 4 (Oct 1 = Thu) -->
+          <div class="cal-week" role="row">
+            <div class="cal-cell mute" data-day="2026-09-28"><span class="cal-d num">28</span></div>
+            <div class="cal-cell mute" data-day="2026-09-29"><span class="cal-d num">29</span></div>
+            <div class="cal-cell mute" data-day="2026-09-30"><span class="cal-d num">30</span></div>
+            <div class="cal-cell" data-day="2026-10-01"><span class="cal-d num">1</span>
+            </div>
+            <div class="cal-cell" data-day="2026-10-02"><span class="cal-d num">2</span></div>
+            <div class="cal-cell" data-day="2026-10-03"><span class="cal-d num">3</span></div>
+            <div class="cal-cell" data-day="2026-10-04"><span class="cal-d num">4</span></div>
+          </div>
+          <div class="cal-week" role="row">
+            <div class="cal-cell" data-day="2026-10-05"><span class="cal-d num">5</span></div>
+            <div class="cal-cell" data-day="2026-10-06"><span class="cal-d num">6</span>
+            </div>
+            <div class="cal-cell" data-day="2026-10-07"><span class="cal-d num">7</span></div>
+            <div class="cal-cell" data-day="2026-10-08"><span class="cal-d num">8</span></div>
+            <div class="cal-cell" data-day="2026-10-09"><span class="cal-d num">9</span></div>
+            <div class="cal-cell" data-day="2026-10-10"><span class="cal-d num">10</span></div>
+            <div class="cal-cell" data-day="2026-10-11"><span class="cal-d num">11</span></div>
+          </div>
+          <div class="cal-week" role="row">
+            <div class="cal-cell" data-day="2026-10-12"><span class="cal-d num">12</span></div>
+            <div class="cal-cell" data-day="2026-10-13"><span class="cal-d num">13</span></div>
+            <div class="cal-cell" data-day="2026-10-14"><span class="cal-d num">14</span></div>
+            <div class="cal-cell" data-day="2026-10-15"><span class="cal-d num">15</span></div>
+            <div class="cal-cell" data-day="2026-10-16"><span class="cal-d num">16</span></div>
+            <div class="cal-cell" data-day="2026-10-17"><span class="cal-d num">17</span></div>
+            <div class="cal-cell" data-day="2026-10-18"><span class="cal-d num">18</span></div>
+          </div>
+          <div class="cal-week" role="row">
+            <div class="cal-cell" data-day="2026-10-19"><span class="cal-d num">19</span></div>
+            <div class="cal-cell" data-day="2026-10-20"><span class="cal-d num">20</span></div>
+            <div class="cal-cell" data-day="2026-10-21"><span class="cal-d num">21</span></div>
+            <div class="cal-cell" data-day="2026-10-22"><span class="cal-d num">22</span></div>
+            <div class="cal-cell" data-day="2026-10-23"><span class="cal-d num">23</span>
+              <button class="cal-task overdue" type="button" data-task data-proj="prep" data-kind="overdue" title="罗马番茄补货跟进（逾期）"><i class="cal-bar" aria-hidden="true"></i><span class="cal-tt">番茄补货</span><span class="cal-tod">AM</span></button>
+            </div>
+            <div class="cal-cell" data-day="2026-10-24"><span class="cal-d num">24</span></div>
+            <div class="cal-cell today" data-day="2026-10-25" data-cal-today><span class="cal-d num">25</span>
+              <button class="cal-task" type="button" data-task data-proj="ops" data-kind="due" title="支付网关 P99 复盘"><i class="cal-bar" aria-hidden="true"></i><span class="cal-tt">网关复盘</span><span class="cal-tod">AM</span></button>
+              <button class="cal-task" type="button" data-task data-proj="chg" data-kind="due" title="CHG-2291 放行确认"><i class="cal-bar" aria-hidden="true"></i><span class="cal-tt">变更放行</span><span class="cal-tod">PM</span></button>
+            </div>
+          </div>
+          <div class="cal-week" role="row">
+            <div class="cal-cell" data-day="2026-10-26"><span class="cal-d num">26</span>
+              <button class="cal-task" type="button" data-task data-proj="ops" data-kind="upcoming" title="二线值班人配置"><i class="cal-bar" aria-hidden="true"></i><span class="cal-tt">值班配置</span><span class="cal-tod">AM</span></button>
+            </div>
+            <div class="cal-cell" data-day="2026-10-27"><span class="cal-d num">27</span>
+              <button class="cal-task" type="button" data-task data-proj="sched" data-kind="upcoming" title="After 覆格固化"><i class="cal-bar" aria-hidden="true"></i><span class="cal-tt">覆格固化</span><span class="cal-tod">PM</span></button>
+            </div>
+            <div class="cal-cell" data-day="2026-10-28"><span class="cal-d num">28</span>
+              <button class="cal-task" type="button" data-task data-proj="prep" data-kind="upcoming" title="备货产出周报"><i class="cal-bar" aria-hidden="true"></i><span class="cal-tt">产缺周报</span><span class="cal-tod">AM</span></button>
+            </div>
+            <div class="cal-cell" data-day="2026-10-29"><span class="cal-d num">29</span>
+              <button class="cal-task" type="button" data-task data-proj="chg" data-kind="upcoming" title="放行复盘纪要"><i class="cal-bar" aria-hidden="true"></i><span class="cal-tt">放行纪要</span><span class="cal-tod">AM</span></button>
+            </div>
+            <div class="cal-cell" data-day="2026-10-30"><span class="cal-d num">30</span>
+              <button class="cal-task" type="button" data-task data-proj="ops" data-kind="upcoming" title="静默规则复审"><i class="cal-bar" aria-hidden="true"></i><span class="cal-tt">静默复审</span><span class="cal-tod">PM</span></button>
+            </div>
+            <div class="cal-cell" data-day="2026-10-31"><span class="cal-d num">31</span></div>
+            <div class="cal-cell mute" data-day="2026-11-01"><span class="cal-d num">1</span></div>
+          </div>
+        </div>
+      </div>
+      <p class="cal-note tx3">格内任务以项目色左边条区分归属 · 逾期格高亮坏色点 · 今日格钴环。深链 <span class="mono">?cal=1</span>。</p>
+    </div>
+  </section>
+</div>
+</section>
+
+<section class="chapter ch-open" aria-label="备货产出" id="prep" data-prep data-prep-bucket="todo">
+<h2 class="ch-title">备货产出</h2>
+<p class="ch-lede">产线产出对照计划：Expected vs Actual 缺口一目了然；短缺时底席给出建议量与调整 / 确认双动作。</p>
+<div class="ch-body">
+  <div class="prep-seg" role="tablist" aria-label="备货分段">
+    <button class="prep-seg-btn on" type="button" role="tab" aria-selected="true" data-prep-seg="todo">待做 <b class="num" data-prep-cnt="todo">25</b></button>
+    <button class="prep-seg-btn" type="button" role="tab" aria-selected="false" data-prep-seg="progress">进行中 <b class="num" data-prep-cnt="progress">4</b></button>
+    <button class="prep-seg-btn" type="button" role="tab" aria-selected="false" data-prep-seg="done">已完成 <b class="num" data-prep-cnt="done">18</b></button>
+  </div>
+
+  <section class="panel open prep-panel" data-prep-panel>
+    <div class="ph-h soft-h">
+      <svg class="ic"><use href="#i-layers"/></svg>
+      <h2>鸡胸肉 · Hot line</h2><span class="sub mono">SKU-CHK-042</span>
+      <span class="bdg warn"><svg class="ic sm"><use href="#i-warn"/></svg>产缺</span>
+      <div class="act">
+        <button class="btn sec s28" type="button" data-open-shortfall><svg class="ic"><use href="#i-spark"/></svg>处理短缺</button>
+      </div>
+    </div>
+    <div class="pb">
+      <div class="prep-meta tx2">已备 <b class="num" data-prep-done-kg>32</b> / <b class="num" data-prep-plan-kg>38</b> kg · 班次 A · 仓 3</div>
+
+      <div class="yield-card" data-yield aria-label="产出对照">
+        <div class="yield-head">
+          <span class="w5">产出对照</span>
+          <span class="tx3">Expected vs Actual</span>
+        </div>
+        <div class="yield-stats">
+          <div class="yield-stat">
+            <span class="k">Expected yield</span>
+            <b class="num" data-yield-exp>92%</b>
+          </div>
+          <div class="yield-stat gap">
+            <span class="k">Actual yield</span>
+            <b class="num bad" data-yield-act>89%</b>
+          </div>
+          <div class="yield-stat">
+            <span class="k">缺口</span>
+            <b class="num bad" data-yield-gap>3<span class="unit"> pt</span></b>
+          </div>
+        </div>
+        <div class="yield-bar" data-yield-bar role="img" aria-label="产缺条：Actual 89%，Expected 92%">
+          <i class="yield-track"></i>
+          <i class="yield-fill" data-yield-fill style="width:89%"></i>
+          <i class="yield-mark" data-yield-mark style="left:92%" title="Expected 92%"></i>
+          <i class="yield-gap-band" data-yield-gap-band style="left:89%;width:3%"></i>
+        </div>
+        <p class="yield-msg tx2">较计划少 <b class="num" data-yield-short-kg>1.4</b> kg · 建议补货以闭合缺口</p>
+      </div>
+
+      <div class="prep-list" data-prep-list>
+        <div class="prep-row short" data-prep-item="tomato">
+          <div class="grow">
+            <div class="t">罗马番茄</div>
+            <div class="brief tx3">Roma · Cold prep · 缺口 <b class="num">12</b> kg</div>
+          </div>
+          <button class="btn gho s28" type="button" data-open-shortfall data-short-sku="tomato">短缺</button>
+        </div>
+        <div class="prep-row" data-prep-item="onion">
+          <div class="grow">
+            <div class="t">黄洋葱</div>
+            <div class="brief tx3">Yellow onion · 对齐计划</div>
+          </div>
+          <span class="tx3">OK</span>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+</section>
+
+<section class="chapter ch-note">
+<h2 class="ch-title">值班与规则</h2>
+<p class="ch-lede">静默规则 3 条生效中；二线值班人未配置，升级路径仍断。</p>
+<div class="ch-body note-row">
+<span class="tx2">关联变更 <span class="mono">CHG-2291</span> · 14:40 发布</span>
+<div class="acts"><button class="btn sec s28" type="button">管理静默规则</button><button class="btn gho s28" type="button">打开值班表</button></div>
+</div>
+</section></main></div>
+
+<div class="modal-scrim" id="clarifyScrim" hidden></div>
+<div class="modal clarify" id="clarifyModal" role="dialog" aria-modal="true" aria-labelledby="clarifyTitle" hidden>
+  <div class="modal-h">
+    <svg class="ic"><use href="#i-msg"/></svg>
+    <div class="grow">
+      <h3 id="clarifyTitle">请求澄清</h3>
+      <p class="tx2 modal-to">发给 <span class="av xs">周</span> 周婉清 · 支付网关负责人</p>
+    </div>
+    <button class="btn gho icon s28" type="button" data-close-clarify aria-label="关闭"><svg class="ic"><use href="#i-x"/></svg></button>
+  </div>
+  <div class="modal-b">
+    <div class="fld">
+      <div class="fld-l">问题类型</div>
+      <div class="q-chips" role="list">
+        <span class="q-chip" data-kind="open" role="listitem"><svg class="ic sm"><use href="#i-clock"/></svg><span>开放</span></span>
+        <span class="q-chip" data-kind="link" role="listitem"><svg class="ic sm"><use href="#i-link"/></svg><span>留存周期 · Q41</span></span>
+      </div>
+    </div>
+    <div class="fld">
+      <div class="fld-l row">说明 <span class="ai-badge" data-ai-badge><svg class="ic sm"><use href="#i-spark"/></svg>AI 已起草</span></div>
+      <textarea class="clarify-ta" id="clarifyTa" rows="4">请补充本次扩容后的数据留存与销毁时限：支持日志与附件各保留多久、合同结束后何时删除，以及回退步骤是否已演练。</textarea>
+      <p class="fld-hint tx2"><svg class="ic sm"><use href="#i-spark"/></svg>可改写后发送；发送后审批将按下方开关暂停。</p>
+    </div>
+    <div class="pause-row">
+      <svg class="ic"><use href="#i-pause"/></svg>
+      <div class="grow">
+        <div class="w5">答完前暂停审批</div>
+        <p class="tx2">打开后，负责人回复前变更保持「审核中」，不可批准。</p>
+      </div>
+      <button class="sw on" type="button" role="switch" aria-checked="true" data-pause-sw aria-label="答完前暂停审批"></button>
+    </div>
+  </div>
+  <div class="modal-f">
+    <button class="btn gho s32" type="button" data-close-clarify>取消</button>
+    <button class="btn pri s32" type="button" data-send-clarify><svg class="ic"><use href="#i-send"/></svg>发送请求</button>
+  </div>
+</div>
+
+<div class="modal-scrim" id="nudgeScrim" hidden></div>
+<div class="modal nudge" id="nudgeModal" role="dialog" aria-modal="true" aria-labelledby="nudgeTitle" hidden>
+  <div class="modal-h">
+    <svg class="ic"><use href="#i-plane"/></svg>
+    <div class="grow">
+      <h3 id="nudgeTitle">再次催办</h3>
+      <p class="tx2 modal-to">发给 <span class="av xs" data-nudge-av>周</span> <span data-nudge-name>周婉清</span> · <span data-nudge-role>法务顾问 · DPA 到期 10 月 8 日</span></p>
+    </div>
+    <button class="btn gho icon s28" type="button" data-close-nudge aria-label="关闭"><svg class="ic"><use href="#i-x"/></svg></button>
+  </div>
+  <div class="modal-b">
+    <div class="nudge-person" data-nudge-person>
+      <span class="na-av" data-nudge-av-lg>周</span>
+      <div class="grow">
+        <div class="w5" data-nudge-name-lg>周婉清</div>
+        <p class="tx3" data-nudge-meta>法务顾问 · 灯笼鱼 <span class="mono">VND-1042</span></p>
+      </div>
+      <span class="bdg warn"><svg class="ic sm"><use href="#i-warn"/></svg>阻塞批准</span>
+    </div>
+    <div class="fld">
+      <div class="fld-l row">催办草稿 <span class="ai-badge" data-ai-badge><svg class="ic sm"><use href="#i-spark"/></svg>AI 已起草</span></div>
+      <textarea class="nudge-ta" id="nudgeTa" rows="4">周婉清你好，灯笼鱼（VND-1042）的 DPA 已由 Odette 于 10 月 3 日签署。法务复核原定 10 月 8 日，现已逾期并阻塞批准；入驻目标日为 10 月 15 日。能否今天完成复核？谢谢。</textarea>
+      <p class="fld-hint tx2"><svg class="ic sm"><use href="#i-spark"/></svg>可改写后发送；证据链见下方 Based on。</p>
+    </div>
+    <div class="nudge-based" data-based aria-label="Based on 证据链">
+      <div class="nudge-based-h"><svg class="ic sm"><use href="#i-spark"/></svg><span>Based on</span></div>
+      <ul class="nudge-ev" data-ev-list>
+        <li data-ev>Odette 已于 <b class="num">10</b> 月 <b class="num">3</b> 日签署 DPA</li>
+        <li data-ev>法务复核原定 <b class="num">10</b> 月 <b class="num">8</b> 日，现已逾期</li>
+        <li data-ev>入驻目标 <b class="num">10</b> 月 <b class="num">15</b> 日 · 当前阻塞批准</li>
+      </ul>
+    </div>
+    <div class="pause-row nudge-remind">
+      <svg class="ic"><use href="#i-bell"/></svg>
+      <div class="grow">
+        <div class="w5">两日后再次提醒</div>
+        <p class="tx2">若仍未完成，于 2 天后自动再发一次催办（Remind again）。</p>
+      </div>
+      <button class="sw on" type="button" role="switch" aria-checked="true" data-remind-sw aria-label="两日后再次提醒"></button>
+    </div>
+  </div>
+  <div class="modal-f">
+    <button class="btn gho s32" type="button" data-close-nudge>取消</button>
+    <button class="btn pri s32" type="button" data-send-nudge><svg class="ic"><use href="#i-plane"/></svg>再次催办</button>
+  </div>
+</div>
+
+
+<div class="modal-scrim" id="shortfallScrim" hidden></div>
+<div class="modal shortfall sheet" id="shortfallModal" role="dialog" aria-modal="true" aria-labelledby="shortfallTitle" hidden>
+  <div class="sheet-handle" aria-hidden="true"></div>
+  <div class="modal-h">
+    <svg class="ic"><use href="#i-warn"/></svg>
+    <div class="grow">
+      <h3 id="shortfallTitle">罗马番茄短缺</h3>
+      <p class="tx2 modal-to">Cold prep · 缺口 <b class="num" data-short-gap>12</b> kg · SKU-TOM-018</p>
+    </div>
+    <button class="btn gho icon s28" type="button" data-close-shortfall aria-label="关闭"><svg class="ic"><use href="#i-x"/></svg></button>
+  </div>
+  <div class="modal-b">
+    <div class="short-hero" data-short-hero>
+      <div class="short-fig">
+        <span class="k">当前缺口</span>
+        <b class="num bad" data-short-gap-lg>12<span class="unit"> kg</span></b>
+      </div>
+      <div class="short-fig accent">
+        <span class="k"><svg class="ic sm"><use href="#i-spark"/></svg>建议补货</span>
+        <b class="num" data-short-suggest>15<span class="unit"> kg</span></b>
+      </div>
+    </div>
+    <div class="fld">
+      <div class="fld-l row">建议说明 <span class="ai-badge" data-ai-badge><svg class="ic sm"><use href="#i-spark"/></svg>AI 建议</span></div>
+      <p class="short-reason tx2" data-short-reason>按午市余量与损耗缓冲，建议采购 <b class="num">15</b> kg（缺口 12 + 缓冲 3）。确认后写入今日采购单；亦可先调整备货计划再补。</p>
+    </div>
+    <div class="short-qty" data-short-qty>
+      <span class="fld-l">确认数量</span>
+      <div class="short-qty-ctrl">
+        <button class="btn gho icon s28" type="button" data-qty-dec aria-label="减少">−</button>
+        <b class="num" data-qty-val>15</b>
+        <span class="tx3">kg</span>
+        <button class="btn gho icon s28" type="button" data-qty-inc aria-label="增加">+</button>
+      </div>
+    </div>
+  </div>
+  <div class="modal-f short-dual">
+    <button class="btn sec s32" type="button" data-adjust-shortfall>调整备货计划</button>
+    <button class="btn pri s32" type="button" data-confirm-shortfall><svg class="ic"><use href="#i-check"/></svg>确认补货</button>
+  </div>
+</div>
+
+
+<script>
+(function(){
+  var scrim=document.getElementById('clarifyScrim');
+  var modal=document.getElementById('clarifyModal');
+  var banner=document.getElementById('undoBanner');
+  var undoTmr=null, undoLeft=0;
+  function openClarify(){
+    if(!modal)return;
+    scrim.hidden=false; modal.hidden=false;
+    document.body.classList.add('clarify-open');
+    var ta=document.getElementById('clarifyTa'); if(ta) setTimeout(function(){ta.focus()},40);
+  }
+  function closeClarify(){
+    if(!modal)return;
+    scrim.hidden=true; modal.hidden=true;
+    document.body.classList.remove('clarify-open');
+  }
+  function fmtLeft(sec){
+    var m=Math.floor(sec/60), s=sec%60;
+    return (m<10?'0':'')+m+':'+(s<10?'0':'')+s;
+  }
+  function showUndo(){
+    if(!banner)return;
+    undoLeft=parseInt(banner.getAttribute('data-undo-sec')||'600',10);
+    var until=banner.querySelector('[data-undo-until]');
+    function tick(){
+      var end=new Date(Date.now()+undoLeft*1000);
+      var hh=end.getHours(), mm=end.getMinutes();
+      if(until) until.textContent='撤销截止 '+(hh<10?'0':'')+hh+':'+(mm<10?'0':'')+mm+'（余 '+fmtLeft(undoLeft)+'）';
+      if(undoLeft<=0){ banner.hidden=true; if(undoTmr)clearInterval(undoTmr); return; }
+      undoLeft--;
+    }
+    banner.hidden=false; tick();
+    if(undoTmr)clearInterval(undoTmr);
+    undoTmr=setInterval(tick,1000);
+  }
+  function hideUndo(){
+    if(!banner)return;
+    banner.hidden=true;
+    if(undoTmr){clearInterval(undoTmr);undoTmr=null;}
+  }
+  document.addEventListener('click',function(e){
+    if(e.target.closest('[data-open-clarify]')){ openClarify(); return; }
+    if(e.target.closest('[data-close-clarify]')||e.target===scrim){ closeClarify(); return; }
+    if(e.target.closest('[data-pause-sw]')){
+      var sw=e.target.closest('[data-pause-sw]');
+      var on=sw.classList.toggle('on');
+      sw.setAttribute('aria-checked', on?'true':'false');
+      return;
+    }
+    if(e.target.closest('[data-send-clarify]')){
+      closeClarify();
+      showUndo();
+      if(typeof toast==='function') toast('ok','澄清请求已发送');
+      return;
+    }
+    if(e.target.closest('[data-undo-btn]')){
+      hideUndo();
+      if(typeof toast==='function') toast('warn','已撤销澄清请求');
+      return;
+    }
+  });
+  document.addEventListener('keydown',function(e){
+    if(e.key==='Escape' && document.body.classList.contains('clarify-open')) closeClarify();
+  });
+  window.openClarify=openClarify;
+  window.closeClarify=closeClarify;
+  if(/[?&]clarify=1\b/.test(location.search) || document.body.dataset.clarify==='1') openClarify();
+})();
+</script>
+
+<script>
+(function(){
+  var scrim=document.getElementById('nudgeScrim');
+  var modal=document.getElementById('nudgeModal');
+  var clarifyBanner=document.getElementById('undoBanner');
+  function fill(btn){
+    if(!modal||!btn) return;
+    var who=btn.getAttribute('data-nudge-who')||'周婉清';
+    var role=btn.getAttribute('data-nudge-role')||'法务顾问';
+    var ent=btn.getAttribute('data-nudge-ent')||'灯笼鱼';
+    var id=btn.getAttribute('data-nudge-id')||'VND-1042';
+    var av=(who.replace(/组$/,'')||who).slice(0,1);
+    modal.querySelectorAll('[data-nudge-av],[data-nudge-av-lg]').forEach(function(el){el.textContent=av});
+    modal.querySelectorAll('[data-nudge-name],[data-nudge-name-lg]').forEach(function(el){el.textContent=who});
+    var roleEl=modal.querySelector('[data-nudge-role]'); if(roleEl) roleEl.textContent=role;
+    var meta=modal.querySelector('[data-nudge-meta]'); if(meta) meta.innerHTML=role.split('·')[0].trim()+' · '+ent+' <span class="mono">'+id+'</span>';
+    var ta=document.getElementById('nudgeTa');
+    if(ta && !ta.dataset.touched){
+      var drafts={
+        '周婉清':'周婉清你好，灯笼鱼（VND-1042）的 DPA 已由 Odette 于 10 月 3 日签署。法务复核原定 10 月 8 日，现已逾期并阻塞批准；入驻目标日为 10 月 15 日。能否今天完成复核？谢谢。',
+        '安全组':'安全组你好，澄湾物流（VND-0988）的渗透测试报告仍未归档，当前阻塞安全评审。目标入驻日前请补齐报告。谢谢。',
+        '财务':'财务同事你好，北岸包装（VND-1104）开票信息仍未齐，阻塞财务复核。请尽快补全。谢谢。',
+        '合规':'合规同事你好，青禾食材（VND-0871）资质证照已过期，请安排续期复核。谢谢。'
+      };
+      ta.value=drafts[who]||(who+'你好，'+ent+'（'+id+'）尚有开放项阻塞批准。证据见下方 Based on。请尽快处理，谢谢。');
+    }
+    // evidence bullets stay structural (≥2); tweak first line lightly
+    var evs=modal.querySelectorAll('[data-ev]');
+    if(evs.length>=2 && who!=='周婉清'){
+      evs[0].innerHTML=ent+' · <span class="mono">'+id+'</span> 仍有开放项';
+      evs[1].innerHTML='催办对象 <b>'+who+'</b> · '+role;
+    }
+  }
+  function openNudge(btn){
+    if(!modal)return;
+    fill(btn);
+    scrim.hidden=false; modal.hidden=false;
+    document.body.classList.add('nudge-open');
+    // ensure clarify undo banner is NOT shown by this flow
+    var ta=document.getElementById('nudgeTa'); if(ta) setTimeout(function(){ta.focus()},40);
+  }
+  function closeNudge(){
+    if(!modal)return;
+    scrim.hidden=true; modal.hidden=true;
+    document.body.classList.remove('nudge-open');
+  }
+  document.addEventListener('click',function(e){
+    var openBtn=e.target.closest('[data-open-nudge]');
+    if(openBtn){ e.preventDefault(); openNudge(openBtn); return; }
+    if(e.target.closest('[data-close-nudge]')||e.target===scrim){ closeNudge(); return; }
+    if(e.target.closest('[data-remind-sw]')){
+      var sw=e.target.closest('[data-remind-sw]');
+      var on=sw.classList.toggle('on');
+      sw.setAttribute('aria-checked', on?'true':'false');
+      return;
+    }
+    if(e.target.closest('[data-send-nudge]')){
+      closeNudge();
+      // Distinct from clarify 600s undo: never touch #undoBanner
+      if(clarifyBanner) clarifyBanner.hidden=true;
+      var who=(modal.querySelector('[data-nudge-name]')||{}).textContent||'对方';
+      if(typeof toast==='function') toast('ok','已再次催办'+who);
+      return;
+    }
+  });
+  document.addEventListener('keydown',function(e){
+    if(e.key==='Escape' && document.body.classList.contains('nudge-open')) closeNudge();
+  });
+  var ta=document.getElementById('nudgeTa');
+  if(ta) ta.addEventListener('input',function(){ ta.dataset.touched='1'; });
+  window.openNudge=openNudge;
+  window.closeNudge=closeNudge;
+  if(/[?&]nudge=1\b/.test(location.search) || document.body.dataset.nudge==='1'){
+    var seed=document.querySelector('[data-na-urgent-act="nudge"][data-open-nudge]')||document.querySelector('[data-open-nudge]');
+    openNudge(seed);
+  }
+})();
+</script>
+
+
+
+<script>
+(function(){
+  var root=document.querySelector('[data-sch]');
+  var banner=document.getElementById('rebuildBanner');
+  if(!root||!banner) return;
+  var tmr=null, left=0;
+  // 24 half-hours × 2 lanes = 48. States: cov|done|need|risk
+  // Before: 45 cov/done, 2 need, 1 risk
+  var BEFORE=(function(){
+    var a=[];
+    for(var i=0;i<48;i++){
+      if(i<10) a.push('done');
+      else if(i===18||i===31) a.push('need');
+      else if(i===27) a.push('risk');
+      else a.push('cov');
+    }
+    return a;
+  })();
+  var AFTER=BEFORE.map(function(s){ return (s==='need'||s==='risk')?'cov':s; });
+  function countCov(arr){ return arr.filter(function(s){return s==='cov'||s==='done';}).length; }
+  function paint(sel, arr){
+    var g=root.querySelector('[data-hm-grid="'+sel+'"]');
+    if(!g) return;
+    g.innerHTML='';
+    for(var i=0;i<arr.length;i++){
+      var c=document.createElement('span');
+      c.className='hm-cell '+arr[i];
+      c.setAttribute('data-st', arr[i]);
+      c.title=(sel==='before'?'前':'后')+' · 格 '+(i+1);
+      g.appendChild(c);
+    }
+  }
+  function setState(st){
+    root.setAttribute('data-sch-state', st);
+    var chip=root.querySelector('[data-sch-chip]');
+    var btn=root.querySelector('[data-rebuild-sch]');
+    if(st==='idle'){
+      if(chip){ chip.className='stt risk'; chip.innerHTML='<svg class="ic sm"><use href="#i-clock"/></svg>缺 <b class="num">3</b> 格'; }
+      if(btn){ btn.disabled=false; btn.hidden=false; }
+      banner.hidden=true;
+    } else if(st==='pending'){
+      if(chip){ chip.className='stt done quiet'; chip.innerHTML='<svg class="ic sm"><use href="#i-check"/></svg>48 / 48'; }
+      if(btn){ btn.disabled=true; }
+      banner.hidden=false;
+    } else { // committed
+      if(chip){ chip.className='stt done quiet'; chip.innerHTML='<svg class="ic sm"><use href="#i-check"/></svg>已固定 After'; }
+      if(btn){ btn.disabled=false; btn.hidden=false; }
+      banner.hidden=true;
+    }
+  }
+  function fmt(sec){
+    var m=Math.floor(sec/60), s=sec%60;
+    return (m<10?'0':'')+m+':'+(s<10?'0':'')+s;
+  }
+  function stopTmr(){ if(tmr){ clearInterval(tmr); tmr=null; } }
+  function startUndo(){
+    left=parseInt(banner.getAttribute('data-undo-sec')||'45',10);
+    var el=banner.querySelector('[data-rb-until]');
+    var cov=banner.querySelector('[data-rb-cov]');
+    if(cov) cov.textContent=String(countCov(AFTER));
+    function tick(){
+      if(el) el.textContent='撤销余 '+fmt(left);
+      if(left<=0){ stopTmr(); commitAfter(); return; }
+      left--;
+    }
+    stopTmr(); setState('pending'); tick();
+    tmr=setInterval(tick,1000);
+  }
+  function undoRebuild(){
+    stopTmr();
+    setState('idle');
+    if(typeof toast==='function') toast('warn','已撤销重建，覆盖回到 Before');
+  }
+  function commitAfter(){
+    stopTmr();
+    setState('committed');
+    if(typeof toast==='function') toast('ok','已固定 After 覆盖');
+  }
+  function doRebuild(){
+    startUndo();
+    if(typeof toast==='function') toast('ok','班次已重建 · 可限时撤销');
+    try{ root.scrollIntoView({block:'start', behavior:'smooth'}); }catch(e){}
+  }
+  paint('before', BEFORE);
+  paint('after', AFTER);
+  var cb=root.querySelector('[data-hm-cov-b]'); if(cb) cb.textContent=String(countCov(BEFORE));
+  var ca=root.querySelector('[data-hm-cov-a]'); if(ca) ca.textContent=String(countCov(AFTER));
+  setState('idle');
+  document.addEventListener('click', function(e){
+    if(e.target.closest('[data-rebuild-sch]')){ doRebuild(); return; }
+    if(e.target.closest('[data-rebuild-undo]')){ undoRebuild(); return; }
+    if(e.target.closest('[data-rebuild-dismiss]')){ commitAfter(); return; }
+  });
+  if(/[?&]schedule=1\b/.test(location.search) || /[?&]rebuild=1\b/.test(location.search)){
+    try{ root.scrollIntoView({block:'start'}); }catch(e){}
+    setTimeout(doRebuild, 60);
+  }
+  window.__schRebuild=doRebuild;
+  window.__schUndo=undoRebuild;
+  window.__schCommit=commitAfter;
+})();
+</script>
+
+
+<script>
+(function(){
+  var root=document.querySelector('[data-na]');
+  if(!root) return;
+  function apply(bucket){
+    root.setAttribute('data-na-bucket', bucket);
+    root.querySelectorAll('.na-seg-btn').forEach(function(b){
+      var on=b.getAttribute('data-na-seg')===bucket;
+      b.classList.toggle('on', on);
+      b.setAttribute('aria-selected', on?'true':'false');
+    });
+    var n=0;
+    root.querySelectorAll('[data-na-row]').forEach(function(row){
+      var show = bucket==='all' || row.getAttribute('data-bucket')===bucket;
+      row.hidden=!show;
+      if(show) n++;
+    });
+    var vis=root.querySelector('[data-na-visible]');
+    if(vis) vis.textContent=String(n);
+    // Urgent card: hide when filtering escalate-only and urgent is nudge entity (灯笼鱼)
+    var urg=root.querySelector('[data-na-urgent]');
+    if(urg){
+      urg.hidden = (bucket==='escalate');
+    }
+  }
+  document.addEventListener('click', function(e){
+    var btn=e.target.closest('[data-na-seg]');
+    if(!btn || !root.contains(btn)) return;
+    apply(btn.getAttribute('data-na-seg'));
+  });
+  if(/[?&]attention=1\b/.test(location.search) || /[?&]na=1\b/.test(location.search)){
+    try{ root.scrollIntoView({block:'start'}); }catch(e){}
+  }
+  if(/[?&]bucket=nudge\b/.test(location.search)) apply('nudge');
+  else if(/[?&]bucket=escalate\b/.test(location.search)) apply('escalate');
+  else apply('all');
+  window.__naApply=apply;
+})();
+</script>
+
+<div class="toast" id="toast" role="status"></div>
+<script>var CUR={ser:[1.1, 1.2, 1.1, 1.3, 1.2, 1.4, 1.3, 1.5, 1.9, 2.4, 2.7, 2.9, 2.8, 2.6, 2.8],thr:2,max:4};window.drawCharts=function(){var el=document.getElementById("c3");if(!el)return;var m=CUR.max;lineChart(el,{labels:Array.from({length:15},function(_,i){return "14:"+(40+i)}),max:m,fmt:function(v){return m>=100?Math.round(v).toLocaleString():(m>=10?v.toFixed(0):v.toFixed(1))},series:[{c:4,dash:1,data:Array(15).fill(CUR.thr)},{c:1,data:CUR.ser}]})};window.onSel=function(k){var t=document.querySelector('template[data-alert="'+k+'"]');var dt=document.querySelector("[data-detail]");if(!t||!dt)return;dt.querySelector(".ph-h h2").textContent=t.dataset.t;var sb=dt.querySelector(".ph-h .sub");sb.innerHTML="<span class=\"mono\">"+t.dataset.id+"</span>";var row=document.querySelector('.li[data-sel="'+k+'"]');var src=row&&row.querySelector('.stt');var chip=dt.querySelector(".ph-h .stt");if(src&&chip){chip.className=src.className;chip.innerHTML=src.innerHTML}else if(src&&!chip){var act=dt.querySelector(".ph-h .act");var c=src.cloneNode(true);if(act)dt.querySelector(".ph-h").insertBefore(c,act);else dt.querySelector(".ph-h").appendChild(c)}dt.querySelector(".pb>.stack").innerHTML=t.innerHTML;CUR={ser:t.dataset.ser.split(",").map(Number),thr:+t.dataset.thr,max:+t.dataset.max};window.drawCharts()}</script>
+
+<script>
+(function(){
+  var root=document.getElementById('cal');
+  if(!root) return;
+  function scrollCal(){
+    try{ root.scrollIntoView({behavior:'smooth',block:'start'}); }catch(e){ root.scrollIntoView(true); }
+  }
+  root.querySelectorAll('[data-task]').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var t=btn.getAttribute('title')||btn.textContent.trim();
+      var kind=btn.getAttribute('data-kind')||'';
+      var msg=kind==='overdue'?('逾期任务：'+t):(kind==='due'?('今日到期：'+t):('即将到期：'+t));
+      if(typeof toast==='function') toast(kind==='overdue'?'warn':'ok', msg);
+    });
+  });
+  root.querySelectorAll('[data-cal-chip]').forEach(function(chip){
+    chip.addEventListener('click', function(){
+      var k=chip.getAttribute('data-cal-chip');
+      root.querySelectorAll('[data-task]').forEach(function(t){
+        var on=t.getAttribute('data-kind')===k;
+        t.classList.toggle('dim', !on);
+        t.classList.toggle('hi', on);
+      });
+    });
+  });
+  if(/[?&]cal=1\b/.test(location.search) || document.body.dataset.cal==='1'){
+    setTimeout(scrollCal, 60);
+  }
+})();
+</script>
+
+<link rel="stylesheet" href="../../assets/feedback.css"><script src="../../assets/feedback-config.js" defer></script><script src="fb-dock.js"></script><script src="../../assets/feedback.js" data-round="r98" defer></script>
+
+<script>
+(function(){
+  var root=document.getElementById('prep');
+  if(!root) return;
+  var modal=document.getElementById('shortfallModal');
+  var scrim=document.getElementById('shortfallScrim');
+  var qty=15;
+
+  function setQty(n){
+    qty=Math.max(1,Math.min(99,n|0));
+    var el=document.querySelector('[data-qty-val]');
+    if(el) el.textContent=String(qty);
+    var sug=document.querySelector('[data-short-suggest]');
+    if(sug) sug.innerHTML=qty+'<span class="unit"> kg</span>';
+  }
+
+  function openShort(){
+    if(!modal||!scrim) return;
+    modal.hidden=false; scrim.hidden=false;
+    document.body.classList.add('shortfall-open');
+    setQty(15);
+  }
+  function closeShort(){
+    if(!modal||!scrim) return;
+    modal.hidden=true; scrim.hidden=true;
+    document.body.classList.remove('shortfall-open');
+  }
+
+  document.querySelectorAll('[data-open-shortfall]').forEach(function(btn){
+    btn.addEventListener('click', function(e){ e.preventDefault(); openShort(); });
+  });
+  document.querySelectorAll('[data-close-shortfall]').forEach(function(btn){
+    btn.addEventListener('click', closeShort);
+  });
+  if(scrim) scrim.addEventListener('click', closeShort);
+  document.addEventListener('keydown', function(e){
+    if(e.key==='Escape' && document.body.classList.contains('shortfall-open')) closeShort();
+  });
+
+  var adj=document.querySelector('[data-adjust-shortfall]');
+  if(adj) adj.addEventListener('click', function(){
+    closeShort();
+    if(window.toast) toast('info','已打开备货计划调整（演示）');
+  });
+  var conf=document.querySelector('[data-confirm-shortfall]');
+  if(conf) conf.addEventListener('click', function(){
+    closeShort();
+    if(window.toast) toast('ok','已确认补货 '+qty+' kg');
+  });
+  var dec=document.querySelector('[data-qty-dec]');
+  var inc=document.querySelector('[data-qty-inc]');
+  if(dec) dec.addEventListener('click', function(){ setQty(qty-1); });
+  if(inc) inc.addEventListener('click', function(){ setQty(qty+1); });
+
+  // segmented counts
+  var segBtns=[].slice.call(root.querySelectorAll('.prep-seg-btn[data-prep-seg]'));
+  function applySeg(key){
+    root.setAttribute('data-prep-bucket', key);
+    segBtns.forEach(function(b){
+      var on=b.getAttribute('data-prep-seg')===key;
+      b.classList.toggle('on', on);
+      b.setAttribute('aria-selected', on?'true':'false');
+    });
+  }
+  segBtns.forEach(function(b){
+    b.addEventListener('click', function(){ applySeg(b.getAttribute('data-prep-seg')); });
+  });
+
+  if(/[?&]prep=1\b/.test(location.search) || /[?&]shortfall=1\b/.test(location.search)){
+    root.scrollIntoView({behavior:'instant',block:'start'});
+  }
+  if(/[?&]shortfall=1\b/.test(location.search) || document.body.dataset.shortfall==='1'){
+    openShort();
+  }
+})();
+</script>
+
+
+<script>
+(function(){
+  var seg=document.querySelector('[data-waste-seg]');
+  if(seg){
+    seg.querySelectorAll('[data-waste-view]').forEach(function(btn){
+      btn.addEventListener('click',function(){
+        seg.querySelectorAll('[data-waste-view]').forEach(function(b){
+          b.classList.toggle('on', b===btn);
+          b.setAttribute('aria-selected', b===btn?'true':'false');
+        });
+        if(typeof toast==='function'){
+          var lab={analysis:'分析',trends:'趋势',log:'日志'}[btn.getAttribute('data-waste-view')]||'分析';
+          toast('ok','已切换到'+lab);
+        }
+      });
+    });
+  }
+  var detail=document.querySelector('[data-waste-detail]');
+  if(detail) detail.addEventListener('click',function(){ if(typeof toast==='function') toast('ok','已打开损耗详情'); });
+  var apply=document.querySelector('[data-waste-apply]');
+  if(apply) apply.addEventListener('click',function(){ if(typeof toast==='function') toast('ok','已写入周二备货计划'); });
+  function goWaste(){
+    var el=document.getElementById('waste');
+    if(el&&el.scrollIntoView) el.scrollIntoView({behavior:'smooth',block:'start'});
+  }
+  if(/[?&]waste=1\b/.test(location.search) || document.body.dataset.waste==='1'){
+    setTimeout(goWaste, 60);
+  }
+})();
+</script>
+
+</body></html>
