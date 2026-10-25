@@ -1,5 +1,19 @@
 [
   {
+    "id": "r94",
+    "title": "Round 94 · 双条",
+    "version": "v96.0",
+    "date": "2026-10-25",
+    "status": "已发布",
+    "summary": "需关注 Required vs Document 双进度 + 缺口芯片。气质迭代；盲评参考 90.0（门槛 OFF）。",
+    "screenshot": "rounds/r94/screenshot.png",
+    "demo": "rounds/r94/demo-ops.html",
+    "spec": "rounds/r94/spec.html",
+    "note": "气质迭代；参考分 90.0；过线门槛已关",
+    "score": 90.0,
+    "score100": 90.0
+  },
+  {
     "id": "r93",
     "title": "Round 93 · 分桶",
     "version": "v95.0",
@@ -9,7 +23,7 @@
     "screenshot": "rounds/r93/screenshot.png",
     "demo": "rounds/r93/demo-ops.html",
     "spec": "rounds/r93/spec.html",
-    "note": "气质迭代；参考分 90.0；过线门槛已关",
+    "note": "气质刀；盲评参考 90.0；门槛 OFF 已发布",
     "score": 90.0,
     "score100": 90.0
   },
